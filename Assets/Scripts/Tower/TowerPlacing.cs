@@ -10,6 +10,9 @@ public class TowerPlacing : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
     public bool placeIsEmpty;
 
+    [Header("Tower prefab")]
+    [SerializeField] private GameObject towerPrefab;
+
     void Start()
     {
         placeIsEmpty = true;
@@ -27,13 +30,19 @@ public class TowerPlacing : MonoBehaviour
             {
                 if (raycastHit.transform.gameObject.CompareTag("PlaceForTower"))
                 {
+                    Instantiate(towerPrefab, raycastHit.transform.position, Quaternion.identity);
                     Debug.Log("True");
+                }
+
+                else
+                {
+                    Debug.LogError("2There are no objects on the way");
                 }
             }
 
             else
             {
-                Debug.LogError("There are no objects on the way");
+                Debug.LogError("1There are no objects on the way");
             }
         }
     }
