@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+    private GameObject road;
+
     [SerializeField] private int speed;
     [SerializeField] private int enemyPointTransform;
     private Transform[] enemyNextTransform;
 
-    private GameObject road;
 
     void Start()
     {
         enemyPointTransform = 0;
         road = GameObject.FindGameObjectWithTag("Road");
+        enemyNextTransform = new Transform[road.transform.childCount];
 
         for (int i = 0; i < road.transform.childCount; i++)
         {
             enemyNextTransform[i] = road.transform.GetChild(i).GetComponent<Transform>();
+            //Debug.Log("transform = " + enemyNextTransform[i]);
         }
     }
 
