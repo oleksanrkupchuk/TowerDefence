@@ -125,7 +125,7 @@ MonoBehaviour:
         m_MethodName: SelectedTower
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 3967354589841218804}
           m_ObjectArgumentAssemblyTypeName: TowerButton, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -145,3 +145,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerObject: {fileID: 1698766304776122018, guid: f38b43471fdc4eb4e84a2b883d8c18ae, type: 3}
+  towerSprite: {fileID: 6304826840174917774, guid: fb2314d5129431e4d9054c107712128c, type: 3}

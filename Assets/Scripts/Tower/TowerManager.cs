@@ -5,11 +5,11 @@ using UnityEngine;
 public class TowerManager : Loader<TowerManager>
 {
     private TowerButton towerButtonPressed;
-    private GameObject towerButtonObject;
 
     private Vector2 cursorMousePosition;
     private RaycastHit2D raycastHit;
     [SerializeField] private LayerMask layerMask;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     void Start()
     {
@@ -26,6 +26,11 @@ public class TowerManager : Loader<TowerManager>
             PlaceTower(raycastHit);
             
         }
+
+        if(spriteRenderer.sprite == true)
+        {
+            FollowMouseTowerIcon();
+        }
     }
 
     public void PlaceTower(RaycastHit2D hit2D)
@@ -35,8 +40,8 @@ public class TowerManager : Loader<TowerManager>
             if (hit2D.transform.gameObject.CompareTag("PlacePositionForTower"))
             {
                 hit2D.transform.gameObject.tag = "PlaceForTowerFull";
-                //Instantiate(towerButtonPressed.TowerObject, raycastHit.transform.position, Quaternion.identity);
-                Instantiate(towerButtonObject, raycastHit.transform.position, Quaternion.identity);
+                Instantiate(towerButtonPressed.TowerObject, raycastHit.transform.position, Quaternion.identity);
+                DisbleSprite();
                 Debug.Log("True");
             }
 
@@ -55,11 +60,32 @@ public class TowerManager : Loader<TowerManager>
     public void SelectedTower(TowerButton towerButton)
     {
         towerButtonPressed = towerButton;
+        EnableSprite(towerButtonPressed.TowerSprite);
         Debug.Log("tower = " + towerButtonPressed.gameObject.name);
     }
 
-    public void SelectedTowerSecondVarious(GameObject towerButton)
+    public void EnableSprite(Sprite sprite)
     {
-        towerButtonObject = towerButton;
+        if(spriteRenderer != null)
+        {
+            spriteRenderer.enabled = true;
+            spriteRenderer.sprite = sprite;
+        }
+
+        else
+        {
+            Debug.LogError("The variable spriteRenderer of TowerManager has not been assigned.");
+        }
+    }
+
+    public void DisbleSprite()
+    {
+        spriteRenderer.enabled = false;
+    }
+
+    public void FollowMouseTowerIcon()
+    {
+        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = new Vector3(transform.position.x, transform.position.y, 10);
     }
 }

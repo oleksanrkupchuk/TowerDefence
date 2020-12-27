@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2738006986957162725, guid: fb2314d5129431e4d9054c107712128c, type: 3}
+  m_Sprite: {fileID: -7434226952023802429, guid: fb2314d5129431e4d9054c107712128c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -119,7 +119,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5634611915337184685}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: TowerManager, Assembly-CSharp
+        m_MethodName: SelectedTower
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 5634611915337184691}
+          m_ObjectArgumentAssemblyTypeName: TowerButton, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5634611915337184691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,4 +144,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2c3761a702a8d4b86742766a788e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerObject: {fileID: 1036920265017350430, guid: 7765ea7b93469b7478ef4c3bb5d79641, type: 3}
+  towerObject: {fileID: 6456233943789270498, guid: 7765ea7b93469b7478ef4c3bb5d79641, type: 3}
+  towerSprite: {fileID: -2738006986957162725, guid: fb2314d5129431e4d9054c107712128c, type: 3}

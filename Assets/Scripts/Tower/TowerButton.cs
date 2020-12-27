@@ -5,12 +5,21 @@ using UnityEngine;
 public class TowerButton : MonoBehaviour
 {
     [SerializeField] private GameObject towerObject;
+    [SerializeField] private Sprite towerSprite;
 
     public GameObject TowerObject
     {
         get
         {
             return towerObject;
+        }
+    }
+
+    public Sprite TowerSprite
+    {
+        get
+        {
+            return towerSprite;
         }
     }
 }
