@@ -33,6 +33,10 @@ public class TowerManager : Loader<TowerManager>
         }
     }
 
+    /// <summary>
+    /// Перевірка розміщення вежі, і встановлення нового тегу для неможливості повторного розміщення вежі на одному місці
+    /// </summary>
+    /// <param name="hit2D"></param>
     public void PlaceTower(RaycastHit2D hit2D)
     {
         if (hit2D.transform != null)
@@ -57,6 +61,10 @@ public class TowerManager : Loader<TowerManager>
         }
     }
 
+    /// <summary>
+    /// Вибір вежі при натиснені на кнопку
+    /// </summary>
+    /// <param name="towerButton"></param>
     public void SelectedTower(TowerButton towerButton)
     {
         towerButtonPressed = towerButton;
@@ -64,12 +72,17 @@ public class TowerManager : Loader<TowerManager>
         Debug.Log("tower = " + towerButtonPressed.gameObject.name);
     }
 
+    /// <summary>
+    /// Включення спрайту вежі
+    /// </summary>
+    /// <param name="sprite"></param>
     public void EnableSprite(Sprite sprite)
     {
         if(spriteRenderer != null)
         {
             spriteRenderer.enabled = true;
             spriteRenderer.sprite = sprite;
+            spriteRenderer.sortingOrder = 100;
         }
 
         else
@@ -78,11 +91,15 @@ public class TowerManager : Loader<TowerManager>
         }
     }
 
+    /// <summary>
+    /// Відключення спрайту вежі
+    /// </summary>
     public void DisbleSprite()
     {
         spriteRenderer.enabled = false;
     }
 
+    //Слідкування спрайта вежі за мишкою. Потрібно вказувати вісь z тому що по стандарту вона має значення -10 і таким спрайт відображатиметься за картою
     public void FollowMouseTowerIcon()
     {
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -9,6 +9,7 @@ TagManager:
   - PanelTower
   - PlacePositionForTower
   - PlaceForTowerFull
+  - Way
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - 
   - 
   - PlaceForTower
-  - 
+  - Way
   - 
   - 
   - 
