@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Road
   - PlaceForTower
+  - PanelTower
+  - PlacePositionForTower
+  - PlaceForTowerFull
+  - Way
   layers:
   - Default
   - TransparentFX
@@ -16,7 +20,7 @@ TagManager:
   - 
   - 
   - PlaceForTower
-  - 
+  - Way
   - 
   - 
   - 

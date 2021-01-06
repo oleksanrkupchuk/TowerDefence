@@ -350,9 +350,9 @@ GameObject:
   - component: {fileID: 6037710262501487113}
   - component: {fileID: 6037710262501487604}
   - component: {fileID: 6037710262501487607}
-  - component: {fileID: 768981987819450046}
+  - component: {fileID: 2025396201}
   - component: {fileID: 389652436}
-  - component: {fileID: 389652430}
+  - component: {fileID: 6037710263110164728}
   m_Layer: 0
   m_Name: Minotaur_01
   m_TagString: Untagged
@@ -473,7 +473,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.66365623, y: 1.4111822}
   m_EdgeRadius: 0
---- !u!114 &768981987819450046
+--- !u!114 &2025396201
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -482,11 +482,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6037710262501487112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d149068f1d29e74d84b96a60fb9c104, type: 3}
+  m_Script: {fileID: 11500000, guid: d6cf5cc196d1609429c6ee7a5931b815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  enemyPointTransform: 0
+  radius: 3
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  canToNextPos: 1
 --- !u!95 &389652436
 Animator:
   serializedVersion: 3
@@ -506,17 +510,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &389652430
-MonoBehaviour:
+--- !u!58 &6037710263110164728
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6037710262501487112}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dcb978b3e3b5204c99176ff8105b63a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  enemyPointTransform: 0
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 3
