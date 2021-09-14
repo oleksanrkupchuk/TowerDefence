@@ -10,6 +10,9 @@ TagManager:
   - PlacePositionForTower
   - PlaceForTowerFull
   - Way
+  - Enemy
+  - Bullet
+  - Tower
   layers:
   - Default
   - TransparentFX
@@ -21,8 +24,8 @@ TagManager:
   - 
   - PlaceForTower
   - Way
-  - 
-  - 
+  - Enemy
+  - Tower
   - 
   - 
   - 

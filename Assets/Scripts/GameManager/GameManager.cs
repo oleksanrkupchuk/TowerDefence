@@ -1,28 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class GameManager : Loader<GameManager>
 {
-    [SerializeField] private int coin;
+    [SerializeField] private int _coin;
     [SerializeField] private TextMeshProUGUI coinText;
 
-    public int Coin
+    public int Coin { get => _coin; }
+
+    private void Start()
     {
-        get
-        {
-            return coin;
-        }
+        coinText.text = _coin.ToString();
     }
 
-    void Start()
-    {
-        coinText.text = coin.ToString();
+    public void AddCoin(int amount) {
+        _coin += amount;
+        UdpateCoin();
     }
 
-    void Update()
-    {
+    public void SubstractCoin(int amount) {
+        _coin -= amount;
+        UdpateCoin();
+    }
 
+    public void RewindingTime() {
+        Time.timeScale = 2f;
+    }
+
+    public void DeafaultTime() {
+        Time.timeScale = 1f;
+    }
+
+    private void UdpateCoin() {
+        coinText.text = _coin.ToString();
     }
 }

@@ -16,10 +16,4 @@ public class IgnoreCollision : MonoBehaviour
         Physics2D.IgnoreCollision(enemyBoxCollider, roadBoxCollider, true);
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
