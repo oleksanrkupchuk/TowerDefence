@@ -7,26 +7,26 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private int speed;
     [SerializeField] private int enemyPointTransform;
 
-    private GameObject road;
-    private Transform[] enemyNextTransform;
+    private GameObject _road;
+    private Transform[] _enemyNextTransform;
 
     void Start()
     {
         enemyPointTransform = 0;
-        road = GameObject.FindGameObjectWithTag("Road");
-        enemyNextTransform = new Transform[road.transform.childCount];
+        _road = GameObject.FindGameObjectWithTag(Tags.road);
+        _enemyNextTransform = new Transform[_road.transform.childCount];
 
-        for (int i = 0; i < road.transform.childCount; i++)
+        for (int i = 0; i < _road.transform.childCount; i++)
         {
-            enemyNextTransform[i] = road.transform.GetChild(i).GetComponent<Transform>();
+            _enemyNextTransform[i] = _road.transform.GetChild(i).GetComponent<Transform>();
         }
     }
 
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, enemyNextTransform[enemyPointTransform].position, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _enemyNextTransform[enemyPointTransform].position, speed * Time.deltaTime);
 
-        if (transform.position == enemyNextTransform[enemyPointTransform].position)
+        if (transform.position == _enemyNextTransform[enemyPointTransform].position)
         {
             enemyPointTransform++;
         }
