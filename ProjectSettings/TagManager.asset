@@ -13,6 +13,7 @@ TagManager:
   - Enemy
   - Bullet
   - Tower
+  - ButtonUpgrade
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - Way
   - Enemy
   - Tower
-  - 
+  - Ground
   - 
   - 
   - 

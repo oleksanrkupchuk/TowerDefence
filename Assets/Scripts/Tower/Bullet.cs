@@ -7,14 +7,16 @@ public class Bullet : MonoBehaviour
     [SerializeField] 
     private float _speed;
     [SerializeField]
+    private int _damageBasic;
+    [SerializeField]
     private int _damage;
-    public int Damage { get => _damage; }
+    public int Damage { get => _damage; set => _damage = value; }
 
     private Vector3 _direction;
     private float _angleDirection;
     private Enemy _target;
 
-    void Update()
+    private void Update()
     {
         Move();
     }
@@ -47,5 +49,9 @@ public class Bullet : MonoBehaviour
             _target.TakeDamage(Damage);
             Destroy(gameObject);
         }
+    }
+
+    public void SetBasicDamage() {
+        _damage = _damageBasic;
     }
 }

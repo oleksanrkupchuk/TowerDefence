@@ -15,12 +15,12 @@ public class GameManager : Loader<GameManager>
 
     public void AddCoin(int amount) {
         _coin += amount;
-        UdpateCoin();
+        UpdateCoin();
     }
 
     public void SubstractCoin(int amount) {
         _coin -= amount;
-        UdpateCoin();
+        UpdateCoin();
     }
 
     public void RewindingTime() {
@@ -31,7 +31,7 @@ public class GameManager : Loader<GameManager>
         Time.timeScale = 1f;
     }
 
-    private void UdpateCoin() {
+    public void UpdateCoin() {
         coinText.text = _coin.ToString();
     }
 }

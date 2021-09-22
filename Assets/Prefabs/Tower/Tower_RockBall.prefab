@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7474507360397517646}
   - component: {fileID: -3416202952328365386}
   - component: {fileID: 6905664480513818955}
+  - component: {fileID: 1259146111005393106}
   m_Layer: 11
   m_Name: Tower_RockBall
   m_TagString: Tower
@@ -127,15 +128,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rangeAttack: 3
-  timeShoot: 2
-  timer: 2
+  _timeShoot: 1
   _bulletPosition: {fileID: 3573270289235324146}
   _stepDegree: 10
   _price: 15
-  numberUpgrade: 3
-  _boxCollider: {fileID: 7474507360397517646}
   _buletPrefab: {fileID: 6131173403634519357, guid: e32a2b3586e66ac40998ab5703b4b2c6, type: 3}
+  _buletScript: {fileID: -5672682739368805011, guid: e32a2b3586e66ac40998ab5703b4b2c6, type: 3}
   _lineRenderer: {fileID: 6905664480513818955}
+  placeForTower: {fileID: 0}
+  _objectIncreaseDamage: {fileID: 6760311502474402041}
+  _objectSell: {fileID: 11490466589050834}
+  _objectIncreaseRange: {fileID: 6514726765337524859}
+  _towerMenu: {fileID: 3042399990200939299}
 --- !u!120 &6905664480513818955
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -235,6 +239,22 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 1
+--- !u!58 &1259146111005393106
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6456233943789270498}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.8813533}
+  serializedVersion: 2
+  m_Radius: 1.4689237
 --- !u!1 &8736231375170505325
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +292,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6456233943789270496}
     m_Modifications:
+    - target: {fileID: 8159456401197924425, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _tower
+      value: 
+      objectReference: {fileID: -3416202952328365386}
     - target: {fileID: 8438457688127442628, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_Name
       value: TowerMenu
@@ -325,5 +349,31 @@ PrefabInstance:
 --- !u!4 &3323547092456357280 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8438457688127442634, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+  m_PrefabInstance: {fileID: 6558631897669612394}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3042399990200939299 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8159456401197924425, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+  m_PrefabInstance: {fileID: 6558631897669612394}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eafee90e8c7484478c8e89cfb49a30c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6760311502474402041 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 492444355796003731, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+  m_PrefabInstance: {fileID: 6558631897669612394}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &11490466589050834 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6569663831637537976, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+  m_PrefabInstance: {fileID: 6558631897669612394}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6514726765337524859 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 102462991341488401, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
   m_PrefabInstance: {fileID: 6558631897669612394}
   m_PrefabAsset: {fileID: 0}

@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class TowerManager : Loader<TowerManager> {
     private Vector2 cursorMousePosition;
-    private RaycastHit2D _raycastHitGetPlaceForTower;
-    private RaycastHit2D _raycastHitGetTower;
+    private RaycastHit2D _raycastHit;
     [SerializeField]
     private LayerMask _layerPlaceForTower;
     [SerializeField]
     private LayerMask _towerLayer;
+    [SerializeField]
+    private LayerMask _ground;
 
     [Header("Components")]
     [SerializeField]
@@ -18,7 +19,7 @@ public class TowerManager : Loader<TowerManager> {
     private TowerButton _towerButtonPressed;
 
     [SerializeField]
-    private bool putTower = false;
+    private bool putTower = true;
 
     [Header("Colors")]
     [SerializeField]
@@ -34,19 +35,13 @@ public class TowerManager : Loader<TowerManager> {
         if (Input.GetButtonDown("Fire1")) {
             cursorMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            _raycastHitGetPlaceForTower = Physics2D.Raycast(cursorMousePosition, Vector2.zero, 100f, _layerPlaceForTower);
-            _raycastHitGetTower = Physics2D.Raycast(cursorMousePosition, Vector2.zero, 100f, _towerLayer);
+            _raycastHit = Physics2D.Raycast(cursorMousePosition, Vector2.zero);
 
-
-            CheckRaycastAndCallClickOnTower();
-
-            if (_raycastHitGetPlaceForTower.transform != null) {
-                PlaceTower(_raycastHitGetPlaceForTower);
-            }
+            CheckRaycastAndCallClickOnTower(_raycastHit);
         }
 
         if (Input.GetButtonDown("Fire2")) {
-            DisbleSprite();
+            DisbleTowerIcon();
         }
 
         if (spriteRenderer.sprite == true) {
@@ -54,34 +49,14 @@ public class TowerManager : Loader<TowerManager> {
         }
     }
 
-    private void CheckRaycastAndCallClickOnTower() {
-        if (_raycastHitGetTower.transform != null) {
-            ClickOnTower(_raycastHitGetTower);
-        }
-        else {
-            for (int i = 0; i < _towers.Count; i++) {
-                _towers[i].EnableLineRenderer(false);
-                _towers[i].EnableTowerMenu(false);
+    private void CheckRaycastAndCallClickOnTower(RaycastHit2D raycast) {
+        if (raycast.transform != null) {
+            //print("raycast no null " + raycast.transform.name);
+            if (raycast.collider.CompareTag(Tags.placeForTower)) {
+                PlaceTower(raycast);
             }
-        }
-    }
-
-    private void ClickOnTower(RaycastHit2D raycast) {
-        if (raycast.transform.CompareTag(Tags.tower)) {
-            Debug.Log(raycast.transform.name);
-            _tower = raycast.transform.GetComponent<Tower>();
-
-            //_tower.EnableLineRenderer();
-            //_tower.EnableTowerMenu();
-
-            _tower.EnableLineRenderer(true);
-            _tower.EnableTowerMenu(true);
-
-            for (int i = 0; i < _towers.Count; i++) {
-                if (_towers[i] != _tower) {
-                    _towers[i].EnableLineRenderer(false);
-                    _towers[i].EnableTowerMenu(false);
-                }
+            if (raycast.collider.CompareTag(Tags.tower)) {
+                ClickOnTower(raycast);
             }
         }
     }
@@ -89,27 +64,37 @@ public class TowerManager : Loader<TowerManager> {
     /// <summary>
     /// Перевірка розміщення вежі, і встановлення нового тегу для неможливості повторного розміщення вежі на одному місці
     /// </summary>
-    /// <param name="hit2D"></param>
-    public void PlaceTower(RaycastHit2D hit2D) {
-        if (hit2D.transform.gameObject.CompareTag(Tags.placePositionForTower) && !putTower) {
-            Debug.Log("tags = " + hit2D.transform.name);
+    /// <param name="raycast"></param>
+    public void PlaceTower(RaycastHit2D raycast) {
+        if (!putTower) {
+            //Debug.Log("tags = " + hit2D.transform.name);
+            //null коли не вибираєш башню і тицяєш на місце для башні
             GameManager.Instance.SubstractCoin(_towerButtonPressed.TowerObject.GetComponent<Tower>().Price);
             putTower = true;
-            hit2D.transform.gameObject.tag = Tags.placeForTowerFull;
+            raycast.transform.gameObject.tag = Tags.placeForTowerFull;
             spriteRenderer.color = _colorDeafault;
-            Instantiate(_towerButtonPressed.TowerObject, _raycastHitGetPlaceForTower.transform.position, Quaternion.identity);
-            DisbleSprite();
+            GameObject tower = Instantiate(_towerButtonPressed.TowerObject, raycast.transform.position, Quaternion.identity);
+            tower.GetComponent<Tower>().placeForTower = raycast.transform.gameObject;
+            DisbleTowerIcon();
         }
 
         else {
-            Debug.Log(hit2D.transform.name);
+            //Debug.Log(hit2D.transform.name);
         }
+    }
+
+    private void ClickOnTower(RaycastHit2D raycast) {
+        Debug.Log(raycast.transform.name);
+        _tower = raycast.transform.GetComponent<Tower>();
+
+        _tower.EnableLineRenderer();
+        _tower.EnableTowerUpgradeIcon();
     }
 
     /// <summary>
     /// Відключення спрайту вежі
     /// </summary>
-    public void DisbleSprite() {
+    public void DisbleTowerIcon() {
         spriteRenderer.enabled = false;
     }
 
@@ -154,5 +139,9 @@ public class TowerManager : Loader<TowerManager> {
     public void FollowMouseTowerIcon() {
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(transform.position.x, transform.position.y, 10);
+    }
+
+    public void PutTower() {
+        putTower = false;
     }
 }

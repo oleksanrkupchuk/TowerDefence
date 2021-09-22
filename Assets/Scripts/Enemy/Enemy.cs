@@ -70,6 +70,8 @@ public class Enemy : MonoBehaviour
     }
 
     public void TakeDamage(int damage) {
+        print("--------------");
+        print("HIT = " + damage);
         if(_health > 0) {
             _health -= damage;
             ShiftHealthBar();
