@@ -4,61 +4,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Tower : MonoBehaviour
-{
+enum TowerType {
+    TowerIron,
+    TowerFire,
+    TowerRock
+}
+
+public class Tower : MonoBehaviour {
     [Header("Parametrs")]
     [SerializeField]
     private float _rangeAttack;
-    [SerializeField] 
-    private float timeShoot;
-    [SerializeField] 
-    private float timer;
-    [SerializeField] 
+    [SerializeField]
+    private float _timeShoot;
+    private float _timer;
+    [SerializeField]
     private Transform _bulletPosition;
     [SerializeField]
     private int _stepDegree;
     [SerializeField]
     private int _price;
     public int Price { get => _price; }
-    public int numberUpgrade = 3;
 
     [Header("Components")]
-    [SerializeField] 
-    private BoxCollider2D _boxCollider;
-    [SerializeField] 
+    [SerializeField]
     private GameObject _buletPrefab;
     [SerializeField]
+    private Bullet _buletScript;
+    public Bullet Bullet { get => _buletPrefab.GetComponent<Bullet>(); }
+    [SerializeField]
     private LineRenderer _lineRenderer;
-    private GameObject _bullet;
+    private GameObject _bulletObject;
     private TowerManager _towerManager;
+    [HideInInspector]
+    public GameObject placeForTower = null;
 
     private Enemy _target;
     private ListEnemys _enemyList;
 
-    //tower menu
-    [SerializeField]
-    private Image _upgrade;
-    [SerializeField]
-    private Image _sell;
-    [SerializeField]
-    private Image _repair;
+    private bool _isShooting = false;
 
+    //Upgrades Tower
     [SerializeField]
-    private GameObject _upgradeObject;
+    private GameObject _objectIncreaseDamage;
     [SerializeField]
-    private GameObject _sellObject;
+    private GameObject _objectSell;
     [SerializeField]
-    private GameObject _repairObject;
+    private GameObject _objectIncreaseRange;
+
+    private Collider2D[] _colliders;
+    [SerializeField]
+    private TowerMenu _towerMenu;
 
 
-    private void Awake()
-    {
+    private void Awake() {
         _towerManager = FindObjectOfType<TowerManager>();
         _lineRenderer.enabled = false;
         _enemyList = FindObjectOfType<ListEnemys>();
         SetRangeRadius(_rangeAttack);
         _towerManager._towers.Add(GetComponent<Tower>());
-        SetTowerMenuIcon(_rangeAttack);
+        SetPositionUpgradeIcon(_rangeAttack);
+
+        GetAllColliderOnTower();
+
+        _buletScript.SetBasicDamage();
     }
 
     private void SetRangeRadius(float radius) {
@@ -77,7 +85,9 @@ public class Tower : MonoBehaviour
 
             float _degreeInRadians = _degree * Mathf.PI / 180;
             _dotX = transform.position.x + radius * Mathf.Cos(_degreeInRadians);
+            //Debug.Log($"dot x {i} = " + _dotX);
             _dotY = transform.position.y + radius * Mathf.Sin(_degreeInRadians);
+            //Debug.Log($"dot y {i} = " + _dotY);
 
             _positionPoints[i] = new Vector3(_dotX, _dotY, -7);
 
@@ -86,19 +96,32 @@ public class Tower : MonoBehaviour
 
         _lineRenderer.SetPositions(_positionPoints);
     }
+    private void SetPositionUpgradeIcon(float distance) {
+        distance = distance / 2;
+        _objectIncreaseDamage.transform.position = new Vector3(transform.position.x, transform.position.y + distance);
+        _objectSell.transform.position = new Vector3(transform.position.x + distance, transform.position.y);
+        _objectIncreaseRange.transform.position = new Vector3(transform.position.x - distance, transform.position.y);
+    }
 
-    void Update()
-    {
-        timer += Time.deltaTime;
+    private void GetAllColliderOnTower() {
+        _colliders = GetComponents<Collider2D>();
+    }
 
-        if (timer >= timeShoot) {
+    void Update() {
+        if (_isShooting) {
+            _timer -= Time.deltaTime;
+        }
+
+        if (_timer <= 0f) {
+            _isShooting = false;
+
             FindingTarget();
 
             if (_target != null) {
                 Shoot(_target);
+                _timer = _timeShoot;
+                _isShooting = true;
             }
-
-            timer = 0;
         }
     }
 
@@ -111,7 +134,7 @@ public class Tower : MonoBehaviour
             //print("----------------------------------------");
             //print("_rangeAttack = " + _rangeAttack);
 
-            if(_currentDistance < _nearestEnemyDistance && _currentDistance <= _rangeAttack) {
+            if (_currentDistance < _nearestEnemyDistance && _currentDistance <= _rangeAttack) {
                 //_target = enemy.transform.GetComponent<Enemy>();
                 _target = enemy;
                 _nearestEnemyDistance = _currentDistance;
@@ -120,42 +143,54 @@ public class Tower : MonoBehaviour
         }
     }
 
-    private void SetTowerMenuIcon(float range) {
-        _upgradeObject.transform.localPosition = new Vector3(0f, range);
-        _repair.transform.localPosition = new Vector3(range, 0f);
-        _sell.transform.localPosition = new Vector3(0f, -range);
+
+    private void Shoot(Enemy target) {
+        _bulletObject = Instantiate(_buletPrefab, _bulletPosition.position, Quaternion.identity);
+
+        Collider2D _bulletCollider = _bulletObject.GetComponent<CircleCollider2D>();
+
+        IgnoreCollisionColliderTowerAndBullet(_bulletCollider);
+
+        _bulletObject.GetComponent<Bullet>().SetTarget(target);
     }
 
-    private void Shoot(Enemy target)
-    {
-        _bullet = Instantiate(_buletPrefab, _bulletPosition.position, Quaternion.identity);
-
-        Collider2D _bulletCollider = _bullet.GetComponent<CircleCollider2D>();
-
-        Physics2D.IgnoreCollision(_boxCollider, _bulletCollider, true);
-
-        _bullet.GetComponent<Bullet>().SetTarget(target);
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag(Tags.bullet)) {
-            Destroy(collision.gameObject);
+    private void IgnoreCollisionColliderTowerAndBullet(Collider2D bulletCollider) {
+        for (int count = 0; count < _colliders.Length; count++) {
+            Physics2D.IgnoreCollision(_colliders[count], bulletCollider, true);
         }
     }
 
-    public void UpgradeTower(float additionalRangeAttack) {
-        _rangeAttack += additionalRangeAttack;
+    public void IncreaseDamage() {
+        //Debug.Log("Damage method = " + Damage());
+        _buletScript.Damage += Damage();
+    }
+
+    private int Damage() {
+        int damage = 0;
+        damage += _buletScript.Damage / 2;
+        if(damage < 1) {
+            damage = 1;
+        }
+        return damage;
+    }
+
+    public void IncreaseRange(float range) {
+        //print("Range up");
+        _rangeAttack += range;
         SetRangeRadius(_rangeAttack);
     }
 
-    public void EnableLineRenderer(bool isActive) {
-        _lineRenderer.enabled = isActive;
+    public void EnableLineRenderer() {
+        _lineRenderer.enabled = !_lineRenderer.enabled;
     }
 
-    public void EnableTowerMenu(bool isActive) {
-        _upgrade.enabled = isActive;
-        _sell.enabled = isActive;
-        _repair.enabled = isActive;
+    public void EnableTowerUpgradeIcon() {
+        _towerMenu.EnableTowerUpgradeIcon();
+    }
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag(Tags.bullet)) {
+            Destroy(collision.gameObject);
+        }
     }
 }
