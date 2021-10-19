@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7474507360397517646}
   - component: {fileID: -3416202952328365386}
   - component: {fileID: 6905664480513818955}
-  - component: {fileID: 1259146111005393106}
   m_Layer: 11
   m_Name: Tower_RockBall
   m_TagString: Tower
@@ -102,7 +101,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0905332, y: 0.544065}
+  m_Offset: {x: -0.083719015, y: 0.62583447}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.2}
@@ -113,7 +112,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5155643, y: 1.9195201}
+  m_Size: {x: 2.2651153, y: 2.7372117}
   m_EdgeRadius: 0
 --- !u!114 &-3416202952328365386
 MonoBehaviour:
@@ -139,7 +138,7 @@ MonoBehaviour:
   _objectIncreaseDamage: {fileID: 6760311502474402041}
   _objectSell: {fileID: 11490466589050834}
   _objectIncreaseRange: {fileID: 6514726765337524859}
-  _towerMenu: {fileID: 3042399990200939299}
+  _towerUpgradeMenu: {fileID: 3042399990200939299}
 --- !u!120 &6905664480513818955
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -239,22 +238,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 1
---- !u!58 &1259146111005393106
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6456233943789270498}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.8813533}
-  serializedVersion: 2
-  m_Radius: 1.4689237
 --- !u!1 &8736231375170505325
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,6 +275,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6456233943789270496}
     m_Modifications:
+    - target: {fileID: 102462991341488401, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 492444355796003731, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 801291064580931801, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _price
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109435081150076895, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _price
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109435081150076895, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _priceIncrease
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6569663831637537976, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8159456401197924425, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _tower
       value: 
@@ -306,11 +313,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8438457688127442634, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.07
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8438457688127442634, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.82
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8438457688127442634, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_LocalPosition.z

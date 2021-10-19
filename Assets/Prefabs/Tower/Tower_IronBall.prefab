@@ -138,7 +138,8 @@ MonoBehaviour:
   _objectIncreaseDamage: {fileID: 2529312633652299191}
   _objectSell: {fileID: 9142392501588564636}
   _objectIncreaseRange: {fileID: 2639226428449990453}
-  _towerMenu: {fileID: 6120490462788562541}
+  _towerUpgradeMenu: {fileID: 6120490462788562541}
+  isClickOnTower: 0
 --- !u!120 &1757262025610622058
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -275,34 +276,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4572276010269632206}
     m_Modifications:
-    - target: {fileID: 2727912773087209584, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2727912773087209584, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2727912773087209584, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3589903595302866107, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5133520255015251571, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7634438306298532566, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8159456401197924425, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-      propertyPath: _tower
-      value: 
-      objectReference: {fileID: -4202184418589515201}
     - target: {fileID: 8438457688127442628, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_Name
       value: TowerMenu
