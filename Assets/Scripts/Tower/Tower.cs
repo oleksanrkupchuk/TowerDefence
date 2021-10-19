@@ -4,16 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-enum TowerType {
-    TowerIron,
-    TowerFire,
-    TowerRock
-}
-
 public class Tower : MonoBehaviour {
     [Header("Parametrs")]
     [SerializeField]
     private float _rangeAttack;
+    public float RangeAttack { get => _rangeAttack; }
     [SerializeField]
     private float _timeShoot;
     private float _timer;
@@ -43,7 +38,9 @@ public class Tower : MonoBehaviour {
 
     private bool _isShooting = false;
 
-    //Upgrades Tower
+    private Collider2D[] _colliders;
+
+    [Header("Upgrades Tower")]
     [SerializeField]
     private GameObject _objectIncreaseDamage;
     [SerializeField]
@@ -51,22 +48,22 @@ public class Tower : MonoBehaviour {
     [SerializeField]
     private GameObject _objectIncreaseRange;
 
-    private Collider2D[] _colliders;
     [SerializeField]
-    private TowerMenu _towerMenu;
-
+    private TowerUpgradeMenu _towerUpgradeMenu;
 
     private void Awake() {
         _towerManager = FindObjectOfType<TowerManager>();
         _lineRenderer.enabled = false;
         _enemyList = FindObjectOfType<ListEnemys>();
         SetRangeRadius(_rangeAttack);
-        _towerManager._towers.Add(GetComponent<Tower>());
-        SetPositionUpgradeIcon(_rangeAttack);
+        _towerManager.towersList.Add(GetComponent<Tower>());
+        //SetPositionUpgradeIcon(2f);
 
         GetAllColliderOnTower();
 
         _buletScript.SetBasicDamage();
+
+        _towerUpgradeMenu.InitializationButtonUpgrade(this);
     }
 
     private void SetRangeRadius(float radius) {
@@ -96,8 +93,8 @@ public class Tower : MonoBehaviour {
 
         _lineRenderer.SetPositions(_positionPoints);
     }
+
     private void SetPositionUpgradeIcon(float distance) {
-        distance = distance / 2;
         _objectIncreaseDamage.transform.position = new Vector3(transform.position.x, transform.position.y + distance);
         _objectSell.transform.position = new Vector3(transform.position.x + distance, transform.position.y);
         _objectIncreaseRange.transform.position = new Vector3(transform.position.x - distance, transform.position.y);
@@ -149,20 +146,20 @@ public class Tower : MonoBehaviour {
 
         Collider2D _bulletCollider = _bulletObject.GetComponent<CircleCollider2D>();
 
-        IgnoreCollisionColliderTowerAndBullet(_bulletCollider);
+        IgnoreCollisionCollidersTowerAndBullet(_bulletCollider);
 
         _bulletObject.GetComponent<Bullet>().SetTarget(target);
     }
 
-    private void IgnoreCollisionColliderTowerAndBullet(Collider2D bulletCollider) {
+    private void IgnoreCollisionCollidersTowerAndBullet(Collider2D bulletCollider) {
         for (int count = 0; count < _colliders.Length; count++) {
             Physics2D.IgnoreCollision(_colliders[count], bulletCollider, true);
         }
     }
 
     public void IncreaseDamage() {
-        //Debug.Log("Damage method = " + Damage());
         _buletScript.Damage += Damage();
+        print("tower damage = " + _buletScript.Damage);
     }
 
     private int Damage() {
@@ -181,11 +178,19 @@ public class Tower : MonoBehaviour {
     }
 
     public void EnableLineRenderer() {
-        _lineRenderer.enabled = !_lineRenderer.enabled;
+        _lineRenderer.enabled = true;
+    }
+
+    public void DisableLineRenderer() {
+        _lineRenderer.enabled = false;
     }
 
     public void EnableTowerUpgradeIcon() {
-        _towerMenu.EnableTowerUpgradeIcon();
+        _towerUpgradeMenu.EnableTowerUpgradeIcon(true);
+    }
+
+    public void DisableTowerUpgradeIcon() {
+        _towerUpgradeMenu.EnableTowerUpgradeIcon(false);
     }
 
     private void OnTriggerExit2D(Collider2D collision) {

@@ -27,9 +27,9 @@ public class TowerManager : Loader<TowerManager> {
     [SerializeField]
     private Color _colorDeafault;
 
-    public List<Tower> _towers = new List<Tower>();
+    public List<Tower> towersList = new List<Tower>();
     private Tower _tower;
-    private TowerMenu _towerMenu;
+    private TowerUpgradeMenu _towerMenu;
 
     void Update() {
         if (Input.GetButtonDown("Fire1")) {
@@ -51,13 +51,23 @@ public class TowerManager : Loader<TowerManager> {
 
     private void CheckRaycastAndCallClickOnTower(RaycastHit2D raycast) {
         if (raycast.transform != null) {
-            //print("raycast no null " + raycast.transform.name);
+            print("raycast " + raycast.transform.name);
             if (raycast.collider.CompareTag(Tags.placeForTower)) {
                 PlaceTower(raycast);
             }
-            if (raycast.collider.CompareTag(Tags.tower)) {
+
+            else if (raycast.collider.CompareTag(Tags.tower)) {
                 ClickOnTower(raycast);
+                DisableMenuAnotherTowers();
             }
+
+            else if (!raycast.collider.CompareTag(Tags.tower) && !raycast.collider.CompareTag("Menu")) {
+                DisableMenuTower();
+            }
+        }
+
+        else {
+            DisableMenuTower();
         }
     }
 
@@ -67,11 +77,11 @@ public class TowerManager : Loader<TowerManager> {
     /// <param name="raycast"></param>
     public void PlaceTower(RaycastHit2D raycast) {
         if (!putTower) {
-            //Debug.Log("tags = " + hit2D.transform.name);
             //null коли не вибираєш башню і тицяєш на місце для башні
             GameManager.Instance.SubstractCoin(_towerButtonPressed.TowerObject.GetComponent<Tower>().Price);
             putTower = true;
             raycast.transform.gameObject.tag = Tags.placeForTowerFull;
+            raycast.transform.gameObject.GetComponent<Collider2D>().enabled = false;
             spriteRenderer.color = _colorDeafault;
             GameObject tower = Instantiate(_towerButtonPressed.TowerObject, raycast.transform.position, Quaternion.identity);
             tower.GetComponent<Tower>().placeForTower = raycast.transform.gameObject;
@@ -84,11 +94,26 @@ public class TowerManager : Loader<TowerManager> {
     }
 
     private void ClickOnTower(RaycastHit2D raycast) {
-        Debug.Log(raycast.transform.name);
         _tower = raycast.transform.GetComponent<Tower>();
 
         _tower.EnableLineRenderer();
         _tower.EnableTowerUpgradeIcon();
+    }
+
+    private void DisableMenuAnotherTowers() {
+        for (int i = 0; i < towersList.Count; i++) {
+            if (towersList[i] != _tower && _tower != null) {
+                towersList[i].DisableLineRenderer();
+                towersList[i].DisableTowerUpgradeIcon();
+            }
+        }
+    }
+
+    private void DisableMenuTower() {
+        if(_tower != null) {
+            _tower.DisableTowerUpgradeIcon();
+            _tower.DisableLineRenderer();
+        }
     }
 
     /// <summary>
