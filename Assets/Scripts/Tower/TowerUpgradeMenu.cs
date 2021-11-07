@@ -44,7 +44,6 @@ public class TowerUpgradeMenu : MonoBehaviour {
     [SerializeField]
     private float _time;
     private Vector3 _textDeafaultPosition;
-    private bool _activeObject = false;
     [SerializeField]
     private float _waitTime;
 
