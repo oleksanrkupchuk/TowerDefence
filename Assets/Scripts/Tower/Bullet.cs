@@ -27,13 +27,13 @@ public class Bullet : MonoBehaviour
             _direction = _target.transform.position - transform.position;
             _angleDirection = Mathf.Atan2(_direction.x, _direction.y) * Mathf.Rad2Deg;
             transform.localRotation = Quaternion.AngleAxis(_angleDirection, Vector3.forward);
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(_target.transform.position.x, _target.transform.position.y + _target.CenterBoxColliderOnY, _target.transform.position.z), _speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(_target.transform.position.x, _target.transform.position.y + _target.CenterBoxColliderOnY), _speed * Time.deltaTime);
         }
         else {
             _direction = _target.diePosition - transform.position;
             _angleDirection = Mathf.Atan2(_direction.x, _direction.y) * Mathf.Rad2Deg;
             transform.localRotation = Quaternion.AngleAxis(_angleDirection, Vector3.forward);
-            transform.position = Vector3.MoveTowards(transform.position, _target.diePosition, _speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, _target.diePosition, _speed * Time.deltaTime);
             if(transform.position == _target.diePosition) {
                 Destroy(gameObject);
             }

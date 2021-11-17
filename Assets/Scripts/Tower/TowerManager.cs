@@ -7,15 +7,18 @@ public class TowerManager : Loader<TowerManager> {
     private Vector2 cursorMousePosition;
     private RaycastHit2D _raycastHit;
     [SerializeField]
-    private LayerMask _layerPlaceForTower;
+    private LayerMask _layer;
     [SerializeField]
     private LayerMask _towerLayer;
     [SerializeField]
     private LayerMask _ground;
 
+    [SerializeField]
+    private EnemyList _enemyList;
+
     [Header("Components")]
     [SerializeField]
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer _towerIcon;
     private TowerButton _towerButtonPressed;
 
     [SerializeField]
@@ -35,7 +38,7 @@ public class TowerManager : Loader<TowerManager> {
         if (Input.GetButtonDown("Fire1")) {
             cursorMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            _raycastHit = Physics2D.Raycast(cursorMousePosition, Vector2.zero);
+            _raycastHit = Physics2D.Raycast(cursorMousePosition, Vector2.zero, _layer);
 
             CheckRaycastAndCallClickOnTower(_raycastHit);
         }
@@ -44,19 +47,23 @@ public class TowerManager : Loader<TowerManager> {
             DisbleTowerIcon();
         }
 
-        if (spriteRenderer.sprite == true) {
+        if (_towerIcon.sprite == true) {
             FollowMouseTowerIcon();
         }
     }
 
     private void CheckRaycastAndCallClickOnTower(RaycastHit2D raycast) {
+        //print("Name oject = " + raycast.transform.name);
+        //print("Name oject = " + raycast.collider.name);
+
         if (raycast.transform != null) {
-            print("raycast " + raycast.transform.name);
+            //print("raycast " + raycast.transform.name);
+
             if (raycast.collider.CompareTag(Tags.placeForTower)) {
-                PlaceTower(raycast);
+                SetTowerOnPlace(raycast.transform);
             }
 
-            else if (raycast.collider.CompareTag(Tags.tower)) {
+            if (raycast.collider.CompareTag(Tags.tower) && _towerIcon.enabled == false) {
                 ClickOnTower(raycast);
                 DisableMenuAnotherTowers();
             }
@@ -71,20 +78,19 @@ public class TowerManager : Loader<TowerManager> {
         }
     }
 
-    /// <summary>
-    /// Перевірка розміщення вежі, і встановлення нового тегу для неможливості повторного розміщення вежі на одному місці
-    /// </summary>
-    /// <param name="raycast"></param>
-    public void PlaceTower(RaycastHit2D raycast) {
+    public void SetTowerOnPlace(Transform placeTower) {
         if (!putTower) {
             //null коли не вибираєш башню і тицяєш на місце для башні
-            GameManager.Instance.SubstractCoin(_towerButtonPressed.TowerObject.GetComponent<Tower>().Price);
+            int price = _towerButtonPressed.TowerObject.GetComponent<Tower>().Price;
+            GameManager.Instance.SubstractCoin(price);
             putTower = true;
-            raycast.transform.gameObject.tag = Tags.placeForTowerFull;
-            raycast.transform.gameObject.GetComponent<Collider2D>().enabled = false;
-            spriteRenderer.color = _colorDeafault;
-            GameObject tower = Instantiate(_towerButtonPressed.TowerObject, raycast.transform.position, Quaternion.identity);
-            tower.GetComponent<Tower>().placeForTower = raycast.transform.gameObject;
+            _towerIcon.color = _colorDeafault;
+            GameObject tower = Instantiate(_towerButtonPressed.TowerObject, placeTower.position, Quaternion.identity);
+            Tower _tower = tower.GetComponent<Tower>();
+            _tower.Initialization(_enemyList, this);
+            tower.GetComponent<Tower>().placeForTower = placeTower.gameObject;
+            Collider2D placeforTowerCollider = placeTower.GetComponent<Collider2D>();
+            placeforTowerCollider.enabled = false;
             DisbleTowerIcon();
         }
 
@@ -96,6 +102,7 @@ public class TowerManager : Loader<TowerManager> {
     private void ClickOnTower(RaycastHit2D raycast) {
         _tower = raycast.transform.GetComponent<Tower>();
 
+        _tower.EnableCanvas();
         _tower.EnableLineRenderer();
         _tower.EnableTowerUpgradeIcon();
     }
@@ -105,6 +112,7 @@ public class TowerManager : Loader<TowerManager> {
             if (towersList[i] != _tower && _tower != null) {
                 towersList[i].DisableLineRenderer();
                 towersList[i].DisableTowerUpgradeIcon();
+                towersList[i].DisavbleCanvas();
             }
         }
     }
@@ -113,14 +121,12 @@ public class TowerManager : Loader<TowerManager> {
         if(_tower != null) {
             _tower.DisableTowerUpgradeIcon();
             _tower.DisableLineRenderer();
+            _tower.DisavbleCanvas();
         }
     }
 
-    /// <summary>
-    /// Відключення спрайту вежі
-    /// </summary>
     public void DisbleTowerIcon() {
-        spriteRenderer.enabled = false;
+        _towerIcon.enabled = false;
     }
 
     public void CheckMoney(TowerButton towerButton) {
@@ -132,27 +138,19 @@ public class TowerManager : Loader<TowerManager> {
         }
     }
 
-    /// <summary>
-    /// Вибір вежі при натиснені на кнопку
-    /// </summary>
-    /// <param name="towerButton"></param>
     public void SelectedTower(TowerButton towerButton) {
         _towerButtonPressed = towerButton;
-        spriteRenderer.color = _colorAlpha;
+        _towerIcon.color = _colorAlpha;
         EnableSprite(_towerButtonPressed.TowerSprite);
         putTower = false;
         //Debug.Log("tower = " + towerButtonPressed.gameObject.name);
     }
 
-    /// <summary>
-    /// Включення спрайту вежі
-    /// </summary>
-    /// <param name="sprite"></param>
     public void EnableSprite(Sprite sprite) {
-        if (spriteRenderer != null) {
-            spriteRenderer.enabled = true;
-            spriteRenderer.sprite = sprite;
-            spriteRenderer.sortingOrder = 100;
+        if (_towerIcon != null) {
+            _towerIcon.enabled = true;
+            _towerIcon.sprite = sprite;
+            _towerIcon.sortingOrder = 100;
         }
 
         else {
@@ -160,13 +158,12 @@ public class TowerManager : Loader<TowerManager> {
         }
     }
 
-    //Слідкування спрайта вежі за мишкою. Потрібно вказувати вісь z тому що по стандарту вона має значення -10 і таким спрайт відображатиметься за картою
     public void FollowMouseTowerIcon() {
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(transform.position.x, transform.position.y, 10);
     }
 
-    public void PutTower() {
+    public void PutTowers() {
         putTower = false;
     }
 }

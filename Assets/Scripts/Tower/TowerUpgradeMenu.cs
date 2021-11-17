@@ -70,7 +70,7 @@ public class TowerUpgradeMenu : MonoBehaviour {
         _increaseRangeObject.SetActive(isActive);
     }
 
-    public void InitializationButtonUpgrade(Tower tower) {
+    public void SubscribleButtonOnEvent(Tower tower) {
         _buttonIncreaseDamage.onClick.AddListener(() => { IncreaseDamage(tower); });
         _buttonIncreaseRange.onClick.AddListener(() => { IncreaseRange(tower); });
         _buttonSell.onClick.AddListener(() => { SellTower(tower); });
