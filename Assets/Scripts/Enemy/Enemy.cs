@@ -1,11 +1,13 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Collections;
+using Random = UnityEngine.Random;
 
-public class Enemy : MonoBehaviour
-{
+public class Enemy : MonoBehaviour {
     [Header("Parametrs")]
-    [SerializeField] 
+    [SerializeField]
     private int _speed;
     [SerializeField]
     private int _health;
@@ -17,13 +19,11 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int _sortingLayer;
     public Vector3 diePosition;
-    
+
     public float CenterBoxColliderOnY { get => (_boxCollider.bounds.size.y / 2); }
-    [SerializeField]
-    private FindingWay _findingWay;
 
     [Header("Components")]
-    [SerializeField] 
+    [SerializeField]
     private BoxCollider2D _boxCollider;
     [SerializeField]
     private Animator _animator;
@@ -41,38 +41,62 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private Image _healthBar;
 
-    private ListEnemys _enemyList;
+    private EnemyList _enemyList;
 
     [Header("Animator parametrs")]
     private string _isDying = "isDying";
 
-    private void Awake() {
-        if(_boxCollider == null) {
+    private Transform _nextWayPoint;
+    [SerializeField]
+    private int _index;
+
+    private List<Transform> _currentWayPoint = new List<Transform>();
+    private List<DataWayPoints> _dataWayPoints = new List<DataWayPoints>();
+
+    private Tower _tower;
+    public Tower Tower { set => _tower = value; }
+
+    public void Initialization(EnemyList listEnemy, List<DataWayPoints> dataWayPoints) {
+        _enemyList = listEnemy;
+        _dataWayPoints = dataWayPoints;
+    }
+
+    private void Start() {
+        if (_boxCollider == null) {
             Debug.LogError("component is null");
         }
 
         _healthBarBackground.SetActive(true);
 
-        _enemyList = FindObjectOfType<ListEnemys>();
         _enemyList.AddEnemy(gameObject.GetComponent<Enemy>());
+        SetWayPoints();
     }
 
     private void Update() {
         if (!isDead) {
-            _findingWay.FindingPath();
+            SetNextPosition();
 
             Move();
         }
     }
 
     private void Move() {
-        transform.position = Vector3.MoveTowards(transform.position, _findingWay.NextPosition, _speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, _nextWayPoint.position, _speed * Time.deltaTime);
+    }
+
+    private void SetNextPosition() {
+        if (Vector2.Distance(transform.position, _nextWayPoint.position) <= 0.2f) {
+            _index++;
+            if (_index < _currentWayPoint.Count) {
+                _nextWayPoint = _currentWayPoint[_index];
+            }
+        }
     }
 
     public void TakeDamage(int damage) {
-        print("--------------");
-        print("HIT = " + damage);
-        if(_health > 0) {
+        //print("--------------");
+        //print("HIT = " + damage);
+        if (_health > 0) {
             _health -= damage;
             ShiftHealthBar();
 
@@ -83,7 +107,7 @@ public class Enemy : MonoBehaviour
     }
 
     private void ShiftHealthBar() {
-        _healthBar.fillAmount = (float)_health/_healthMax;
+        _healthBar.fillAmount = (float)_health / _healthMax;
     }
 
     private void Dying() {
@@ -95,17 +119,27 @@ public class Enemy : MonoBehaviour
         //gameObject.SetActive(false);
         _boxCollider.enabled = false;
         _spriteRenderer.sortingOrder = _sortingLayer;
-        if(_enemyList.ListEnemy.Count <= 0) {
-            EnemySpawner.Instance.ResetEnemyQuantityInSpawn();
-            EnemySpawner.Instance.StartSpawn();
+        _tower.target = null;
+        _tower.RemoveTarget(gameObject.GetComponent<Enemy>());
+        _tower.SetTarget();
+        _enemyList.CheckTheNumberOfEnemiesToZero();
+    }
+
+    public void SetWayPoints() {
+        if (_dataWayPoints.Count <= 1) {
+            _currentWayPoint = _dataWayPoints[0].WayPoints;
+            _nextWayPoint = _currentWayPoint[0];
+        }
+        else {
+            int randomWayPoints = Random.Range(0, _dataWayPoints.Count);
+            print("random number = " + randomWayPoints);
+            _currentWayPoint = _dataWayPoints[randomWayPoints].WayPoints;
+            _nextWayPoint = _currentWayPoint[0];
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag(Tags.finish))
-        {
-            _findingWay.stopMovement = true;
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag(Tags.finish)) {
             Dying();
         }
     }

@@ -57,7 +57,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &2718624288078617033
 MonoBehaviour:
@@ -352,9 +352,7 @@ GameObject:
   - component: {fileID: 6037710262501487604}
   - component: {fileID: 6037710262501487607}
   - component: {fileID: 2025396201}
-  - component: {fileID: 9139505881713301261}
   - component: {fileID: 389652436}
-  - component: {fileID: 6037710263110164728}
   m_Layer: 10
   m_Name: Minotaur_01
   m_TagString: Enemy
@@ -494,31 +492,13 @@ MonoBehaviour:
   _coinForDeath: 3
   _sortingLayer: -7
   diePosition: {x: 0, y: 0, z: 0}
-  _findingWay: {fileID: 9139505881713301261}
   _boxCollider: {fileID: 6037710262501487607}
   _animator: {fileID: 389652436}
   _spriteRenderer: {fileID: 6037710262501487113}
   _healthBarBackground: {fileID: 2078650063143582203}
   _healthBarRectTransform: {fileID: 2211591740322881854}
   _healthBar: {fileID: 8562100010639840429}
---- !u!114 &9139505881713301261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6037710262501487112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c481ecaa3c79af640bcb9bc876d9948c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _radius: 3
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  _canToNextPos: 1
-  stopMovement: 0
+  _index: 0
 --- !u!95 &389652436
 Animator:
   serializedVersion: 3
@@ -538,19 +518,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!58 &6037710263110164728
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6037710262501487112}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 3
