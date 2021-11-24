@@ -158,7 +158,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 3784897731316563199}
-  _listTarget: []
+  _rangeCollider: {fileID: 2156769762587180802}
+  _enemyList: []
   _rangeAttack: 3
   _timeShoot: 2
   _bulletPosition: {fileID: 4986359563472622328}
@@ -352,9 +353,17 @@ PrefabInstance:
       propertyPath: _price
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 801291064580931801, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _priceIncrease
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6109435081150076895, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _price
-      value: 9
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109435081150076895, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _priceIncrease
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6230762555806734200, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_AnchoredPosition.y

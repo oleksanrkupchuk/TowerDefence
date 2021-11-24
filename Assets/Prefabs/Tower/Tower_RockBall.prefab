@@ -189,7 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 3552020727547702417}
-  _listTarget: []
+  _rangeCollider: {fileID: 6441477602493900132}
+  _enemyList: []
   _rangeAttack: 3
   _timeShoot: 1
   _bulletPosition: {fileID: 3573270289235324146}

@@ -4,24 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class MenuLevels : MonoBehaviour {
-    [SerializeField]
-    private Button _startButton;
+public class MenuLevels : MenuBase {
     [SerializeField]
     private GameObject _backgroundMenu;
     [SerializeField]
-    private TextMeshProUGUI _countText;
+    private GameObject _backgroundInformationPanel;
     [SerializeField]
     private EnemySpawner _enemySpawner;
-    [SerializeField]
-    private EnemyList _enemyList;
 
     public float counter;
     [SerializeField]
     private TextMeshProUGUI _counterText;
+    [SerializeField]
+    private GameObject _counterTextObject;
+    public TextMeshProUGUI CounterText { get => _counterText; }
+
     void Start() {
         //StopTime();
-        SubscribeStartButton();
         //StartLevelAnimationCount();
     }
 
@@ -30,37 +29,28 @@ public class MenuLevels : MonoBehaviour {
         CounterUntilWave();
     }
 
-    private void StopTime() {
-        Time.timeScale = 0f;
-    }
-
     private void CounterUntilWave() {
-        if (_enemyList.Enemys.Count <= 0) {
-            if (counter > 0) {
-                counter -= Time.deltaTime;
-                _counterText.text = counter.ToString("0.0");
+        if (_counterText.enabled == true) {
+            if (_enemySpawner.EnemyList.Count <= 0) {
+                if (counter > 0) {
+                    counter -= Time.deltaTime;
+                    _counterText.text = counter.ToString("0.0");
 
-                if (counter <= 0) {
-                    _enemySpawner.StartSpawn();
+                    if (counter <= 0) {
+                        _enemySpawner.StartSpawn();
+                        _counterTextObject.SetActive(false);
+                    }
                 }
             }
         }
     }
 
-    private void SubscribeStartButton() {
-        _startButton.onClick.AddListener(() => { StartTime(); DisableBackgroundMenu(); });
+    private void GameObjectSetActive(GameObject sceneObject, bool isActive) {
+        sceneObject.SetActive(isActive);
     }
 
-    private void StartTime() {
-        Time.timeScale = 1f;
-    }
-
-    private void DisableBackgroundMenu() {
-        _backgroundMenu.SetActive(false);
-    }
-
-    private void EnableBackgroundMenu() {
-        _backgroundMenu.SetActive(true);
+    public void EnableCounterObject() {
+        _counterTextObject.SetActive(true);
     }
 
     private void StartLevelAnimationCount() {
@@ -74,7 +64,7 @@ public class MenuLevels : MonoBehaviour {
         int maxCounter = 3;
         float waitOfTime = 1f;
         for (int i = 0; i < maxCounter; i++) {
-            _countText.text = "" + counter;
+            //_countText.text = "" + counter;
             ScaleTextObject(doubleScale, waitOfTime);
             yield return new WaitForSeconds(waitOfTime);
             ScaleTextObject(singleScale, 0f);
@@ -85,12 +75,12 @@ public class MenuLevels : MonoBehaviour {
     }
 
     private void ScaleTextObject(Vector3 scale, float waitOfTime) {
-        LeanTween.scale(_countText.gameObject, scale, waitOfTime);
+        //LeanTween.scale(_countText.gameObject, scale, waitOfTime);
     }
 
     private IEnumerator CheckAmounterCounterScaleGOTextAndDisableText(Vector3 doubleScale, int maxCounter, int counter, float waitOfTime) {
         if (counter >= maxCounter) {
-            _countText.text = "GO!";
+            //_countText.text = "GO!";
             ScaleTextObject(doubleScale, waitOfTime);
             yield return new WaitForSeconds(waitOfTime);
             DisableTextObject();
@@ -98,6 +88,6 @@ public class MenuLevels : MonoBehaviour {
     }
 
     private void DisableTextObject() {
-        _countText.gameObject.SetActive(false);
+        //_countText.gameObject.SetActive(false);
     }
 }

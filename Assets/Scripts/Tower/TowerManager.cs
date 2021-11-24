@@ -13,9 +13,6 @@ public class TowerManager : Loader<TowerManager> {
     [SerializeField]
     private LayerMask _ground;
 
-    [SerializeField]
-    private EnemyList _enemyList;
-
     [Header("Components")]
     [SerializeField]
     private SpriteRenderer _towerIcon;
@@ -87,7 +84,7 @@ public class TowerManager : Loader<TowerManager> {
             _towerIcon.color = _colorDeafault;
             GameObject tower = Instantiate(_towerButtonPressed.TowerObject, placeTower.position, Quaternion.identity);
             Tower _tower = tower.GetComponent<Tower>();
-            _tower.Initialization(_enemyList, this);
+            _tower.Initialization(this);
             tower.GetComponent<Tower>().placeForTower = placeTower.gameObject;
             Collider2D placeforTowerCollider = placeTower.GetComponent<Collider2D>();
             placeforTowerCollider.enabled = false;

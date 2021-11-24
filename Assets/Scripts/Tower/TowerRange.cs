@@ -8,10 +8,10 @@ public class TowerRange: MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.GetComponent<Enemy>()) {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            _tower.ListTarget.Add(enemy);
+            _tower.EnemyList.Add(enemy);
             enemy.Tower = _tower;
-            if (_tower.ListTarget.Count == 1) {
-                _tower.target = _tower.ListTarget[0];
+            if (_tower.EnemyList.Count == 1) {
+                _tower.target = _tower.EnemyList[0];
             }
 
             print("tower = " + _tower.gameObject.name);

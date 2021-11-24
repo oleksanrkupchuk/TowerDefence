@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour {
     private Animator _animator;
     [SerializeField]
     private SpriteRenderer _spriteRenderer;
+    [SerializeField]
+    private Canvas _canvas;
 
     [Header("GameObjects")]
     [SerializeField]
@@ -41,7 +43,7 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     private Image _healthBar;
 
-    private EnemyList _enemyList;
+    private EnemySpawner _enemySpawner;
 
     [Header("Animator parametrs")]
     private string _isDying = "isDying";
@@ -56,8 +58,8 @@ public class Enemy : MonoBehaviour {
     private Tower _tower;
     public Tower Tower { set => _tower = value; }
 
-    public void Initialization(EnemyList listEnemy, List<DataWayPoints> dataWayPoints) {
-        _enemyList = listEnemy;
+    public void Initialization(EnemySpawner enemySpawner, List<DataWayPoints> dataWayPoints) {
+        _enemySpawner = enemySpawner;
         _dataWayPoints = dataWayPoints;
     }
 
@@ -68,7 +70,7 @@ public class Enemy : MonoBehaviour {
 
         _healthBarBackground.SetActive(true);
 
-        _enemyList.AddEnemy(gameObject.GetComponent<Enemy>());
+        _enemySpawner.AddEnemy(gameObject.GetComponent<Enemy>());
         SetWayPoints();
     }
 
@@ -113,16 +115,16 @@ public class Enemy : MonoBehaviour {
     private void Dying() {
         diePosition = transform.position;
         GameManager.Instance.AddCoin(_coinForDeath);
-        _enemyList.RemoveEnemy(gameObject.GetComponent<Enemy>());
+        _enemySpawner.RemoveEnemy(gameObject.GetComponent<Enemy>());
         _animator.SetTrigger(_isDying);
         _healthBarBackground.SetActive(false);
         //gameObject.SetActive(false);
         _boxCollider.enabled = false;
-        _spriteRenderer.sortingOrder = _sortingLayer;
+        //_spriteRenderer.sortingOrder = _sortingLayer;
         _tower.target = null;
         _tower.RemoveTarget(gameObject.GetComponent<Enemy>());
         _tower.SetTarget();
-        _enemyList.CheckTheNumberOfEnemiesToZero();
+        _enemySpawner.CheckTheNumberOfEnemiesToZero();
     }
 
     public void SetWayPoints() {
@@ -142,5 +144,10 @@ public class Enemy : MonoBehaviour {
         if (collision.gameObject.CompareTag(Tags.finish)) {
             Dying();
         }
+    }
+
+    public void SetLayer(int layer) {
+        _spriteRenderer.sortingOrder = layer;
+        _canvas.sortingOrder = layer;
     }
 }

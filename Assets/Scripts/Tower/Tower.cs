@@ -6,11 +6,11 @@ public class Tower : MonoBehaviour {
     private GameObject _canvas;
 
     [SerializeField]
-    private Queue<Enemy> _enemyQueue = new Queue<Enemy>();
+    private CircleCollider2D _rangeCollider;
 
     [SerializeField]
-    private List<Enemy> _listTarget = new List<Enemy>();
-    public List<Enemy> ListTarget { get => _listTarget; }
+    private List<Enemy> _enemyList = new List<Enemy>();
+    public List<Enemy> EnemyList { get => _enemyList; }
 
     [Header("Parametrs")]
     [SerializeField]
@@ -18,7 +18,8 @@ public class Tower : MonoBehaviour {
     public float RangeAttack { get => _rangeAttack; }
     [SerializeField]
     private float _timeShoot;
-    private float _timer = 0f;
+    [SerializeField]
+    private float _timer;
     [SerializeField]
     private Transform _bulletPosition;
     [SerializeField]
@@ -39,13 +40,13 @@ public class Tower : MonoBehaviour {
     [HideInInspector]
     public GameObject placeForTower = null;
 
+    //[HideInInspector]
     public Enemy target = null;
     private TowerManager _towerManager;
-    private EnemyList _enemyList;
 
     private bool _isShooting = false;
 
-    private Collider2D[] _colliders;
+    private Collider2D[] _towerAllColliders;
 
     [Header("Upgrades Tower")]
     [SerializeField]
@@ -58,10 +59,7 @@ public class Tower : MonoBehaviour {
     [SerializeField]
     private TowerUpgradeMenu _towerUpgradeMenu;
 
-    private float _currentDistance;
-
-    public void Initialization(EnemyList listEnemy, TowerManager towerManager) {
-        _enemyList = listEnemy;
+    public void Initialization(TowerManager towerManager) {
         _towerManager = towerManager;
     }
 
@@ -113,7 +111,10 @@ public class Tower : MonoBehaviour {
     }
 
     private void GetAllColliderOnTower() {
-        _colliders = GetComponents<Collider2D>();
+        _towerAllColliders = GetComponents<Collider2D>();
+        for (int i = 0; i < _towerAllColliders.Length; i++) {
+            print("name collider = " + _towerAllColliders[i].name);
+        }
     }
 
     void Update() {
@@ -122,10 +123,9 @@ public class Tower : MonoBehaviour {
         }
 
         if (_timer <= 0f) {
-            _isShooting = false;
-
-            if (target != null) {
+            if (target != null && _enemyList.Count > 0) {
                 Shoot(target);
+                _isShooting = false;
                 _timer = _timeShoot;
                 _isShooting = true;
             }
@@ -133,10 +133,10 @@ public class Tower : MonoBehaviour {
     }
 
     public void SetTarget() {
-        if (_listTarget.Count > 0) {
-            target = _listTarget[0];
-            print("tower = " + gameObject.name);
-            print("target = " + target.name);
+        if (_enemyList.Count > 0) {
+            target = _enemyList[0];
+            //print("tower = " + gameObject.name);
+            //print("target = " + target.name);
         }
         else {
             //Debug.LogWarning("list of enemys empty");
@@ -145,18 +145,19 @@ public class Tower : MonoBehaviour {
 
 
     private void Shoot(Enemy target) {
-        float _canShoot = Vector2.Distance(transform.position, target.transform.position);
-        if (_rangeAttack >= _canShoot) {
-            _bulletObject = Instantiate(_buletPrefab, _bulletPosition.position, Quaternion.identity);
-            Collider2D _bulletCollider = _bulletObject.GetComponent<CircleCollider2D>();
-            IgnoreCollisionCollidersTowerAndBullet(_bulletCollider);
-            _bulletObject.GetComponent<Bullet>().SetTarget(target);
-        }
+        //float _canShoot = Vector2.Distance(transform.position, target.transform.position);
+        //print("" + _rangeAttack + " --- " + _canShoot);
+        //if (_rangeAttack >= _canShoot) {
+        //}
+        _bulletObject = Instantiate(_buletPrefab, _bulletPosition.position, Quaternion.identity);
+        Collider2D _bulletCollider = _bulletObject.GetComponent<CircleCollider2D>();
+        IgnoreCollisionCollidersTowerAndBullet(_bulletCollider);
+        _bulletObject.GetComponent<Bullet>().SetTarget(target);
     }
 
     private void IgnoreCollisionCollidersTowerAndBullet(Collider2D bulletCollider) {
-        for (int count = 0; count < _colliders.Length; count++) {
-            Physics2D.IgnoreCollision(_colliders[count], bulletCollider, true);
+        for (int count = 0; count < _towerAllColliders.Length; count++) {
+            Physics2D.IgnoreCollision(_towerAllColliders[count], bulletCollider, true);
         }
     }
 
@@ -177,6 +178,7 @@ public class Tower : MonoBehaviour {
     public void IncreaseRange(float range) {
         //print("Range up");
         _rangeAttack += range;
+        _rangeCollider.radius = _rangeAttack;
         SetRangeRadius(_rangeAttack);
     }
 
@@ -205,6 +207,6 @@ public class Tower : MonoBehaviour {
     }
 
     public void RemoveTarget(Enemy enemy) {
-        _listTarget.Remove(enemy);
+        _enemyList.Remove(enemy);
     }
 }

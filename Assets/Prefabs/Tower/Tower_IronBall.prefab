@@ -99,7 +99,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.04581648, y: 0.4391352}
@@ -128,9 +128,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 5729650776988955103}
-  _listTarget: []
+  _rangeCollider: {fileID: 125635702908944359}
+  _enemyList: []
   _rangeAttack: 3.5
   _timeShoot: 1
+  _timer: 0
   _bulletPosition: {fileID: 7868094680344040008}
   _stepDegree: 10
   _price: 10
@@ -163,7 +165,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f6582a24339a14149b6d5e1fc036e5ff, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -183,7 +185,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -356,6 +358,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 801291064580931801, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _priceIncrease
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1686487857775182423, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.001
@@ -371,6 +377,14 @@ PrefabInstance:
     - target: {fileID: 2727912773087209584, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109435081150076895, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _price
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6109435081150076895, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _priceIncrease
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6569663831637537976, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_IsActive
