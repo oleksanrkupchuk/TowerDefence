@@ -2,11 +2,6 @@
 using UnityEngine;
 
 public class Tower : MonoBehaviour {
-    [SerializeField]
-    private GameObject _canvas;
-
-    [SerializeField]
-    private CircleCollider2D _rangeCollider;
 
     [SerializeField]
     private List<Enemy> _enemyList = new List<Enemy>();
@@ -28,7 +23,11 @@ public class Tower : MonoBehaviour {
     private int _price;
     public int Price { get => _price; }
 
-    [Header("Components")]
+    [Header("Components visible")]
+    [SerializeField]
+    private GameObject _canvas;
+    [SerializeField]
+    private CircleCollider2D _rangeCollider;
     [SerializeField]
     private GameObject _buletPrefab;
     [SerializeField]
@@ -36,17 +35,15 @@ public class Tower : MonoBehaviour {
     public Bullet Bullet { get => _buletPrefab.GetComponent<Bullet>(); }
     [SerializeField]
     private LineRenderer _lineRenderer;
-    private GameObject _bulletObject;
+
+    [Header("Components invisible")]
+    private Enemy target = null;
+    private TowerManager _towerManager;
+    private Collider2D[] _towerAllColliders;
     [HideInInspector]
     public GameObject placeForTower = null;
 
-    //[HideInInspector]
-    public Enemy target = null;
-    private TowerManager _towerManager;
-
     private bool _isShooting = false;
-
-    private Collider2D[] _towerAllColliders;
 
     [Header("Upgrades Tower")]
     [SerializeField]
@@ -55,7 +52,6 @@ public class Tower : MonoBehaviour {
     private GameObject _objectSell;
     [SerializeField]
     private GameObject _objectIncreaseRange;
-
     [SerializeField]
     private TowerUpgradeMenu _towerUpgradeMenu;
 
@@ -66,7 +62,7 @@ public class Tower : MonoBehaviour {
     private void Start() {
         _lineRenderer.enabled = false;
         SetRangeRadius(_rangeAttack);
-        _towerManager.towersList.Add(GetComponent<Tower>());
+        _towerManager.towersList.Add(this);
         //SetPositionUpgradeIcon(2f);
 
         GetAllColliderOnTower();
@@ -112,9 +108,6 @@ public class Tower : MonoBehaviour {
 
     private void GetAllColliderOnTower() {
         _towerAllColliders = GetComponents<Collider2D>();
-        for (int i = 0; i < _towerAllColliders.Length; i++) {
-            print("name collider = " + _towerAllColliders[i].name);
-        }
     }
 
     void Update() {
@@ -125,7 +118,6 @@ public class Tower : MonoBehaviour {
         if (_timer <= 0f) {
             if (target != null && _enemyList.Count > 0) {
                 Shoot(target);
-                _isShooting = false;
                 _timer = _timeShoot;
                 _isShooting = true;
             }
@@ -139,17 +131,14 @@ public class Tower : MonoBehaviour {
             //print("target = " + target.name);
         }
         else {
+            target = null;
             //Debug.LogWarning("list of enemys empty");
         }
     }
 
 
     private void Shoot(Enemy target) {
-        //float _canShoot = Vector2.Distance(transform.position, target.transform.position);
-        //print("" + _rangeAttack + " --- " + _canShoot);
-        //if (_rangeAttack >= _canShoot) {
-        //}
-        _bulletObject = Instantiate(_buletPrefab, _bulletPosition.position, Quaternion.identity);
+        GameObject _bulletObject = Instantiate(_buletPrefab, _bulletPosition.position, Quaternion.identity);
         Collider2D _bulletCollider = _bulletObject.GetComponent<CircleCollider2D>();
         IgnoreCollisionCollidersTowerAndBullet(_bulletCollider);
         _bulletObject.GetComponent<Bullet>().SetTarget(target);
@@ -208,5 +197,13 @@ public class Tower : MonoBehaviour {
 
     public void RemoveTarget(Enemy enemy) {
         _enemyList.Remove(enemy);
+    }
+
+    public bool IsFirstSetTaget() {
+        if (EnemyList.Count == 1) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private GameManager _gameManager;
     [SerializeField]
-    private MenuLevels _menuLevels;
+    private InformationPanel _informationPanel;
 
     //[SerializeField]
     //private MenuLevels _menuLevels;
@@ -96,8 +96,8 @@ public class EnemySpawner : MonoBehaviour
 
     public void CheckTheNumberOfEnemiesToZero() {
         if (_enemyList.Count <= 0 && !IsLastWave) {
-            _menuLevels.EnableCounterObject();
-            _menuLevels.counter = 5f;
+            _informationPanel.EnableTimerObject();
+            _informationPanel.counter = 5f;
         }
     }
 

@@ -16,7 +16,11 @@ public class InformationPanel : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _timeSpeedText;
     [SerializeField]
-    private TextMeshProUGUI _counterText;
+    private TimerWave _timerWave;
+    [SerializeField]
+    private EnemySpawner _enemySpawner;
+
+    public float counter;
 
     private string _valueTimeDoubletSpeed = "X2";
 
@@ -30,7 +34,8 @@ public class InformationPanel : MonoBehaviour
         _startButton.onClick.AddListener(() => {
             DisableStartButton();
             DisableBackground();
-            EnableCounterText();
+            EnableTimerObject();
+            EnableTimerText();
         });
         _buttonDefaultTimeSpeed.onClick.AddListener(() => { 
             SetDeafaultTimeSpeed();
@@ -48,6 +53,28 @@ public class InformationPanel : MonoBehaviour
         });
     }
 
+    private void Update() {
+        //StartCoroutine(CounterUntilWave());
+        CounterUntilWave();
+    }
+
+    private void CounterUntilWave() {
+        if (_timerWave.timerWaveText.enabled == true) {
+            if (_enemySpawner.EnemyList.Count <= 0) {
+                if (counter > 0) {
+                    counter -= Time.deltaTime;
+                    _timerWave.timerWaveText.text = counter.ToString("0.0");
+
+                }
+
+                else if (counter <= 0) {
+                    _enemySpawner.StartSpawn();
+                    _timerWave.timerObject.SetActive(false);
+                }
+            }
+        }
+    }
+
     private void DisableStartButton() {
         _startButton.gameObject.SetActive(false);
     }
@@ -56,12 +83,20 @@ public class InformationPanel : MonoBehaviour
         _backgroundMenu.gameObject.SetActive(false);
     }
 
-    private void DisableCounterText() {
-        _counterText.gameObject.SetActive(false);
+    public void EnableTimerObject() {
+        _timerWave.timerObject.SetActive(true);
     }
 
-    private void EnableCounterText() {
-        _counterText.gameObject.SetActive(true);
+    private void DisableTimerObject() {
+        _timerWave.timerObject.SetActive(false);
+    }
+
+    private void DisableTimerText() {
+        _timerWave.timerWaveText.enabled = false;
+    }
+
+    private void EnableTimerText() {
+        _timerWave.timerWaveText.enabled = true;
     }
 
     private void SetDeafaultTimeSpeed() {

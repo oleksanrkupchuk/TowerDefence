@@ -10,8 +10,6 @@ public class TowerManager : Loader<TowerManager> {
     private LayerMask _layer;
     [SerializeField]
     private LayerMask _towerLayer;
-    [SerializeField]
-    private LayerMask _ground;
 
     [Header("Components")]
     [SerializeField]

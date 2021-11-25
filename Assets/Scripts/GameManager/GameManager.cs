@@ -8,20 +8,19 @@ public class GameManager : Loader<GameManager>
     [SerializeField] private TextMeshProUGUI coinText;
 
     [SerializeField]
-    private MenuLevels _menuLevels;
-    [SerializeField]
     private GameObject _menuBackground;
     [SerializeField]
     private GameObject _pauseMenu;
     [SerializeField]
     private TextMeshProUGUI _waveText;
-    [SerializeField]
-    private EnemySpawner _enemySpawner;
 
     [SerializeField]
     private bool _isPause = false;
 
     public int Coin { get => _coin; }
+
+    [SerializeField]
+    private KeyCode _pauseButton;
 
     private void Start()
     {
@@ -30,12 +29,16 @@ public class GameManager : Loader<GameManager>
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(_pauseButton)) {
             _isPause = !_isPause;
-            _menuLevels.StopTime();
+            StopTime();
             _menuBackground.SetActive(_isPause);
             _pauseMenu.SetActive(_isPause);
         }
+    }
+
+    private void StopTime() {
+        Time.timeScale = 0f;
     }
 
     public void AddCoin(int amount) {

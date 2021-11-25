@@ -54,13 +54,15 @@ public class Enemy : MonoBehaviour {
 
     private List<Transform> _currentWayPoint = new List<Transform>();
     private List<DataWayPoints> _dataWayPoints = new List<DataWayPoints>();
-
     private Tower _tower;
-    public Tower Tower { set => _tower = value; }
 
     public void Initialization(EnemySpawner enemySpawner, List<DataWayPoints> dataWayPoints) {
         _enemySpawner = enemySpawner;
         _dataWayPoints = dataWayPoints;
+    }
+
+    public void InitializationTower(Tower tower) {
+        _tower = tower;
     }
 
     private void Start() {
@@ -121,7 +123,6 @@ public class Enemy : MonoBehaviour {
         //gameObject.SetActive(false);
         _boxCollider.enabled = false;
         //_spriteRenderer.sortingOrder = _sortingLayer;
-        _tower.target = null;
         _tower.RemoveTarget(gameObject.GetComponent<Enemy>());
         _tower.SetTarget();
         _enemySpawner.CheckTheNumberOfEnemiesToZero();
