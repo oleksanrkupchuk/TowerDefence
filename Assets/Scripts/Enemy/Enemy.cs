@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour {
     private Animator _animator;
     [SerializeField]
     private SpriteRenderer _spriteRenderer;
+    [SerializeField]
+    private Canvas _canvas;
 
     [Header("GameObjects")]
     [SerializeField]
@@ -41,7 +43,8 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     private Image _healthBar;
 
-    private EnemyList _enemyList;
+    private EnemySpawner _enemySpawner;
+    private GameManager _gameManager;
 
     [Header("Animator parametrs")]
     private string _isDying = "isDying";
@@ -52,13 +55,16 @@ public class Enemy : MonoBehaviour {
 
     private List<Transform> _currentWayPoint = new List<Transform>();
     private List<DataWayPoints> _dataWayPoints = new List<DataWayPoints>();
-
     private Tower _tower;
-    public Tower Tower { set => _tower = value; }
 
-    public void Initialization(EnemyList listEnemy, List<DataWayPoints> dataWayPoints) {
-        _enemyList = listEnemy;
+    public void Initialization(EnemySpawner enemySpawner, GameManager gameManager, List<DataWayPoints> dataWayPoints) {
+        _enemySpawner = enemySpawner;
+        _gameManager = gameManager;
         _dataWayPoints = dataWayPoints;
+    }
+
+    public void InitializationTower(Tower tower) {
+        _tower = tower;
     }
 
     private void Start() {
@@ -68,7 +74,7 @@ public class Enemy : MonoBehaviour {
 
         _healthBarBackground.SetActive(true);
 
-        _enemyList.AddEnemy(gameObject.GetComponent<Enemy>());
+        _enemySpawner.AddEnemy(gameObject.GetComponent<Enemy>());
         SetWayPoints();
     }
 
@@ -96,12 +102,13 @@ public class Enemy : MonoBehaviour {
     public void TakeDamage(int damage) {
         //print("--------------");
         //print("HIT = " + damage);
-        if (_health > 0) {
+
+        if (!isDead) {
             _health -= damage;
             ShiftHealthBar();
 
             if (isDead) {
-                Dying();
+                Death();
             }
         }
     }
@@ -110,19 +117,25 @@ public class Enemy : MonoBehaviour {
         _healthBar.fillAmount = (float)_health / _healthMax;
     }
 
-    private void Dying() {
+    private void Death() {
         diePosition = transform.position;
-        GameManager.Instance.AddCoin(_coinForDeath);
-        _enemyList.RemoveEnemy(gameObject.GetComponent<Enemy>());
-        _animator.SetTrigger(_isDying);
-        _healthBarBackground.SetActive(false);
+        _gameManager.AddCoin(_coinForDeath);
+        _enemySpawner.RemoveEnemy(gameObject.GetComponent<Enemy>());
+        PlayDeathAnimation();
+        DisableHealthBar();
         //gameObject.SetActive(false);
         _boxCollider.enabled = false;
-        _spriteRenderer.sortingOrder = _sortingLayer;
-        _tower.target = null;
-        _tower.RemoveTarget(gameObject.GetComponent<Enemy>());
+        _tower.RemoveTarget(this);
         _tower.SetTarget();
-        _enemyList.CheckTheNumberOfEnemiesToZero();
+        _gameManager.EnableTimerWaveAndSetValueForTimer();
+    }
+
+    private void PlayDeathAnimation() {
+        _animator.SetTrigger(_isDying);
+    }
+
+    private void DisableHealthBar() {
+        _healthBarBackground.SetActive(false);
     }
 
     public void SetWayPoints() {
@@ -140,7 +153,12 @@ public class Enemy : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag(Tags.finish)) {
-            Dying();
+            Death();
         }
+    }
+
+    public void SetLayer(int layer) {
+        _spriteRenderer.sortingOrder = layer;
+        _canvas.sortingOrder = layer;
     }
 }

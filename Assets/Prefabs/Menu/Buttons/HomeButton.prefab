@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2977166842621424419}
   - component: {fileID: 2977166842621424416}
   - component: {fileID: 2977166842621424417}
-  - component: {fileID: 6180067866837430305}
   m_Layer: 5
   m_Name: HomeButton
   m_TagString: Untagged
@@ -99,7 +98,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.6039216, g: 0.6039216, b: 0.6039216, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -121,20 +120,3 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6180067866837430305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2977166842621424423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9b00db17cca1ef4fa79cc89d0681968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _typeButtonMenu: 1
-  _enableObject: {fileID: 0}
-  _disableObject: {fileID: 0}
-  _button: {fileID: 0}
-  _level: 0

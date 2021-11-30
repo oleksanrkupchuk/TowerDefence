@@ -495,6 +495,7 @@ MonoBehaviour:
   _boxCollider: {fileID: 6037710262501487607}
   _animator: {fileID: 389652436}
   _spriteRenderer: {fileID: 6037710262501487113}
+  _canvas: {fileID: 4253517763164274}
   _healthBarBackground: {fileID: 2078650063143582203}
   _healthBarRectTransform: {fileID: 2211591740322881854}
   _healthBar: {fileID: 8562100010639840429}
