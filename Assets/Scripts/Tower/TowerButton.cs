@@ -15,6 +15,12 @@ public class TowerButton : MonoBehaviour
         }
     }
 
+    public Tower TowerScript {
+        get {
+            return towerObject.GetComponent<Tower>();
+        }
+    }
+
     public Sprite TowerSprite
     {
         get

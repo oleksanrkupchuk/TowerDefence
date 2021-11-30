@@ -127,8 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4438c3b960c4bfb4799b7fc6de90b9b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 5729650776988955103}
-  _rangeCollider: {fileID: 125635702908944359}
   _enemyList: []
   _rangeAttack: 3.5
   _timeShoot: 1
@@ -136,11 +134,12 @@ MonoBehaviour:
   _bulletPosition: {fileID: 7868094680344040008}
   _stepDegree: 10
   _price: 10
+  _canvas: {fileID: 5729650776988955103}
+  _rangeCollider: {fileID: 125635702908944359}
   _buletPrefab: {fileID: 4544291592785701270, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
   _buletScript: {fileID: -5753714780342718237, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
   _lineRenderer: {fileID: 1757262025610622058}
   placeForTower: {fileID: 0}
-  target: {fileID: 0}
   _objectIncreaseDamage: {fileID: 2529312633652299191}
   _objectSell: {fileID: 9142392501588564636}
   _objectIncreaseRange: {fileID: 2639226428449990453}
@@ -344,7 +343,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 102462991341488401, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 138531261479718738, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_LocalScale.x
@@ -356,7 +355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 492444355796003731, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 801291064580931801, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _priceIncrease
@@ -387,6 +386,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6569663831637537976, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7660518506066780155, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

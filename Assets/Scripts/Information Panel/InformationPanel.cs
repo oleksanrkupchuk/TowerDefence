@@ -3,8 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
-public class InformationPanel : MonoBehaviour
-{
+public class InformationPanel : MonoBehaviour {
     [SerializeField]
     private Button _startButton;
     [SerializeField]
@@ -16,34 +15,66 @@ public class InformationPanel : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _timeSpeedText;
     [SerializeField]
-    private TimerWave _timerWave;
-    [SerializeField]
     private EnemySpawner _enemySpawner;
-
-    public float counter;
+    [SerializeField]
+    private GameManager _gameManager;
+    [SerializeField]
+    private TowerButton _towerIron;
+    [SerializeField]
+    private TowerButton _towerFire;
+    [SerializeField]
+    private TowerButton _towerRock;
 
     private string _valueTimeDoubletSpeed = "X2";
 
-    void Start()
-    {
+    [Header("Information objects")]
+    [SerializeField]
+    private InformationObject _timerWave;
+    [SerializeField]
+    private InformationObject _health;
+
+    [Header("Information parameters")]
+    [SerializeField]
+    private TextMeshProUGUI _priceTextIronTower;
+    [SerializeField]
+    private TextMeshProUGUI _priceTextFireTower;
+    [SerializeField]
+    private TextMeshProUGUI _priceTextRockTower;
+
+    private void Start() {
         DisableButtonDefaultTimeSpeed();
+        SetValueOnPriceTextTower();
         SubscriptionButton();
+    }
+
+    private void DisableButtonDefaultTimeSpeed() {
+        _buttonDefaultTimeSpeed.interactable = false;
+    }
+
+    private void SetValueOnPriceTextTower() {
+        _priceTextIronTower.text = "" + _towerIron.TowerScript.Price;
+        _priceTextFireTower.text = "" + _towerFire.TowerScript.Price;
+        _priceTextRockTower.text = "" + _towerRock.TowerScript.Price;
     }
 
     private void SubscriptionButton() {
         _startButton.onClick.AddListener(() => {
+            _gameManager.StartTime();
+            _gameManager.GameUnpause();
             DisableStartButton();
             DisableBackground();
-            EnableTimerObject();
-            EnableTimerText();
+            EnableTimerWaveObject();
+            StartCoroutine(AnimationForTimerWave());
         });
-        _buttonDefaultTimeSpeed.onClick.AddListener(() => { 
+
+        _buttonDefaultTimeSpeed.onClick.AddListener(() => {
             SetDeafaultTimeSpeed();
             EnableButtonDoubleTimeSpeed();
             DisableButtonDefaultTimeSpeed();
             DisableTimeSpeedText();
         });
-        _buttonDoubleTimeSpeed.onClick.AddListener(() => { 
+
+        _buttonDoubleTimeSpeed.onClick.AddListener(() => {
             SetDoubleTimeSpeed();
             EnableButtonDefaultTimeSpeed();
             DisableButtonDoubleTimeSpeed();
@@ -53,26 +84,16 @@ public class InformationPanel : MonoBehaviour
         });
     }
 
-    private void Update() {
-        //StartCoroutine(CounterUntilWave());
-        CounterUntilWave();
+    public void SetTimerText(float time) {
+        _timerWave.textComponent.text = time.ToString("0.0");
     }
 
-    private void CounterUntilWave() {
-        if (_timerWave.timerWaveText.enabled == true) {
-            if (_enemySpawner.EnemyList.Count <= 0) {
-                if (counter > 0) {
-                    counter -= Time.deltaTime;
-                    _timerWave.timerWaveText.text = counter.ToString("0.0");
-
-                }
-
-                else if (counter <= 0) {
-                    _enemySpawner.StartSpawn();
-                    _timerWave.timerObject.SetActive(false);
-                }
-            }
+    public bool IsActiveCounter() {
+        if (_timerWave.objectComponent.activeSelf == true) {
+            return true;
         }
+
+        return false;
     }
 
     private void DisableStartButton() {
@@ -83,20 +104,20 @@ public class InformationPanel : MonoBehaviour
         _backgroundMenu.gameObject.SetActive(false);
     }
 
-    public void EnableTimerObject() {
-        _timerWave.timerObject.SetActive(true);
+    public void EnableTimerWaveObject() {
+        _timerWave.objectComponent.SetActive(true);
     }
 
-    private void DisableTimerObject() {
-        _timerWave.timerObject.SetActive(false);
+    public void DisableTimerWaveObject() {
+        _timerWave.objectComponent.SetActive(false);
     }
 
-    private void DisableTimerText() {
-        _timerWave.timerWaveText.enabled = false;
+    private void DisableTimerWaveText() {
+        _timerWave.textComponent.enabled = false;
     }
 
-    private void EnableTimerText() {
-        _timerWave.timerWaveText.enabled = true;
+    public void EnableTimerWaveText() {
+        _timerWave.textComponent.enabled = true;
     }
 
     private void SetDeafaultTimeSpeed() {
@@ -105,10 +126,6 @@ public class InformationPanel : MonoBehaviour
 
     private void SetDoubleTimeSpeed() {
         Time.timeScale = 2f;
-    }
-
-    private void DisableButtonDefaultTimeSpeed() {
-        _buttonDefaultTimeSpeed.interactable = false;
     }
 
     private void EnableButtonDefaultTimeSpeed() {
@@ -137,15 +154,52 @@ public class InformationPanel : MonoBehaviour
 
     private IEnumerator AnimationForTimeSpeedText() {
         while (_timeSpeedText.gameObject.activeSelf == true) {
-            ScaleTimeSpeedText(1.2f, 1f);
+            ScaleGameObject(_timeSpeedText.gameObject, 1.2f, 1f);
             yield return new WaitForSeconds(1f);
-            ScaleTimeSpeedText(1f, 1f);
+            ScaleGameObject(_timeSpeedText.gameObject, 1f, 1f);
             yield return new WaitForSeconds(1f);
         }
     }
 
-    private void ScaleTimeSpeedText(float size, float time) {
+    public void StartAnimationForTimerWave() {
+        StartCoroutine(AnimationForTimerWave());
+    }
+
+    public void StopAnimationForTimerWave() {
+        StopCoroutine(AnimationForTimerWave());
+    }
+
+    private IEnumerator AnimationForTimerWave() {
+        float _time = 0.5f;
+        while (_timerWave.gameObject.activeSelf == true) {
+            ScaleGameObject(_timerWave.objectComponent, 1.2f, _time);
+            yield return new WaitForSeconds(_time);
+            ScaleGameObject(_timerWave.objectComponent, 1f, _time);
+            yield return new WaitForSeconds(_time);
+        }
+    }
+
+    public void SetRedColorForTextTimerWave() {
+        Color _redColor = Color.red;
+        _timerWave.textComponent.color = _redColor;
+    }
+
+    public void SetWhiteColorForTextTimerWave() {
+        Color _whiteColor = Color.white;
+        _timerWave.textComponent.color = _whiteColor;
+    }
+
+    public void PlayAnimationForTimerIcon() {
+        float amount = Mathf.Abs(_gameManager.GetTimerValue() - 5f) / 5f;
+        _timerWave.iconComponent.fillAmount = amount;
+    }
+
+    private void ScaleGameObject(GameObject gameObject, float size, float time) {
         Vector3 scaletext = new Vector3(size, size);
-        LeanTween.scale(_timeSpeedText.gameObject, scaletext, time);
+        LeanTween.scale(gameObject, scaletext, time);
+    }
+
+    public void SetHealthText(int value) {
+        _health.textComponent.text = "" + value;
     }
 }

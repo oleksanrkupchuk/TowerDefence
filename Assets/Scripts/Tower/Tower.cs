@@ -37,11 +37,13 @@ public class Tower : MonoBehaviour {
     private LineRenderer _lineRenderer;
 
     [Header("Components invisible")]
+    [SerializeField]
     private Enemy target = null;
     private TowerManager _towerManager;
+    private GameManager _gameManager;
     private Collider2D[] _towerAllColliders;
-    [HideInInspector]
-    public GameObject placeForTower = null;
+    [SerializeField]
+    private GameObject _placeForTower = null;
 
     private bool _isShooting = false;
 
@@ -55,13 +57,15 @@ public class Tower : MonoBehaviour {
     [SerializeField]
     private TowerUpgradeMenu _towerUpgradeMenu;
 
-    public void Initialization(TowerManager towerManager) {
+    public void Initialization(TowerManager towerManager, GameManager gameManager) {
         _towerManager = towerManager;
+        _gameManager = gameManager;
+        _towerUpgradeMenu.Initialization(_gameManager, this);
     }
 
     private void Start() {
         _lineRenderer.enabled = false;
-        SetRangeRadius(_rangeAttack);
+        SetRadiusInLineRanderer(_rangeAttack);
         _towerManager.towersList.Add(this);
         //SetPositionUpgradeIcon(2f);
 
@@ -69,10 +73,10 @@ public class Tower : MonoBehaviour {
 
         _buletScript.SetBasicDamage();
 
-        _towerUpgradeMenu.SubscribleButtonOnEvent(this);
+        //_towerUpgradeMenu.SubscribleButtonOnEvent();
     }
 
-    private void SetRangeRadius(float radius) {
+    private void SetRadiusInLineRanderer(float radius) {
         int _countStep = 360 / _stepDegree;
 
         _lineRenderer.positionCount = _countStep;
@@ -136,7 +140,6 @@ public class Tower : MonoBehaviour {
         }
     }
 
-
     private void Shoot(Enemy target) {
         GameObject _bulletObject = Instantiate(_buletPrefab, _bulletPosition.position, Quaternion.identity);
         Collider2D _bulletCollider = _bulletObject.GetComponent<CircleCollider2D>();
@@ -168,7 +171,7 @@ public class Tower : MonoBehaviour {
         //print("Range up");
         _rangeAttack += range;
         _rangeCollider.radius = _rangeAttack;
-        SetRangeRadius(_rangeAttack);
+        SetRadiusInLineRanderer(_rangeAttack);
     }
 
     public void EnableLineRenderer() {
@@ -179,31 +182,54 @@ public class Tower : MonoBehaviour {
         _lineRenderer.enabled = false;
     }
 
-    public void EnableTowerUpgradeIcon() {
-        _towerUpgradeMenu.EnableTowerUpgradeIcon(true);
+    public bool IsActiveCanvas() {
+        if (_canvas.activeSelf == true) {
+            return true;
+        }
+
+        return false;
     }
 
-    public void DisableTowerUpgradeIcon() {
-        _towerUpgradeMenu.EnableTowerUpgradeIcon(false);
+    public void EnableTowerUpgradeIcon() {
+        _towerUpgradeMenu.EnableTowerUpgradeIcon(true);
     }
 
     public void EnableCanvas() {
         _canvas.gameObject.SetActive(true);
     }
 
-    public void DisavbleCanvas() {
+    public void DisableCanvas() {
         _canvas.gameObject.SetActive(false);
     }
 
     public void RemoveTarget(Enemy enemy) {
         _enemyList.Remove(enemy);
+        //for (int i = 0; i < _enemyList.Count; i++) {
+        //    print($"enemy {i} name = " + _enemyList[i].name);
+        //}
     }
 
-    public bool IsFirstSetTaget() {
-        if (EnemyList.Count == 1) {
+    public bool IsTargetNull() {
+        if (target == null) {
             return true;
         }
 
         return false;
+    }
+
+    public void SetPlaceForTower(GameObject placeForTower) {
+        _placeForTower = placeForTower;
+    }
+
+    public void EnableColliderOnPlaceForTower() {
+        _placeForTower.GetComponent<Collider2D>().enabled = true;
+    }
+
+    public void DisableColliderOnPlaceForTower() {
+        _placeForTower.GetComponent<Collider2D>().enabled = false;
+    }
+
+    public void RemoveTowerFromList() {
+        _towerManager.towersList.Remove(this);
     }
 }

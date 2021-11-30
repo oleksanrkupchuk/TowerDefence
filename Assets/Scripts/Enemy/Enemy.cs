@@ -44,6 +44,7 @@ public class Enemy : MonoBehaviour {
     private Image _healthBar;
 
     private EnemySpawner _enemySpawner;
+    private GameManager _gameManager;
 
     [Header("Animator parametrs")]
     private string _isDying = "isDying";
@@ -56,8 +57,9 @@ public class Enemy : MonoBehaviour {
     private List<DataWayPoints> _dataWayPoints = new List<DataWayPoints>();
     private Tower _tower;
 
-    public void Initialization(EnemySpawner enemySpawner, List<DataWayPoints> dataWayPoints) {
+    public void Initialization(EnemySpawner enemySpawner, GameManager gameManager, List<DataWayPoints> dataWayPoints) {
         _enemySpawner = enemySpawner;
+        _gameManager = gameManager;
         _dataWayPoints = dataWayPoints;
     }
 
@@ -100,12 +102,13 @@ public class Enemy : MonoBehaviour {
     public void TakeDamage(int damage) {
         //print("--------------");
         //print("HIT = " + damage);
-        if (_health > 0) {
+
+        if (!isDead) {
             _health -= damage;
             ShiftHealthBar();
 
             if (isDead) {
-                Dying();
+                Death();
             }
         }
     }
@@ -114,18 +117,25 @@ public class Enemy : MonoBehaviour {
         _healthBar.fillAmount = (float)_health / _healthMax;
     }
 
-    private void Dying() {
+    private void Death() {
         diePosition = transform.position;
-        GameManager.Instance.AddCoin(_coinForDeath);
+        _gameManager.AddCoin(_coinForDeath);
         _enemySpawner.RemoveEnemy(gameObject.GetComponent<Enemy>());
-        _animator.SetTrigger(_isDying);
-        _healthBarBackground.SetActive(false);
+        PlayDeathAnimation();
+        DisableHealthBar();
         //gameObject.SetActive(false);
         _boxCollider.enabled = false;
-        //_spriteRenderer.sortingOrder = _sortingLayer;
-        _tower.RemoveTarget(gameObject.GetComponent<Enemy>());
+        _tower.RemoveTarget(this);
         _tower.SetTarget();
-        _enemySpawner.CheckTheNumberOfEnemiesToZero();
+        _gameManager.EnableTimerWaveAndSetValueForTimer();
+    }
+
+    private void PlayDeathAnimation() {
+        _animator.SetTrigger(_isDying);
+    }
+
+    private void DisableHealthBar() {
+        _healthBarBackground.SetActive(false);
     }
 
     public void SetWayPoints() {
@@ -143,7 +153,7 @@ public class Enemy : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag(Tags.finish)) {
-            Dying();
+            Death();
         }
     }
 

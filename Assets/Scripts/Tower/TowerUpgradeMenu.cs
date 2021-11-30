@@ -53,9 +53,21 @@ public class TowerUpgradeMenu : MonoBehaviour {
     [SerializeField]
     private Upgrade _rangeUpgradeScript;
 
+    private GameManager _gameManager;
+    private Tower _tower;
+
+    public void Initialization(GameManager gameManager, Tower tower) {
+        _gameManager = gameManager;
+        _tower = tower;
+    }
+
     private void Awake() {
         InitializationAbility();
         _textDeafaultPosition = _textGameObject.transform.position;
+    }
+
+    private void Start() {
+        SubscribleButtonOnEvent();
     }
 
     private void InitializationAbility() {
@@ -70,45 +82,44 @@ public class TowerUpgradeMenu : MonoBehaviour {
         _increaseRangeObject.SetActive(isActive);
     }
 
-    public void SubscribleButtonOnEvent(Tower tower) {
-        _buttonIncreaseDamage.onClick.AddListener(() => { IncreaseDamage(tower); });
-        _buttonIncreaseRange.onClick.AddListener(() => { IncreaseRange(tower); });
-        _buttonSell.onClick.AddListener(() => { SellTower(tower); });
+    public void SubscribleButtonOnEvent() {
+        _buttonIncreaseDamage.onClick.AddListener(() => { IncreaseDamage(); });
+        _buttonIncreaseRange.onClick.AddListener(() => { IncreaseRange(); });
+        _buttonSell.onClick.AddListener(() => { SellTower(); });
     }
 
-    private void IncreaseDamage(Tower tower) {
-        if (GameManager.Instance.Coin >= _damageUpgradeScript.Price) {
-            GameManager.Instance.SubstractCoin(_damageUpgradeScript.Price);
+    private void IncreaseDamage() {
+        if (_gameManager.Coin >= _damageUpgradeScript.Price) {
+            _gameManager.SubstractCoin(_damageUpgradeScript.Price);
             _damageUpgradeScript.IncreasePrice();
-            tower.IncreaseDamage();
+            _tower.IncreaseDamage();
             ability[_increaseDamage] += 1;
-            float amount = tower.Bullet.Damage;
+            float amount = _tower.Bullet.Damage;
             EnableTextAndStartAnimation(amount);
             CheckOnDeactivateButton(_damageUpgradeScript, _buttonIncreaseDamage, _increaseDamage);
         }
     }
 
-    private void IncreaseRange(Tower tower) {
-        if (GameManager.Instance.Coin >= _rangeUpgradeScript.Price) {
-            GameManager.Instance.SubstractCoin(_rangeUpgradeScript.Price);
+    private void IncreaseRange() {
+        if (_gameManager.Coin >= _rangeUpgradeScript.Price) {
+            _gameManager.SubstractCoin(_rangeUpgradeScript.Price);
             _rangeUpgradeScript.IncreasePrice();
-            tower.IncreaseRange(_additionRangeRadius);
+            _tower.IncreaseRange(_additionRangeRadius);
             ability[_increaseRange] += 1;
-            float amount = tower.RangeAttack;
+            float amount = _tower.RangeAttack;
             EnableTextAndStartAnimation(amount);
             CheckOnDeactivateButton(_rangeUpgradeScript, _buttonIncreaseRange, _increaseRange);
         }
     }
 
-    private void SellTower(Tower tower) {
-        int price = tower.Price / 2;
-        GameManager.Instance.AddCoin(price);
-        GameManager.Instance.UpdateAmountCoin();
-        tower.placeForTower.gameObject.tag = Tags.placeForTower;
-        tower.placeForTower.gameObject.GetComponent<Collider2D>().enabled = true;
+    private void SellTower() {
+        int price = _tower.Price / 2;
+        _gameManager.AddCoin(price);
+        _gameManager.UpdateAmountCoin();
+        _tower.EnableColliderOnPlaceForTower();
         EnableTextAndStartAnimation(price);
-        TowerManager.Instance.towersList.Remove(tower);
-        Destroy(tower.gameObject, _waitTime);
+        _tower.RemoveTowerFromList();
+        Destroy(_tower.gameObject, _waitTime);
     }
 
     private void EnableTextAndStartAnimation(float amount) {

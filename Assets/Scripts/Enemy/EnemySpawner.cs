@@ -31,8 +31,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private InformationPanel _informationPanel;
 
-    //[SerializeField]
-    //private MenuLevels _menuLevels;
     [SerializeField]
     private float _minTimeWaitForNextSpawnEnemy;
     [SerializeField]
@@ -74,7 +72,7 @@ public class EnemySpawner : MonoBehaviour
                 enemyPrefab.name = "enemy " + i;
                 GameObject _enemyObject = Instantiate(enemyPrefab, _pointSpawn.position, Quaternion.identity);
                 Enemy _enemyScript = _enemyObject.GetComponent<Enemy>();
-                _enemyScript.Initialization(this, _dataWayPoints);
+                _enemyScript.Initialization(this, _gameManager, _dataWayPoints);
                 _enemyScript.SetLayer(_startLayerEnemy);
                 _startLayerEnemy++;
 
@@ -94,14 +92,11 @@ public class EnemySpawner : MonoBehaviour
         _enemyList.Remove(enemy);
     }
 
-    public void CheckTheNumberOfEnemiesToZero() {
-        if (_enemyList.Count <= 0 && !IsLastWave) {
-            _informationPanel.EnableTimerObject();
-            _informationPanel.counter = 5f;
+    public bool IsTheLastEnemyInWave() {
+        if (EnemyList.Count <= 0 && !IsLastWave) {
+            return true;
         }
-    }
 
-    public void ResetEnemyQuantityInSpawn() {
-        _enemyAmountSpawn = 0;
+        return false;
     }
 }

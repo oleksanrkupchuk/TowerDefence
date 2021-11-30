@@ -32,7 +32,7 @@ public class PauseMenu : MenuBase
             DisableGameObject(ThisGameObject);
             DisableGameObject(_background);
             StartTime();
-            _gameManager.ChangePause();
+            _gameManager.GameUnpause();
         });
         _settings.onClick.AddListener(() => { 
             DisableAndEnableGameObject(ThisGameObject, _settingsObject); 

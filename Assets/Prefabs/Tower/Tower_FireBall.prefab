@@ -157,19 +157,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4438c3b960c4bfb4799b7fc6de90b9b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas: {fileID: 3784897731316563199}
-  _rangeCollider: {fileID: 2156769762587180802}
   _enemyList: []
   _rangeAttack: 3
   _timeShoot: 2
+  _timer: 0
   _bulletPosition: {fileID: 4986359563472622328}
   _stepDegree: 10
   _price: 12
+  _canvas: {fileID: 3784897731316563199}
+  _rangeCollider: {fileID: 2156769762587180802}
   _buletPrefab: {fileID: 945258179174288900, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
   _buletScript: {fileID: -9207831536469935992, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
   _lineRenderer: {fileID: 1787142671323376124}
   placeForTower: {fileID: 0}
-  target: {fileID: 0}
   _objectIncreaseDamage: {fileID: 6349102513605134487}
   _objectSell: {fileID: 424792890231232444}
   _objectIncreaseRange: {fileID: 6891929221735393813}
@@ -343,11 +343,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 102462991341488401, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 492444355796003731, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 801291064580931801, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _price
@@ -370,6 +370,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6569663831637537976, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7660518506066780155, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

@@ -7,9 +7,9 @@ public class LoseMenu : MenuBase
     [SerializeField]
     private Button _restart; 
     [SerializeField]
-    private Button _home;
-    [SerializeField]
     private Button _settings;
+    [SerializeField]
+    private Button _home;
 
     [Header("Level index")]
     [SerializeField]

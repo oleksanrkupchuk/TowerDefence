@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TowerManager : Loader<TowerManager> {
+public class TowerManager : MonoBehaviour {
     private Vector2 cursorMousePosition;
     private RaycastHit2D _raycastHit;
     [SerializeField]
@@ -14,6 +14,8 @@ public class TowerManager : Loader<TowerManager> {
     [Header("Components")]
     [SerializeField]
     private SpriteRenderer _towerIcon;
+    [SerializeField]
+    private GameManager _gameManager;
     private TowerButton _towerButtonPressed;
 
     [SerializeField]
@@ -27,7 +29,6 @@ public class TowerManager : Loader<TowerManager> {
 
     public List<Tower> towersList = new List<Tower>();
     private Tower _tower;
-    private TowerUpgradeMenu _towerMenu;
 
     void Update() {
         if (Input.GetButtonDown("Fire1")) {
@@ -59,7 +60,7 @@ public class TowerManager : Loader<TowerManager> {
             }
 
             if (raycast.collider.CompareTag(Tags.tower) && _towerIcon.enabled == false) {
-                ClickOnTower(raycast);
+                DisableOrEnableMenuUpgrageOntower(raycast);
                 DisableMenuAnotherTowers();
             }
 
@@ -76,16 +77,15 @@ public class TowerManager : Loader<TowerManager> {
     public void SetTowerOnPlace(Transform placeTower) {
         if (!putTower) {
             //null коли не вибираєш башню і тицяєш на місце для башні
-            int price = _towerButtonPressed.TowerObject.GetComponent<Tower>().Price;
-            GameManager.Instance.SubstractCoin(price);
             putTower = true;
+            int price = _towerButtonPressed.TowerObject.GetComponent<Tower>().Price;
+            _gameManager.SubstractCoin(price);
             _towerIcon.color = _colorDeafault;
             GameObject tower = Instantiate(_towerButtonPressed.TowerObject, placeTower.position, Quaternion.identity);
             Tower _tower = tower.GetComponent<Tower>();
-            _tower.Initialization(this);
-            tower.GetComponent<Tower>().placeForTower = placeTower.gameObject;
-            Collider2D placeforTowerCollider = placeTower.GetComponent<Collider2D>();
-            placeforTowerCollider.enabled = false;
+            _tower.Initialization(this, _gameManager);
+            _tower.SetPlaceForTower(placeTower.gameObject);
+            _tower.DisableColliderOnPlaceForTower();
             DisbleTowerIcon();
         }
 
@@ -94,29 +94,32 @@ public class TowerManager : Loader<TowerManager> {
         }
     }
 
-    private void ClickOnTower(RaycastHit2D raycast) {
+    private void DisableOrEnableMenuUpgrageOntower(RaycastHit2D raycast) {
         _tower = raycast.transform.GetComponent<Tower>();
 
-        _tower.EnableCanvas();
-        _tower.EnableLineRenderer();
-        _tower.EnableTowerUpgradeIcon();
+        if (_tower.IsActiveCanvas()) {
+            _tower.DisableCanvas();
+            _tower.DisableLineRenderer();
+        }
+        else if(!_tower.IsActiveCanvas()) {
+            _tower.EnableCanvas();
+            _tower.EnableLineRenderer();
+        }
     }
 
     private void DisableMenuAnotherTowers() {
         for (int i = 0; i < towersList.Count; i++) {
             if (towersList[i] != _tower && _tower != null) {
                 towersList[i].DisableLineRenderer();
-                towersList[i].DisableTowerUpgradeIcon();
-                towersList[i].DisavbleCanvas();
+                towersList[i].DisableCanvas();
             }
         }
     }
 
     private void DisableMenuTower() {
-        if(_tower != null) {
-            _tower.DisableTowerUpgradeIcon();
+        if (_tower != null) {
             _tower.DisableLineRenderer();
-            _tower.DisavbleCanvas();
+            _tower.DisableCanvas();
         }
     }
 
@@ -124,8 +127,8 @@ public class TowerManager : Loader<TowerManager> {
         _towerIcon.enabled = false;
     }
 
-    public void CheckMoney(TowerButton towerButton) {
-        if (GameManager.Instance.Coin >= towerButton.TowerObject.GetComponent<Tower>().Price) {
+    public void SubtractMoney(TowerButton towerButton) {
+        if (_gameManager.Coin >= towerButton.TowerObject.GetComponent<Tower>().Price) {
             SelectedTower(towerButton);
         }
         else {
