@@ -114,9 +114,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1df6975ce0a43947baabb59f09f56c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 9
+  _damage: 1
   _damageBasic: 1
-  _damage: 6
+  _pointObject: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
+  _bezierPoint: []
+  t: 0
+  _time: 0
+  _timeFlight: 1
+  _axisYP1: 6.5
+  _amountBezierPoints: 3
 --- !u!50 &-3604007577542038031
 Rigidbody2D:
   serializedVersion: 4
@@ -137,4 +143,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

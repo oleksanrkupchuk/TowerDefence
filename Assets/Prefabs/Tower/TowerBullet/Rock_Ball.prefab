@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 8
   m_Sprite: {fileID: 21300000, guid: 2b92a1d69bafc2540803a4e6915399df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -114,9 +114,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1df6975ce0a43947baabb59f09f56c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 6
   _damage: 4
   _damageBasic: 4
+  _pointObject: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
+  _bezierPoint: []
+  t: 0
+  _time: 0
+  _timeFlight: 1.5
+  _axisYP1: 6.5
+  _amountBezierPoints: 3
 --- !u!50 &-318121671846567569
 Rigidbody2D:
   serializedVersion: 4
@@ -137,4 +143,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

@@ -94,7 +94,7 @@ public class TowerUpgradeMenu : MonoBehaviour {
             _damageUpgradeScript.IncreasePrice();
             _tower.IncreaseDamage();
             ability[_increaseDamage] += 1;
-            float amount = _tower.Bullet.Damage;
+            float amount = _tower.BulletScript.Damage;
             EnableTextAndStartAnimation(amount);
             CheckOnDeactivateButton(_damageUpgradeScript, _buttonIncreaseDamage, _increaseDamage);
         }

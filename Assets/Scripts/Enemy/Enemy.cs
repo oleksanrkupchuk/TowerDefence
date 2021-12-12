@@ -57,6 +57,9 @@ public class Enemy : MonoBehaviour {
     private List<DataWayPoints> _dataWayPoints = new List<DataWayPoints>();
     private Tower _tower;
 
+    [SerializeField]
+    private bool _isCloseForWayPoint;
+
     public void Initialization(EnemySpawner enemySpawner, GameManager gameManager, List<DataWayPoints> dataWayPoints) {
         _enemySpawner = enemySpawner;
         _gameManager = gameManager;
@@ -82,6 +85,8 @@ public class Enemy : MonoBehaviour {
         if (!isDead) {
             SetNextPosition();
 
+            //ChangeMaxLayer();
+
             Move();
         }
     }
@@ -96,7 +101,56 @@ public class Enemy : MonoBehaviour {
             if (_index < _currentWayPoint.Count) {
                 _nextWayPoint = _currentWayPoint[_index];
             }
+            _isCloseForWayPoint = true;
+
+            CheckFlipSprite();
         }
+    }
+
+    private void CheckFlipSprite() {
+        if (transform.position.x - _nextWayPoint.position.x < 0) {
+            FlipSpriteLeft();
+        }
+
+        if (transform.position.x - _nextWayPoint.position.x > 0) {
+            FlipSpriteRight();
+        }
+    }
+
+    public void ChangeMaxLayer() {
+        float _distanceForWayPoint = Math.Abs(transform.position.y - _nextWayPoint.position.y);
+        //print("Distance = " + _distanceForWayPoint);
+        if (_distanceForWayPoint < 1f && _isCloseForWayPoint) {
+            _isCloseForWayPoint = false;
+            int index = _index + 1;
+            Transform nextWayPoint = _currentWayPoint[index];
+            if (transform.position.y - nextWayPoint.position.y < 0) {
+                ChangeLayerOnMin();
+            }
+
+            if (transform.position.y - nextWayPoint.position.y > 0) {
+                ChangeLayerOnMax();
+
+            }
+        }
+    }
+
+    private void ChangeLayerOnMax() {
+        SetLayer(_enemySpawner.maxLayerEnemy);
+        _enemySpawner.maxLayerEnemy--;
+    }
+
+    private void ChangeLayerOnMin() {
+        SetLayer(_enemySpawner.minLayerEnemy);
+        _enemySpawner.minLayerEnemy++;
+    }
+
+    private void FlipSpriteLeft() {
+        _spriteRenderer.flipX = false;
+    }
+
+    private void FlipSpriteRight() {
+        _spriteRenderer.flipX = true;
     }
 
     public void TakeDamage(int damage) {

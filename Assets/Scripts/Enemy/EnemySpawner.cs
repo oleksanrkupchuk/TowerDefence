@@ -22,6 +22,8 @@ public class EnemySpawner : MonoBehaviour
     public int Wave { get => _wave; }
     [SerializeField]
     private int _startLayerEnemy;
+    public int maxLayerEnemy;
+    public int minLayerEnemy;
 
     [SerializeField]
     private List<DataWayPoints> _dataWayPoints = new List<DataWayPoints>();
@@ -74,7 +76,8 @@ public class EnemySpawner : MonoBehaviour
                 Enemy _enemyScript = _enemyObject.GetComponent<Enemy>();
                 _enemyScript.Initialization(this, _gameManager, _dataWayPoints);
                 _enemyScript.SetLayer(_startLayerEnemy);
-                _startLayerEnemy++;
+                //_startLayerEnemy++;
+                _startLayerEnemy--;
 
                 _timeWaitForNextSpawnEnemy = Random.Range(_minTimeWaitForNextSpawnEnemy, _maxTimeWaitForNextSpawnEnemy);
                 yield return new WaitForSeconds(_timeWaitForNextSpawnEnemy);
@@ -98,5 +101,13 @@ public class EnemySpawner : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void ResetMaxLayer() {
+        maxLayerEnemy = 50;
+    }
+
+    public void ResetMinLayer() {
+        maxLayerEnemy = 1;
     }
 }

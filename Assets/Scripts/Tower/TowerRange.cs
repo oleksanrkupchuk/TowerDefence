@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public class TowerRange: MonoBehaviour
-{
+public class TowerRange : MonoBehaviour {
+
     [SerializeField]
     private Tower _tower;
 
@@ -21,9 +21,6 @@ public class TowerRange: MonoBehaviour
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        //if (collision.gameObject.CompareTag(Tags.bullet)) {
-        //    Destroy(collision.gameObject);
-        //}
 
         if (collision.gameObject.GetComponent<Enemy>()) {
             _tower.RemoveTarget(collision.gameObject.GetComponent<Enemy>());

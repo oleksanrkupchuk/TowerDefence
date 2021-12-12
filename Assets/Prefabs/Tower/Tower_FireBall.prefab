@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &898651479834070532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3995891542622023145}
+  m_Layer: 0
+  m_Name: P1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3995891542622023145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898651479834070532}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7727614519314563345}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7718323446145479107
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4986359563472622328}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: BulletPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +73,8 @@ GameObject:
   - component: {fileID: 7727614519314563347}
   - component: {fileID: -7790366246113687692}
   - component: {fileID: 1787142671323376124}
-  m_Layer: 11
+  - component: {fileID: 2733550445649907423}
+  m_Layer: 0
   m_Name: Tower_FireBall
   m_TagString: Tower
   m_Icon: {fileID: 0}
@@ -63,6 +94,7 @@ Transform:
   m_Children:
   - {fileID: 7306012091240535486}
   - {fileID: 4986359563472622328}
+  - {fileID: 3995891542622023145}
   - {fileID: 3157696370734050766}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -159,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyList: []
   _rangeAttack: 3
-  _timeShoot: 2
+  _timeShoot: 1.5
   _timer: 0
   _bulletPosition: {fileID: 4986359563472622328}
   _stepDegree: 10
@@ -169,11 +201,14 @@ MonoBehaviour:
   _buletPrefab: {fileID: 945258179174288900, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
   _buletScript: {fileID: -9207831536469935992, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
   _lineRenderer: {fileID: 1787142671323376124}
-  placeForTower: {fileID: 0}
+  target: {fileID: 0}
+  _placeForTower: {fileID: 0}
   _objectIncreaseDamage: {fileID: 6349102513605134487}
   _objectSell: {fileID: 424792890231232444}
   _objectIncreaseRange: {fileID: 6891929221735393813}
   _towerUpgradeMenu: {fileID: 3455737340584272717}
+  _towerRange: {fileID: 6851145447994161435}
+  _p1: {fileID: 3995891542622023145}
 --- !u!120 &1787142671323376124
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -194,7 +229,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f6582a24339a14149b6d5e1fc036e5ff, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -214,7 +249,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -273,6 +308,18 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 1
+--- !u!114 &2733550445649907423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7727614519314563346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74a42d26d84515046a381a0c82c11d2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9174106422590392399
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,7 +331,7 @@ GameObject:
   - component: {fileID: 7306012091240535486}
   - component: {fileID: 2156769762587180802}
   - component: {fileID: 6851145447994161435}
-  m_Layer: 11
+  m_Layer: 2
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8438457688127442634, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8438457688127442634, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_LocalPosition.x
