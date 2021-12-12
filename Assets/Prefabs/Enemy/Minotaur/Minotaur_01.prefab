@@ -57,7 +57,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &2718624288078617033
 MonoBehaviour:
@@ -500,6 +500,7 @@ MonoBehaviour:
   _healthBarRectTransform: {fileID: 2211591740322881854}
   _healthBar: {fileID: 8562100010639840429}
   _index: 0
+  _isCloseForWayPoint: 0
 --- !u!95 &389652436
 Animator:
   serializedVersion: 3

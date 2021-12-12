@@ -32,7 +32,7 @@ public class Tower : MonoBehaviour {
     private GameObject _buletPrefab;
     [SerializeField]
     private Bullet _buletScript;
-    public Bullet Bullet { get => _buletPrefab.GetComponent<Bullet>(); }
+    public Bullet BulletScript { get => _buletPrefab.GetComponent<Bullet>(); }
     [SerializeField]
     private LineRenderer _lineRenderer;
 
@@ -56,7 +56,10 @@ public class Tower : MonoBehaviour {
     private GameObject _objectIncreaseRange;
     [SerializeField]
     private TowerUpgradeMenu _towerUpgradeMenu;
+    [SerializeField]
+    private TowerRange _towerRange;
 
+    int countBullet = 0;
     public void Initialization(TowerManager towerManager, GameManager gameManager) {
         _towerManager = towerManager;
         _gameManager = gameManager;
@@ -65,6 +68,7 @@ public class Tower : MonoBehaviour {
 
     private void Start() {
         _lineRenderer.enabled = false;
+        DisableCanvas();
         SetRadiusInLineRanderer(_rangeAttack);
         _towerManager.towersList.Add(this);
         //SetPositionUpgradeIcon(2f);
@@ -141,10 +145,14 @@ public class Tower : MonoBehaviour {
     }
 
     private void Shoot(Enemy target) {
-        GameObject _bulletObject = Instantiate(_buletPrefab, _bulletPosition.position, Quaternion.identity);
+        GameObject _bulletObject = Instantiate(_buletPrefab, _bulletPosition.position, transform.rotation);
+        _bulletObject.name = "bullet " + countBullet;
+        countBullet++;
         Collider2D _bulletCollider = _bulletObject.GetComponent<CircleCollider2D>();
         IgnoreCollisionCollidersTowerAndBullet(_bulletCollider);
-        _bulletObject.GetComponent<Bullet>().SetTarget(target);
+        Bullet _bulletScr = _bulletObject.GetComponent<Bullet>();
+        _bulletScr.SetTower(this);
+        _bulletScr.SetTarget(target);
     }
 
     private void IgnoreCollisionCollidersTowerAndBullet(Collider2D bulletCollider) {
