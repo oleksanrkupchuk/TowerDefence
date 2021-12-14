@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6131173403634519352}
   - component: {fileID: -5672682739368805011}
   - component: {fileID: -318121671846567569}
+  - component: {fileID: 6367489810893618202}
   m_Layer: 0
   m_Name: Rock_Ball
   m_TagString: Bullet
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 8
+  m_SortingOrder: 90
   m_Sprite: {fileID: 21300000, guid: 2b92a1d69bafc2540803a4e6915399df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -117,6 +118,9 @@ MonoBehaviour:
   _damage: 4
   _damageBasic: 4
   _pointObject: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
+  _animationClip: {fileID: 7400000, guid: da38e9294d8507140aba78b9b138c1dc, type: 2}
+  _animator: {fileID: 6367489810893618202}
+  _animation: {fileID: 0}
   _bezierPoint: []
   t: 0
   _time: 0
@@ -144,3 +148,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &6367489810893618202
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6131173403634519357}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 8f3fadbe26ad69a4fbd697fc7af7d544, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
