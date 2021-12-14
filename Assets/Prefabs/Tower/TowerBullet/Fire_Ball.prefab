@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5098031056570507187}
   - component: {fileID: -9207831536469935992}
   - component: {fileID: -3337609198671751003}
+  - component: {fileID: 2174756978729729258}
   m_Layer: 0
   m_Name: Fire_Ball
   m_TagString: Bullet
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 945258179174288900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 8
+  m_SortingOrder: 90
   m_Sprite: {fileID: 21300000, guid: fbbb99a154767a54cb6223701bce4415, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -99,9 +100,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.9442073, y: -0.019074678}
+  m_Offset: {x: 0.25852334, y: -0.019074678}
   serializedVersion: 2
-  m_Radius: 0.80059385
+  m_Radius: 0.16333652
 --- !u!114 &-9207831536469935992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +118,9 @@ MonoBehaviour:
   _damage: 3
   _damageBasic: 3
   _pointObject: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
+  _animationClip: {fileID: 7400000, guid: 324278fab0bf55243890827f85382af4, type: 2}
+  _animator: {fileID: 2174756978729729258}
+  _animation: {fileID: 0}
   _bezierPoint: []
   t: 0
   _time: 0
@@ -144,3 +148,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &2174756978729729258
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945258179174288900}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: c3d62faaf9bc72746b3a8290dc89e9fb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
