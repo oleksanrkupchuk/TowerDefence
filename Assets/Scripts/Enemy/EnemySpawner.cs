@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private static EnemySpawner _enemySpawner = null;
-    public static EnemySpawner Instance { get => _enemySpawner; }
-
     [SerializeField]
     private Transform _pointSpawn;
 
@@ -30,8 +27,6 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField]
     private GameManager _gameManager;
-    [SerializeField]
-    private InformationPanel _informationPanel;
 
     [SerializeField]
     private float _minTimeWaitForNextSpawnEnemy;
@@ -50,15 +45,6 @@ public class EnemySpawner : MonoBehaviour
             }
 
             return false;
-        }
-    }
-
-    private void Awake() {
-        if(_enemySpawner == null) {
-            _enemySpawner = this;
-        }
-        else if(_enemySpawner != this) {
-            Destroy(gameObject);
         }
     }
 

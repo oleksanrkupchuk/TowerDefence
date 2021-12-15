@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour {
     private int _healthMax;
     public bool isDead { get => _health <= 0; }
     [SerializeField]
-    private int _coinForDeath;
+    private int _amountCoinForDeath;
     [SerializeField]
     private int _sortingLayer;
     public Vector3 diePosition;
@@ -88,6 +88,8 @@ public class Enemy : MonoBehaviour {
             //ChangeMaxLayer();
 
             Move();
+
+            CkeckLastWayPoint();
         }
     }
 
@@ -105,6 +107,23 @@ public class Enemy : MonoBehaviour {
 
             CheckFlipSprite();
         }
+    }
+
+    private void CkeckLastWayPoint() {
+        if (IsCloseForLasrWayPoint()) {
+            DeathFromLastWay();
+        }
+    }
+
+    private bool IsCloseForLasrWayPoint() {
+        int _lastPoint = _currentWayPoint.Count - 1;
+        if (_nextWayPoint == _currentWayPoint[_lastPoint]) {
+            if (Vector2.Distance(transform.position, _nextWayPoint.position) <= 0.2f) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void CheckFlipSprite() {
@@ -162,30 +181,45 @@ public class Enemy : MonoBehaviour {
             ShiftHealthBar();
 
             if (isDead) {
-                Death();
+                DeathFromBullet();
             }
         }
     }
 
-    private void ShiftHealthBar() {
-        _healthBar.fillAmount = (float)_health / _healthMax;
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag(Tags.finish)) {
+            DeathFromBullet();
+        }
     }
 
-    private void Death() {
+    private void DeathFromLastWay() {
+        _enemySpawner.RemoveEnemy(this);
+        _gameManager.CheckLastEnemyEnableTimerWaveAndSetValueForTimer();
+        DestroyEnemy();
+    }
+
+    private void DeathFromBullet() {
         diePosition = transform.position;
-        _gameManager.AddCoin(_coinForDeath);
-        _enemySpawner.RemoveEnemy(gameObject.GetComponent<Enemy>());
+        _gameManager.AddCoin(_amountCoinForDeath);
+        _enemySpawner.RemoveEnemy(this);
         PlayDeathAnimation();
         DisableHealthBar();
-        //gameObject.SetActive(false);
         _boxCollider.enabled = false;
         _tower.RemoveTarget(this);
         _tower.SetTarget();
-        _gameManager.EnableTimerWaveAndSetValueForTimer();
+        _gameManager.CheckLastEnemyEnableTimerWaveAndSetValueForTimer();
+    }
+
+    private void DestroyEnemy() {
+        Destroy(gameObject);
     }
 
     private void PlayDeathAnimation() {
         _animator.SetTrigger(_isDying);
+    }
+
+    private void ShiftHealthBar() {
+        _healthBar.fillAmount = (float)_health / _healthMax;
     }
 
     private void DisableHealthBar() {
@@ -202,12 +236,6 @@ public class Enemy : MonoBehaviour {
             print("random number = " + randomWayPoints);
             _currentWayPoint = _dataWayPoints[randomWayPoints].WayPoints;
             _nextWayPoint = _currentWayPoint[0];
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag(Tags.finish)) {
-            Death();
         }
     }
 

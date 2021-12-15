@@ -489,7 +489,7 @@ MonoBehaviour:
   _speed: 1
   _health: 5
   _healthMax: 5
-  _coinForDeath: 3
+  _amountCoinForDeath: 3
   _sortingLayer: -7
   diePosition: {x: 0, y: 0, z: 0}
   _boxCollider: {fileID: 6037710262501487607}
