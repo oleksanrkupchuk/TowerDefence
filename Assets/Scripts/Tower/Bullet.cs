@@ -61,12 +61,13 @@ public class Bullet : MonoBehaviour {
     private void Update() {
         if (_isBeizerPointNotNull) {
             SetP2();
-            SetP1(_bezierPoints[0].transform, _bezierPoints[2].transform);
+            SetP1();
 
             CalculationT();
 
             Move();
             Rotation();
+            CheckTAndDestroyBullet();
         }
 
     }
@@ -75,24 +76,13 @@ public class Bullet : MonoBehaviour {
         _bezierPoints[0].transform.position = transform.position;
     }
 
-    private void SetP1(Transform p0, Transform p2) {
-        if (_bezierPoints.Count > 0) {
-            if (p2 != null) {
-                float _axisX = (p0.transform.position.x - p2.transform.position.x) / 2;
-                _bezierPoints[1].transform.position = new Vector2(p0.transform.position.x - _axisX, _axiYTower + _axisYP1);
-            }
-            else {
-                print("p2 is null");
-            }
-        }
+    private void SetP1() {
+        float _axisX = (_bezierPoints[0].transform.position.x - _bezierPoints[2].transform.position.x) / 2;
+        _bezierPoints[1].transform.position = new Vector2(_bezierPoints[0].transform.position.x - _axisX, _axiYTower + _axisYP1);
     }
 
     private void SetP2() {
-        if (_bezierPoints.Count > 0) {
-            if (_bezierPoints[2] != null) {
-                _bezierPoints[2].transform.position = _target.gameObject.transform.position;
-            }
-        }
+        _bezierPoints[2].transform.position = _target.gameObject.transform.position;
     }
 
     private void CalculationT() {
@@ -101,7 +91,7 @@ public class Bullet : MonoBehaviour {
     }
 
     private void Move() {
-        if (_target != null && _bezierPoints.Count > 0) {
+        if (_target != null) {
             transform.position = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
                 _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, t);
         }
@@ -117,11 +107,17 @@ public class Bullet : MonoBehaviour {
         }
     }
 
+    private void CheckTAndDestroyBullet() {
+        if(t >= 1) {
+            PlayDestroyAnimationAndSubscribeToEventInTheEndAnimation();
+        }
+    }
+
     public void SetBasicDamage() {
         _damage = _damageBasic;
     }
 
-    public void StopCalculation() {
+    public void SetBezierPointsNull() {
         _isBeizerPointNotNull = false;
     }
 
