@@ -15,8 +15,8 @@ public class EnemySpawner : MonoBehaviour
     private int _enemyAmountSpawn;
     [SerializeField] 
     private int _quantityWave;
-    private int _wave = 0;
-    public int Wave { get => _wave; }
+    private int _currentWave = 0;
+    public int CurrentWave { get => _currentWave; }
     [SerializeField]
     private int _startLayerEnemy;
     public int maxLayerEnemy;
@@ -40,7 +40,17 @@ public class EnemySpawner : MonoBehaviour
 
     public bool IsLastWave {
         get {
-            if(_wave >= _quantityWave) {
+            if(_currentWave == _quantityWave) {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    public bool IsTheLastEnemyInWave {
+        get {
+            if(EnemyList.Count == 0) {
                 return true;
             }
 
@@ -53,9 +63,9 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private IEnumerator EnemySpawn() {
-        if(_wave < _quantityWave) {
-            _wave++;
-            _gameManager.UpdateWaveText(_wave);
+        if(_currentWave < _quantityWave) {
+            _currentWave++;
+            _gameManager.UpdateWaveText(_currentWave);
             for (int i = 0; i < _enemyAmountInWave; i++) {
                 enemyPrefab.name = "enemy " + i;
                 GameObject _enemyObject = Instantiate(enemyPrefab, _pointSpawn.position, Quaternion.identity);
@@ -81,13 +91,13 @@ public class EnemySpawner : MonoBehaviour
         _enemyList.Remove(enemy);
     }
 
-    public bool IsTheLastEnemyInWave() {
-        if (EnemyList.Count <= 0 && !IsLastWave) {
-            return true;
-        }
+    //public bool IsTheLastEnemyInWave() {
+    //    if (EnemyList.Count <= 0) {
+    //        return true;
+    //    }
 
-        return false;
-    }
+    //    return false;
+    //}
 
     public void ResetMaxLayer() {
         maxLayerEnemy = 50;

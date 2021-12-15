@@ -194,7 +194,8 @@ public class Enemy : MonoBehaviour {
 
     private void DeathFromLastWay() {
         _enemySpawner.RemoveEnemy(this);
-        _gameManager.CheckLastEnemyEnableTimerWaveAndSetValueForTimer();
+        _gameManager.TakeAwayOneHealth();
+        _gameManager.LastEnemyEnableTimerWaveAndSetValueForTimer();
         DestroyEnemy();
     }
 
@@ -207,7 +208,7 @@ public class Enemy : MonoBehaviour {
         _boxCollider.enabled = false;
         _tower.RemoveTarget(this);
         _tower.SetTarget();
-        _gameManager.CheckLastEnemyEnableTimerWaveAndSetValueForTimer();
+        _gameManager.LastEnemyEnableTimerWaveAndSetValueForTimer();
     }
 
     private void DestroyEnemy() {

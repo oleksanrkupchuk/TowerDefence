@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LoseMenu : MenuBase
 {
@@ -11,10 +12,6 @@ public class LoseMenu : MenuBase
     [SerializeField]
     private Button _home;
 
-    [Header("Level index")]
-    [SerializeField]
-    private int _indexMainMenu;
-    [SerializeField]
     private int _indexCurrentLevel;
 
     [Header("Objects")]
@@ -23,6 +20,7 @@ public class LoseMenu : MenuBase
 
     private void Start()
     {
+        _indexCurrentLevel = SceneManager.GetActiveScene().buildIndex;
         SubscriptionButtons();
     }
 
@@ -32,6 +30,6 @@ public class LoseMenu : MenuBase
             DisableAndEnableGameObject(ThisGameObject, _settingsObject); 
             SetEnableObject(ThisGameObject, _settingsObject);
         });
-        _home.onClick.AddListener(() => { LoadGameLevel(_indexMainMenu); });
+        _home.onClick.AddListener(() => { LoadGameLevel(IndexMainMenu); });
     }
 }

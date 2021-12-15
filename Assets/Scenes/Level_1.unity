@@ -3600,6 +3600,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 864810263}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
+      propertyPath: _dataWayPoints.Array.data[0]._wayPoints.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _dataWayPoints.Array.data[0]._wayPoints.Array.data[0]
       value: 
       objectReference: {fileID: 881664161}
@@ -3688,6 +3692,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1505038477}
     m_Modifications:
+    - target: {fileID: 3812440808809434152, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5284401508537222222, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3774,7 +3782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5284401508537222223, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: m_Name
-      value: Menu
+      value: GameMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5284401509718685875, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: _gameManager
@@ -3782,6 +3790,17 @@ PrefabInstance:
       objectReference: {fileID: 1537084595}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+--- !u!114 &5284401509730278648 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5248705556706215342, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+  m_PrefabInstance: {fileID: 5284401509730278647}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0c530750d7a2f4a80f65d379389d7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6014815160537088949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4044,6 +4063,10 @@ PrefabInstance:
       propertyPath: coinText
       value: 
       objectReference: {fileID: 647408283}
+    - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
+      propertyPath: _gameMenu
+      value: 
+      objectReference: {fileID: 5284401509730278648}
     - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
       propertyPath: _loseMenu
       value: 

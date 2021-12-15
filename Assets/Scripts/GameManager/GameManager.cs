@@ -14,9 +14,7 @@ public class GameManager : MonoBehaviour {
 
     [Header("Menu")]
     [SerializeField]
-    private GameObject _pauseMenu;
-    [SerializeField]
-    private GameObject _loseMenu;
+    private GameMenu _gameMenu;
 
     [SerializeField]
     private bool _isPause;
@@ -25,6 +23,16 @@ public class GameManager : MonoBehaviour {
     private float _time;
     [SerializeField]
     private int _health;
+
+    private bool IsNotZeroHealth {
+        get {
+            if (_health > 0) {
+                return true;
+            }
+
+            return false;
+        }
+    }
 
     public int Coin { get => _coin; }
 
@@ -72,7 +80,7 @@ public class GameManager : MonoBehaviour {
             _isPause = !_isPause;
             StopTime();
             _menuBackground.SetActive(_isPause);
-            _pauseMenu.SetActive(_isPause);
+            _gameMenu.DisablePauseMenu();
         }
     }
 
@@ -111,22 +119,35 @@ public class GameManager : MonoBehaviour {
     }
 
     public void CheckLastEnemyEnableTimerWaveAndSetValueForTimer() {
-        if (_enemySpawner.IsTheLastEnemyInWave()) {
+        if (_enemySpawner.IsTheLastEnemyInWave && !_enemySpawner.IsLastWave) {
             _informationPanel.EnableTimerWaveObject();
             _informationPanel.StartAnimationForTimerWave();
             SetValueForTimer(_time);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        Enemy _enemy = collision.GetComponent<Enemy>();
-        if (_enemy != null) {
-            TakeAwayOneHealth();
-            HealthCheckForZero();
+    public void LastEnemyEnableTimerWaveAndSetValueForTimer() {
+        if (IsNotZeroHealth) {
+            if (_enemySpawner.IsTheLastEnemyInWave && _enemySpawner.IsLastWave) {
+                _menuBackground.SetActive(true);
+                _gameMenu.EnableWinMenu();
+                StopTime();
+            }
+
+            else if(_enemySpawner.IsTheLastEnemyInWave && !_enemySpawner.IsLastWave) {
+                _informationPanel.EnableTimerWaveObject();
+                _informationPanel.StartAnimationForTimerWave();
+                SetValueForTimer(_time);
+            }
+        }
+
+        else {
+            ShowLoseMenu();
+            StopTime();
         }
     }
 
-    private void TakeAwayOneHealth() {
+    public void TakeAwayOneHealth() {
         _health--;
         UpdateHealthText();
     }
@@ -135,17 +156,10 @@ public class GameManager : MonoBehaviour {
         _informationPanel.SetHealthText(_health);
     }
 
-    private void HealthCheckForZero() {
-        if (_health <= 0) {
-            ShowLoseMenu();
-            StopTime();
-        }
-    }
-
     private void ShowLoseMenu() {
         GameUnpause();
         _menuBackground.SetActive(true);
-        _loseMenu.SetActive(true);
+        _gameMenu.EnableLoseMenu();
     }
 
     public void GamePause() {
