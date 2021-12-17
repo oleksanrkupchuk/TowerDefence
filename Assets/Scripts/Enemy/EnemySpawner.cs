@@ -38,6 +38,16 @@ public class EnemySpawner : MonoBehaviour
     private List<Enemy> _enemyList = new List<Enemy>();
     public List<Enemy> EnemyList { get => _enemyList; }
 
+    public bool IsTheLastEnemyInTheLastWave {
+        get {
+            if (EnemyList.Count == 0 && _currentWave == _quantityWave) {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
     public bool IsLastWave {
         get {
             if(_currentWave == _quantityWave) {
@@ -90,14 +100,6 @@ public class EnemySpawner : MonoBehaviour
     public void RemoveEnemy(Enemy enemy) {
         _enemyList.Remove(enemy);
     }
-
-    //public bool IsTheLastEnemyInWave() {
-    //    if (EnemyList.Count <= 0) {
-    //        return true;
-    //    }
-
-    //    return false;
-    //}
 
     public void ResetMaxLayer() {
         maxLayerEnemy = 50;

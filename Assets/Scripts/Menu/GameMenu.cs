@@ -21,20 +21,24 @@ public class GameMenu : MonoBehaviour
         DisableWinMenu();
     }
 
-    private void DisableBackgroundGameMenu() {
+    public void SetActiveBackgroundGameMenu(bool isActive) {
+        _backgroundGameMenu.SetActive(isActive);
+    }
+
+    public void DisableBackgroundGameMenu() {
         _backgroundGameMenu.SetActive(false);
     }
 
-    private void EnableBackgroundGameMenu() {
+    public void EnableBackgroundGameMenu() {
         _backgroundGameMenu.SetActive(true);
+    }
+
+    public void SetActiveDisablePauseMenu(bool isActive) {
+        _pauseMenu.SetActive(isActive);
     }
 
     public void DisablePauseMenu() {
         _pauseMenu.SetActive(false);
-    }
-
-    public void EnablePauseMenu() {
-        _pauseMenu.SetActive(true);
     }
 
     public void DisableLoseMenu() {
@@ -47,10 +51,6 @@ public class GameMenu : MonoBehaviour
 
     public void DisableSettingsMenu() {
         _settingsMenu.SetActive(false);
-    }
-
-    public void EnableSettingsMenu() {
-        _settingsMenu.SetActive(true);
     }
 
     public void DisableWinMenu() {

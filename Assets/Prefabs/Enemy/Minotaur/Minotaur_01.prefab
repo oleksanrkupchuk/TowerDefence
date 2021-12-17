@@ -461,7 +461,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.14114267, y: 1.6600828}
+  m_Offset: {x: 0.0547207, y: 0.26582444}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.1}
@@ -472,7 +472,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3251878, y: 1.5482059}
+  m_Size: {x: 1.1523439, y: 0.557245}
   m_EdgeRadius: 0
 --- !u!114 &2025396201
 MonoBehaviour:
@@ -487,8 +487,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
-  _health: 5
-  _healthMax: 5
+  _health: 50
+  _healthMax: 50
   _amountCoinForDeath: 3
   _sortingLayer: -7
   diePosition: {x: 0, y: 0, z: 0}
@@ -499,7 +499,6 @@ MonoBehaviour:
   _healthBarBackground: {fileID: 2078650063143582203}
   _healthBarRectTransform: {fileID: 2211591740322881854}
   _healthBar: {fileID: 8562100010639840429}
-  _index: 0
   _isCloseForWayPoint: 0
 --- !u!95 &389652436
 Animator:

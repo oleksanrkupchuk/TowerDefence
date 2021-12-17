@@ -141,6 +141,7 @@ public class InformationPanel : MonoBehaviour {
 
     private void SetDoubleTimeSpeed() {
         Time.timeScale = 2f;
+        //Time.timeScale = 0.2f;
     }
 
     private void EnableButtonDefaultTimeSpeed() {
@@ -178,10 +179,6 @@ public class InformationPanel : MonoBehaviour {
 
     public void StartAnimationForTimerWave() {
         StartCoroutine(AnimationForTimerWave());
-    }
-
-    public void StopAnimationForTimerWave() {
-        StopCoroutine(AnimationForTimerWave());
     }
 
     private IEnumerator AnimationForTimerWave() {

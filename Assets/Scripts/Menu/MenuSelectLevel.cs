@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class MenuLevelSelect : MenuBase
+public class MenuSelectLevel : MenuBase
 {
     [Header("Buttons Pause Menu")]
     [SerializeField]

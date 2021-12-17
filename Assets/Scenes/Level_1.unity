@@ -3596,6 +3596,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1537084595}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
+      propertyPath: _quantityWave
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _informationPanel
       value: 
       objectReference: {fileID: 864810263}

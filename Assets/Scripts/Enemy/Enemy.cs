@@ -6,6 +6,11 @@ using System.Collections;
 using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour {
+    private EnemySpawner _enemySpawner;
+    private GameManager _gameManager;
+    private Transform _nextWayPoint;
+    private int _indexPosition;
+
     [Header("Parametrs")]
     [SerializeField]
     private int _speed;
@@ -19,8 +24,6 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     private int _sortingLayer;
     public Vector3 diePosition;
-
-    public float CenterBoxColliderOnY { get => (_boxCollider.bounds.size.y / 2); }
 
     [Header("Components")]
     [SerializeField]
@@ -36,22 +39,14 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     private GameObject _healthBarBackground;
 
-
     [Header("UI")]
     [SerializeField]
     private RectTransform _healthBarRectTransform;
     [SerializeField]
     private Image _healthBar;
 
-    private EnemySpawner _enemySpawner;
-    private GameManager _gameManager;
-
     [Header("Animator parametrs")]
     private string _isDying = "isDying";
-
-    private Transform _nextWayPoint;
-    [SerializeField]
-    private int _index;
 
     private List<Transform> _currentWayPoint = new List<Transform>();
     private List<DataWayPoints> _dataWayPoints = new List<DataWayPoints>();
@@ -59,6 +54,10 @@ public class Enemy : MonoBehaviour {
 
     [SerializeField]
     private bool _isCloseForWayPoint;
+
+    public float CenterBoxColliderOnY { get => (_boxCollider.bounds.size.y / 2); }
+    public event Action Dead;
+    public event Action OutRangeTower;
 
     public void Initialization(EnemySpawner enemySpawner, GameManager gameManager, List<DataWayPoints> dataWayPoints) {
         _enemySpawner = enemySpawner;
@@ -99,9 +98,9 @@ public class Enemy : MonoBehaviour {
 
     private void SetNextPosition() {
         if (Vector2.Distance(transform.position, _nextWayPoint.position) <= 0.2f) {
-            _index++;
-            if (_index < _currentWayPoint.Count) {
-                _nextWayPoint = _currentWayPoint[_index];
+            _indexPosition++;
+            if (_indexPosition < _currentWayPoint.Count) {
+                _nextWayPoint = _currentWayPoint[_indexPosition];
             }
             _isCloseForWayPoint = true;
 
@@ -141,7 +140,7 @@ public class Enemy : MonoBehaviour {
         //print("Distance = " + _distanceForWayPoint);
         if (_distanceForWayPoint < 1f && _isCloseForWayPoint) {
             _isCloseForWayPoint = false;
-            int index = _index + 1;
+            int index = _indexPosition + 1;
             Transform nextWayPoint = _currentWayPoint[index];
             if (transform.position.y - nextWayPoint.position.y < 0) {
                 ChangeLayerOnMin();
@@ -195,12 +194,12 @@ public class Enemy : MonoBehaviour {
     private void DeathFromLastWay() {
         _enemySpawner.RemoveEnemy(this);
         _gameManager.TakeAwayOneHealth();
-        _gameManager.LastEnemyEnableTimerWaveAndSetValueForTimer();
+        _gameManager.CheckHealthAndShowLoseMenuIfHealthZero();
         DestroyEnemy();
     }
 
     private void DeathFromBullet() {
-        diePosition = transform.position;
+        GetDiePosition();
         _gameManager.AddCoin(_amountCoinForDeath);
         _enemySpawner.RemoveEnemy(this);
         PlayDeathAnimation();
@@ -208,7 +207,20 @@ public class Enemy : MonoBehaviour {
         _boxCollider.enabled = false;
         _tower.RemoveTarget(this);
         _tower.SetTarget();
-        _gameManager.LastEnemyEnableTimerWaveAndSetValueForTimer();
+        _gameManager.CheckLastEnemyAndEnableWinMenu();
+        DestroyEnemy();
+    }
+
+    public void GetDiePosition() {
+        diePosition = transform.position;
+        print("die position = " + diePosition);
+        Dead?.Invoke();
+    }
+
+    public void GetLastPosition() {
+        diePosition = transform.position;
+        print("last position = " + diePosition);
+        OutRangeTower?.Invoke();
     }
 
     private void DestroyEnemy() {
