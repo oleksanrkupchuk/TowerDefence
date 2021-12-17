@@ -117,11 +117,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 1
   _damageBasic: 1
-  _pointObject: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
+  _bezierPoint: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
   _animationClip: {fileID: 7400000, guid: 1b060d98101a565468749f9a9c4fff30, type: 2}
   _animator: {fileID: 7793658618141576227}
-  _animation: {fileID: 0}
-  _bezierPoint: []
+  _bezierPoints: []
   t: 0
   _time: 0
   _timeFlight: 1

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private static EnemySpawner _enemySpawner = null;
-    public static EnemySpawner Instance { get => _enemySpawner; }
-
     [SerializeField]
     private Transform _pointSpawn;
 
@@ -18,8 +15,8 @@ public class EnemySpawner : MonoBehaviour
     private int _enemyAmountSpawn;
     [SerializeField] 
     private int _quantityWave;
-    private int _wave = 0;
-    public int Wave { get => _wave; }
+    private int _currentWave = 0;
+    public int CurrentWave { get => _currentWave; }
     [SerializeField]
     private int _startLayerEnemy;
     public int maxLayerEnemy;
@@ -30,8 +27,6 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField]
     private GameManager _gameManager;
-    [SerializeField]
-    private InformationPanel _informationPanel;
 
     [SerializeField]
     private float _minTimeWaitForNextSpawnEnemy;
@@ -43,9 +38,9 @@ public class EnemySpawner : MonoBehaviour
     private List<Enemy> _enemyList = new List<Enemy>();
     public List<Enemy> EnemyList { get => _enemyList; }
 
-    public bool IsLastWave {
+    public bool IsTheLastEnemyInTheLastWave {
         get {
-            if(_wave >= _quantityWave) {
+            if (EnemyList.Count == 0 && _currentWave == _quantityWave) {
                 return true;
             }
 
@@ -53,12 +48,23 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void Awake() {
-        if(_enemySpawner == null) {
-            _enemySpawner = this;
+    public bool IsLastWave {
+        get {
+            if(_currentWave == _quantityWave) {
+                return true;
+            }
+
+            return false;
         }
-        else if(_enemySpawner != this) {
-            Destroy(gameObject);
+    }
+
+    public bool IsTheLastEnemyInWave {
+        get {
+            if(EnemyList.Count == 0) {
+                return true;
+            }
+
+            return false;
         }
     }
 
@@ -67,9 +73,9 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private IEnumerator EnemySpawn() {
-        if(_wave < _quantityWave) {
-            _wave++;
-            _gameManager.UpdateWaveText(_wave);
+        if(_currentWave < _quantityWave) {
+            _currentWave++;
+            _gameManager.UpdateWaveText(_currentWave);
             for (int i = 0; i < _enemyAmountInWave; i++) {
                 enemyPrefab.name = "enemy " + i;
                 GameObject _enemyObject = Instantiate(enemyPrefab, _pointSpawn.position, Quaternion.identity);
@@ -93,14 +99,6 @@ public class EnemySpawner : MonoBehaviour
 
     public void RemoveEnemy(Enemy enemy) {
         _enemyList.Remove(enemy);
-    }
-
-    public bool IsTheLastEnemyInWave() {
-        if (EnemyList.Count <= 0 && !IsLastWave) {
-            return true;
-        }
-
-        return false;
     }
 
     public void ResetMaxLayer() {

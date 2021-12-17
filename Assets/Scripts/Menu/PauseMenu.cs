@@ -11,10 +11,6 @@ public class PauseMenu : MenuBase
     [SerializeField]
     private Button _settings;
 
-    [Header("Level index")]
-    [SerializeField]
-    private int _indexMainMenu;
-
     [Header("Objects")]
     [SerializeField]
     private GameObject _settingsObject;
@@ -38,6 +34,6 @@ public class PauseMenu : MenuBase
             DisableAndEnableGameObject(ThisGameObject, _settingsObject); 
             SetEnableObject(ThisGameObject, _settingsObject); 
         });
-        _home.onClick.AddListener(() => { LoadGameLevel(_indexMainMenu); });
+        _home.onClick.AddListener(() => { LoadGameLevel(IndexMainMenu); });
     }
 }

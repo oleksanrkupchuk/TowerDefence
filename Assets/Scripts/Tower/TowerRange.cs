@@ -6,10 +6,10 @@ public class TowerRange : MonoBehaviour {
     private Tower _tower;
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.GetComponent<Enemy>()) {
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            _tower.EnemyList.Add(enemy);
-            enemy.InitializationTower(_tower);
+        Enemy _enemy = collision.gameObject.GetComponent<Enemy>();
+        if (_enemy != null) {
+            _tower.EnemyList.Add(_enemy);
+            _enemy.InitializationTower(_tower);
 
             if (_tower.IsTargetNull()) {
                 _tower.SetTarget();
@@ -21,10 +21,13 @@ public class TowerRange : MonoBehaviour {
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
+        Enemy _enemy = collision.gameObject.GetComponent<Enemy>();
 
-        if (collision.gameObject.GetComponent<Enemy>()) {
+        if (_enemy != null) {
             _tower.RemoveTarget(collision.gameObject.GetComponent<Enemy>());
             _tower.SetTarget();
+            _enemy.GetLastPosition();
+            print("enemy go went");
         }
     }
 }

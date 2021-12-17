@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour {
     private float _axiYTower;
     private Vector3 _nexPosition;
     private bool _isBeizerPointNotNull = true;
+    private Vector2 _lastTargetPosition;
 
     [SerializeField]
     private int _damage;
@@ -15,7 +16,7 @@ public class Bullet : MonoBehaviour {
     [SerializeField]
     private int _damageBasic;
     [SerializeField]
-    private GameObject _pointObject;
+    private GameObject _bezierPoint;
     [SerializeField]
     private AnimationClip _animationClip;
     [SerializeField]
@@ -48,9 +49,27 @@ public class Bullet : MonoBehaviour {
         SetP0();
     }
 
+    private void Start() {
+        _target.Dead += SetLastPositionTarget;
+        _target.OutRangeTower += SetLastPositionTarget;
+        _target.OutRangeTower += SetTargetNull;
+    }
+
+    private void SetLastPositionTarget() {
+        //print("set position");
+        _lastTargetPosition = _target.diePosition;
+        _target.Dead -= SetLastPositionTarget;
+        _target.OutRangeTower -= SetLastPositionTarget;
+    }
+
+    private void SetTargetNull() {
+        _target.OutRangeTower -= SetTargetNull;
+        _target = null;
+    }
+
     private void InstantiatePointsForBeizerTrajectory() {
         for (int i = 0; i < _amountBezierPoints; i++) {
-            GameObject _point = Instantiate(_pointObject);
+            GameObject _point = Instantiate(_bezierPoint);
             BezierPoint bezierPoint = _point.GetComponent<BezierPoint>();
             bezierPoint.SetBullet(this);
             _point.name = "point " + i;
@@ -61,12 +80,13 @@ public class Bullet : MonoBehaviour {
     private void Update() {
         if (_isBeizerPointNotNull) {
             SetP2();
-            SetP1(_bezierPoints[0].transform, _bezierPoints[2].transform);
+            SetP1();
 
             CalculationT();
 
             Move();
             Rotation();
+            CheckTAndDestroyBullet();
         }
 
     }
@@ -75,23 +95,17 @@ public class Bullet : MonoBehaviour {
         _bezierPoints[0].transform.position = transform.position;
     }
 
-    private void SetP1(Transform p0, Transform p2) {
-        if (_bezierPoints.Count > 0) {
-            if (p2 != null) {
-                float _axisX = (p0.transform.position.x - p2.transform.position.x) / 2;
-                _bezierPoints[1].transform.position = new Vector2(p0.transform.position.x - _axisX, _axiYTower + _axisYP1);
-            }
-            else {
-                print("p2 is null");
-            }
-        }
+    private void SetP1() {
+        float _axisX = (_bezierPoints[0].transform.position.x - _bezierPoints[2].transform.position.x) / 2;
+        _bezierPoints[1].transform.position = new Vector2(_bezierPoints[0].transform.position.x - _axisX, _axiYTower + _axisYP1);
     }
 
     private void SetP2() {
-        if (_bezierPoints.Count > 0) {
-            if (_bezierPoints[2] != null) {
-                _bezierPoints[2].transform.position = _target.gameObject.transform.position;
-            }
+        if (_target != null) {
+            _bezierPoints[2].transform.position = _target.gameObject.transform.position;
+        }
+        else if (_target == null) {
+            _bezierPoints[2].transform.position = _lastTargetPosition;
         }
     }
 
@@ -101,19 +115,21 @@ public class Bullet : MonoBehaviour {
     }
 
     private void Move() {
-        if (_target != null && _bezierPoints.Count > 0) {
-            transform.position = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
+        transform.position = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
                 _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, t);
-        }
     }
 
     private void Rotation() {
-        if (_target != null) {
-            _nexPosition = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
-                        _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, t + 0.1f);
-            Vector2 moveDirection = _nexPosition - transform.position;
-            float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        _nexPosition = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
+                       _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, t + 0.1f);
+        Vector2 moveDirection = _nexPosition - transform.position;
+        float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+    }
+
+    private void CheckTAndDestroyBullet() {
+        if (t >= 1) {
+            SubscribeToEventInTheEndAnimationAndPlayDestroyAnimation();
         }
     }
 
@@ -121,18 +137,19 @@ public class Bullet : MonoBehaviour {
         _damage = _damageBasic;
     }
 
-    public void StopCalculation() {
+    public void SetBezierPointsNull() {
         _isBeizerPointNotNull = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag(Tags.enemy)) {
-            _target.TakeDamage(Damage);
-            PlayDestroyAnimationAndSubscribeToEventInTheEndAnimation();
+            if (_target != null) {
+                _target.TakeDamage(Damage);
+            }
         }
     }
 
-    private void PlayDestroyAnimationAndSubscribeToEventInTheEndAnimation() {
+    private void SubscribeToEventInTheEndAnimationAndPlayDestroyAnimation() {
         float _playingAnimationTime = _animationClip.length;
         _bulletEvent.time = _playingAnimationTime;
         _bulletEvent.functionName = nameof(DestroyBulletAndBeizerPoints);
@@ -144,6 +161,7 @@ public class Bullet : MonoBehaviour {
 
     private void DestroyBulletAndBeizerPoints() {
         _bezierPoints.Clear();
+        //print("points destroy = " + gameObject.name);
         DestroyBeizerPoint?.Invoke();
         Destroy(gameObject);
     }

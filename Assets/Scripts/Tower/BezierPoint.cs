@@ -15,7 +15,7 @@ public class BezierPoint : MonoBehaviour
     }
 
     public void DestroyPoint() {
-        _bullet.StopCalculation();
+        _bullet.SetBezierPointsNull();
         Destroy(gameObject);
     }
 }

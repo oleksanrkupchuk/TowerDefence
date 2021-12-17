@@ -1,17 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using TMPro;
 using System;
 
 public class GameManager : MonoBehaviour {
     [SerializeField] private int _coin;
-    [SerializeField] private TextMeshProUGUI coinText;
 
-    [SerializeField]
-    private GameObject _menuBackground;
-    [SerializeField]
-    private TextMeshProUGUI _waveText;
     [SerializeField]
     private EnemySpawner _enemySpawner;
     [SerializeField]
@@ -19,9 +12,7 @@ public class GameManager : MonoBehaviour {
 
     [Header("Menu")]
     [SerializeField]
-    private GameObject _pauseMenu;
-    [SerializeField]
-    private GameObject _loseMenu;
+    private GameMenu _gameMenu;
 
     [SerializeField]
     private bool _isPause;
@@ -31,14 +22,24 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private int _health;
 
+    private bool IsNotZeroHealth {
+        get {
+            if (_health > 0) {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
     public int Coin { get => _coin; }
 
     [SerializeField]
     private KeyCode _pauseButton;
 
     private void Start() {
-        coinText.text = _coin.ToString();
-        _waveText.text = "WAVE: " + 0;
+        _informationPanel.SetValueOnCointText(_coin.ToString());
+        _informationPanel.SetValueOnCountWaweText("WAVE: " + 0);
         SetValueForTimer(_time);
         _informationPanel.SetHealthText(_health);
     }
@@ -76,8 +77,8 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown(_pauseButton) && !_isPause) {
             _isPause = !_isPause;
             StopTime();
-            _menuBackground.SetActive(_isPause);
-            _pauseMenu.SetActive(_isPause);
+            _gameMenu.SetActiveBackgroundGameMenu(_isPause);
+            _gameMenu.SetActiveDisablePauseMenu(_isPause);
         }
     }
 
@@ -100,11 +101,11 @@ public class GameManager : MonoBehaviour {
     }
 
     public void UpdateAmountCoin() {
-        coinText.text = _coin.ToString();
+        _informationPanel.SetValueOnCointText(_coin.ToString());
     }
 
     public void UpdateWaveText(int countWave) {
-        _waveText.text = "WAVE: " + countWave;
+        _informationPanel.SetValueOnCountWaweText("WAVE: " + countWave);
     }
 
     public void SetValueForTimer(float time) {
@@ -115,15 +116,31 @@ public class GameManager : MonoBehaviour {
         return _timer;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        Enemy _enemy = collision.GetComponent<Enemy>();
-        if (_enemy != null) {
-            TakeAwayOneHealth();
-            HealthCheckForZero();
+    public void CheckHealthAndShowLoseMenuIfHealthZero() {
+        if (IsNotZeroHealth) {
+            CheckLastEnemyAndEnableWinMenu();
+        }
+        else {
+            ShowLoseMenu();
+            StopTime();
         }
     }
 
-    private void TakeAwayOneHealth() {
+    public void CheckLastEnemyAndEnableWinMenu() {
+        if (_enemySpawner.IsTheLastEnemyInTheLastWave) {
+            _gameMenu.EnableBackgroundGameMenu();
+            _gameMenu.EnableWinMenu();
+            StopTime();
+        }
+
+        else {
+            _informationPanel.EnableTimerWaveObject();
+            _informationPanel.StartAnimationForTimerWave();
+            SetValueForTimer(_time);
+        }
+    }
+
+    public void TakeAwayOneHealth() {
         _health--;
         UpdateHealthText();
     }
@@ -132,25 +149,10 @@ public class GameManager : MonoBehaviour {
         _informationPanel.SetHealthText(_health);
     }
 
-    private void HealthCheckForZero() {
-        if (_health <= 0) {
-            ShowLoseMenu();
-            StopTime();
-        }
-    }
-
     private void ShowLoseMenu() {
         GameUnpause();
-        _menuBackground.SetActive(true);
-        _loseMenu.SetActive(true);
-    }
-
-    public void EnableTimerWaveAndSetValueForTimer() {
-        if (_enemySpawner.IsTheLastEnemyInWave()) {
-            _informationPanel.EnableTimerWaveObject();
-            _informationPanel.StartAnimationForTimerWave();
-            SetValueForTimer(_time);
-        }
+        _gameMenu.EnableBackgroundGameMenu();
+        _gameMenu.EnableLoseMenu();
     }
 
     public void GamePause() {

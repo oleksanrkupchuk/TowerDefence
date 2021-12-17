@@ -15,8 +15,6 @@ public class InformationPanel : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _timeSpeedText;
     [SerializeField]
-    private EnemySpawner _enemySpawner;
-    [SerializeField]
     private GameManager _gameManager;
     [SerializeField]
     private TowerButton _towerIron;
@@ -29,6 +27,10 @@ public class InformationPanel : MonoBehaviour {
 
     [Header("Information objects")]
     [SerializeField]
+    private InformationObject _coin;
+    [SerializeField]
+    private InformationObject _countWawe;
+    [SerializeField]
     private InformationObject _timerWave;
     [SerializeField]
     private InformationObject _health;
@@ -40,6 +42,11 @@ public class InformationPanel : MonoBehaviour {
     private TextMeshProUGUI _priceTextFireTower;
     [SerializeField]
     private TextMeshProUGUI _priceTextRockTower;
+
+    private void OnEnable() {
+        DisableTimerWaveObject();
+        DisableTimeSpeedText();
+    }
 
     private void Start() {
         DisableButtonDefaultTimeSpeed();
@@ -104,6 +111,14 @@ public class InformationPanel : MonoBehaviour {
         _backgroundMenu.gameObject.SetActive(false);
     }
 
+    public void SetValueOnCointText(string value) {
+        _coin.textComponent.text = value;
+    }
+
+    public void SetValueOnCountWaweText(string value) {
+        _countWawe.textComponent.text = value;
+    }
+
     public void EnableTimerWaveObject() {
         _timerWave.objectComponent.SetActive(true);
     }
@@ -126,6 +141,7 @@ public class InformationPanel : MonoBehaviour {
 
     private void SetDoubleTimeSpeed() {
         Time.timeScale = 2f;
+        //Time.timeScale = 0.2f;
     }
 
     private void EnableButtonDefaultTimeSpeed() {
@@ -163,10 +179,6 @@ public class InformationPanel : MonoBehaviour {
 
     public void StartAnimationForTimerWave() {
         StartCoroutine(AnimationForTimerWave());
-    }
-
-    public void StopAnimationForTimerWave() {
-        StopCoroutine(AnimationForTimerWave());
     }
 
     private IEnumerator AnimationForTimerWave() {

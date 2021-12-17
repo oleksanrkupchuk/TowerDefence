@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 public abstract class MenuBase : MonoBehaviour
 {
+    private int _indexMainMenu = 0;
+    public int IndexMainMenu { get => _indexMainMenu; }
+
     public GameObject ThisGameObject { get => gameObject; }
 
     [HideInInspector]
