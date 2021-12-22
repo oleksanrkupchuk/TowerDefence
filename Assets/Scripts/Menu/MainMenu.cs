@@ -17,9 +17,20 @@ public class MainMenu : MenuBase
     [SerializeField]
     private GameObject _menuSelectLevelObject;
 
-    void Start()
+    private void Start()
     {
+        CheckSaveScreenResolution();
         SubscriptionButtons();
+    }
+
+    private void CheckSaveScreenResolution() {
+        DefaultScreenResolution();
+    }
+
+    private void DefaultScreenResolution() {
+        int oneThousandNineHundredAndTwenty = 1920;
+        int oneThousandEighty = 1080;
+        Screen.SetResolution(oneThousandNineHundredAndTwenty, oneThousandEighty, true);
     }
 
     private void SubscriptionButtons() {

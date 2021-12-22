@@ -136,6 +136,7 @@ public class TowerUpgradeMenu : MonoBehaviour {
     private IEnumerator MoveText() {
         //print("text default = " + _textGameObject.transform.localPosition.y);
         //print("text distance = " + _textGameObject.transform.localPosition.y + _distance);
+        print("move text");
         LeanTween.moveLocalY(_textGameObject, _textGameObject.transform.localPosition.y + _distance, _time);
         yield return new WaitForSeconds(_time);
         _textGameObject.transform.position = _textDeafaultPosition;
