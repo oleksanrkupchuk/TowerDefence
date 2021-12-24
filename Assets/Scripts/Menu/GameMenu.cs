@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameMenu : MonoBehaviour
 {
+    [Header("Objects")]
     [SerializeField]
     private GameObject _backgroundGameMenu;
     [SerializeField]
@@ -13,7 +14,14 @@ public class GameMenu : MonoBehaviour
     [SerializeField]
     private GameObject _winMenu;
 
+    [Header("Scripts")]
+    [SerializeField]
+    private GameManager _gameManager;
+    [SerializeField]
+    private PauseMenu _pauseMenuScript;
+
     private void OnEnable() {
+        _pauseMenuScript.SetGameManager(_gameManager);
         DisableBackgroundGameMenu();
         DisableLoseMenu();
         DisablePauseMenu();

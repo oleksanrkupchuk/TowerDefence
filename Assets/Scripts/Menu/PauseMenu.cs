@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class PauseMenu : MenuBase
 {
+    private GameManager _gameManager;
+
     [Header("Buttons Pause Menu")]
     [SerializeField]
     private Button _continue;
@@ -16,11 +18,13 @@ public class PauseMenu : MenuBase
     private GameObject _settingsObject;
     [SerializeField]
     private GameObject _background;
-    [SerializeField]
-    private GameManager _gameManager;
 
     private void Start() {
         SubscriptionButtons();
+    }
+
+    public void SetGameManager(GameManager gameManager) {
+        _gameManager = gameManager;
     }
 
     private void SubscriptionButtons() {

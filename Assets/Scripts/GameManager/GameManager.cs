@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
-using System;
 
 public class GameManager : MonoBehaviour {
     [SerializeField] private int _coin;
@@ -100,7 +98,7 @@ public class GameManager : MonoBehaviour {
         UpdateAmountCoin();
     }
 
-    public void UpdateAmountCoin() {
+    private void UpdateAmountCoin() {
         _informationPanel.SetValueOnCointText(_coin.ToString());
     }
 
@@ -133,7 +131,7 @@ public class GameManager : MonoBehaviour {
             StopTime();
         }
 
-        else {
+        else if(_enemySpawner.IsTheLastEnemyInWave) {
             _informationPanel.EnableTimerWaveObject();
             _informationPanel.StartAnimationForTimerWave();
             SetValueForTimer(_time);
