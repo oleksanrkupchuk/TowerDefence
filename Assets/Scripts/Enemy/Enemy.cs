@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using System.Collections;
 using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour {
@@ -10,6 +9,11 @@ public class Enemy : MonoBehaviour {
     private GameManager _gameManager;
     private Transform _nextWayPoint;
     private int _indexPosition;
+    private List<Transform> _currentWayPoint = new List<Transform>();
+    private List<DataWayPoints> _dataWayPoints = new List<DataWayPoints>();
+    private Tower _tower;
+    private AnimationEvent _enemyAnimationDead = new AnimationEvent();
+    private string _isDead = "isDying";
 
     [Header("Parametrs")]
     [SerializeField]
@@ -18,12 +22,10 @@ public class Enemy : MonoBehaviour {
     private int _health;
     [SerializeField]
     private int _healthMax;
-    public bool isDead { get => _health <= 0; }
     [SerializeField]
     private int _amountCoinForDeath;
     [SerializeField]
     private int _sortingLayer;
-    public Vector3 diePosition;
 
     [Header("Components")]
     [SerializeField]
@@ -46,16 +48,14 @@ public class Enemy : MonoBehaviour {
     private Image _healthBar;
 
     [Header("Animator parametrs")]
-    private string _isDying = "isDying";
-
-    private List<Transform> _currentWayPoint = new List<Transform>();
-    private List<DataWayPoints> _dataWayPoints = new List<DataWayPoints>();
-    private Tower _tower;
+    [SerializeField]
+    private AnimationClip _deadAnimationClip;
 
     [SerializeField]
     private bool _isCloseForWayPoint;
 
-    public float CenterBoxColliderOnY { get => (_boxCollider.bounds.size.y / 2); }
+    public bool IsDead { get => _health <= 0; }
+    public Vector3 diePosition;
     public event Action Dead;
     public event Action OutRangeTower;
 
@@ -78,10 +78,11 @@ public class Enemy : MonoBehaviour {
 
         _enemySpawner.AddEnemy(gameObject.GetComponent<Enemy>());
         SetWayPoints();
+        SubscribeToEventInTheEndDeadAnimation();
     }
 
     private void Update() {
-        if (!isDead) {
+        if (!IsDead) {
             SetNextPosition();
 
             //ChangeMaxLayer();
@@ -175,11 +176,11 @@ public class Enemy : MonoBehaviour {
         //print("--------------");
         //print("HIT = " + damage);
 
-        if (!isDead) {
+        if (!IsDead) {
             _health -= damage;
             ShiftHealthBar();
 
-            if (isDead) {
+            if (IsDead) {
                 DeathFromBullet();
             }
         }
@@ -202,33 +203,40 @@ public class Enemy : MonoBehaviour {
         GetDiePosition();
         _gameManager.AddCoin(_amountCoinForDeath);
         _enemySpawner.RemoveEnemy(this);
-        PlayDeathAnimation();
         DisableHealthBar();
         _boxCollider.enabled = false;
         _tower.RemoveTarget(this);
         _tower.SetTarget();
         _gameManager.CheckLastEnemyAndEnableWinMenu();
-        DestroyEnemy();
+        PlayDeadAnimation();
+    }
+
+    private void SubscribeToEventInTheEndDeadAnimation() {
+        float _playingAnimationTime = _deadAnimationClip.length;
+        _enemyAnimationDead.time = _playingAnimationTime;
+        _enemyAnimationDead.functionName = nameof(DestroyEnemy);
+
+        _deadAnimationClip.AddEvent(_enemyAnimationDead);
     }
 
     public void GetDiePosition() {
         diePosition = transform.position;
-        print("die position = " + diePosition);
+        //print("die position = " + diePosition);
         Dead?.Invoke();
     }
 
     public void GetLastPosition() {
         diePosition = transform.position;
-        print("last position = " + diePosition);
+        //print("last position = " + diePosition);
         OutRangeTower?.Invoke();
     }
 
     private void DestroyEnemy() {
-        Destroy(gameObject);
+        Destroy(gameObject, 0.5f);
     }
 
-    private void PlayDeathAnimation() {
-        _animator.SetTrigger(_isDying);
+    private void PlayDeadAnimation() {
+        _animator.SetTrigger(_isDead);
     }
 
     private void ShiftHealthBar() {
@@ -246,7 +254,7 @@ public class Enemy : MonoBehaviour {
         }
         else {
             int randomWayPoints = Random.Range(0, _dataWayPoints.Count);
-            print("random number = " + randomWayPoints);
+            //print("random number = " + randomWayPoints);
             _currentWayPoint = _dataWayPoints[randomWayPoints].WayPoints;
             _nextWayPoint = _currentWayPoint[0];
         }

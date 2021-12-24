@@ -27,7 +27,7 @@ public class TowerRange : MonoBehaviour {
             _tower.RemoveTarget(collision.gameObject.GetComponent<Enemy>());
             _tower.SetTarget();
             _enemy.GetLastPosition();
-            print("enemy go went");
+            //print("enemy go went");
         }
     }
 }

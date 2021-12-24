@@ -39,9 +39,9 @@ public class TowerManager : MonoBehaviour {
             CheckRaycastAndCallClickOnTower(_raycastHit);
         }
 
-        if (Input.GetButtonDown("Fire2")) {
-            DisbleTowerIcon();
-        }
+        //if (Input.GetButtonDown("Fire2")) {
+        //    DisbleTowerIcon();
+        //}
 
         if (_towerIcon.sprite == true) {
             FollowMouseTowerIcon();

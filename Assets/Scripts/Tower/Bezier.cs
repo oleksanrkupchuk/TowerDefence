@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bezier : MonoBehaviour
+public class Bezier
 {
     //(1 - t)^2 * P0 + 2 * t * (1 - t) * P1 + t^2 * P2
     public static Vector2 GetTrajectoryForBullet(Vector2 p0, Vector2 p1, Vector2 p2, float t) {

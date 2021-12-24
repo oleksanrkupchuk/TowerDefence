@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5634611915337184680
+--- !u!1 &7100488995116966314
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5634611915337184687}
-  - component: {fileID: 5634611915337184684}
-  - component: {fileID: 5634611915337184685}
-  - component: {fileID: 5634611915337184686}
-  - component: {fileID: 5634611915337184691}
+  - component: {fileID: 7100488995116966293}
+  - component: {fileID: 7100488995116966294}
+  - component: {fileID: 7100488995116966295}
+  - component: {fileID: 7100488995116966292}
+  - component: {fileID: 7100488995116966289}
   m_Layer: 5
-  m_Name: Tower_RockBall_Button
+  m_Name: TowerOfFire_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &5634611915337184687
+--- !u!224 &7100488995116966293
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5634611915337184680}
+  m_GameObject: {fileID: 7100488995116966314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
@@ -39,21 +39,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -40}
   m_SizeDelta: {x: 200, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &5634611915337184684
+--- !u!222 &7100488995116966294
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5634611915337184680}
+  m_GameObject: {fileID: 7100488995116966314}
   m_CullTransparentMesh: 0
---- !u!114 &5634611915337184685
+--- !u!114 &7100488995116966295
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5634611915337184680}
+  m_GameObject: {fileID: 7100488995116966314}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -7434226952023802429, guid: fb2314d5129431e4d9054c107712128c, type: 3}
+  m_Sprite: {fileID: -8082108663505521789, guid: fb2314d5129431e4d9054c107712128c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -77,13 +77,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5634611915337184686
+--- !u!114 &7100488995116966292
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5634611915337184680}
+  m_GameObject: {fileID: 7100488995116966314}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -91,6 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -116,7 +117,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 5634611915337184685}
+  m_TargetGraphic: {fileID: 7100488995116966295}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -125,24 +126,24 @@ MonoBehaviour:
         m_MethodName: SelectedTower
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 5634611915337184691}
+          m_ObjectArgument: {fileID: 7100488995116966289}
           m_ObjectArgumentAssemblyTypeName: TowerButton, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5634611915337184691
+--- !u!114 &7100488995116966289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5634611915337184680}
+  m_GameObject: {fileID: 7100488995116966314}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da2c3761a702a8d4b86742766a788e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerObject: {fileID: 6456233943789270498, guid: 7765ea7b93469b7478ef4c3bb5d79641, type: 3}
-  towerSprite: {fileID: -7434226952023802429, guid: fb2314d5129431e4d9054c107712128c, type: 3}
+  towerObject: {fileID: 7727614519314563346, guid: bb88f1c4c0d94aa4e93529bbfb69dc1a, type: 3}
+  towerSprite: {fileID: -8082108663505521789, guid: fb2314d5129431e4d9054c107712128c, type: 3}

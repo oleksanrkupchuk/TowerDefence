@@ -487,11 +487,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
-  _health: 50
-  _healthMax: 50
+  _health: 5
+  _healthMax: 5
   _amountCoinForDeath: 3
   _sortingLayer: -7
-  diePosition: {x: 0, y: 0, z: 0}
   _boxCollider: {fileID: 6037710262501487607}
   _animator: {fileID: 389652436}
   _spriteRenderer: {fileID: 6037710262501487113}
@@ -499,7 +498,9 @@ MonoBehaviour:
   _healthBarBackground: {fileID: 2078650063143582203}
   _healthBarRectTransform: {fileID: 2211591740322881854}
   _healthBar: {fileID: 8562100010639840429}
+  _deadAnimationClip: {fileID: 7400000, guid: 3cef32a3e0fb3a0489b0692dadc810ce, type: 2}
   _isCloseForWayPoint: 0
+  diePosition: {x: 0, y: 0, z: 0}
 --- !u!95 &389652436
 Animator:
   serializedVersion: 3

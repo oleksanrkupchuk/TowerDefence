@@ -60,6 +60,7 @@ public class Tower : MonoBehaviour {
     private TowerRange _towerRange;
 
     int countBullet = 0;
+
     public void Initialization(TowerManager towerManager, GameManager gameManager) {
         _towerManager = towerManager;
         _gameManager = gameManager;
@@ -239,5 +240,9 @@ public class Tower : MonoBehaviour {
 
     public void RemoveTowerFromList() {
         _towerManager.towersList.Remove(this);
+    }
+
+    public void DestroyTower(float timeDestroy) {
+        Destroy(gameObject, timeDestroy);
     }
 }

@@ -47,6 +47,26 @@ public class Bullet : MonoBehaviour {
         InstantiatePointsForBeizerTrajectory();
 
         SetP0();
+
+        SubscribeToEventInTheEndDestroyAnimation();
+    }
+
+    private void InstantiatePointsForBeizerTrajectory() {
+        for (int i = 0; i < _amountBezierPoints; i++) {
+            GameObject _point = Instantiate(_bezierPoint);
+            BezierPoint bezierPoint = _point.GetComponent<BezierPoint>();
+            bezierPoint.SetBullet(this);
+            _point.name = "point " + i;
+            _bezierPoints.Add(_point);
+        }
+    }
+
+    private void SubscribeToEventInTheEndDestroyAnimation() {
+        float _playingAnimationTime = _animationClip.length;
+        _bulletEvent.time = _playingAnimationTime;
+        _bulletEvent.functionName = nameof(DestroyBulletAndBeizerPoints);
+
+        _animationClip.AddEvent(_bulletEvent);
     }
 
     private void Start() {
@@ -65,16 +85,6 @@ public class Bullet : MonoBehaviour {
     private void SetTargetNull() {
         _target.OutRangeTower -= SetTargetNull;
         _target = null;
-    }
-
-    private void InstantiatePointsForBeizerTrajectory() {
-        for (int i = 0; i < _amountBezierPoints; i++) {
-            GameObject _point = Instantiate(_bezierPoint);
-            BezierPoint bezierPoint = _point.GetComponent<BezierPoint>();
-            bezierPoint.SetBullet(this);
-            _point.name = "point " + i;
-            _bezierPoints.Add(_point);
-        }
     }
 
     private void Update() {
@@ -129,7 +139,7 @@ public class Bullet : MonoBehaviour {
 
     private void CheckTAndDestroyBullet() {
         if (t >= 1) {
-            SubscribeToEventInTheEndAnimationAndPlayDestroyAnimation();
+            PlayAnimationDestroy();
         }
     }
 
@@ -149,13 +159,7 @@ public class Bullet : MonoBehaviour {
         }
     }
 
-    private void SubscribeToEventInTheEndAnimationAndPlayDestroyAnimation() {
-        float _playingAnimationTime = _animationClip.length;
-        _bulletEvent.time = _playingAnimationTime;
-        _bulletEvent.functionName = nameof(DestroyBulletAndBeizerPoints);
-
-        _animationClip.AddEvent(_bulletEvent);
-
+    private void PlayAnimationDestroy() {
         _animator.SetTrigger("destroy");
     }
 
