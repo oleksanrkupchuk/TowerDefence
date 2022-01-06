@@ -27,7 +27,7 @@ Transform:
   m_LocalPosition: {x: -1.75, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4572276010269632206}
+  m_Father: {fileID: 6470073090395598500}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1698766304776122018
@@ -38,11 +38,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4572276010269632206}
+  - component: {fileID: 6470073090395598500}
   - component: {fileID: 7053680751002269605}
   - component: {fileID: 6906631230826399657}
   - component: {fileID: -4202184418589515201}
   - component: {fileID: 1757262025610622058}
+  - component: {fileID: 3322008331593291023}
   m_Layer: 0
   m_Name: TowerOfIron
   m_TagString: Tower
@@ -50,8 +51,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4572276010269632206
-Transform:
+--- !u!224 &6470073090395598500
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -68,6 +69,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1.5377778, y: 2.082722}
+  m_Pivot: {x: 0.5, y: 0.20000014}
 --- !u!212 &7053680751002269605
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -158,8 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4438c3b960c4bfb4799b7fc6de90b9b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damage: 0
   _enemyList: []
-  _rangeAttack: 3.5
+  _rangeAttack: 3
   _timeShoot: 1
   _timer: 0
   _bulletPosition: {fileID: 7868094680344040008}
@@ -276,6 +283,14 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 1
+--- !u!222 &3322008331593291023
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698766304776122018}
+  m_CullTransparentMesh: 1
 --- !u!1 &2759521755001264058
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +320,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4572276010269632206}
+  m_Father: {fileID: 6470073090395598500}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &125635702908944359
@@ -364,7 +379,7 @@ Transform:
   m_LocalPosition: {x: -0.063, y: 1.506, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4572276010269632206}
+  m_Father: {fileID: 6470073090395598500}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2723674986334989860
@@ -372,8 +387,24 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4572276010269632206}
+    m_TransformParent: {fileID: 6470073090395598500}
     m_Modifications:
+    - target: {fileID: 3102444125379914329, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _price
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3102444125379914329, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _priceIncrease
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5755333093339995236, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _price
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5755333093339995236, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _priceIncrease
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8438457688127442628, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_Name
       value: TowerMenu

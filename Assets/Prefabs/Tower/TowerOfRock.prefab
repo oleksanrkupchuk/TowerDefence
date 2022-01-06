@@ -386,6 +386,22 @@ PrefabInstance:
       propertyPath: _price
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 3102444125379914329, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _price
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3102444125379914329, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _priceIncrease
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5755333093339995236, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _price
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 5755333093339995236, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _priceIncrease
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6109435081150076895, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _price
       value: 9

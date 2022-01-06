@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Collections;
 
 public class TowerUpgradeMenu : MonoBehaviour {
     private GameManager _gameManager;
@@ -29,6 +27,8 @@ public class TowerUpgradeMenu : MonoBehaviour {
     private GameObject _amountText;
     [SerializeField]
     private Transform _canvas;
+    [SerializeField]
+    private Bullet _bullet;
 
     [Header("Game Object Upgrade")]
     [SerializeField]
@@ -44,9 +44,9 @@ public class TowerUpgradeMenu : MonoBehaviour {
 
     [Header("Scripts")]
     [SerializeField]
-    private Upgrade _damageUpgradeScript;
+    private UpgradeTower _damageUpgradeScript;
     [SerializeField]
-    private Upgrade _rangeUpgradeScript;
+    private UpgradeTower _rangeUpgradeScript;
 
     public void Initialization(GameManager gameManager, Tower tower) {
         _gameManager = gameManager;
@@ -86,7 +86,7 @@ public class TowerUpgradeMenu : MonoBehaviour {
             _damageUpgradeScript.IncreasePrice();
             _tower.IncreaseDamage();
             _ability[_increaseDamage] += 1;
-            float amount = _tower.BulletScript.Damage;
+            float amount = _tower.Damage;
             SpawnTextAmount(amount);
             CheckOnDeactivateButton(_damageUpgradeScript, _buttonIncreaseDamage, _increaseDamage);
         }
@@ -126,9 +126,9 @@ public class TowerUpgradeMenu : MonoBehaviour {
         towerMenuAmountText.SetTextAmount(amount);
     }
 
-    private void CheckOnDeactivateButton(Upgrade upgrate, Button button, string nameAbility) {
+    private void CheckOnDeactivateButton(UpgradeTower upgrate, Button button, string nameAbility) {
         if (_ability[nameAbility] >= _numberOfImprovements) {
-            upgrate.DisableChildObject();
+            upgrate.NotIntractable();
             button.interactable = false;
             //print("max number upgrade");
         }

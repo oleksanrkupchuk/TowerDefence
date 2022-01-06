@@ -2,15 +2,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour {
     private EnemySpawner _enemySpawner;
     private GameManager _gameManager;
     private Transform _nextWayPoint;
     private int _indexPosition;
-    private List<Transform> _currentWayPoint = new List<Transform>();
-    private List<DataWayPoints> _dataWayPoints = new List<DataWayPoints>();
+    private List<Transform> _currentWay = new List<Transform>();
     private Tower _tower;
     private AnimationEvent _enemyAnimationDead = new AnimationEvent();
     private string _isDead = "isDying";
@@ -55,14 +53,14 @@ public class Enemy : MonoBehaviour {
     private bool _isCloseForWayPoint;
 
     public bool IsDead { get => _health <= 0; }
-    public Vector3 diePosition;
-    public event Action Dead;
-    public event Action OutRangeTower;
+    public Vector3 lastPosition;
+    public event Action LastPosition;
+
+    public static event Action<Enemy> EnemySpawnerTest;
 
     public void Initialization(EnemySpawner enemySpawner, GameManager gameManager, List<DataWayPoints> dataWayPoints) {
         _enemySpawner = enemySpawner;
         _gameManager = gameManager;
-        _dataWayPoints = dataWayPoints;
     }
 
     public void InitializationTower(Tower tower) {
@@ -77,19 +75,19 @@ public class Enemy : MonoBehaviour {
         _healthBarBackground.SetActive(true);
 
         _enemySpawner.AddEnemy(gameObject.GetComponent<Enemy>());
-        SetWayPoints();
         SubscribeToEventInTheEndDeadAnimation();
     }
 
     private void Update() {
         if (!IsDead) {
-            SetNextPosition();
 
             //ChangeMaxLayer();
+            if (_currentWay != null) {
+                SetNextPosition();
+                Move();
+            }
 
-            Move();
-
-            CkeckLastWayPoint();
+            //CkeckLastWayPoint();
         }
     }
 
@@ -100,10 +98,10 @@ public class Enemy : MonoBehaviour {
     private void SetNextPosition() {
         if (Vector2.Distance(transform.position, _nextWayPoint.position) <= 0.2f) {
             _indexPosition++;
-            if (_indexPosition < _currentWayPoint.Count) {
-                _nextWayPoint = _currentWayPoint[_indexPosition];
+            if (_indexPosition < _currentWay.Count) {
+                _nextWayPoint = _currentWay[_indexPosition];
             }
-            _isCloseForWayPoint = true;
+            //_isCloseForWayPoint = true;
 
             CheckFlipSprite();
         }
@@ -116,8 +114,8 @@ public class Enemy : MonoBehaviour {
     }
 
     private bool IsCloseForLasrWayPoint() {
-        int _lastPoint = _currentWayPoint.Count - 1;
-        if (_nextWayPoint == _currentWayPoint[_lastPoint]) {
+        int _lastPoint = _currentWay.Count - 1;
+        if (_nextWayPoint == _currentWay[_lastPoint]) {
             if (Vector2.Distance(transform.position, _nextWayPoint.position) <= 0.2f) {
                 return true;
             }
@@ -142,7 +140,7 @@ public class Enemy : MonoBehaviour {
         if (_distanceForWayPoint < 1f && _isCloseForWayPoint) {
             _isCloseForWayPoint = false;
             int index = _indexPosition + 1;
-            Transform nextWayPoint = _currentWayPoint[index];
+            Transform nextWayPoint = _currentWay[index];
             if (transform.position.y - nextWayPoint.position.y < 0) {
                 ChangeLayerOnMin();
             }
@@ -179,6 +177,7 @@ public class Enemy : MonoBehaviour {
         if (!IsDead) {
             _health -= damage;
             ShiftHealthBar();
+            //GetLastPosition();
 
             if (IsDead) {
                 DeathFromBullet();
@@ -186,13 +185,8 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag(Tags.finish)) {
-            DeathFromBullet();
-        }
-    }
-
-    private void DeathFromLastWay() {
+    public void DeathFromLastWay() {
+        EnemySpawnerTest?.Invoke(this);
         _enemySpawner.RemoveEnemy(this);
         _gameManager.TakeAwayOneHealth();
         _gameManager.CheckHealthAndShowLoseMenuIfHealthZero();
@@ -200,8 +194,9 @@ public class Enemy : MonoBehaviour {
     }
 
     private void DeathFromBullet() {
-        GetDiePosition();
+        GetLastPosition();
         _gameManager.AddCoin(_amountCoinForDeath);
+        EnemySpawnerTest?.Invoke(this);
         _enemySpawner.RemoveEnemy(this);
         DisableHealthBar();
         _boxCollider.enabled = false;
@@ -219,16 +214,10 @@ public class Enemy : MonoBehaviour {
         _deadAnimationClip.AddEvent(_enemyAnimationDead);
     }
 
-    public void GetDiePosition() {
-        diePosition = transform.position;
-        //print("die position = " + diePosition);
-        Dead?.Invoke();
-    }
-
     public void GetLastPosition() {
-        diePosition = transform.position;
+        lastPosition = transform.position;
         //print("last position = " + diePosition);
-        OutRangeTower?.Invoke();
+        LastPosition?.Invoke();
     }
 
     private void DestroyEnemy() {
@@ -247,17 +236,9 @@ public class Enemy : MonoBehaviour {
         _healthBarBackground.SetActive(false);
     }
 
-    public void SetWayPoints() {
-        if (_dataWayPoints.Count <= 1) {
-            _currentWayPoint = _dataWayPoints[0].WayPoints;
-            _nextWayPoint = _currentWayPoint[0];
-        }
-        else {
-            int randomWayPoints = Random.Range(0, _dataWayPoints.Count);
-            //print("random number = " + randomWayPoints);
-            _currentWayPoint = _dataWayPoints[randomWayPoints].WayPoints;
-            _nextWayPoint = _currentWayPoint[0];
-        }
+    public void SetWayPoints(DataWayPoints currentWay) {
+        _currentWay = currentWay.WayPoints;
+        _nextWayPoint = _currentWay[0];
     }
 
     public void SetLayer(int layer) {

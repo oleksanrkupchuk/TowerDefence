@@ -4,8 +4,7 @@ using TMPro;
 using System.Collections.Generic;
 using System;
 
-public class SettingsMenu : MenuBase
-{
+public class SettingsMenu : MenuBase {
     [Header("Buttons Settings Menu")]
     [SerializeField]
     private Button _back;
@@ -17,7 +16,9 @@ public class SettingsMenu : MenuBase
     [SerializeField]
     private TMP_Dropdown _screenResolutionDropDown;
     [SerializeField]
-    private Toggle _fullScreenTogle;
+    private TextMeshProUGUI _screenResolutionDropDownLabel;
+    [SerializeField]
+    private Toggle _fullScreenToggle;
     [SerializeField]
     private TextMeshProUGUI _soundVolumeText;
 
@@ -28,48 +29,72 @@ public class SettingsMenu : MenuBase
     [SerializeField]
     private ConfirmSettings _confirmSettings;
 
-    public static event Action ChangeScreenResolution;
+    public static event Action<float> ChangeScreenResolution;
+    public int GetIndexScreenResolutionDropDown {
+        get {
+            return _screenResolutionDropDown.value;
+        }
+    }
+
+    public bool GetFullScreenTogle {
+        get {
+            return _fullScreenToggle.isOn;
+        }
+    }
+
+    private void OnEnable() {
+        InitScreenResolutionDropdown();
+        //print("enable settings");
+    }
 
     private void Start() {
         DisableConfirmSettings();
         SubscriptionButtons();
-        InitScreenResolutionDropdown();
     }
 
     private void InitScreenResolutionDropdown() {
         _screenResolutionDropDown.options.Clear();
 
         foreach (var resolution in _resolutions) {
-            _screenResolutionDropDown.options.Add(new TMP_Dropdown.OptionData() { 
+            _screenResolutionDropDown.options.Add(new TMP_Dropdown.OptionData() {
                 text = resolution.weidth + " x " + resolution.height
             });
         }
 
-        //CheckSaveScreenResolution();
-
-        //_screenResolutionDropDown.onValueChanged.AddListener(delegate { PrintDropdownValue(_screenResolutionDropDown); });
+        CheckSaveSettingsAndLoad();
     }
 
-    //private void CheckSaveScreenResolution() {
-    //    DefaultScreenResolution();
-    //}
+    public void CheckSaveSettingsAndLoad() {
+        if (SaveSystemSettings.IsExistsSaveSettingsFile()) {
+            LoadSettingsAndSetResolution();
+        }
+        else {
+            print("file not create");
+        }
+    }
 
-    //private void DefaultScreenResolution() {
-    //    int oneThousandNineHundredAndTwenty = _resolutions[0].weidth;
-    //    int oneThousandEighty = _resolutions[0].height;
-    //    Screen.SetResolution(oneThousandNineHundredAndTwenty, oneThousandEighty, _fullScreenTogle.isOn);
-    //}
+    private void LoadSettingsAndSetResolution() {
+        SettingsData settingsData = SaveSystemSettings.LoadSettings();
+
+        _screenResolutionDropDown.value = settingsData.indexResolution;
+        _fullScreenToggle.isOn = settingsData.fullScreenToggle;
+
+        Screen.SetResolution(_resolutions[settingsData.indexResolution].weidth,
+                _resolutions[settingsData.indexResolution].height, _fullScreenToggle.isOn);
+        ChangeScreenResolution?.Invoke(_resolutions[settingsData.indexResolution].weidth);
+    }
 
     private void SubscriptionButtons() {
-        _back.onClick.AddListener(() => { 
-            DisableAndEnableGameObject(ThisGameObject, enableObject); 
+        _back.onClick.AddListener(() => {
+            DisableAndEnableGameObject(ThisGameObject, enableObject);
         });
-        _applySettings.onClick.AddListener(() => { 
-            EnableConfirmSettings(); 
+        _applySettings.onClick.AddListener(() => {
+            EnableConfirmSettings();
         });
-        _confirmSettings.Yes.onClick.AddListener(() => { 
-            SetScreenResolution(_screenResolutionDropDown);
+        _confirmSettings.Yes.onClick.AddListener(() => {
             DisableConfirmSettings();
+            SetScreenResolution(_screenResolutionDropDown);
+            SaveSettings();
         });
         _confirmSettings.No.onClick.AddListener(() => {
             DisableConfirmSettings();
@@ -78,9 +103,13 @@ public class SettingsMenu : MenuBase
 
     private void SetScreenResolution(TMP_Dropdown dropdown) {
         int _index = dropdown.value;
-        Screen.SetResolution(_resolutions[_index].weidth, _resolutions[_index].height, _fullScreenTogle.isOn);
-        ChangeScreenResolution?.Invoke();
-        print("index = " + _index);
+        Screen.SetResolution(_resolutions[_index].weidth, _resolutions[_index].height, _fullScreenToggle.isOn);
+        ChangeScreenResolution(_resolutions[_index].weidth);
+        //print("index = " + _index);
+    }
+
+    private void SaveSettings() {
+        SaveSystemSettings.SaveSettings(this);
     }
 
     private void EnableConfirmSettings() {

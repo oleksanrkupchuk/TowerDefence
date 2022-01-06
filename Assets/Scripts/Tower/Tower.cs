@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour {
 
+    private bool _isShooting = false;
+    private int countBullet = 0;
+    private int _damage;
+
     [SerializeField]
     private List<Enemy> _enemyList = new List<Enemy>();
-    public List<Enemy> EnemyList { get => _enemyList; }
 
     [Header("Parametrs")]
     [SerializeField]
@@ -32,7 +35,6 @@ public class Tower : MonoBehaviour {
     private GameObject _buletPrefab;
     [SerializeField]
     private Bullet _buletScript;
-    public Bullet BulletScript { get => _buletPrefab.GetComponent<Bullet>(); }
     [SerializeField]
     private LineRenderer _lineRenderer;
 
@@ -45,21 +47,14 @@ public class Tower : MonoBehaviour {
     [SerializeField]
     private GameObject _placeForTower = null;
 
-    private bool _isShooting = false;
-
     [Header("Upgrades Tower")]
-    [SerializeField]
-    private GameObject _objectIncreaseDamage;
-    [SerializeField]
-    private GameObject _objectSell;
-    [SerializeField]
-    private GameObject _objectIncreaseRange;
     [SerializeField]
     private TowerUpgradeMenu _towerUpgradeMenu;
     [SerializeField]
     private TowerRange _towerRange;
 
-    int countBullet = 0;
+    public List<Enemy> EnemyList { get => _enemyList; }
+    public int Damage { get => _damage; }
 
     public void Initialization(TowerManager towerManager, GameManager gameManager) {
         _towerManager = towerManager;
@@ -76,8 +71,7 @@ public class Tower : MonoBehaviour {
 
         GetAllColliderOnTower();
 
-        _buletScript.SetBasicDamage();
-
+        _damage = _buletScript.Damage;
         //_towerUpgradeMenu.SubscribleButtonOnEvent();
     }
 
@@ -107,12 +101,6 @@ public class Tower : MonoBehaviour {
         }
 
         _lineRenderer.SetPositions(_positionPoints);
-    }
-
-    private void SetPositionUpgradeIcon(float distance) {
-        _objectIncreaseDamage.transform.position = new Vector3(transform.position.x, transform.position.y + distance);
-        _objectSell.transform.position = new Vector3(transform.position.x + distance, transform.position.y);
-        _objectIncreaseRange.transform.position = new Vector3(transform.position.x - distance, transform.position.y);
     }
 
     private void GetAllColliderOnTower() {
@@ -152,6 +140,8 @@ public class Tower : MonoBehaviour {
         Collider2D _bulletCollider = _bulletObject.GetComponent<CircleCollider2D>();
         IgnoreCollisionCollidersTowerAndBullet(_bulletCollider);
         Bullet _bulletScr = _bulletObject.GetComponent<Bullet>();
+        //print("shoot damage = " + _damage);
+        _bulletScr.SetDamage(_damage);
         _bulletScr.SetTower(this);
         _bulletScr.SetTarget(target);
     }
@@ -163,16 +153,17 @@ public class Tower : MonoBehaviour {
     }
 
     public void IncreaseDamage() {
-        _buletScript.Damage += Damage();
+        _damage += DamageCalculation();
         //print("tower damage = " + _buletScript.Damage);
     }
 
-    private int Damage() {
+    private int DamageCalculation() {
         int damage = 0;
-        damage += _buletScript.Damage / 2;
+        damage += _damage / 2;
         if (damage < 1) {
             damage = 1;
         }
+        //print("calculation damage = " + damage);
         return damage;
     }
 

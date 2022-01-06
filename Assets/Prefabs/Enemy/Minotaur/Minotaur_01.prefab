@@ -500,7 +500,7 @@ MonoBehaviour:
   _healthBar: {fileID: 8562100010639840429}
   _deadAnimationClip: {fileID: 7400000, guid: 3cef32a3e0fb3a0489b0692dadc810ce, type: 2}
   _isCloseForWayPoint: 0
-  diePosition: {x: 0, y: 0, z: 0}
+  lastPosition: {x: 0, y: 0, z: 0}
 --- !u!95 &389652436
 Animator:
   serializedVersion: 3

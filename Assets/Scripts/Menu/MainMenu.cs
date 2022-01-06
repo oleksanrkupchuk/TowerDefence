@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class MainMenu : MenuBase
 {
+    private SettingsMenu _settingsMenu;
+
     [Header("Buttons Lose Menu")]
     [SerializeField]
     private Button _start;
@@ -19,18 +21,10 @@ public class MainMenu : MenuBase
 
     private void Start()
     {
-        CheckSaveScreenResolution();
+        _settingsMenu = _settingsObject.GetComponent<SettingsMenu>();
+        _settingsMenu.CheckSaveSettingsAndLoad();
+
         SubscriptionButtons();
-    }
-
-    private void CheckSaveScreenResolution() {
-        DefaultScreenResolution();
-    }
-
-    private void DefaultScreenResolution() {
-        int oneThousandNineHundredAndTwenty = 1920;
-        int oneThousandEighty = 1080;
-        Screen.SetResolution(oneThousandNineHundredAndTwenty, oneThousandEighty, true);
     }
 
     private void SubscriptionButtons() {

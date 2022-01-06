@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour {
     private Vector3 _nexPosition;
     private bool _isBeizerPointNotNull = true;
     private Vector2 _lastTargetPosition;
+    private bool _isChangeTarget = false;
 
     [SerializeField]
     private int _damage;
@@ -70,21 +71,13 @@ public class Bullet : MonoBehaviour {
     }
 
     private void Start() {
-        _target.Dead += SetLastPositionTarget;
-        _target.OutRangeTower += SetLastPositionTarget;
-        _target.OutRangeTower += SetTargetNull;
+        _target.LastPosition += SetLastPositionTarget;
     }
 
     private void SetLastPositionTarget() {
-        //print("set position");
-        _lastTargetPosition = _target.diePosition;
-        _target.Dead -= SetLastPositionTarget;
-        _target.OutRangeTower -= SetLastPositionTarget;
-    }
-
-    private void SetTargetNull() {
-        _target.OutRangeTower -= SetTargetNull;
-        _target = null;
+        _lastTargetPosition = _target.lastPosition;
+        _isChangeTarget = true;
+        _target.LastPosition -= SetLastPositionTarget;
     }
 
     private void Update() {
@@ -97,6 +90,8 @@ public class Bullet : MonoBehaviour {
             Move();
             Rotation();
             CheckTAndDestroyBullet();
+            //print(gameObject.name + "target = " + _target);
+            //print(gameObject.name + " p2 = " + _bezierPoints[2].transform.position);
         }
 
     }
@@ -111,10 +106,10 @@ public class Bullet : MonoBehaviour {
     }
 
     private void SetP2() {
-        if (_target != null) {
+        if (_target != null && !_isChangeTarget) {
             _bezierPoints[2].transform.position = _target.gameObject.transform.position;
         }
-        else if (_target == null) {
+        else if (_isChangeTarget) {
             _bezierPoints[2].transform.position = _lastTargetPosition;
         }
     }
@@ -143,7 +138,11 @@ public class Bullet : MonoBehaviour {
         }
     }
 
-    public void SetBasicDamage() {
+    public void SetDamage(int value) {
+        _damage = value;
+    }
+
+    public void ResetDamage() {
         _damage = _damageBasic;
     }
 
@@ -154,7 +153,10 @@ public class Bullet : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag(Tags.enemy)) {
             if (_target != null) {
+                //print("bullet damage " + gameObject.name);
                 _target.TakeDamage(Damage);
+                _lastTargetPosition = _target.transform.position;
+                _isChangeTarget = true;
             }
         }
     }
@@ -170,21 +172,16 @@ public class Bullet : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    //private void OnDrawGizmos() {
-    //    if (_target != null && _bezierPoint[0] != null && _bezierPoint[1] != null) {
-    //        int sigmentNumber = 60;
-    //        Vector2 previousPoint = _bezierPoint[0].transform.position;
+    private void OnDrawGizmos() {
+        int sigmentNumber = 60;
+        Vector2 previousPoint = _bezierPoints[0].transform.position;
 
-    //        for (int i = 0; i < sigmentNumber; i++) {
-    //            float param = (float)i / sigmentNumber;
-    //            Vector2 point = Bezier.GetTrajectoryForBullet(_bezierPoint[0].transform.position,
-    //                _bezierPoint[1].transform.position, _bezierPoint[2].transform.position, param);
-    //            Gizmos.DrawLine(previousPoint, point);
-    //            previousPoint = point;
-    //        }
-    //    }
-    //    else {
-    //        print("p2 is null");
-    //    }
-    //}
+        for (int i = 0; i < sigmentNumber; i++) {
+            float param = (float)i / sigmentNumber;
+            Vector2 point = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
+                _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, param);
+            Gizmos.DrawLine(previousPoint, point);
+            previousPoint = point;
+        }
+    }
 }

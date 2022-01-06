@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-    [SerializeField] private int _coin;
+    [SerializeField] 
+    private int _coin;
 
     [SerializeField]
     private EnemySpawner _enemySpawner;
     [SerializeField]
     private InformationPanel _informationPanel;
-
-    [Header("Menu")]
     [SerializeField]
     private GameMenu _gameMenu;
 
@@ -47,6 +46,16 @@ public class GameManager : MonoBehaviour {
         CounterUntilWave();
     }
 
+    private void PauseGame() {
+        if (Input.GetKeyDown(_pauseButton) && !_isPause) {
+            _isPause = !_isPause;
+            StopTime();
+            _gameMenu.SetActiveBackgroundGameMenu(_isPause);
+            _gameMenu.SetActiveDisablePauseMenu(_isPause);
+        }
+    }
+
+
     private void CounterUntilWave() {
         if (_informationPanel.IsActiveCounter()) {
             if (_timer > 0) {
@@ -68,15 +77,6 @@ public class GameManager : MonoBehaviour {
                 _enemySpawner.StartSpawn();
                 _informationPanel.DisableTimerWaveObject();
             }
-        }
-    }
-
-    private void PauseGame() {
-        if (Input.GetKeyDown(_pauseButton) && !_isPause) {
-            _isPause = !_isPause;
-            StopTime();
-            _gameMenu.SetActiveBackgroundGameMenu(_isPause);
-            _gameMenu.SetActiveDisablePauseMenu(_isPause);
         }
     }
 
@@ -102,8 +102,8 @@ public class GameManager : MonoBehaviour {
         _informationPanel.SetValueOnCointText(_coin.ToString());
     }
 
-    public void UpdateWaveText(int countWave) {
-        _informationPanel.SetValueOnCountWaweText("WAVE: " + countWave);
+    public void UpdateWaveText(int countWave, int maxCountWawe) {
+        _informationPanel.SetValueOnCountWaweText("WAVE: " + countWave + " / " + maxCountWawe);
     }
 
     public void SetValueForTimer(float time) {
@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour {
             StopTime();
         }
 
-        else if(_enemySpawner.IsTheLastEnemyInWave) {
+        else if (_enemySpawner.IsTheLastEnemyInWave) {
             _informationPanel.EnableTimerWaveObject();
             _informationPanel.StartAnimationForTimerWave();
             SetValueForTimer(_time);

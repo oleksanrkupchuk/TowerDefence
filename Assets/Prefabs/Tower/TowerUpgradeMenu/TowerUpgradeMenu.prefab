@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1230091453727767194}
   - component: {fileID: 5133520255015251571}
   - component: {fileID: 3399053734154832137}
-  - component: {fileID: 801291064580931801}
   - component: {fileID: 3063316377590529592}
+  - component: {fileID: 3102444125379914329}
   m_Layer: 0
   m_Name: Range
   m_TagString: Menu
@@ -123,21 +123,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &801291064580931801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102462991341488401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbe4e8b578192f248accd7c11592b80b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _price: 9
-  _priceText: {fileID: 5899247363802617667}
-  _priceIncrease: 3
 --- !u!61 &3063316377590529592
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -164,6 +149,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 600, y: 600}
   m_EdgeRadius: 0
+--- !u!114 &3102444125379914329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102462991341488401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d39a6b7fbb8f7ef4cb3cdd4fd8cccad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _price: 0
+  _priceText: {fileID: 5899247363802617667}
+  _priceIncrease: 0
 --- !u!1 &492444355796003731
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,8 +176,8 @@ GameObject:
   - component: {fileID: 7830103616124281525}
   - component: {fileID: 3589903595302866107}
   - component: {fileID: 257974684747914006}
-  - component: {fileID: 6109435081150076895}
   - component: {fileID: 7855319128870922118}
+  - component: {fileID: 5755333093339995236}
   m_Layer: 0
   m_Name: Damage
   m_TagString: Menu
@@ -287,21 +287,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6109435081150076895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492444355796003731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbe4e8b578192f248accd7c11592b80b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _price: 7
-  _priceText: {fileID: 6656951765757976683}
-  _priceIncrease: 2
 --- !u!61 &7855319128870922118
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -328,6 +313,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 600, y: 600}
   m_EdgeRadius: 0
+--- !u!114 &5755333093339995236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492444355796003731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d39a6b7fbb8f7ef4cb3cdd4fd8cccad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _price: 0
+  _priceText: {fileID: 6656951765757976683}
+  _priceIncrease: 0
 --- !u!1 &780991578879081372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,12 +1026,13 @@ MonoBehaviour:
   _numberOfImprovements: 3
   _amountText: {fileID: 2701644991831363885, guid: d4b1cc7d7997515489a7c2eaf9dcfb0e, type: 3}
   _canvas: {fileID: 2322650905416656203}
+  _bullet: {fileID: 0}
   _increaseDamageObject: {fileID: 492444355796003731}
   _sellObject: {fileID: 6569663831637537976}
   _increaseRangeObject: {fileID: 102462991341488401}
   _timeDestroyTower: 0.5
-  _damageUpgradeScript: {fileID: 6109435081150076895}
-  _rangeUpgradeScript: {fileID: 801291064580931801}
+  _damageUpgradeScript: {fileID: 5755333093339995236}
+  _rangeUpgradeScript: {fileID: 3102444125379914329}
 --- !u!1 &9090073817875140991
 GameObject:
   m_ObjectHideFlags: 0

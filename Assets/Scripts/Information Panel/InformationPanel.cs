@@ -15,8 +15,6 @@ public class InformationPanel : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _timeSpeedText;
     [SerializeField]
-    private GameManager _gameManager;
-    [SerializeField]
     private TowerButton _towerIron;
     [SerializeField]
     private TowerButton _towerFire;
@@ -43,6 +41,10 @@ public class InformationPanel : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _priceTextRockTower;
 
+    [Header("Game Manager")]
+    [SerializeField]
+    private GameManager _gameManager;
+
     private void OnEnable() {
         DisableTimerWaveObject();
         DisableTimeSpeedText();
@@ -66,7 +68,7 @@ public class InformationPanel : MonoBehaviour {
 
     private void SubscriptionButton() {
         _startButton.onClick.AddListener(() => {
-            //_gameManager.StartTime();
+            _gameManager.StartTime();
             _gameManager.GameUnpause();
             DisableStartButton();
             DisableBackground();

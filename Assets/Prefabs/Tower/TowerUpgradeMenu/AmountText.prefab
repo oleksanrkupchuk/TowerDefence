@@ -148,6 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stepAxisY: 2.5
-  _distanceForTextMoveAxisY: 0.5
-  _timeLifeObject: 0.5
+  _distanceForTextMoveAxisY: 0.7
+  _timeLifeObject: 0.4
   _amountText: {fileID: 8278317371239465889}
