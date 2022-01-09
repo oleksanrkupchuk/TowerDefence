@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class Enemy : MonoBehaviour {
-    private EnemySpawner _enemySpawner;
     private GameManager _gameManager;
     private Transform _nextWayPoint;
     private int _indexPosition;
@@ -56,10 +55,9 @@ public class Enemy : MonoBehaviour {
     public Vector3 lastPosition;
     public event Action LastPosition;
 
-    public static event Action<Enemy> EnemySpawnerTest;
+    public static event Action<Enemy> EnemyDead;
 
-    public void Initialization(EnemySpawner enemySpawner, GameManager gameManager, List<DataWayPoints> dataWayPoints) {
-        _enemySpawner = enemySpawner;
+    public void Initialization(GameManager gameManager) {
         _gameManager = gameManager;
     }
 
@@ -74,7 +72,7 @@ public class Enemy : MonoBehaviour {
 
         _healthBarBackground.SetActive(true);
 
-        _enemySpawner.AddEnemy(gameObject.GetComponent<Enemy>());
+        //_enemySpawner.AddEnemy(gameObject.GetComponent<Enemy>());
         SubscribeToEventInTheEndDeadAnimation();
     }
 
@@ -134,34 +132,6 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    public void ChangeMaxLayer() {
-        float _distanceForWayPoint = Math.Abs(transform.position.y - _nextWayPoint.position.y);
-        //print("Distance = " + _distanceForWayPoint);
-        if (_distanceForWayPoint < 1f && _isCloseForWayPoint) {
-            _isCloseForWayPoint = false;
-            int index = _indexPosition + 1;
-            Transform nextWayPoint = _currentWay[index];
-            if (transform.position.y - nextWayPoint.position.y < 0) {
-                ChangeLayerOnMin();
-            }
-
-            if (transform.position.y - nextWayPoint.position.y > 0) {
-                ChangeLayerOnMax();
-
-            }
-        }
-    }
-
-    private void ChangeLayerOnMax() {
-        SetLayer(_enemySpawner.maxLayerEnemy);
-        _enemySpawner.maxLayerEnemy--;
-    }
-
-    private void ChangeLayerOnMin() {
-        SetLayer(_enemySpawner.minLayerEnemy);
-        _enemySpawner.minLayerEnemy++;
-    }
-
     private void FlipSpriteLeft() {
         _spriteRenderer.flipX = false;
     }
@@ -186,8 +156,7 @@ public class Enemy : MonoBehaviour {
     }
 
     public void DeathFromLastWay() {
-        EnemySpawnerTest?.Invoke(this);
-        _enemySpawner.RemoveEnemy(this);
+        EnemyDead?.Invoke(this);
         _gameManager.TakeAwayOneHealth();
         _gameManager.CheckHealthAndShowLoseMenuIfHealthZero();
         DestroyEnemy();
@@ -196,8 +165,7 @@ public class Enemy : MonoBehaviour {
     private void DeathFromBullet() {
         GetLastPosition();
         _gameManager.AddCoin(_amountCoinForDeath);
-        EnemySpawnerTest?.Invoke(this);
-        _enemySpawner.RemoveEnemy(this);
+        EnemyDead?.Invoke(this);
         DisableHealthBar();
         _boxCollider.enabled = false;
         _tower.RemoveTarget(this);
@@ -237,7 +205,7 @@ public class Enemy : MonoBehaviour {
     }
 
     public void SetWayPoints(DataWayPoints currentWay) {
-        _currentWay = currentWay.WayPoints;
+        _currentWay = currentWay.wayPoints;
         _nextWayPoint = _currentWay[0];
     }
 

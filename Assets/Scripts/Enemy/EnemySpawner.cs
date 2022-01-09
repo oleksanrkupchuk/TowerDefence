@@ -18,11 +18,12 @@ public class EnemySpawner : MonoBehaviour
     private int _enemyAmountSpawn;
     [SerializeField] 
     private int _quantityWave;
-    public int CurrentWave { get => _currentWave; }
     [SerializeField]
     private int _startLayerEnemy;
     [SerializeField]
     private List<DataWayPoints> _dataWaysPoints = new List<DataWayPoints>();
+    [SerializeField]
+    private List<WaveRules> _waveRules = new List<WaveRules>();
     [SerializeField]
     private float _minTimeWaitForNextSpawnEnemy;
     [SerializeField]
@@ -33,9 +34,6 @@ public class EnemySpawner : MonoBehaviour
     [Header("Game Manager")]
     [SerializeField]
     private GameManager _gameManager;
-
-    public int maxLayerEnemy;
-    public int minLayerEnemy;
 
     public bool IsTheLastEnemyInTheLastWave {
         get {
@@ -68,7 +66,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private void OnEnable() {
-        Enemy.EnemySpawnerTest += RemoveEnemy2;
+        Enemy.EnemyDead += RemoveEnemy;
     }
 
     public void AddEnemy(Enemy enemy) {
@@ -81,14 +79,6 @@ public class EnemySpawner : MonoBehaviour
 
     public void RemoveEnemy(Enemy enemy) {
         _enemyList.Remove(enemy);
-    }
-
-    public void ResetMaxLayer() {
-        maxLayerEnemy = 50;
-    }
-
-    public void ResetMinLayer() {
-        maxLayerEnemy = 1;
     }
 
     public void StartSpawn() {
@@ -105,10 +95,9 @@ public class EnemySpawner : MonoBehaviour
                 enemyPrefab.name = "enemy " + i;
                 GameObject _enemyObject = Instantiate(enemyPrefab, _pointSpawn, Quaternion.identity);
                 Enemy _enemyScript = _enemyObject.GetComponent<Enemy>();
-                _enemyScript.Initialization(this, _gameManager, _dataWaysPoints);
+                AddEnemy(_enemyScript);
+                _enemyScript.Initialization(_gameManager);
                 _enemyScript.SetWayPoints(_currentWay);
-                //_enemyScript.SetLayer(_startLayerEnemy);
-                //_startLayerEnemy++;
                 _startLayerEnemy--;
 
                 _timeWaitForNextSpawnEnemy = Random.Range(_minTimeWaitForNextSpawnEnemy, _maxTimeWaitForNextSpawnEnemy);
@@ -131,10 +120,10 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private void SetPointSpawn() {
-        _pointSpawn = _currentWay.WayPoints[0].position;
+        _pointSpawn = _currentWay.wayPoints[0].position;
     }
 
     private void OnDestroy() {
-        Enemy.EnemySpawnerTest -= RemoveEnemy2;
+        Enemy.EnemyDead -= RemoveEnemy;
     }
 }

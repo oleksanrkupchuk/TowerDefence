@@ -121,11 +121,11 @@ MonoBehaviour:
   _animationClip: {fileID: 7400000, guid: 324278fab0bf55243890827f85382af4, type: 2}
   _animator: {fileID: 2174756978729729258}
   _bezierPoints: []
-  t: 0
   _time: 0
   _timeFlight: 1.2
   _axisYP1: 6.5
   _amountBezierPoints: 3
+  _circleCollider: {fileID: 5098031056570507187}
 --- !u!50 &-3337609198671751003
 Rigidbody2D:
   serializedVersion: 4

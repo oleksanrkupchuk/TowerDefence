@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour {
     private bool _isBeizerPointNotNull = true;
     private Vector2 _lastTargetPosition;
     private bool _isChangeTarget = false;
+    private float _t;
 
     [SerializeField]
     private int _damage;
@@ -24,7 +25,6 @@ public class Bullet : MonoBehaviour {
     private Animator _animator;
     [SerializeField]
     private List<GameObject> _bezierPoints = new List<GameObject>();
-    public float t;
     [SerializeField]
     private float _time;
     [SerializeField]
@@ -33,6 +33,8 @@ public class Bullet : MonoBehaviour {
     private float _axisYP1;
     [SerializeField]
     private float _amountBezierPoints;
+    [SerializeField]
+    private Collider2D _circleCollider;
 
     public event Action DestroyBeizerPoint;
 
@@ -116,24 +118,24 @@ public class Bullet : MonoBehaviour {
 
     private void CalculationT() {
         _time += Time.deltaTime;
-        t = _time / _timeFlight;
+        _t = _time / _timeFlight;
     }
 
     private void Move() {
         transform.position = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
-                _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, t);
+                _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, _t);
     }
 
     private void Rotation() {
         _nexPosition = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
-                       _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, t + 0.1f);
+                       _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, _t + 0.1f);
         Vector2 moveDirection = _nexPosition - transform.position;
         float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
     private void CheckTAndDestroyBullet() {
-        if (t >= 1) {
+        if (_t >= 1) {
             PlayAnimationDestroy();
         }
     }
@@ -153,8 +155,9 @@ public class Bullet : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag(Tags.enemy)) {
             if (_target != null) {
-                //print("bullet damage " + gameObject.name);
-                _target.TakeDamage(Damage);
+                _circleCollider.enabled = false;
+                //print("bullet" + gameObject.name + " = " + "damage " + _damage);
+                _target.TakeDamage(_damage);
                 _lastTargetPosition = _target.transform.position;
                 _isChangeTarget = true;
             }
