@@ -1,11 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TowerManager : MonoBehaviour {
+
+    private Tower _tower;
     private Vector2 cursorMousePosition;
     private RaycastHit2D _raycastHit;
+    private TowerButton _towerButtonPressed;
+
     [SerializeField]
     private LayerMask _layer;
     [SerializeField]
@@ -16,19 +18,12 @@ public class TowerManager : MonoBehaviour {
     private SpriteRenderer _towerIcon;
     [SerializeField]
     private GameManager _gameManager;
-    private TowerButton _towerButtonPressed;
-
     [SerializeField]
     private bool putTower = true;
 
-    [Header("Colors")]
-    [SerializeField]
-    private Color _colorAlpha;
-    [SerializeField]
-    private Color _colorDeafault;
-
     public List<Tower> towersList = new List<Tower>();
-    private Tower _tower;
+
+    public TowerButton TowerButtonPressed { get => _towerButtonPressed; }
 
     void Update() {
         if (Input.GetButtonDown("Fire1")) {
@@ -38,10 +33,6 @@ public class TowerManager : MonoBehaviour {
 
             CheckRaycastAndCallClickOnTower(_raycastHit);
         }
-
-        //if (Input.GetButtonDown("Fire2")) {
-        //    DisbleTowerIcon();
-        //}
 
         if (_towerIcon.sprite == true) {
             FollowMouseTowerIcon();
@@ -80,7 +71,8 @@ public class TowerManager : MonoBehaviour {
             putTower = true;
             int price = _towerButtonPressed.TowerObject.GetComponent<Tower>().Price;
             _gameManager.SubstractCoin(price);
-            _towerIcon.color = _colorDeafault;
+            DisableIlluminationIconOnPlaceForTower(placeTower);
+
             GameObject tower = Instantiate(_towerButtonPressed.TowerObject, placeTower.position, Quaternion.identity);
             Tower _tower = tower.GetComponent<Tower>();
             _tower.Initialization(this, _gameManager);
@@ -92,6 +84,11 @@ public class TowerManager : MonoBehaviour {
         else {
             //Debug.Log(hit2D.transform.name);
         }
+    }
+
+    private void DisableIlluminationIconOnPlaceForTower(Transform placeForTower) {
+        PlaceForTower _placeForTower = placeForTower.GetComponent<PlaceForTower>();
+        _placeForTower.SetIconNull();
     }
 
     private void DisableOrEnableMenuUpgrageOntower(RaycastHit2D raycast) {
@@ -127,19 +124,10 @@ public class TowerManager : MonoBehaviour {
         _towerIcon.enabled = false;
     }
 
-    public void SubtractMoney(TowerButton towerButton) {
-        if (_gameManager.Coin >= towerButton.TowerObject.GetComponent<Tower>().Price) {
-            SelectedTower(towerButton);
-        }
-        else {
-            print("Not enough money");
-        }
-    }
-
     public void SelectedTower(TowerButton towerButton) {
         _towerButtonPressed = towerButton;
-        _towerIcon.color = _colorAlpha;
-        EnableSprite(_towerButtonPressed.TowerSprite);
+        //_towerIcon.color = _colorAlpha;
+        EnableSprite(_towerButtonPressed.Sprite);
         putTower = false;
         //Debug.Log("tower = " + towerButtonPressed.gameObject.name);
     }

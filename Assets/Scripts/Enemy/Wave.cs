@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class WaveRules {
-    public List<SpawnRules> spawnRules = new List<SpawnRules>();
+public class Wave {
+    public List<Spawn> spawn = new List<Spawn>();
 }
 
 [System.Serializable]
-public class SpawnRules {
+public class Spawn {
     public Transform spawnPoint;
     public GameObject enemy;
     public int amountEnemy;

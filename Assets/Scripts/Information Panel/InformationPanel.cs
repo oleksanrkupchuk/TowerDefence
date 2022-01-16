@@ -15,11 +15,7 @@ public class InformationPanel : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _timeSpeedText;
     [SerializeField]
-    private TowerButton _towerIron;
-    [SerializeField]
-    private TowerButton _towerFire;
-    [SerializeField]
-    private TowerButton _towerRock;
+    private TowerButton[] _towerButton;
 
     private string _valueTimeDoubletSpeed = "X2";
 
@@ -35,15 +31,13 @@ public class InformationPanel : MonoBehaviour {
 
     [Header("Information parameters")]
     [SerializeField]
-    private TextMeshProUGUI _priceTextIronTower;
-    [SerializeField]
-    private TextMeshProUGUI _priceTextFireTower;
-    [SerializeField]
-    private TextMeshProUGUI _priceTextRockTower;
+    private TextMeshProUGUI[] _priceTowerText;
 
     [Header("Game Manager")]
     [SerializeField]
     private GameManager _gameManager;
+    [SerializeField]
+    private TowerManager _towerManager;
 
     private void OnEnable() {
         DisableTimerWaveObject();
@@ -52,7 +46,7 @@ public class InformationPanel : MonoBehaviour {
 
     private void Start() {
         DisableButtonDefaultTimeSpeed();
-        SetValueOnPriceTextTower();
+        SetValueOnPriceTowerTextAndSubsñriptionButtonsTower();
         SubscriptionButton();
     }
 
@@ -60,10 +54,21 @@ public class InformationPanel : MonoBehaviour {
         _buttonDefaultTimeSpeed.interactable = false;
     }
 
-    private void SetValueOnPriceTextTower() {
-        _priceTextIronTower.text = "" + _towerIron.TowerScript.Price;
-        _priceTextFireTower.text = "" + _towerFire.TowerScript.Price;
-        _priceTextRockTower.text = "" + _towerRock.TowerScript.Price;
+    private void SetValueOnPriceTowerTextAndSubsñriptionButtonsTower() {
+        for (int i = 0; i < _towerButton.Length; i++) {
+            SetValueOnPriceTextTower(_priceTowerText[i], _towerButton[i]);
+            SubscriptionTowerButtons(_towerButton[i]);
+        }
+    }
+
+    private void SetValueOnPriceTextTower(TextMeshProUGUI priceText, TowerButton towerButton) {
+        priceText.text = "" + towerButton.TowerScript.Price;
+    }
+
+    private void SubscriptionTowerButtons(TowerButton towerButton) {
+        towerButton.Button.onClick.AddListener(() => {
+            _towerManager.SelectedTower(towerButton);
+        });
     }
 
     private void SubscriptionButton() {

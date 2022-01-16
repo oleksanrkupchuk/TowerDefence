@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 7727614519314563347}
   - component: {fileID: -7790366246113687692}
   - component: {fileID: 1787142671323376124}
+  - component: {fileID: -9031536682422507896}
   m_Layer: 0
   m_Name: TowerOfFire
   m_TagString: Tower
@@ -196,15 +197,12 @@ MonoBehaviour:
   _stepDegree: 10
   _price: 12
   _canvas: {fileID: 3784897731316563199}
-  _rangeCollider: {fileID: 2156769762587180802}
+  _rangeCollider: {fileID: -9031536682422507896}
   _buletPrefab: {fileID: 945258179174288900, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
   _buletScript: {fileID: -9207831536469935992, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
   _lineRenderer: {fileID: 1787142671323376124}
   target: {fileID: 0}
   _placeForTower: {fileID: 0}
-  _objectIncreaseDamage: {fileID: 6349102513605134487}
-  _objectSell: {fileID: 424792890231232444}
-  _objectIncreaseRange: {fileID: 6891929221735393813}
   _towerUpgradeMenu: {fileID: 3455737340584272717}
   _towerRange: {fileID: 6851145447994161435}
 --- !u!120 &1787142671323376124
@@ -306,6 +304,22 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 1
+--- !u!58 &-9031536682422507896
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7727614519314563346}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.0791478
 --- !u!1 &9174106422590392399
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e169c72352032a84aaf9abe112cad46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tower: {fileID: -7790366246113687692}
 --- !u!1001 &6829999726853923588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -495,20 +508,5 @@ MonoBehaviour:
 --- !u!1 &3784897731316563199 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7660518506066780155, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-  m_PrefabInstance: {fileID: 6829999726853923588}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6349102513605134487 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 492444355796003731, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-  m_PrefabInstance: {fileID: 6829999726853923588}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &424792890231232444 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6569663831637537976, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-  m_PrefabInstance: {fileID: 6829999726853923588}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6891929221735393813 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 102462991341488401, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
   m_PrefabInstance: {fileID: 6829999726853923588}
   m_PrefabAsset: {fileID: 0}

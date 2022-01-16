@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7364899922524614833}
   - component: {fileID: 7364899922524614838}
   - component: {fileID: 7364899922524614839}
+  - component: {fileID: 10559667}
+  - component: {fileID: 728862171}
   m_Layer: 0
   m_Name: TowerManager
   m_TagString: Untagged
@@ -53,8 +55,6 @@ MonoBehaviour:
   _towerIcon: {fileID: 7364899922524614839}
   _gameManager: {fileID: 0}
   putTower: 1
-  _colorAlpha: {r: 1, g: 1, b: 1, a: 0.5882353}
-  _colorDeafault: {r: 1, g: 1, b: 1, a: 1}
   towersList: []
 --- !u!212 &7364899922524614839
 SpriteRenderer:
@@ -108,3 +108,40 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &10559667
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364899922524614832}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &728862171
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7364899922524614832}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.01

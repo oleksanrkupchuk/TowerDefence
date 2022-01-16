@@ -1,11 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerButton : MonoBehaviour
 {
-    [SerializeField] private GameObject towerObject;
-    [SerializeField] private Sprite towerSprite;
+    [SerializeField] 
+    private GameObject towerObject;
+    [SerializeField] 
+    private Sprite towerSprite;
+    [SerializeField]
+    private Button _button;
 
     public GameObject TowerObject
     {
@@ -21,11 +24,13 @@ public class TowerButton : MonoBehaviour
         }
     }
 
-    public Sprite TowerSprite
+    public Sprite Sprite
     {
         get
         {
             return towerSprite;
         }
     }
+
+    public Button Button { get => _button; }
 }

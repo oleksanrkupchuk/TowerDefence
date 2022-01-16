@@ -30411,6 +30411,10 @@ PrefabInstance:
       propertyPath: _enemySpawner
       value: 
       objectReference: {fileID: 945401129}
+    - target: {fileID: 1402524293244430973, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: _towerManager
+      value: 
+      objectReference: {fileID: 608088876}
     - target: {fileID: 1402524293244430975, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
       propertyPath: m_Name
       value: InformationPanel

@@ -54,7 +54,6 @@ public class Enemy : MonoBehaviour {
     public bool IsDead { get => _health <= 0; }
     public Vector3 lastPosition;
     public event Action LastPosition;
-
     public static event Action<Enemy> EnemyDead;
 
     public void Initialization(GameManager gameManager) {
@@ -79,13 +78,10 @@ public class Enemy : MonoBehaviour {
     private void Update() {
         if (!IsDead) {
 
-            //ChangeMaxLayer();
             if (_currentWay != null) {
                 SetNextPosition();
                 Move();
             }
-
-            //CkeckLastWayPoint();
         }
     }
 
@@ -99,27 +95,9 @@ public class Enemy : MonoBehaviour {
             if (_indexPosition < _currentWay.Count) {
                 _nextWayPoint = _currentWay[_indexPosition];
             }
-            //_isCloseForWayPoint = true;
 
             CheckFlipSprite();
         }
-    }
-
-    private void CkeckLastWayPoint() {
-        if (IsCloseForLasrWayPoint()) {
-            DeathFromLastWay();
-        }
-    }
-
-    private bool IsCloseForLasrWayPoint() {
-        int _lastPoint = _currentWay.Count - 1;
-        if (_nextWayPoint == _currentWay[_lastPoint]) {
-            if (Vector2.Distance(transform.position, _nextWayPoint.position) <= 0.2f) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private void CheckFlipSprite() {
@@ -204,13 +182,8 @@ public class Enemy : MonoBehaviour {
         _healthBarBackground.SetActive(false);
     }
 
-    public void SetWayPoints(DataWayPoints currentWay) {
-        _currentWay = currentWay.wayPoints;
+    public void SetWayPoints(List<Transform> currentWay) {
+        _currentWay = currentWay;
         _nextWayPoint = _currentWay[0];
-    }
-
-    public void SetLayer(int layer) {
-        _spriteRenderer.sortingOrder = layer;
-        _canvas.sortingOrder = layer;
     }
 }

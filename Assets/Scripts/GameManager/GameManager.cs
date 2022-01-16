@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour {
             }
 
             else if (_timer <= 0) {
-                _enemySpawner.StartSpawn();
+                _enemySpawner.StartEnemySpawn();
                 _informationPanel.DisableTimerWaveObject();
             }
         }
