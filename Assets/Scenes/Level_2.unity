@@ -171,6 +171,18 @@ PrefabInstance:
       propertyPath: _informationPanel
       value: 
       objectReference: {fileID: 1862985696}
+    - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
+      propertyPath: _leftThePercentageOfHealthToReceiveOneStar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
+      propertyPath: _leftThePercentageOfHealthToReceiveTwoStar
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
+      propertyPath: _leftThePercentageOfHealthToReceiveThreeStar
+      value: 85
+      objectReference: {fileID: 0}
     - target: {fileID: 7237882428311984577, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -12383,10 +12395,6 @@ PrefabInstance:
       propertyPath: _gameManager
       value: 
       objectReference: {fileID: 8983060}
-    - target: {fileID: 5248705556706215342, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
-      propertyPath: _pauseMenuScript
-      value: 
-      objectReference: {fileID: 289500972}
     - target: {fileID: 5284401508537222222, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -12475,22 +12483,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GemeMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 5284401508579052429, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284401509150018294, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
-      propertyPath: _indexCurrentLevel
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5284401509718685875, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
-      propertyPath: _gameManager
-      value: 
-      objectReference: {fileID: 8983060}
-    - target: {fileID: 5284401509718685877, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6172456730151218541, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -12533,17 +12525,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5284401508579052429, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
   m_PrefabInstance: {fileID: 289500962}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &289500972 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5284401509718685875, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
-  m_PrefabInstance: {fileID: 289500962}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 289500965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f183da67ddb2c345afad6fc5bc902ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &299990210
 GameObject:
   m_ObjectHideFlags: 0
@@ -27515,7 +27496,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 150
+  m_SortingOrder: 200
   m_TargetDisplay: 0
 --- !u!224 &1305503549
 RectTransform:
@@ -30191,7 +30172,7 @@ PrefabInstance:
       objectReference: {fileID: 1862985696}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _waves.Array.size
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _waveRules.Array.size
@@ -30355,7 +30336,7 @@ PrefabInstance:
       objectReference: {fileID: 6037710262501487112, guid: caedb2076ef91a541bccf3a9349a1d88, type: 3}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _waves.Array.data[0].spawn.Array.data[0].amountEnemy
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _waves.Array.data[0].spawn.Array.data[1].amountEnemy
@@ -32008,6 +31989,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SelectedTower
       objectReference: {fileID: 0}
+    - target: {fileID: 1402524292259038386, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1402524292307717694, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -32055,6 +32040,10 @@ PrefabInstance:
     - target: {fileID: 1402524292661544377, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402524292662692101, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1402524292821823326, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

@@ -54,6 +54,7 @@ MonoBehaviour:
     m_Bits: 2048
   _towerIcon: {fileID: 7364899922524614839}
   _gameManager: {fileID: 0}
+  _collider: {fileID: 728862171}
   putTower: 1
   towersList: []
 --- !u!212 &7364899922524614839

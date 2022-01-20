@@ -30,7 +30,7 @@ RectTransform:
   m_GameObject: {fileID: 102462991341488401}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0012, y: 0.0012, z: 1}
+  m_LocalScale: {x: 0.0015, y: 0.0015, z: 1}
   m_Children:
   - {fileID: 2768858323982434304}
   m_Father: {fileID: 2322650905416656203}
@@ -147,7 +147,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 600, y: 600}
+  m_Size: {x: 600, y: 620}
   m_EdgeRadius: 0
 --- !u!114 &3102444125379914329
 MonoBehaviour:
@@ -161,9 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39a6b7fbb8f7ef4cb3cdd4fd8cccad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _price: 0
+  _price: 16
   _priceText: {fileID: 5899247363802617667}
-  _priceIncrease: 0
+  _priceIncrease: 4
 --- !u!1 &492444355796003731
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +194,7 @@ RectTransform:
   m_GameObject: {fileID: 492444355796003731}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0012, y: 0.0012, z: 1}
+  m_LocalScale: {x: 0.0015, y: 0.0015, z: 1}
   m_Children:
   - {fileID: 1071455049005243981}
   m_Father: {fileID: 2322650905416656203}
@@ -311,7 +311,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 600, y: 600}
+  m_Size: {x: 600, y: 620}
   m_EdgeRadius: 0
 --- !u!114 &5755333093339995236
 MonoBehaviour:
@@ -325,9 +325,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39a6b7fbb8f7ef4cb3cdd4fd8cccad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _price: 0
+  _price: 10
   _priceText: {fileID: 6656951765757976683}
-  _priceIncrease: 0
+  _priceIncrease: 5
 --- !u!1 &780991578879081372
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,7 +702,7 @@ RectTransform:
   m_GameObject: {fileID: 6569663831637537976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0015, y: 0.0015, z: 1}
+  m_LocalScale: {x: 0.0017, y: 0.0017, z: 1}
   m_Children: []
   m_Father: {fileID: 2322650905416656203}
   m_RootOrder: 1
@@ -818,7 +818,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 500, y: 500}
+  m_Size: {x: 450, y: 480}
   m_EdgeRadius: 0
 --- !u!1 &7660518506066780155
 GameObject:

@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1251926531601392035
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4782800660961436770}
-  m_Layer: 0
-  m_Name: P1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4782800660961436770
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1251926531601392035}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.75, y: 3.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6470073090395598500}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1698766304776122018
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +14,6 @@ GameObject:
   - component: {fileID: -4202184418589515201}
   - component: {fileID: 1757262025610622058}
   - component: {fileID: 3322008331593291023}
-  - component: {fileID: 8201916925382560474}
   m_Layer: 0
   m_Name: TowerOfIron
   m_TagString: Tower
@@ -64,8 +33,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7868094680344040008}
-  - {fileID: 4782800660961436770}
-  - {fileID: 3421996142582356707}
+  - {fileID: 8493966630257259040}
   - {fileID: 5825128451943506158}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -173,15 +141,13 @@ MonoBehaviour:
   _stepDegree: 10
   _price: 10
   _canvas: {fileID: 5729650776988955103}
-  _rangeCollider: {fileID: 8201916925382560474}
-  _boxCollider: {fileID: 6906631230826399657}
+  _rangeCollider: {fileID: 6026444725626606229}
   _buletPrefab: {fileID: 4544291592785701270, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
   _buletScript: {fileID: -5753714780342718237, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
   _lineRenderer: {fileID: 1757262025610622058}
   target: {fileID: 0}
   _placeForTower: {fileID: 0}
   _towerUpgradeMenu: {fileID: 6120490462788562541}
-  _towerRange: {fileID: 2999893796613166525}
 --- !u!120 &1757262025610622058
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -289,23 +255,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1698766304776122018}
   m_CullTransparentMesh: 1
---- !u!58 &8201916925382560474
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698766304776122018}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.0001
---- !u!1 &2759521755001264058
+--- !u!1 &3931535626208798964
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -313,37 +263,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3421996142582356707}
-  - component: {fileID: 125635702908944359}
-  - component: {fileID: 2999893796613166525}
+  - component: {fileID: 8493966630257259040}
+  - component: {fileID: 2291375839199195477}
+  - component: {fileID: 6026444725626606229}
   m_Layer: 2
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &3421996142582356707
+  m_IsActive: 1
+--- !u!4 &8493966630257259040
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2759521755001264058}
+  m_GameObject: {fileID: 3931535626208798964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6470073090395598500}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &125635702908944359
+--- !u!114 &2291375839199195477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3931535626208798964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7117e9db08a9e5c41b9e83eb246ba896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tower: {fileID: -4202184418589515201}
+--- !u!58 &6026444725626606229
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2759521755001264058}
+  m_GameObject: {fileID: 3931535626208798964}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -352,19 +315,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3
---- !u!114 &2999893796613166525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2759521755001264058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e169c72352032a84aaf9abe112cad46f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Radius: 0.5
 --- !u!1 &6799197747167630353
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,29 +353,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6470073090395598500}
     m_Modifications:
-    - target: {fileID: 3102444125379914329, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-      propertyPath: _price
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 3102444125379914329, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-      propertyPath: _priceIncrease
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5755333093339995236, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-      propertyPath: _price
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5755333093339995236, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-      propertyPath: _priceIncrease
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8438457688127442628, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_Name
       value: TowerMenu
       objectReference: {fileID: 0}
     - target: {fileID: 8438457688127442634, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8438457688127442634, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_LocalPosition.x

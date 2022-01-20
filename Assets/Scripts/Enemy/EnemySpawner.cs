@@ -6,10 +6,9 @@ public class EnemySpawner : MonoBehaviour {
     private float _timeWaitForNextSpawnEnemy;
     private int _currentWaveInt = 0;
     private Wave _currentWave;
+    private int _quantityWave;
 
     [Header("Parametrs")]
-    [SerializeField]
-    private int _quantityWave;
     [SerializeField]
     private int _startLayerEnemy;
     [SerializeField]
@@ -58,6 +57,7 @@ public class EnemySpawner : MonoBehaviour {
     private void OnEnable() {
         Enemy.EnemyDead += RemoveEnemy;
         _currentWave = _waves[0];
+        _quantityWave = _waves.Count;
     }
 
     public void AddEnemy(Enemy enemy) {

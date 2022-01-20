@@ -73,7 +73,7 @@ public class InformationPanel : MonoBehaviour {
 
     private void SubscriptionButton() {
         _startButton.onClick.AddListener(() => {
-            _gameManager.StartTime();
+            //_gameManager.StartTime();
             _gameManager.GameUnpause();
             DisableStartButton();
             DisableBackground();

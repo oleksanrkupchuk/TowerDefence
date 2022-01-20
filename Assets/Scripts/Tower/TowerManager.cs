@@ -10,8 +10,6 @@ public class TowerManager : MonoBehaviour {
 
     [SerializeField]
     private LayerMask _layer;
-    [SerializeField]
-    private LayerMask _towerLayer;
 
     [Header("Components")]
     [SerializeField]
@@ -19,11 +17,17 @@ public class TowerManager : MonoBehaviour {
     [SerializeField]
     private GameManager _gameManager;
     [SerializeField]
+    private Collider2D _collider;
+    [SerializeField]
     private bool putTower = true;
 
     public List<Tower> towersList = new List<Tower>();
 
     public TowerButton TowerButtonPressed { get => _towerButtonPressed; }
+
+    private void Start() {
+        _collider.enabled = false;
+    }
 
     void Update() {
         if (Input.GetButtonDown("Fire1")) {
@@ -69,6 +73,7 @@ public class TowerManager : MonoBehaviour {
         if (!putTower) {
             //null коли не вибираєш башню і тицяєш на місце для башні
             putTower = true;
+            _collider.enabled = false;
             int price = _towerButtonPressed.TowerObject.GetComponent<Tower>().Price;
             _gameManager.SubstractCoin(price);
             DisableIlluminationIconOnPlaceForTower(placeTower);
@@ -128,6 +133,7 @@ public class TowerManager : MonoBehaviour {
         _towerButtonPressed = towerButton;
         //_towerIcon.color = _colorAlpha;
         EnableSprite(_towerButtonPressed.Sprite);
+        _collider.enabled = true;
         putTower = false;
         //Debug.Log("tower = " + towerButtonPressed.gameObject.name);
     }

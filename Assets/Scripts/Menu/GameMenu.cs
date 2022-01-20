@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameMenu : MonoBehaviour
 {
     private PauseMenu _pauseMenuScript;
+    private LoseMenu _loseMenuScript;
 
     [Header("Objects")]
     [SerializeField]
@@ -20,9 +21,13 @@ public class GameMenu : MonoBehaviour
     [SerializeField]
     private GameManager _gameManager;
 
+    public WinMenu WinMenu { get => _winMenu.GetComponent<WinMenu>(); }
+
     private void OnEnable() {
         _pauseMenuScript = _pauseMenu.GetComponent<PauseMenu>();
+        _loseMenuScript = _loseMenu.GetComponent<LoseMenu>();
         _pauseMenuScript.SetGameManager(_gameManager);
+        _loseMenuScript.SetGameManager(_gameManager);
         DisableBackgroundGameMenu();
         DisableLoseMenu();
         DisablePauseMenu();

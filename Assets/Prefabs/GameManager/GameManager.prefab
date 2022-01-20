@@ -50,13 +50,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coin: 233
-  _menuBackground: {fileID: 0}
   _enemySpawner: {fileID: 0}
   _informationPanel: {fileID: 0}
   _gameMenu: {fileID: 0}
   _isPause: 1
   _time: 2
   _health: 2
+  _leftThePercentageOfHealthToReceiveOneStar: 1
+  _leftThePercentageOfHealthToReceiveTwoStar: 50
+  _leftThePercentageOfHealthToReceiveThreeStar: 85
   _pauseButton: 27
 --- !u!222 &7237882428311984583
 CanvasRenderer:

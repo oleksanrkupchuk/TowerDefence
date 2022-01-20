@@ -223,31 +223,4 @@ public class Tower : MonoBehaviour {
     public void DestroyTower(float timeDestroy) {
         Destroy(gameObject, timeDestroy);
     }
-
-    private void OnTriggerEnter2D(Collider2D collision) {
-        Enemy _enemy = collision.gameObject.GetComponent<Enemy>();
-
-        if (_enemy != null) {
-            EnemyList.Add(_enemy);
-            _enemy.InitializationTower(this);
-
-            if (IsTargetNull()) {
-                SetTarget();
-            }
-
-            //print("tower = " + _tower.gameObject.name);
-            //print("target = " + _tower.target.name);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision) {
-        Enemy _enemy = collision.gameObject.GetComponent<Enemy>();
-
-        if (_enemy != null) {
-            RemoveTarget(_enemy);
-            SetTarget();
-            _enemy.GetLastPosition();
-            //print("enemy go went");
-        }
-    }
 }

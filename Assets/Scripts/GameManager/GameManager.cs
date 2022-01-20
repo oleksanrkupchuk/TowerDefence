@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     [SerializeField] 
     private int _coin;
+    private int _currentHealth;
+    private int _countStars;
 
     [SerializeField]
     private EnemySpawner _enemySpawner;
@@ -18,6 +21,18 @@ public class GameManager : MonoBehaviour {
     private float _time;
     [SerializeField]
     private int _health;
+    [SerializeField]
+    private int _leftThePercentageOfHealthToReceiveOneStar;
+    [SerializeField]
+    private int _leftThePercentageOfHealthToReceiveTwoStar;
+    [SerializeField]
+    private int _leftThePercentageOfHealthToReceiveThreeStar;
+
+    private int LeftPercentageOfHealth {
+        get {
+            return (_currentHealth * 100) / _health;
+        }
+    }
 
     private bool IsNotZeroHealth {
         get {
@@ -35,6 +50,7 @@ public class GameManager : MonoBehaviour {
     private KeyCode _pauseButton;
 
     private void Start() {
+        _currentHealth = _health;
         _informationPanel.SetValueOnCointText(_coin.ToString());
         _informationPanel.SetValueOnCountWaweText("WAVE: " + 0);
         SetValueForTimer(_time);
@@ -128,7 +144,11 @@ public class GameManager : MonoBehaviour {
         if (_enemySpawner.IsTheLastEnemyInTheLastWave) {
             _gameMenu.EnableBackgroundGameMenu();
             _gameMenu.EnableWinMenu();
-            StopTime();
+            _countStars = CalculationStars();
+            _gameMenu.WinMenu.countStars = _countStars;
+            _gameMenu.WinMenu.StartShowAnimationStars();
+            int _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SaveSystemStars.SaveStars(_countStars, _currentSceneIndex);
         }
 
         else if (_enemySpawner.IsTheLastEnemyInWave) {
@@ -139,12 +159,12 @@ public class GameManager : MonoBehaviour {
     }
 
     public void TakeAwayOneHealth() {
-        _health--;
+        _currentHealth--;
         UpdateHealthText();
     }
 
     private void UpdateHealthText() {
-        _informationPanel.SetHealthText(_health);
+        _informationPanel.SetHealthText(_currentHealth);
     }
 
     private void ShowLoseMenu() {
@@ -159,5 +179,19 @@ public class GameManager : MonoBehaviour {
 
     public void GameUnpause() {
         _isPause = false;
+    }
+
+    private int CalculationStars() {
+        //print("percent of health = " + LeftPercentageOfHealth);
+        if(LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveThreeStar) {
+            return 3;
+        }
+        if(LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveTwoStar) {
+            return 2;
+        }
+        if(LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveOneStar) {
+            return 1;
+        }
+        return 0;
     }
 }
