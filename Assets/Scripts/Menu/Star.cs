@@ -5,74 +5,72 @@ using UnityEngine.UI;
 public class Star : MonoBehaviour {
     private float _timer;
     private float _time;
+    private bool _isBlink = false;
 
     [SerializeField]
-    private Image _starCenter;
+    private Image _icon;
     [SerializeField]
-    private float _timeAnimation;
+    private float _timeFillingAnimation;
     [SerializeField]
-    private float _timeDelayForShowAnimation;
+    private float _timeDelayForShowFillingAnimation;
     [SerializeField]
-    private float _timePlayBlinkAnimation;
+    private float _timeBlinkAnimation;
     [SerializeField]
     private float _timeBlink;
-    [SerializeField]
-    private bool _isBlink;
     [SerializeField]
     private Color _colorBlink;
     [SerializeField]
     private Color _colorDefault;
 
-    public bool endAnamation;
+    public bool endFillingAnimation;
 
     void Start() {
-        _starCenter.fillAmount = 0;
-        _timer = _timeAnimation;
+        _icon.fillAmount = 0;
+        _timer = _timeFillingAnimation;
     }
 
     private void Update() {
         if (_isBlink) {
-            _timePlayBlinkAnimation -= Time.deltaTime;
-            print("time = " + _timePlayBlinkAnimation);
-            if (_timePlayBlinkAnimation < 0) {
+            _timeBlinkAnimation -= Time.deltaTime;
+
+            if (_timeBlinkAnimation < 0) {
                 _isBlink = false;
             }
         }
     }
 
-    public void StartAnimation() {
-        StartCoroutine(Animation());
+    public void StartFillingAnimation() {
+        StartCoroutine(FillingAnimation());
     }
 
-    private IEnumerator Animation() {
-        yield return new WaitForSeconds(_timeDelayForShowAnimation);
+    private IEnumerator FillingAnimation() {
+        yield return new WaitForSeconds(_timeDelayForShowFillingAnimation);
 
         while (_timer >= 0) {
-            //print("play");
-            //_time += Time.deltaTime;
-            _timer -= Time.deltaTime;
-            //_timer -= _time * _time;
+            _time += Time.deltaTime;
+            _timer -= _time * _time;
 
-            float _amount = Mathf.Abs(_timer - _timeAnimation) / _timeAnimation;
-            _starCenter.fillAmount = _amount;
+            float _amount = Mathf.Abs(_timer - _timeFillingAnimation) / _timeFillingAnimation;
+            _icon.fillAmount = _amount;
 
             yield return null;
         }
 
-        _isBlink = true;
+        endFillingAnimation = true;
+    }
 
+    public void StartBlinkAnimation() {
         StartCoroutine(BlinkAnimation());
     }
 
     private IEnumerator BlinkAnimation() {
+        _isBlink = true;
+
         while (_isBlink) {
-            //print("blink");
-            _starCenter.color = _colorBlink;
+            _icon.color = _colorBlink;
             yield return new WaitForSeconds(_timeBlink);
-            _starCenter.color = _colorDefault;
+            _icon.color = _colorDefault;
             yield return new WaitForSeconds(_timeBlink);
         }
-
-        endAnamation = true;
     }
 }

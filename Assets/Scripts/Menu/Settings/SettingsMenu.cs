@@ -4,7 +4,7 @@ using TMPro;
 using System.Collections.Generic;
 using System;
 
-public class SettingsMenu : MenuBase {
+public class SettingsMenu : BaseMenu {
     [Header("Buttons Settings Menu")]
     [SerializeField]
     private Button _back;
@@ -104,7 +104,7 @@ public class SettingsMenu : MenuBase {
     private void SetScreenResolution(TMP_Dropdown dropdown) {
         int _index = dropdown.value;
         Screen.SetResolution(_resolutions[_index].weidth, _resolutions[_index].height, _fullScreenToggle.isOn);
-        ChangeScreenResolution(_resolutions[_index].weidth);
+        ChangeScreenResolution?.Invoke(_resolutions[_index].weidth);
         //print("index = " + _index);
     }
 

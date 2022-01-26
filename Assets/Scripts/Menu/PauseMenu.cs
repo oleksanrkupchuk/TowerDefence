@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PauseMenu : MenuBase
+public class PauseMenu : BaseMenu
 {
     private GameManager _gameManager;
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5309600492019184782}
   - component: {fileID: 5622163326935248046}
   - component: {fileID: 611613967024040103}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tower: {fileID: -3416202952328365386}
+  _ignoreRaycastLayerIndex: 2
 --- !u!58 &611613967024040103
 CircleCollider2D:
   m_ObjectHideFlags: 0

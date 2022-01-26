@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour {
 
     private bool IsNotZeroHealth {
         get {
-            if (_health > 0) {
+            if (_currentHealth > 0) {
                 return true;
             }
 
@@ -143,12 +143,12 @@ public class GameManager : MonoBehaviour {
     public void CheckLastEnemyAndEnableWinMenu() {
         if (_enemySpawner.IsTheLastEnemyInTheLastWave) {
             _gameMenu.EnableBackgroundGameMenu();
-            _gameMenu.EnableWinMenu();
+            _gameMenu.EnableWinMenuAndSetDeafaultSpeedTime();
             _countStars = CalculationStars();
-            _gameMenu.WinMenu.countStars = _countStars;
-            _gameMenu.WinMenu.StartShowAnimationStars();
-            int _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            SaveSystemStars.SaveStars(_countStars, _currentSceneIndex);
+            _gameMenu.WinMenu.starsCurrentLevel = _countStars;
+            _gameMenu.WinMenu.StartAnimationStars();
+            //int _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            //SaveSystemStars.SaveStars(_countStars, _currentSceneIndex);
         }
 
         else if (_enemySpawner.IsTheLastEnemyInWave) {

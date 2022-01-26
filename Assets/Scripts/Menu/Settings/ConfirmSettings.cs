@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ConfirmSettings : MenuBase
+public class ConfirmSettings : BaseMenu
 {
     [SerializeField]
     private TextMeshProUGUI _confirmTitle;

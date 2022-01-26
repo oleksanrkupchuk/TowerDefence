@@ -25,9 +25,7 @@ public class GameMenu : MonoBehaviour
 
     private void OnEnable() {
         _pauseMenuScript = _pauseMenu.GetComponent<PauseMenu>();
-        _loseMenuScript = _loseMenu.GetComponent<LoseMenu>();
         _pauseMenuScript.SetGameManager(_gameManager);
-        _loseMenuScript.SetGameManager(_gameManager);
         DisableBackgroundGameMenu();
         DisableLoseMenu();
         DisablePauseMenu();
@@ -71,7 +69,12 @@ public class GameMenu : MonoBehaviour
         _winMenu.SetActive(false);
     }
 
-    public void EnableWinMenu() {
+    public void EnableWinMenuAndSetDeafaultSpeedTime() {
+        SetDeafaultSpeedTime();
         _winMenu.SetActive(true);
+    }
+
+    private void SetDeafaultSpeedTime() {
+        Time.timeScale = 1f;
     }
 }

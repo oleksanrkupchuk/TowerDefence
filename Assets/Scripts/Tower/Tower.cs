@@ -15,7 +15,6 @@ public class Tower : MonoBehaviour {
     [Header("Parametrs")]
     [SerializeField]
     private float _rangeAttack;
-    public float RangeAttack { get => _rangeAttack; }
     [SerializeField]
     private float _timeShoot;
     [SerializeField]
@@ -50,6 +49,8 @@ public class Tower : MonoBehaviour {
     [SerializeField]
     private TowerUpgradeMenu _towerUpgradeMenu;
 
+    public bool isPurchasedAbilityIncreaseSpeedShootIronTower;
+    public float RangeAttack { get => _rangeAttack; }
     public List<Enemy> EnemyList { get => _enemyList; }
     public int Damage { get => _damage; }
 
@@ -66,6 +67,15 @@ public class Tower : MonoBehaviour {
         _towerManager.towersList.Add(this);
 
         _damage = _buletScript.Damage;
+
+        CheckPurchaseAbilityAndIncreaseTimeShoot();
+    }
+
+    private void CheckPurchaseAbilityAndIncreaseTimeShoot() {
+        if (isPurchasedAbilityIncreaseSpeedShootIronTower) {
+            _timeShoot /= 2;
+            print("time shoot = " + _timeShoot);
+        }
     }
 
     private void SetRangeRadius() {

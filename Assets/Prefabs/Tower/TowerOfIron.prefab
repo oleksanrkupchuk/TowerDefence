@@ -148,6 +148,7 @@ MonoBehaviour:
   target: {fileID: 0}
   _placeForTower: {fileID: 0}
   _towerUpgradeMenu: {fileID: 6120490462788562541}
+  _isAbilityIncreaseSpeedShootIronTowerPurchased: 1
 --- !u!120 &1757262025610622058
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -266,7 +267,7 @@ GameObject:
   - component: {fileID: 8493966630257259040}
   - component: {fileID: 2291375839199195477}
   - component: {fileID: 6026444725626606229}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,6 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tower: {fileID: -4202184418589515201}
+  _ignoreRaycastLayerIndex: 2
 --- !u!58 &6026444725626606229
 CircleCollider2D:
   m_ObjectHideFlags: 0

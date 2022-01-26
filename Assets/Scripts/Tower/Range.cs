@@ -4,6 +4,12 @@ public class Range : MonoBehaviour
 {
     [SerializeField]
     private Tower _tower;
+    [SerializeField]
+    private int _ignoreRaycastLayerIndex;
+
+    private void OnEnable() {
+        gameObject.layer = _ignoreRaycastLayerIndex;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         Enemy _enemy = collision.gameObject.GetComponent<Enemy>();
