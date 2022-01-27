@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7117e9db08a9e5c41b9e83eb246ba896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tower: {fileID: -7790366246113687692}
+  _tower: {fileID: -8981171591237418239}
   _ignoreRaycastLayerIndex: 2
 --- !u!58 &7168467813448346326
 CircleCollider2D:
@@ -103,8 +103,8 @@ GameObject:
   - component: {fileID: 7727614519314563345}
   - component: {fileID: 7727614519314563344}
   - component: {fileID: 7727614519314563347}
-  - component: {fileID: -7790366246113687692}
   - component: {fileID: 1787142671323376124}
+  - component: {fileID: -8981171591237418239}
   m_Layer: 0
   m_Name: TowerOfFire
   m_TagString: Tower
@@ -207,33 +207,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6241497, y: 1.6367226}
   m_EdgeRadius: 0
---- !u!114 &-7790366246113687692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7727614519314563346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4438c3b960c4bfb4799b7fc6de90b9b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyList: []
-  _rangeAttack: 3
-  _timeShoot: 1.5
-  _timer: 0
-  _bulletPosition: {fileID: 4986359563472622328}
-  _stepDegree: 10
-  _price: 12
-  _canvas: {fileID: 3784897731316563199}
-  _rangeCollider: {fileID: 7168467813448346326}
-  _buletPrefab: {fileID: 945258179174288900, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
-  _buletScript: {fileID: -9207831536469935992, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
-  _lineRenderer: {fileID: 1787142671323376124}
-  target: {fileID: 0}
-  _placeForTower: {fileID: 0}
-  _towerUpgradeMenu: {fileID: 3455737340584272717}
 --- !u!120 &1787142671323376124
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -333,6 +306,33 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 1
+--- !u!114 &-8981171591237418239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7727614519314563346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b988ea7f87389404fb408e970798b7ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyList: []
+  _rangeAttack: 3
+  _timeShoot: 1.5
+  _timer: 0
+  _bulletPosition: {fileID: 4986359563472622328}
+  _stepDegree: 10
+  _price: 12
+  _canvas: {fileID: 3784897731316563199}
+  _rangeCollider: {fileID: 7168467813448346326}
+  _buletPrefab: {fileID: 945258179174288900, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
+  _buletScript: {fileID: -9207831536469935992, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
+  _lineRenderer: {fileID: 1787142671323376124}
+  target: {fileID: 0}
+  _placeForTower: {fileID: 0}
+  _towerUpgradeMenu: {fileID: 3455737340584272717}
 --- !u!1001 &6829999726853923588
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7117e9db08a9e5c41b9e83eb246ba896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tower: {fileID: -3416202952328365386}
+  _tower: {fileID: 2562439637406433296}
   _ignoreRaycastLayerIndex: 2
 --- !u!58 &611613967024040103
 CircleCollider2D:
@@ -73,8 +73,8 @@ GameObject:
   - component: {fileID: 6456233943789270496}
   - component: {fileID: 6456233943789270497}
   - component: {fileID: 7474507360397517646}
-  - component: {fileID: -3416202952328365386}
   - component: {fileID: 6905664480513818955}
+  - component: {fileID: 2562439637406433296}
   m_Layer: 0
   m_Name: TowerOfRock
   m_TagString: Tower
@@ -177,33 +177,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3409238, y: 1.5216986}
   m_EdgeRadius: 0
---- !u!114 &-3416202952328365386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6456233943789270498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4438c3b960c4bfb4799b7fc6de90b9b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyList: []
-  _rangeAttack: 3
-  _timeShoot: 2
-  _timer: 0
-  _bulletPosition: {fileID: 3573270289235324146}
-  _stepDegree: 10
-  _price: 15
-  _canvas: {fileID: 3552020727547702417}
-  _rangeCollider: {fileID: 611613967024040103}
-  _buletPrefab: {fileID: 6131173403634519357, guid: e32a2b3586e66ac40998ab5703b4b2c6, type: 3}
-  _buletScript: {fileID: -5672682739368805011, guid: e32a2b3586e66ac40998ab5703b4b2c6, type: 3}
-  _lineRenderer: {fileID: 6905664480513818955}
-  target: {fileID: 0}
-  _placeForTower: {fileID: 0}
-  _towerUpgradeMenu: {fileID: 3042399990200939299}
 --- !u!120 &6905664480513818955
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -303,6 +276,33 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 1
+--- !u!114 &2562439637406433296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6456233943789270498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fec7c435e01ca043924a0ebf41278a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyList: []
+  _rangeAttack: 3
+  _timeShoot: 2
+  _timer: 0
+  _bulletPosition: {fileID: 3573270289235324146}
+  _stepDegree: 10
+  _price: 15
+  _canvas: {fileID: 3552020727547702417}
+  _rangeCollider: {fileID: 611613967024040103}
+  _buletPrefab: {fileID: 6131173403634519357, guid: e32a2b3586e66ac40998ab5703b4b2c6, type: 3}
+  _buletScript: {fileID: -5672682739368805011, guid: e32a2b3586e66ac40998ab5703b4b2c6, type: 3}
+  _lineRenderer: {fileID: 6905664480513818955}
+  target: {fileID: 0}
+  _placeForTower: {fileID: 0}
+  _towerUpgradeMenu: {fileID: 3042399990200939299}
 --- !u!1 &8736231375170505325
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +387,7 @@ PrefabInstance:
     - target: {fileID: 8159456401197924425, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _tower
       value: 
-      objectReference: {fileID: -3416202952328365386}
+      objectReference: {fileID: 0}
     - target: {fileID: 8438457688127442628, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_Name
       value: TowerMenu

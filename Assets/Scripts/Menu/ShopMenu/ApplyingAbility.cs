@@ -5,7 +5,7 @@ using UnityEngine;
 public class ApplyingAbility : MonoBehaviour
 {
     [SerializeField]
-    private Tower _ironTower;
+    private IronTower _ironTower;
     [SerializeField]
     private Bullet _ironBullet;
 

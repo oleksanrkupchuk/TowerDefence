@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class TowerButton : MonoBehaviour
 {
+    [SerializeField]
+    private Tower _tower;
     [SerializeField] 
     private GameObject towerObject;
     [SerializeField] 
@@ -20,7 +22,7 @@ public class TowerButton : MonoBehaviour
 
     public Tower TowerScript {
         get {
-            return towerObject.GetComponent<Tower>();
+            return _tower;
         }
     }
 

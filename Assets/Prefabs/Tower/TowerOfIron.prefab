@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6470073090395598500}
   - component: {fileID: 7053680751002269605}
   - component: {fileID: 6906631230826399657}
-  - component: {fileID: -4202184418589515201}
   - component: {fileID: 1757262025610622058}
   - component: {fileID: 3322008331593291023}
+  - component: {fileID: -3237922247231138023}
   m_Layer: 0
   m_Name: TowerOfIron
   m_TagString: Tower
@@ -121,34 +121,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3008796, y: 1.5479476}
   m_EdgeRadius: 0
---- !u!114 &-4202184418589515201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698766304776122018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4438c3b960c4bfb4799b7fc6de90b9b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyList: []
-  _rangeAttack: 3
-  _timeShoot: 1
-  _timer: 0
-  _bulletPosition: {fileID: 7868094680344040008}
-  _stepDegree: 10
-  _price: 10
-  _canvas: {fileID: 5729650776988955103}
-  _rangeCollider: {fileID: 6026444725626606229}
-  _buletPrefab: {fileID: 4544291592785701270, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
-  _buletScript: {fileID: -5753714780342718237, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
-  _lineRenderer: {fileID: 1757262025610622058}
-  target: {fileID: 0}
-  _placeForTower: {fileID: 0}
-  _towerUpgradeMenu: {fileID: 6120490462788562541}
-  _isAbilityIncreaseSpeedShootIronTowerPurchased: 1
 --- !u!120 &1757262025610622058
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -256,6 +228,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1698766304776122018}
   m_CullTransparentMesh: 1
+--- !u!114 &-3237922247231138023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698766304776122018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508cbccbce579e24fb548068cc19ad3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyList: []
+  _rangeAttack: 3
+  _timeShoot: 1
+  _timer: 0
+  _bulletPosition: {fileID: 7868094680344040008}
+  _stepDegree: 10
+  _price: 10
+  _canvas: {fileID: 5729650776988955103}
+  _rangeCollider: {fileID: 6026444725626606229}
+  _buletPrefab: {fileID: 4544291592785701270, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
+  _buletScript: {fileID: -5753714780342718237, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
+  _lineRenderer: {fileID: 1757262025610622058}
+  target: {fileID: 0}
+  _placeForTower: {fileID: 0}
+  _towerUpgradeMenu: {fileID: 6120490462788562541}
+  isPurchasedAbilityIncreaseSpeedShootIronTower: 0
 --- !u!1 &3931535626208798964
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7117e9db08a9e5c41b9e83eb246ba896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tower: {fileID: -4202184418589515201}
+  _tower: {fileID: -3237922247231138023}
   _ignoreRaycastLayerIndex: 2
 --- !u!58 &6026444725626606229
 CircleCollider2D:

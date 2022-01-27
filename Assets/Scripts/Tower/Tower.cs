@@ -1,55 +1,54 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour {
+public abstract class Tower : MonoBehaviour {
 
-    private bool _isShooting = false;
-    private int countBullet = 0;
-    private int _damage;
-    private TowerManager _towerManager;
-    private GameManager _gameManager;
+    protected bool _isShooting = false;
+    protected int countBullet = 0;
+    protected int _damage;
+    protected TowerManager _towerManager;
+    protected GameManager _gameManager;
 
     [SerializeField]
-    private List<Enemy> _enemyList = new List<Enemy>();
+    protected List<Enemy> _enemyList = new List<Enemy>();
 
     [Header("Parametrs")]
     [SerializeField]
-    private float _rangeAttack;
+    protected float _rangeAttack;
     [SerializeField]
-    private float _timeShoot;
+    protected float _timeShoot;
     [SerializeField]
-    private float _timer;
+    protected float _timer;
     [SerializeField]
-    private Transform _bulletPosition;
+    protected Transform _bulletPosition;
     [SerializeField]
-    private int _stepDegree;
+    protected int _stepDegree;
     [SerializeField]
-    private int _price;
-    public int Price { get => _price; }
+    protected int _price;
 
     [Header("Components visible")]
     [SerializeField]
-    private GameObject _canvas;
+    protected GameObject _canvas;
     [SerializeField]
-    private CircleCollider2D _rangeCollider;
+    protected CircleCollider2D _rangeCollider;
     [SerializeField]
-    private GameObject _buletPrefab;
+    protected GameObject _buletPrefab;
     [SerializeField]
-    private Bullet _buletScript;
+    protected Bullet _buletScript;
     [SerializeField]
-    private LineRenderer _lineRenderer;
+    protected LineRenderer _lineRenderer;
 
     [Header("Components invisible")]
     [SerializeField]
-    private Enemy target = null;
+    protected Enemy target = null;
     [SerializeField]
-    private GameObject _placeForTower = null;
+    protected GameObject _placeForTower = null;
 
     [Header("Upgrades Tower")]
     [SerializeField]
-    private TowerUpgradeMenu _towerUpgradeMenu;
+    protected TowerUpgradeMenu _towerUpgradeMenu;
 
-    public bool isPurchasedAbilityIncreaseSpeedShootIronTower;
+    public int Price { get => _price; }
     public float RangeAttack { get => _rangeAttack; }
     public List<Enemy> EnemyList { get => _enemyList; }
     public int Damage { get => _damage; }
@@ -60,31 +59,22 @@ public class Tower : MonoBehaviour {
         _towerUpgradeMenu.Initialization(_gameManager, this);
     }
 
-    private void Start() {
+    protected void Start() {
         _lineRenderer.enabled = false;
         DisableCanvas();
         SetRangeRadius();
         _towerManager.towersList.Add(this);
 
         _damage = _buletScript.Damage;
-
-        CheckPurchaseAbilityAndIncreaseTimeShoot();
     }
 
-    private void CheckPurchaseAbilityAndIncreaseTimeShoot() {
-        if (isPurchasedAbilityIncreaseSpeedShootIronTower) {
-            _timeShoot /= 2;
-            print("time shoot = " + _timeShoot);
-        }
-    }
-
-    private void SetRangeRadius() {
+    protected void SetRangeRadius() {
         _rangeCollider.radius = _rangeAttack;
 
         SetRadiusInLineRanderer(_rangeAttack);
     }
 
-    private void SetRadiusInLineRanderer(float radius) {
+    protected void SetRadiusInLineRanderer(float radius) {
         int _countStep = 360 / _stepDegree;
 
         _lineRenderer.positionCount = _countStep;
@@ -112,7 +102,7 @@ public class Tower : MonoBehaviour {
         _lineRenderer.SetPositions(_positionPoints);
     }
 
-    void Update() {
+    protected void Update() {
         if (_isShooting) {
             _timer -= Time.deltaTime;
         }
@@ -138,7 +128,7 @@ public class Tower : MonoBehaviour {
         }
     }
 
-    private void Shoot(Enemy target) {
+    protected void Shoot(Enemy target) {
         GameObject _bulletObject = Instantiate(_buletPrefab, _bulletPosition.position, transform.rotation);
         _bulletObject.name = "bullet " + countBullet;
         countBullet++;
@@ -154,7 +144,7 @@ public class Tower : MonoBehaviour {
         //print("tower damage = " + _buletScript.Damage);
     }
 
-    private int DamageCalculation() {
+    protected int DamageCalculation() {
         int damage = 0;
         damage += _damage / 2;
         if (damage < 1) {
@@ -185,10 +175,6 @@ public class Tower : MonoBehaviour {
         }
 
         return false;
-    }
-
-    public void EnableTowerUpgradeIcon() {
-        _towerUpgradeMenu.EnableTowerUpgradeIcon(true);
     }
 
     public void EnableCanvas() {

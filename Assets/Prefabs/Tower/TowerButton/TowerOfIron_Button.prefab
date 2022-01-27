@@ -145,5 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2c3761a702a8d4b86742766a788e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tower: {fileID: -3237922247231138023, guid: f38b43471fdc4eb4e84a2b883d8c18ae, type: 3}
   towerObject: {fileID: 1698766304776122018, guid: f38b43471fdc4eb4e84a2b883d8c18ae, type: 3}
   towerSprite: {fileID: 6304826840174917774, guid: fb2314d5129431e4d9054c107712128c, type: 3}
+  _button: {fileID: 0}
