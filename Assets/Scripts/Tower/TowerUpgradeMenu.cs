@@ -48,6 +48,8 @@ public class TowerUpgradeMenu : MonoBehaviour {
     [SerializeField]
     private UpgradeTower _rangeUpgradeScript;
 
+    public TowerMenuAmountText TowerMenuAmountText { get => _towerMenuAmountText; }
+
     public void Initialization(GameManager gameManager, Tower tower) {
         _gameManager = gameManager;
         _tower = tower;
@@ -122,7 +124,7 @@ public class TowerUpgradeMenu : MonoBehaviour {
         amountObject.transform.SetParent(_canvas.transform);
         TowerMenuAmountText towerMenuAmountText = amountObject.GetComponent<TowerMenuAmountText>();
         _towerMenuAmountText = towerMenuAmountText;
-        towerMenuAmountText.InitTower(_tower);
+        towerMenuAmountText.InitStartPosition(_tower.transform);
         towerMenuAmountText.SetTextAmount(amount);
     }
 

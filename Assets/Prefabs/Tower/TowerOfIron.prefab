@@ -250,7 +250,7 @@ MonoBehaviour:
   _canvas: {fileID: 5729650776988955103}
   _rangeCollider: {fileID: 6026444725626606229}
   _buletPrefab: {fileID: 4544291592785701270, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
-  _buletScript: {fileID: -5753714780342718237, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
+  _buletScript: {fileID: 3719912613258583181, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
   _lineRenderer: {fileID: 1757262025610622058}
   target: {fileID: 0}
   _placeForTower: {fileID: 0}

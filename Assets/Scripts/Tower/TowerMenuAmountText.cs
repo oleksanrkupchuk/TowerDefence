@@ -4,7 +4,6 @@ using TMPro;
 
 public class TowerMenuAmountText : MonoBehaviour
 {
-    private Tower _tower;
     private Vector2 _startPosition;
 
     [SerializeField]
@@ -16,17 +15,12 @@ public class TowerMenuAmountText : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _amountText;
 
-    public void InitTower(Tower tower) {
-        _tower = tower;
-    }
-
     private void Start() {
-        InitStartPosition();
         StartCoroutine(MoveText());
     }
 
-    private void InitStartPosition() {
-        _startPosition = new Vector2(_tower.transform.position.x, _tower.transform.position.y + _stepAxisY);
+    public void InitStartPosition(Transform positionTower) {
+        _startPosition = new Vector2(positionTower.transform.position.x, positionTower.transform.position.y + _stepAxisY);
         transform.position = _startPosition;
     }
 
@@ -42,5 +36,9 @@ public class TowerMenuAmountText : MonoBehaviour
 
     public void SetTextAmount(float amount) {
         _amountText.text = "" + amount;
+    }
+
+    public void Destroy() {
+        Destroy(gameObject);
     }
 }

@@ -7,6 +7,7 @@ public class ShopMenu : BaseMenu {
     private Ability _currentAbility;
     private int _currentCountStars;
     private bool[] _abilityPurchased = new bool[7];
+    private List<Ability> _ability = new List<Ability>();
 
     [Header("Buttons Lose Menu")]
     [SerializeField]
@@ -17,9 +18,14 @@ public class ShopMenu : BaseMenu {
     private Button _yes;
     [SerializeField]
     private Button _no;
+    [SerializeField]
+    private Button _ok;
 
+    [Header("Windows")]
     [SerializeField]
     private GameObject _confirmBuyAbilityWindow;
+    [SerializeField]
+    private GameObject _notEnoughMoneyWindow;
 
     [SerializeField]
     private GameObject _abilityPrefab;
@@ -32,15 +38,22 @@ public class ShopMenu : BaseMenu {
     [SerializeField]
     private TextMeshProUGUI _starsText;
     [SerializeField]
-    private List<AbilityData> _ability = new List<AbilityData>();
+    private List<AbilityData> _abilityData = new List<AbilityData>();
 
     private void Start() {
         LoadStars();
         DisableConfirmBuyAbilityWindow();
+        DisablEnotEnoughMoneyWindow();
         SubscriptionButtons();
+        LoadAbility();
         SpawnAbility();
-        _detailAbilityIcon.sprite = _ability[0].icon;
-        _detailAbilityDescription.text = _ability[0].description;
+
+        _detailAbilityIcon.sprite = _abilityData[0].icon;
+        _detailAbilityDescription.text = _abilityData[0].description;
+
+        if (_currentAbility.Data.isPurchased) {
+            DisableBuyButton();
+        }
     }
 
     private void LoadStars() {
@@ -63,19 +76,20 @@ public class ShopMenu : BaseMenu {
     }
 
     private void SpawnAbility() {
-        LoadAbility();
-
-        for (int index = 0; index < _ability.Count; index++) {
+        for (int index = 0; index < _abilityData.Count; index++) {
             GameObject _abilityObject = Instantiate(_abilityPrefab);
             _abilityObject.transform.SetParent(_content);
             _abilityObject.transform.localScale = new Vector3(1f, 1f, 1f);
 
-            _ability[index].isPurchased = _abilityPurchased[index];
-            _ability[index].index = index;
+            _abilityData[index].isPurchased = _abilityPurchased[index];
+            _abilityData[index].index = index;
 
             Ability _abilityScript = _abilityObject.GetComponent<Ability>();
-            _abilityScript.InitializationAbility(_ability[index], this);
+            _abilityScript.InitializationAbility(_abilityData[index], this);
+            _ability.Add(_abilityScript);
         }
+
+        _currentAbility = _ability[0];
     }
 
     private void SubscriptionButtons() {
@@ -84,7 +98,7 @@ public class ShopMenu : BaseMenu {
         });
 
         _buy.onClick.AddListener(() => {
-            EnableConfirmBuyAbilityWindow();
+            CheckMoneyAndEnableAbilityOrNotEnoughMoneyWindow();
         });
 
         _yes.onClick.AddListener(() => {
@@ -97,6 +111,19 @@ public class ShopMenu : BaseMenu {
         _no.onClick.AddListener(() => {
             DisableConfirmBuyAbilityWindow();
         });
+
+        _ok.onClick.AddListener(() => {
+            DisablEnotEnoughMoneyWindow();
+        });
+    }
+
+    private void CheckMoneyAndEnableAbilityOrNotEnoughMoneyWindow() {
+        if(_currentCountStars < _currentAbility.Data.price) {
+            EnableNotEnoughMoneyWindow();
+        }
+        else {
+            EnableConfirmBuyAbilityWindow();
+        }
     }
 
     private void EnableConfirmBuyAbilityWindow() {
@@ -107,8 +134,24 @@ public class ShopMenu : BaseMenu {
         _confirmBuyAbilityWindow.SetActive(false);
     }
 
+    private void EnableNotEnoughMoneyWindow() {
+        _notEnoughMoneyWindow.SetActive(true);
+    }
+
+    private void DisablEnotEnoughMoneyWindow() {
+        _notEnoughMoneyWindow.SetActive(false);
+    }
+
+    private void EnableBuyButton() {
+        _buy.interactable = true;
+    }
+
+    private void DisableBuyButton() {
+        _buy.interactable = false;
+    }
+
     private void SubstractPrice() {
-        _currentCountStars -= _currentAbility.AbilityData.price;
+        _currentCountStars -= _currentAbility.Data.price;
         _starsText.text = "" + _currentCountStars;
     }
 
@@ -117,15 +160,24 @@ public class ShopMenu : BaseMenu {
     }
 
     private void SavePurchaseAbility() {
-        print("current ability index = " + _currentAbility.AbilityData.index);
-        _currentAbility.AbilityData.isPurchased = true;
-        int indexAbility = _currentAbility.AbilityData.index;
-        AbilitySaveSystem.SaveAbility(indexAbility, _currentAbility.AbilityData.isPurchased);
-        _currentAbility.CheckForPurchasedAbilityAndSetIcon(_ability[indexAbility]);
+        print("current ability index = " + _currentAbility.Data.index);
+        _currentAbility.Data.isPurchased = true;
+        int indexAbility = _currentAbility.Data.index;
+        AbilitySaveSystem.SaveAbility(indexAbility, _currentAbility.Data.isPurchased);
+        _currentAbility.CheckForPurchasedAbilityAndSetIcon(_abilityData[indexAbility]);
     }
 
     public void SetCurrentAbility(Ability ability) {
         _currentAbility = ability;
+    }
+
+    public void CheckPurchasedAbilityAndEnableOrDisableBuyButton() {
+        if (_currentAbility.Data.isPurchased) {
+            DisableBuyButton();
+        }
+        else {
+            EnableBuyButton();
+        }
     }
 
     public void SetDetailsAbilityIcon(Sprite icon) {

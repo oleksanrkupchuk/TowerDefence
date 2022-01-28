@@ -122,6 +122,7 @@ public class TowerManager : MonoBehaviour {
         if (_tower != null) {
             _tower.DisableLineRenderer();
             _tower.DisableCanvas();
+            _tower.TowerUpgradeMenu.TowerMenuAmountText.Destroy();
         }
     }
 

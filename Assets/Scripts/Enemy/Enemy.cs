@@ -3,79 +3,75 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class Enemy : MonoBehaviour {
-    private GameManager _gameManager;
-    private Transform _nextWayPoint;
-    private int _indexPosition;
-    private List<Transform> _currentWay = new List<Transform>();
-    private Tower _tower;
-    private AnimationEvent _enemyAnimationDead = new AnimationEvent();
-    private string _isDead = "isDying";
+public abstract class Enemy : MonoBehaviour {
+    protected GameManager _gameManager;
+    protected EnemySpawner _enemySpawner;
+    protected Transform _nextWayPoint;
+    protected int _indexPosition;
+    protected List<Transform> _currentWay = new List<Transform>();
+    protected Tower _tower;
+    protected AnimationEvent _enemyAnimationDead = new AnimationEvent();
+    protected string _isDead = "isDying";
 
     [Header("Parametrs")]
     [SerializeField]
-    private int _speed;
+    protected int _speed;
     [SerializeField]
-    private int _health;
+    protected int _health;
     [SerializeField]
-    private int _healthMax;
+    protected int _healthMax;
     [SerializeField]
-    private int _amountCoinForDeath;
+    protected int _amountCoinForDeath;
     [SerializeField]
-    private int _sortingLayer;
+    protected int _sortingLayer;
 
     [Header("Components")]
     [SerializeField]
-    private BoxCollider2D _boxCollider;
+    protected BoxCollider2D _boxCollider;
     [SerializeField]
-    private Animator _animator;
+    protected Animator _animator;
     [SerializeField]
-    private SpriteRenderer _spriteRenderer;
+    protected SpriteRenderer _spriteRenderer;
     [SerializeField]
-    private Canvas _canvas;
+    protected Canvas _canvas;
 
     [Header("GameObjects")]
     [SerializeField]
-    private GameObject _healthBarBackground;
+    protected GameObject _healthBarBackground;
 
     [Header("UI")]
     [SerializeField]
-    private RectTransform _healthBarRectTransform;
-    [SerializeField]
-    private Image _healthBar;
+    protected Image _healthBar;
 
     [Header("Animator parametrs")]
     [SerializeField]
-    private AnimationClip _deadAnimationClip;
+    protected AnimationClip _deadAnimationClip;
 
-    [SerializeField]
-    private bool _isCloseForWayPoint;
-
-    public bool IsDead { get => _health <= 0; }
+    [HideInInspector]
     public Vector3 lastPosition;
+    public bool IsDead { get => _health <= 0; }
     public event Action LastPosition;
-    public static event Action<Enemy> EnemyDead;
 
-    public void Initialization(GameManager gameManager) {
+    public void Initialization(GameManager gameManager, EnemySpawner enemySpawner) {
         _gameManager = gameManager;
+        _enemySpawner = enemySpawner;
     }
 
     public void InitializationTower(Tower tower) {
         _tower = tower;
     }
 
-    private void Start() {
+    protected void Start() {
         if (_boxCollider == null) {
             Debug.LogError("component is null");
         }
 
         _healthBarBackground.SetActive(true);
 
-        //_enemySpawner.AddEnemy(gameObject.GetComponent<Enemy>());
         SubscribeToEventInTheEndDeadAnimation();
     }
 
-    private void Update() {
+    protected void Update() {
         if (!IsDead) {
 
             if (_currentWay != null) {
@@ -85,11 +81,11 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    private void Move() {
+    protected void Move() {
         transform.position = Vector2.MoveTowards(transform.position, _nextWayPoint.position, _speed * Time.deltaTime);
     }
 
-    private void SetNextPosition() {
+    protected void SetNextPosition() {
         if (Vector2.Distance(transform.position, _nextWayPoint.position) <= 0.2f) {
             _indexPosition++;
             if (_indexPosition < _currentWay.Count) {
@@ -100,7 +96,7 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    private void CheckFlipSprite() {
+    protected void CheckFlipSprite() {
         if (transform.position.x - _nextWayPoint.position.x < 0) {
             FlipSpriteLeft();
         }
@@ -110,11 +106,11 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    private void FlipSpriteLeft() {
+    protected void FlipSpriteLeft() {
         _spriteRenderer.flipX = false;
     }
 
-    private void FlipSpriteRight() {
+    protected void FlipSpriteRight() {
         _spriteRenderer.flipX = true;
     }
 
@@ -134,16 +130,16 @@ public class Enemy : MonoBehaviour {
     }
 
     public void DeathFromLastWay() {
-        EnemyDead?.Invoke(this);
+        _enemySpawner.RemoveEnemy(this);
         _gameManager.TakeAwayOneHealth();
         _gameManager.CheckHealthAndShowLoseMenuIfHealthZero();
         DestroyEnemy();
     }
 
-    private void DeathFromBullet() {
+    protected void DeathFromBullet() {
         GetLastPosition();
         _gameManager.AddCoin(_amountCoinForDeath);
-        EnemyDead?.Invoke(this);
+        _enemySpawner.RemoveEnemy(this);
         DisableHealthBar();
         _boxCollider.enabled = false;
         _tower.RemoveTarget(this);
@@ -152,7 +148,7 @@ public class Enemy : MonoBehaviour {
         PlayDeadAnimation();
     }
 
-    private void SubscribeToEventInTheEndDeadAnimation() {
+    protected void SubscribeToEventInTheEndDeadAnimation() {
         float _playingAnimationTime = _deadAnimationClip.length;
         _enemyAnimationDead.time = _playingAnimationTime;
         _enemyAnimationDead.functionName = nameof(DestroyEnemy);
@@ -166,19 +162,19 @@ public class Enemy : MonoBehaviour {
         LastPosition?.Invoke();
     }
 
-    private void DestroyEnemy() {
+    protected void DestroyEnemy() {
         Destroy(gameObject, 0.5f);
     }
 
-    private void PlayDeadAnimation() {
+    protected void PlayDeadAnimation() {
         _animator.SetTrigger(_isDead);
     }
 
-    private void ShiftHealthBar() {
+    protected void ShiftHealthBar() {
         _healthBar.fillAmount = (float)_health / _healthMax;
     }
 
-    private void DisableHealthBar() {
+    protected void DisableHealthBar() {
         _healthBarBackground.SetActive(false);
     }
 

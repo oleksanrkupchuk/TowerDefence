@@ -351,8 +351,8 @@ GameObject:
   - component: {fileID: 6037710262501487113}
   - component: {fileID: 6037710262501487604}
   - component: {fileID: 6037710262501487607}
-  - component: {fileID: 2025396201}
   - component: {fileID: 389652436}
+  - component: {fileID: 4919410135766101018}
   m_Layer: 10
   m_Name: Minotaur_01
   m_TagString: Enemy
@@ -368,7 +368,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6037710262501487112}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.78, y: 1.0015471, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 5184962300291442772}
@@ -474,33 +474,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1523439, y: 0.557245}
   m_EdgeRadius: 0
---- !u!114 &2025396201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6037710262501487112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6cf5cc196d1609429c6ee7a5931b815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 1
-  _health: 5
-  _healthMax: 5
-  _amountCoinForDeath: 3
-  _sortingLayer: -7
-  _boxCollider: {fileID: 6037710262501487607}
-  _animator: {fileID: 389652436}
-  _spriteRenderer: {fileID: 6037710262501487113}
-  _canvas: {fileID: 4253517763164274}
-  _healthBarBackground: {fileID: 2078650063143582203}
-  _healthBarRectTransform: {fileID: 2211591740322881854}
-  _healthBar: {fileID: 8562100010639840429}
-  _deadAnimationClip: {fileID: 7400000, guid: 3cef32a3e0fb3a0489b0692dadc810ce, type: 2}
-  _isCloseForWayPoint: 0
-  lastPosition: {x: 0, y: 0, z: 0}
 --- !u!95 &389652436
 Animator:
   serializedVersion: 3
@@ -520,3 +493,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4919410135766101018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6037710262501487112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06e88c5a880b42044a1e4264bf6ec43a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 1
+  _health: 5
+  _healthMax: 5
+  _amountCoinForDeath: 3
+  _sortingLayer: -7
+  _boxCollider: {fileID: 6037710262501487607}
+  _animator: {fileID: 389652436}
+  _spriteRenderer: {fileID: 6037710262501487113}
+  _canvas: {fileID: 4253517763164274}
+  _healthBarBackground: {fileID: 2078650063143582203}
+  _healthBar: {fileID: 8562100010639840429}
+  _deadAnimationClip: {fileID: 7400000, guid: 3cef32a3e0fb3a0489b0692dadc810ce, type: 2}
+  lastPosition: {x: 0, y: 0, z: 0}

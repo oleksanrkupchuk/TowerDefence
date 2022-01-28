@@ -14,7 +14,7 @@ public class PlaceForTower : MonoBehaviour
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
-        if(_towerManager.TowerButtonPressed != null) {
+        if(_towerManager != null) {
             Sprite _towerSprite = _towerManager.TowerButtonPressed.Sprite;
             _icon.sprite = _towerSprite;
             _icon.color = _alpha;

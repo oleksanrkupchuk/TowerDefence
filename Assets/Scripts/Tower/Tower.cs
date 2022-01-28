@@ -52,6 +52,7 @@ public abstract class Tower : MonoBehaviour {
     public float RangeAttack { get => _rangeAttack; }
     public List<Enemy> EnemyList { get => _enemyList; }
     public int Damage { get => _damage; }
+    public TowerUpgradeMenu TowerUpgradeMenu { get => _towerUpgradeMenu; }
 
     public void Initialization(TowerManager towerManager, GameManager gameManager) {
         _towerManager = towerManager;

@@ -55,7 +55,6 @@ public class EnemySpawner : MonoBehaviour {
     }
 
     private void OnEnable() {
-        Enemy.EnemyDead += RemoveEnemy;
         _currentWave = _waves[0];
         _quantityWave = _waves.Count;
     }
@@ -87,16 +86,12 @@ public class EnemySpawner : MonoBehaviour {
             _enemyObject.name = "enemy " + number;
             Enemy _enemyScript = _enemyObject.GetComponent<Enemy>();
             AddEnemy(_enemyScript);
-            _enemyScript.Initialization(_gameManager);
+            _enemyScript.Initialization(_gameManager, this);
             _enemyScript.SetWayPoints(spawn.wayPoints);
             _startLayerEnemy--;
 
             _timeWaitForNextSpawnEnemy = Random.Range(_minTimeWaitForNextSpawnEnemy, _maxTimeWaitForNextSpawnEnemy);
             yield return new WaitForSeconds(_timeWaitForNextSpawnEnemy);
         }
-    }
-
-    private void OnDestroy() {
-        Enemy.EnemyDead -= RemoveEnemy;
     }
 }
