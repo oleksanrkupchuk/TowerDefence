@@ -1,6 +1,7 @@
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class AbilitySaveSystem : MonoBehaviour {
     public static bool IsExistsSaveAbilityFile() {
@@ -13,22 +14,33 @@ public class AbilitySaveSystem : MonoBehaviour {
         return false;
     }
 
-    public static void SaveAbility(int number, bool isPurchase) {
+    public static void SaveAbility(List<AbilityItem> items) {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/ability.data";
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        AbilityPurchase abilityPurchase = new AbilityPurchase(number, isPurchase);
+        AbilityPurchased abilityPurchase = new AbilityPurchased(items);
         formatter.Serialize(stream, abilityPurchase);
         stream.Close();
     }
 
-    public static AbilityPurchase LoadAbility() {
+    public static void SaveAbility(AbilityItem item) {
+        BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/ability.data";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        AbilityPurchased abilityPurchase = new AbilityPurchased(item);
+        formatter.Serialize(stream, abilityPurchase);
+        stream.Close();
+    }
+
+    public static AbilityPurchased LoadAbility() {
+        string path = Application.persistentDataPath + "/ability.data";
+        //print(path);
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Open);
 
-        AbilityPurchase abilityPurchase = formatter.Deserialize(stream) as AbilityPurchase;
+        AbilityPurchased abilityPurchase = formatter.Deserialize(stream) as AbilityPurchased;
         stream.Close();
 
         return abilityPurchase;

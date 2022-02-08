@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1933788421987285462}
   m_Layer: 0
   m_Name: Rock_Ball
-  m_TagString: Bullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,13 +155,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300a4434b25f62044ac069cc807078c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _target: {fileID: 0}
   _damage: 3
   _damageBasic: 3
   _bezierPointPrefab: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
   _amountBezierPoints: 3
   _destroyBullet: {fileID: 7400000, guid: da38e9294d8507140aba78b9b138c1dc, type: 2}
   _animator: {fileID: 6367489810893618202}
-  _bezierPoints: []
   _timeFlight: 2
   _axisYP1: 6.5
   _circleCollider: {fileID: 6131173403634519352}
+  _radiusExplosionCollider: 0.5
+  _explosionDamage: 2
+  _explosionFrameRateInDestroyAnimation: 5
+  _destroyClip: {fileID: 7400000, guid: da38e9294d8507140aba78b9b138c1dc, type: 2}
+  isExplosion: 0

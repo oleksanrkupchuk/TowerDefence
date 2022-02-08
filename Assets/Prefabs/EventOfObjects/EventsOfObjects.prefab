@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8428602211558025462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6193779811454752620}
+  - component: {fileID: 1276975744183978805}
+  m_Layer: 0
+  m_Name: EventsOfObjects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6193779811454752620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8428602211558025462}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1276975744183978805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8428602211558025462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8306936a17951f44b89ee80a8a8b2dec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _towers:
+  - {fileID: 4901526597910268738, guid: 57a3b2764efbbbc428fbd8380e62f64b, type: 3}
+  - {fileID: -8981171591237418239, guid: bb88f1c4c0d94aa4e93529bbfb69dc1a, type: 3}
+  - {fileID: 2562439637406433296, guid: 7765ea7b93469b7478ef4c3bb5d79641, type: 3}
+  _bullet:
+  - {fileID: 3719912613258583181, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
+  - {fileID: 6973668464270465113, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
+  - {fileID: 1933788421987285462, guid: e32a2b3586e66ac40998ab5703b4b2c6, type: 3}
+  _enemy:
+  - {fileID: 4919410135766101018, guid: caedb2076ef91a541bccf3a9349a1d88, type: 3}
+  _fireArea: {fileID: 1214481618115712216, guid: 4368b3fce25ab65449157a5615985dad, type: 3}

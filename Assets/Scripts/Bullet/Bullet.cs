@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour {
+    [SerializeField]
     protected Enemy _target;
-    protected AnimationEvent _bulletEvent = new AnimationEvent();
+    protected AnimationEvent _destroyEvent = new AnimationEvent();
     protected float _axiYTower;
     protected Vector3 _nexPosition;
     protected bool _isBeizerPointNotNull = true;
-    protected Vector2 _lastTargetPosition;
-    protected bool _isChangeTarget = false;
+    protected Vector2 _targetPosition;
     protected float _t;
-    protected float _time;
+    protected float _timeWay;
     protected List<GameObject> _bezierPoints = new List<GameObject>();
 
     [SerializeField]
@@ -31,25 +31,34 @@ public abstract class Bullet : MonoBehaviour {
     [SerializeField]
     protected float _axisYP1;
     [SerializeField]
-    protected Collider2D _circleCollider;
+    protected CircleCollider2D _circleCollider;
 
     public int Damage { get => _damage; set => _damage = value; }
     public event Action DestroyBeizerPoint;
 
-    public void SetTower(Tower tower) {
+    public void Init(Tower tower) {
         _axiYTower = tower.transform.position.y;
+        _target = tower.GetTarget();
+        _target.LastPosition += SetTargetPosition;
     }
 
-    public void SetTarget(Enemy enemy) {
-        _target = enemy;
+    public void Init(Tower tower, Transform targetPosition) {
+        _axiYTower = tower.transform.position.y;
+        _targetPosition = targetPosition.position;
+    }
+
+    protected void SetTargetPosition() {
+        //print("set pos + " + gameObject.name);
+        _circleCollider.enabled = false;
+        _targetPosition = _target.transform.position;
+        _target.LastPosition -= SetTargetPosition;
+        _target = null;
     }
 
     protected void OnEnable() {
         InstantiatePointsForBeizerTrajectory();
 
         SetP0();
-
-        SubscribeToEventInTheEndDestroyAnimation();
     }
 
     protected void InstantiatePointsForBeizerTrajectory() {
@@ -62,22 +71,12 @@ public abstract class Bullet : MonoBehaviour {
         }
     }
 
-    protected void SubscribeToEventInTheEndDestroyAnimation() {
+    public void AddDestroyEventForDestroyAnimation() {
         float _playingAnimationTime = _destroyBullet.length;
-        _bulletEvent.time = _playingAnimationTime;
-        _bulletEvent.functionName = nameof(DestroyBulletAndBeizerPoints);
+        _destroyEvent.time = _playingAnimationTime;
+        _destroyEvent.functionName = nameof(DestroyBulletAndBeizerPoints);
 
-        _destroyBullet.AddEvent(_bulletEvent);
-    }
-
-    protected void Start() {
-        _target.LastPosition += SetLastPositionTarget;
-    }
-
-    protected void SetLastPositionTarget() {
-        _lastTargetPosition = _target.lastPosition;
-        _isChangeTarget = true;
-        _target.LastPosition -= SetLastPositionTarget;
+        _destroyBullet.AddEvent(_destroyEvent);
     }
 
     protected void Update() {
@@ -90,8 +89,6 @@ public abstract class Bullet : MonoBehaviour {
             Move();
             Rotation();
             CheckTAndDestroyBullet();
-            //print(gameObject.name + "target = " + _target);
-            //print(gameObject.name + " p2 = " + _bezierPoints[2].transform.position);
         }
     }
 
@@ -105,17 +102,18 @@ public abstract class Bullet : MonoBehaviour {
     }
 
     protected void SetP2() {
-        if (_target != null && !_isChangeTarget) {
-            _bezierPoints[2].transform.position = _target.gameObject.transform.position;
+        if (_target != null) {
+            //print("bullet have target");
+            _bezierPoints[2].transform.position = _target.transform.position;
         }
-        else if (_isChangeTarget) {
-            _bezierPoints[2].transform.position = _lastTargetPosition;
+        else {
+            _bezierPoints[2].transform.position = _targetPosition;
         }
     }
 
     protected void CalculationT() {
-        _time += Time.deltaTime;
-        _t = _time / _timeFlight;
+        _timeWay += Time.deltaTime;
+        _t = _timeWay / _timeFlight;
     }
 
     protected void Move() {
@@ -126,12 +124,12 @@ public abstract class Bullet : MonoBehaviour {
     protected void Rotation() {
         _nexPosition = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
                        _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, _t + 0.1f);
-        Vector2 moveDirection = _nexPosition - transform.position;
-        float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        Vector2 _moveDirection = _nexPosition - transform.position;
+        float _angle = Mathf.Atan2(_moveDirection.y, _moveDirection.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, _angle);
     }
 
-    protected void CheckTAndDestroyBullet() {
+    protected virtual void CheckTAndDestroyBullet() {
         if (_t >= 1) {
             PlayAnimationDestroy();
         }
@@ -149,27 +147,41 @@ public abstract class Bullet : MonoBehaviour {
         _isBeizerPointNotNull = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag(Tags.enemy)) {
-            if (_target != null) {
-                _circleCollider.enabled = false;
-                //print("bullet" + gameObject.name + " = " + "damage " + _damage);
-                _target.TakeDamage(_damage);
-                _lastTargetPosition = _target.transform.position;
-                _isChangeTarget = true;
-            }
-        }
-    }
-
     protected void PlayAnimationDestroy() {
         _animator.SetTrigger("destroy");
     }
 
+    //protected virtual void OnTriggerEnter2D(Collider2D collision) {
+    //    Enemy _enemy = collision.gameObject.GetComponent<Enemy>();
+
+    //    if (_target != null) {
+    //        if (_target == _enemy) {
+    //            _target.LastPosition -= SetTargetPosition;
+    //            _target.TakeDamage(_damage);
+    //            _circleCollider.enabled = false;
+    //            _lastTargetPosition = _target.transform.position;
+    //            _target = null;
+    //        }
+    //    }
+    //}
+
+    protected void SetTargetPositionAndSetTargetNull() {
+        _targetPosition = _target.transform.position;
+        _target = null;
+    }
+
     protected void DestroyBulletAndBeizerPoints() {
         _bezierPoints.Clear();
-        //print("points destroy = " + gameObject.name);
         DestroyBeizerPoint?.Invoke();
         Destroy(gameObject);
+    }
+
+    protected void EnableCircleCollider() {
+        _circleCollider.enabled = true;
+    }
+
+    protected void DisableCircleCollider() {
+        _circleCollider.enabled = false;
     }
 
     protected void OnDrawGizmos() {

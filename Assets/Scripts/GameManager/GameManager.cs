@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     [SerializeField] 
     private int _coin;
     private int _currentHealth;
     private int _countStars;
+    private float _timer;
 
     [SerializeField]
     private EnemySpawner _enemySpawner;
@@ -15,8 +15,9 @@ public class GameManager : MonoBehaviour {
     private GameMenu _gameMenu;
 
     [SerializeField]
+    private KeyCode _pauseButton;
+    [SerializeField]
     private bool _isPause;
-    private float _timer;
     [SerializeField]
     private float _time;
     [SerializeField]
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour {
     private int _leftThePercentageOfHealthToReceiveTwoStar;
     [SerializeField]
     private int _leftThePercentageOfHealthToReceiveThreeStar;
+    public int Coin { get => _coin; }
 
     private int LeftPercentageOfHealth {
         get {
@@ -43,11 +45,6 @@ public class GameManager : MonoBehaviour {
             return false;
         }
     }
-
-    public int Coin { get => _coin; }
-
-    [SerializeField]
-    private KeyCode _pauseButton;
 
     private void Start() {
         _currentHealth = _health;

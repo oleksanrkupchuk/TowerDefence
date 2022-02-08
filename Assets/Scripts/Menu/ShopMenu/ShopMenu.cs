@@ -6,8 +6,9 @@ using TMPro;
 public class ShopMenu : BaseMenu {
     private Ability _currentAbility;
     private int _currentCountStars;
-    private bool[] _abilityPurchased = new bool[7];
-    private List<Ability> _ability = new List<Ability>();
+    private AbilityPurchased _abilityPurchased;
+    private List<Ability> _abilityes = new List<Ability>();
+    private AbilityItem _item;
 
     [Header("Buttons Lose Menu")]
     [SerializeField]
@@ -28,7 +29,11 @@ public class ShopMenu : BaseMenu {
     private GameObject _notEnoughMoneyWindow;
 
     [SerializeField]
-    private GameObject _abilityPrefab;
+    private Ability _ability;
+    [SerializeField]
+    private ApplyingAbility _applyingAbility;
+    [SerializeField]
+    private Scrollbar _scrollBar;
     [SerializeField]
     private Transform _content;
     [SerializeField]
@@ -40,20 +45,12 @@ public class ShopMenu : BaseMenu {
     [SerializeField]
     private List<AbilityData> _abilityData = new List<AbilityData>();
 
-    private void Start() {
+    private void OnEnable() {
+        _scrollBar.value = 0f;
         LoadStars();
-        DisableConfirmBuyAbilityWindow();
-        DisablEnotEnoughMoneyWindow();
-        SubscriptionButtons();
+        #region FOR TEST DATA
         LoadAbility();
-        SpawnAbility();
-
-        _detailAbilityIcon.sprite = _abilityData[0].icon;
-        _detailAbilityDescription.text = _abilityData[0].description;
-
-        if (_currentAbility.Data.isPurchased) {
-            DisableBuyButton();
-        }
+        #endregion
     }
 
     private void LoadStars() {
@@ -65,31 +62,61 @@ public class ShopMenu : BaseMenu {
     }
 
     private void LoadAbility() {
-        print("fire exist = " + AbilitySaveSystem.IsExistsSaveAbilityFile());
+        print("fire ability exist = " + AbilitySaveSystem.IsExistsSaveAbilityFile());
         if (AbilitySaveSystem.IsExistsSaveAbilityFile()) {
-            AbilityPurchase _abilityPurchase = AbilitySaveSystem.LoadAbility();
-            _abilityPurchased = _abilityPurchase.isPurchased;
-            for (int i = 0; i < _abilityPurchased.Length; i++) {
-                print($"isPurchase {i} =" + _abilityPurchased[i]);
+            _abilityPurchased = AbilitySaveSystem.LoadAbility();
+        }
+    }
+
+    private void Start() {
+        InitAbilityData();
+        SpawnAbility();
+        DisableConfirmBuyAbilityWindow();
+        DisablEnotEnoughMoneyWindow();
+        SubscriptionButtons();
+
+        _detailAbilityIcon.sprite = _abilityData[0].icon;
+        _detailAbilityDescription.text = _abilityData[0].description;
+
+        if (_currentAbility.Data.isPurchased) {
+            DisableBuyButton();
+        }
+
+        DisableShopMenu();
+    }
+
+    private void InitAbilityData() {
+        if (AbilitySaveSystem.IsExistsSaveAbilityFile()) {
+            print("init ability data from file");
+            for (int i = 0; i < _abilityData.Count; i++) {
+                for (int j = 0; j < _abilityPurchased.abilities.Count; j++) {
+                    if (_abilityData[i].type == _abilityPurchased.abilities[j].type) {
+                        _abilityData[i].isPurchased = _abilityPurchased.abilities[j].isPurchased;
+                    }
+                }
+            }
+        }
+        else {
+            for (int i = 0; i < _abilityData.Count; i++) {
+                _abilityData[i].isPurchased = false;
             }
         }
     }
 
     private void SpawnAbility() {
         for (int index = 0; index < _abilityData.Count; index++) {
-            GameObject _abilityObject = Instantiate(_abilityPrefab);
+            Ability _abilityObject = Instantiate(_ability);
             _abilityObject.transform.SetParent(_content);
             _abilityObject.transform.localScale = new Vector3(1f, 1f, 1f);
 
-            _abilityData[index].isPurchased = _abilityPurchased[index];
             _abilityData[index].index = index;
 
-            Ability _abilityScript = _abilityObject.GetComponent<Ability>();
-            _abilityScript.InitializationAbility(_abilityData[index], this);
-            _ability.Add(_abilityScript);
+            _abilityObject.Init(_abilityData[index], this);
+            _abilityObject.CheckForPurchasedAbilityAndSetIcon();
+            _abilityes.Add(_abilityObject);
         }
 
-        _currentAbility = _ability[0];
+        _currentAbility = _abilityes[0];
     }
 
     private void SubscriptionButtons() {
@@ -104,7 +131,8 @@ public class ShopMenu : BaseMenu {
         _yes.onClick.AddListener(() => {
             SubstractPrice();
             SaveStars();
-            SavePurchaseAbility();
+            SavePurchasedAbility();
+            ApplyAbility();
             DisableConfirmBuyAbilityWindow();
         });
 
@@ -118,7 +146,7 @@ public class ShopMenu : BaseMenu {
     }
 
     private void CheckMoneyAndEnableAbilityOrNotEnoughMoneyWindow() {
-        if(_currentCountStars < _currentAbility.Data.price) {
+        if (_currentCountStars < _currentAbility.Data.price) {
             EnableNotEnoughMoneyWindow();
         }
         else {
@@ -159,12 +187,31 @@ public class ShopMenu : BaseMenu {
         SaveSystemStars.SaveStars(_currentCountStars);
     }
 
-    private void SavePurchaseAbility() {
-        print("current ability index = " + _currentAbility.Data.index);
+    private void SavePurchasedAbility() {
         _currentAbility.Data.isPurchased = true;
-        int indexAbility = _currentAbility.Data.index;
-        AbilitySaveSystem.SaveAbility(indexAbility, _currentAbility.Data.isPurchased);
-        _currentAbility.CheckForPurchasedAbilityAndSetIcon(_abilityData[indexAbility]);
+        if (AbilitySaveSystem.IsExistsSaveAbilityFile()) {
+            _abilityPurchased = AbilitySaveSystem.LoadAbility();
+            _item = new AbilityItem(_currentAbility.Data.type, _currentAbility.Data.isPurchased);
+            _abilityPurchased.abilities.Add(_item);
+            AbilitySaveSystem.SaveAbility(_abilityPurchased.abilities);
+        }
+        else {
+            _item = new AbilityItem(_currentAbility.Data.type, _currentAbility.Data.isPurchased);
+            AbilitySaveSystem.SaveAbility(_item);
+        }
+        //print("current ability index = " + _currentAbility.Data.index);
+        if (AbilitySaveSystem.IsExistsSaveAbilityFile()) {
+            _abilityPurchased = AbilitySaveSystem.LoadAbility();
+            for (int i = 0; i < _abilityPurchased.abilities.Count; i++) {
+                print("---------------------SHOP BUY-------------------------");
+                print($"ability {i} type = " + _abilityPurchased.abilities[i].type + " purchased = " + _abilityPurchased.abilities[i].isPurchased);
+            }
+        }
+        _currentAbility.CheckForPurchasedAbilityAndSetIcon();
+    }
+
+    private void ApplyAbility() {
+        _applyingAbility.ApplyAbility(_currentAbility.Data.type);
     }
 
     public void SetCurrentAbility(Ability ability) {
@@ -186,5 +233,9 @@ public class ShopMenu : BaseMenu {
 
     public void SetDetailsAbilityDescription(string description) {
         _detailAbilityDescription.text = description;
+    }
+
+    private void DisableShopMenu() {
+        gameObject.SetActive(false);
     }
 }

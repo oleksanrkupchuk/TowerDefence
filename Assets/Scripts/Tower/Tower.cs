@@ -2,12 +2,14 @@
 using UnityEngine;
 
 public abstract class Tower : MonoBehaviour {
-
+    protected AnimationEvent _towerEventShoot = new AnimationEvent();
+    protected AnimationEvent _towerEventResetShoot = new AnimationEvent();
     protected bool _isShooting = false;
     protected int countBullet = 0;
     protected int _damage;
     protected TowerManager _towerManager;
     protected GameManager _gameManager;
+    protected Transform _targetPosition;
 
     [SerializeField]
     protected List<Enemy> _enemyList = new List<Enemy>();
@@ -25,16 +27,18 @@ public abstract class Tower : MonoBehaviour {
     protected int _stepDegree;
     [SerializeField]
     protected int _price;
+    [SerializeField]
+    protected Animator _animator;
+    [SerializeField]
+    protected AnimationClip _shootAnimation;
+    [SerializeField]
+    protected int _shootFrameRateInShootAnimation;
 
     [Header("Components visible")]
     [SerializeField]
-    protected GameObject _canvas;
-    [SerializeField]
     protected CircleCollider2D _rangeCollider;
     [SerializeField]
-    protected GameObject _buletPrefab;
-    [SerializeField]
-    protected Bullet _buletScript;
+    protected Bullet _bullet;
     [SerializeField]
     protected LineRenderer _lineRenderer;
 
@@ -42,7 +46,7 @@ public abstract class Tower : MonoBehaviour {
     [SerializeField]
     protected Enemy target = null;
     [SerializeField]
-    protected GameObject _placeForTower = null;
+    protected PlaceForTower _placeForTower = null;
 
     [Header("Upgrades Tower")]
     [SerializeField]
@@ -52,6 +56,7 @@ public abstract class Tower : MonoBehaviour {
     public float RangeAttack { get => _rangeAttack; }
     public List<Enemy> EnemyList { get => _enemyList; }
     public int Damage { get => _damage; }
+    public PlaceForTower PlaceForTower { get => _placeForTower; }
     public TowerUpgradeMenu TowerUpgradeMenu { get => _towerUpgradeMenu; }
 
     public void Initialization(TowerManager towerManager, GameManager gameManager) {
@@ -62,11 +67,18 @@ public abstract class Tower : MonoBehaviour {
 
     protected void Start() {
         _lineRenderer.enabled = false;
-        DisableCanvas();
+        DisableUpgradeMenu();
         SetRangeRadius();
         _towerManager.towersList.Add(this);
 
-        _damage = _buletScript.Damage;
+        _damage = _bullet.Damage;
+    }
+
+    public void ReducePrice(int percent) {
+        int _priceInterest = (_price * percent) / 100;
+        //print("_priceInterest = " + _priceInterest);
+        _price -= _priceInterest;
+        //print("price = " + _price);
     }
 
     protected void SetRangeRadius() {
@@ -74,6 +86,7 @@ public abstract class Tower : MonoBehaviour {
 
         SetRadiusInLineRanderer(_rangeAttack);
     }
+
 
     protected void SetRadiusInLineRanderer(float radius) {
         int _countStep = 360 / _stepDegree;
@@ -109,35 +122,51 @@ public abstract class Tower : MonoBehaviour {
         }
 
         if (_timer <= 0f) {
-            if (target != null && _enemyList.Count > 0) {
-                Shoot(target);
+            if (target != null) { //&& _enemyList.Count > 0
+                _isShooting = false;
                 _timer = _timeShoot;
-                _isShooting = true;
+                PlayShootAnimation();
             }
         }
     }
 
-    public void SetTarget() {
-        if (_enemyList.Count > 0) {
-            target = _enemyList[0];
-            //print("tower = " + gameObject.name);
-            //print("target = " + target.name);
+    protected void PlayShootAnimation() {
+        //print("play Animation shoot");
+        _animator.SetTrigger("shoot");
+    }
+
+    public void AddShootEventForShootAnimation() {
+        float _playingAnimationTime = _shootFrameRateInShootAnimation / _shootAnimation.frameRate;
+        _towerEventShoot.time = _playingAnimationTime;
+        _towerEventShoot.functionName = nameof(Shoot);
+
+        _shootAnimation.AddEvent(_towerEventShoot);
+    }
+
+    protected void Shoot() {
+        //print("shoot tower " + gameObject.name);
+        Bullet _bulletObject = Instantiate(_bullet, _bulletPosition.position, transform.rotation);
+        _bulletObject.name = "bullet " + countBullet;
+        countBullet++;
+        _bulletObject.SetDamage(_damage);
+        if (target == null) {
+            _bulletObject.Init(this, _targetPosition);
         }
         else {
-            target = null;
-            //Debug.LogWarning("list of enemys empty");
+            _bulletObject.Init(this);
         }
     }
 
-    protected void Shoot(Enemy target) {
-        GameObject _bulletObject = Instantiate(_buletPrefab, _bulletPosition.position, transform.rotation);
-        _bulletObject.name = "bullet " + countBullet;
-        countBullet++;
-        Bullet _bulletScr = _bulletObject.GetComponent<Bullet>();
-        //print("shoot damage = " + _damage);
-        _bulletScr.SetDamage(_damage);
-        _bulletScr.SetTower(this);
-        _bulletScr.SetTarget(target);
+    public void AddResetShootEventForShootAnimation() {
+        float _playingAnimationTime = _shootAnimation.length;
+        _towerEventResetShoot.time = _playingAnimationTime - 0.01f;
+        _towerEventResetShoot.functionName = nameof(ResetShoot);
+
+        _shootAnimation.AddEvent(_towerEventResetShoot);
+    }
+
+    protected void ResetShoot() {
+        _isShooting = true;
     }
 
     public void IncreaseDamage() {
@@ -170,20 +199,32 @@ public abstract class Tower : MonoBehaviour {
         _lineRenderer.enabled = false;
     }
 
-    public bool IsActiveCanvas() {
-        if (_canvas.activeSelf == true) {
+    public bool IsActiveUpgradeMenu() {
+        if (_towerUpgradeMenu.gameObject.activeSelf == true) {
             return true;
         }
 
         return false;
     }
 
-    public void EnableCanvas() {
-        _canvas.gameObject.SetActive(true);
+    public void SetTarget() {
+        if (_enemyList.Count > 0) {
+            target = _enemyList[0];
+            //print("tower = " + gameObject.name);
+            //print("target = " + target.name);
+        }
+        else {
+            target = null;
+            //Debug.LogWarning("list of enemys empty");
+        }
     }
 
-    public void DisableCanvas() {
-        _canvas.gameObject.SetActive(false);
+    public void EnableUpgradeMenu() {
+        _towerUpgradeMenu.gameObject.SetActive(true);
+    }
+
+    public void DisableUpgradeMenu() {
+        _towerUpgradeMenu.gameObject.SetActive(false);
     }
 
     public void RemoveTarget(Enemy enemy) {
@@ -201,16 +242,20 @@ public abstract class Tower : MonoBehaviour {
         return false;
     }
 
-    public void SetPlaceForTower(GameObject placeForTower) {
+    public Enemy GetTarget() {
+        if (target != null) {
+            return target;
+        }
+
+        return null;
+    }
+
+    public void SetPositionTarget(Transform targetPosition) {
+        _targetPosition = targetPosition;
+    }
+
+    public void SetPlaceForTower(PlaceForTower placeForTower) {
         _placeForTower = placeForTower;
-    }
-
-    public void EnableColliderOnPlaceForTower() {
-        _placeForTower.GetComponent<Collider2D>().enabled = true;
-    }
-
-    public void DisableColliderOnPlaceForTower() {
-        _placeForTower.GetComponent<Collider2D>().enabled = false;
     }
 
     public void RemoveTowerFromList() {

@@ -1,7 +1,14 @@
 using UnityEngine;
 
-public class FireBullet : Bullet
-{
+public class FireBullet : Bullet {
+    private bool _isEndWay = false;
+
+    [SerializeField]
+    private FireArea _fireArea;
+
+    public bool burning;
+    public bool fireArea;
+
     private new void OnEnable() {
         base.OnEnable();
     }
@@ -10,15 +17,37 @@ public class FireBullet : Bullet
         base.Update();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag(Tags.enemy)) {
-            if (_target != null) {
-                _circleCollider.enabled = false;
-                //print("bullet" + gameObject.name + " = " + "damage " + _damage);
-                _target.TakeDamage(_damage);
-                _lastTargetPosition = _target.transform.position;
-                _isChangeTarget = true;
+    protected override void CheckTAndDestroyBullet() {
+        if (!_isEndWay) {
+            if (_t >= 1) {
+                CheckBuyFireAreaAbilityAndBurnEnemy();
+                PlayAnimationDestroy();
+                _isEndWay = true;
             }
+        }
+    }
+
+    protected void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.TryGetComponent(out Enemy enemy)) {
+            if (enemy == _target) {
+                _target.LastPosition -= SetTargetPosition;
+                _target.TakeDamage(_damage);
+                CheckBuyBurningAbilityAndBurnEnemy(_target);
+                //_circleCollider.enabled = false;
+                SetTargetPositionAndSetTargetNull();
+            }
+        }
+    }
+
+    private void CheckBuyBurningAbilityAndBurnEnemy(Enemy _enemy) {
+        if (burning) {
+            _enemy.Debuff.StartBurning();
+        }
+    }
+
+    private void CheckBuyFireAreaAbilityAndBurnEnemy() {
+        if (fireArea) {
+            Instantiate(_fireArea.gameObject, _targetPosition, Quaternion.identity);
         }
     }
 }

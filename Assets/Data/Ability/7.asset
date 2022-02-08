@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6dc5a60e9a2e2245a27412be8f7dbec, type: 3}
   m_Name: 7
   m_EditorClassIdentifier: 
-  typeAbility: 6
+  type: 6
   icon: {fileID: 21300000, guid: 5ed7d30001b035d4baa97bcf65cf1468, type: 3}
   iconAfterPurchased: {fileID: 0}
   price: 9

@@ -9,7 +9,7 @@ public class Wave {
 [System.Serializable]
 public class Spawn {
     public Transform spawnPoint;
-    public GameObject enemy;
+    public Enemy enemy;
     public int amountEnemy;
     public List<Transform> wayPoints = new List<Transform>();
 }

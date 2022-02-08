@@ -5,19 +5,15 @@ public class TowerButton : MonoBehaviour
 {
     [SerializeField]
     private Tower _tower;
+    [SerializeField]
+    private Image _icon;
     [SerializeField] 
-    private GameObject towerObject;
-    [SerializeField] 
-    private Sprite towerSprite;
+    private Sprite _towerSprite;
     [SerializeField]
     private Button _button;
 
-    public GameObject TowerObject
-    {
-        get
-        {
-            return towerObject;
-        }
+    private void Start() {
+        _icon.sprite = _towerSprite;
     }
 
     public Tower TowerScript {
@@ -30,7 +26,7 @@ public class TowerButton : MonoBehaviour
     {
         get
         {
-            return towerSprite;
+            return _towerSprite;
         }
     }
 

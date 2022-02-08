@@ -29,7 +29,7 @@ RectTransform:
   m_GameObject: {fileID: 5634611915337184680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -7434226952023802429, guid: fb2314d5129431e4d9054c107712128c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0472ad42e92318d4996a9278fbed44b1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -146,6 +146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tower: {fileID: 2562439637406433296, guid: 7765ea7b93469b7478ef4c3bb5d79641, type: 3}
-  towerObject: {fileID: 6456233943789270498, guid: 7765ea7b93469b7478ef4c3bb5d79641, type: 3}
-  towerSprite: {fileID: -7434226952023802429, guid: fb2314d5129431e4d9054c107712128c, type: 3}
-  _button: {fileID: 0}
+  _icon: {fileID: 5634611915337184685}
+  _towerSprite: {fileID: 21300000, guid: 0472ad42e92318d4996a9278fbed44b1, type: 3}
+  _button: {fileID: 5634611915337184686}

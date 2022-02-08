@@ -1,6 +1,6 @@
 public class IronTower : Tower
 {
-    public bool isPurchasedAbilityIncreaseSpeedShootIronTower;
+    public bool isBuyAbility;
 
     private new void Start()
     {
@@ -10,9 +10,9 @@ public class IronTower : Tower
     }
 
     private void CheckPurchaseAbilityAndIncreaseTimeShoot() {
-        if (isPurchasedAbilityIncreaseSpeedShootIronTower) {
+        if (isBuyAbility) {
             _timeShoot /= 2;
-            print("time shoot = " + _timeShoot);
+            //print("time shoot = " + _timeShoot);
         }
     }
 

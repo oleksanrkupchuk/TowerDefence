@@ -2,16 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum TypeAbility {
-    IncreaseSpeedShootIronTower,
-    ThornsIronTower,
-    BurningFireTower,
-    FireAreaFireTower,
-    ExplosionRockTower,
-    ReducePriceTower,
-    IncreasePriceWhenSellTower
-}
-
 public class Ability : MonoBehaviour {
     private AbilityData _data;
     private ShopMenu _shopMenu;
@@ -24,25 +14,31 @@ public class Ability : MonoBehaviour {
     [SerializeField]
     private Button _button;
 
-    public AbilityData Data { get => _data; }
+    [Header("Parameters")]
+    [SerializeField]
+    private int _percentageReductionInPriceTower;
+    [SerializeField]
+    private int _percentageSellTower;
 
-    public void InitializationAbility(AbilityData abilityData, ShopMenu shopMenu) {
+    public AbilityData Data { get => _data; }
+    public int PercentageReductionInPriceTower { get => _percentageReductionInPriceTower; }
+    public int PercentageSellTower { get => _percentageSellTower; }
+
+    public void Init(AbilityData abilityData, ShopMenu shopMenu) {
         _data = abilityData;
         _shopMenu = shopMenu;
-
-        CheckForPurchasedAbilityAndSetIcon(_data);
 
         _price.text = "" + abilityData.price;
 
         SubscriptionButton();
     }
 
-    public void CheckForPurchasedAbilityAndSetIcon(AbilityData abilityData) {
-        if (abilityData.isPurchased) {
-            _icon.sprite = abilityData.iconAfterPurchased;
+    public void CheckForPurchasedAbilityAndSetIcon() {
+        if (_data.isPurchased) {
+            _icon.sprite = _data.iconAfterPurchased;
         }
         else {
-            _icon.sprite = abilityData.icon;
+            _icon.sprite = _data.icon;
         }
     }
 

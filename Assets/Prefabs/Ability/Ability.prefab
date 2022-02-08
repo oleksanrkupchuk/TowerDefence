@@ -321,6 +321,8 @@ MonoBehaviour:
   _icon: {fileID: 5928509625337589106}
   _price: {fileID: 5042084610164566729}
   _button: {fileID: 1980256261841172901}
+  _percentageReductionInPriceTower: 30
+  _percentageSellTower: 80
 --- !u!1 &6616298397263261198
 GameObject:
   m_ObjectHideFlags: 0

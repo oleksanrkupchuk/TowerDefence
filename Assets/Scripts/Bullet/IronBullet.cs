@@ -1,25 +1,32 @@
 using UnityEngine;
 
-public class IronBullet : Bullet
-{
+public class IronBullet : Bullet {
+    public bool thonr;
+
     private new void OnEnable() {
         base.OnEnable();
     }
 
-    private new void Update()
-    {
+    private new void Update() {
         base.Update();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag(Tags.enemy)) {
-            if (_target != null) {
-                _circleCollider.enabled = false;
-                //print("bullet" + gameObject.name + " = " + "damage " + _damage);
+    protected void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.TryGetComponent(out Enemy enemy)) {
+            if (_target == enemy) {
+                _target.LastPosition -= SetTargetPosition;
                 _target.TakeDamage(_damage);
-                _lastTargetPosition = _target.transform.position;
-                _isChangeTarget = true;
+                ChecBuyAbilityAndSlowEnemy(_target);
+                SetTargetPositionAndSetTargetNull();
             }
+            //if (_target != null) {
+            //}
+        }
+    }
+
+    private void ChecBuyAbilityAndSlowEnemy(Enemy _enemy) {
+        if (thonr) {
+            _enemy.Debuff.StartSlowMove();
         }
     }
 }

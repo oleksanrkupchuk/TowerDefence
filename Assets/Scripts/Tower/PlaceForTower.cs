@@ -8,6 +8,8 @@ public class PlaceForTower : MonoBehaviour
     private SpriteRenderer _icon;
     [SerializeField]
     private Color _alpha;
+    [SerializeField]
+    private BoxCollider2D _boxCollider;
 
     private void OnTriggerEnter2D(Collider2D collision) {
         _towerManager = collision.GetComponent<TowerManager>();
@@ -22,10 +24,18 @@ public class PlaceForTower : MonoBehaviour
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        SetIconNull();
+        DisableIlluminationIcon();
     }
 
-    public void SetIconNull() {
+    public void DisableIlluminationIcon() {
         _icon.sprite = null;
+    }
+
+    public void DisableBoxCollider() {
+        _boxCollider.enabled = false;
+    }
+
+    public void EnableBoxCollider() {
+        _boxCollider.enabled = true;
     }
 }

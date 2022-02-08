@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _icon: {fileID: 3918760435087342896}
   _alpha: {r: 1, g: 1, b: 1, a: 0.5882353}
+  _boxCollider: {fileID: 2740943730465324107}
 --- !u!1 &7831797335274966515
 GameObject:
   m_ObjectHideFlags: 0

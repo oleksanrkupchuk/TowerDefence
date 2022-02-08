@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6973668464270465113}
   m_Layer: 0
   m_Name: Fire_Ball
-  m_TagString: Bullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,13 +155,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 995e698724029424a9311f32ea770933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _target: {fileID: 0}
   _damage: 2
   _damageBasic: 2
   _bezierPointPrefab: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
   _amountBezierPoints: 3
   _destroyBullet: {fileID: 7400000, guid: 324278fab0bf55243890827f85382af4, type: 2}
   _animator: {fileID: 2174756978729729258}
-  _bezierPoints: []
   _timeFlight: 1.5
   _axisYP1: 6.5
   _circleCollider: {fileID: 5098031056570507187}
+  _fireArea: {fileID: 1214481618115712216, guid: 4368b3fce25ab65449157a5615985dad, type: 3}
+  burning: 1
+  fireArea: 1

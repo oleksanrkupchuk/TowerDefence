@@ -6,6 +6,7 @@ public class TowerManager : MonoBehaviour {
     private Tower _tower;
     private Vector2 cursorMousePosition;
     private RaycastHit2D _raycastHit;
+    [SerializeField]
     private TowerButton _towerButtonPressed;
 
     [SerializeField]
@@ -18,8 +19,6 @@ public class TowerManager : MonoBehaviour {
     private GameManager _gameManager;
     [SerializeField]
     private Collider2D _collider;
-    [SerializeField]
-    private bool putTower = true;
 
     public List<Tower> towersList = new List<Tower>();
 
@@ -44,14 +43,11 @@ public class TowerManager : MonoBehaviour {
     }
 
     private void CheckRaycastAndCallClickOnTower(RaycastHit2D raycast) {
-        //print("Name oject = " + raycast.transform.name);
-        //print("Name oject = " + raycast.collider.name);
-
         if (raycast.transform != null) {
             //print("raycast " + raycast.transform.name);
 
-            if (raycast.collider.CompareTag(Tags.placeForTower)) {
-                SetTowerOnPlace(raycast.transform);
+            if(raycast.transform.gameObject.TryGetComponent(out PlaceForTower placeForTower)) {
+                SetTowerOnPlace(placeForTower);
             }
 
             if (raycast.collider.CompareTag(Tags.tower) && _towerIcon.enabled == false) {
@@ -59,31 +55,31 @@ public class TowerManager : MonoBehaviour {
                 DisableMenuAnotherTowers();
             }
 
-            else if (!raycast.collider.CompareTag(Tags.tower) && !raycast.collider.CompareTag("Menu")) {
+            else if (!raycast.collider.CompareTag("Menu")) {
                 DisableMenuTower();
             }
         }
 
         else {
+            //print("transform NULL");
             DisableMenuTower();
         }
     }
 
-    public void SetTowerOnPlace(Transform placeTower) {
-        if (!putTower) {
+    public void SetTowerOnPlace(PlaceForTower placeForTower) {
+        if (_towerButtonPressed != null) {
             //null коли не вибираєш башню і тицяєш на місце для башні
-            putTower = true;
             _collider.enabled = false;
-            int price = _towerButtonPressed.TowerObject.GetComponent<Tower>().Price;
+            int price = _towerButtonPressed.TowerScript.Price;
             _gameManager.SubstractCoin(price);
-            DisableIlluminationIconOnPlaceForTower(placeTower);
+            placeForTower.DisableIlluminationIcon();
 
-            GameObject tower = Instantiate(_towerButtonPressed.TowerObject, placeTower.position, Quaternion.identity);
-            Tower _tower = tower.GetComponent<Tower>();
-            _tower.Initialization(this, _gameManager);
-            _tower.SetPlaceForTower(placeTower.gameObject);
-            _tower.DisableColliderOnPlaceForTower();
+            Tower tower = Instantiate(_towerButtonPressed.TowerScript, placeForTower.transform.position, Quaternion.identity);
+            tower.Initialization(this, _gameManager);
+            tower.SetPlaceForTower(placeForTower);
+            placeForTower.DisableBoxCollider();
             DisbleTowerIcon();
+            _towerButtonPressed = null;
         }
 
         else {
@@ -91,20 +87,15 @@ public class TowerManager : MonoBehaviour {
         }
     }
 
-    private void DisableIlluminationIconOnPlaceForTower(Transform placeForTower) {
-        PlaceForTower _placeForTower = placeForTower.GetComponent<PlaceForTower>();
-        _placeForTower.SetIconNull();
-    }
-
     private void DisableOrEnableMenuUpgrageOntower(RaycastHit2D raycast) {
         _tower = raycast.transform.GetComponent<Tower>();
 
-        if (_tower.IsActiveCanvas()) {
-            _tower.DisableCanvas();
+        if (_tower.IsActiveUpgradeMenu()) {
+            _tower.DisableUpgradeMenu();
             _tower.DisableLineRenderer();
         }
-        else if(!_tower.IsActiveCanvas()) {
-            _tower.EnableCanvas();
+        else if (!_tower.IsActiveUpgradeMenu()) {
+            _tower.EnableUpgradeMenu();
             _tower.EnableLineRenderer();
         }
     }
@@ -113,7 +104,7 @@ public class TowerManager : MonoBehaviour {
         for (int i = 0; i < towersList.Count; i++) {
             if (towersList[i] != _tower && _tower != null) {
                 towersList[i].DisableLineRenderer();
-                towersList[i].DisableCanvas();
+                towersList[i].DisableUpgradeMenu();
             }
         }
     }
@@ -121,8 +112,10 @@ public class TowerManager : MonoBehaviour {
     private void DisableMenuTower() {
         if (_tower != null) {
             _tower.DisableLineRenderer();
-            _tower.DisableCanvas();
-            _tower.TowerUpgradeMenu.TowerMenuAmountText.Destroy();
+            _tower.DisableUpgradeMenu();
+            if (_tower.TowerUpgradeMenu.TowerMenuAmountText != null) {
+                _tower.TowerUpgradeMenu.TowerMenuAmountText.Destroy();
+            }
         }
     }
 
@@ -132,10 +125,8 @@ public class TowerManager : MonoBehaviour {
 
     public void SelectedTower(TowerButton towerButton) {
         _towerButtonPressed = towerButton;
-        //_towerIcon.color = _colorAlpha;
         EnableSprite(_towerButtonPressed.Sprite);
         _collider.enabled = true;
-        putTower = false;
         //Debug.Log("tower = " + towerButtonPressed.gameObject.name);
     }
 
@@ -154,9 +145,5 @@ public class TowerManager : MonoBehaviour {
     public void FollowMouseTowerIcon() {
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(transform.position.x, transform.position.y, 10);
-    }
-
-    public void PutTowers() {
-        putTower = false;
     }
 }

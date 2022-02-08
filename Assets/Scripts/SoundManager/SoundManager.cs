@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Audio;
 using UnityEngine;
 
 public enum Sound {
@@ -10,21 +7,20 @@ public enum Sound {
 public class SoundManager : MonoBehaviour {
     [SerializeField]
     private AudioSource _backgroundSound;
-
     [SerializeField]
     private AudioClip _clip;
 
     public static SoundManager Instance;
 
     private void OnEnable() {
-        InitSoundManager();
+        Init();
     }
 
     private void Start() {
         PlaySound();
     }
 
-    private void InitSoundManager() {
+    private void Init() {
         if (Instance == null) {
             Instance = this;
         }

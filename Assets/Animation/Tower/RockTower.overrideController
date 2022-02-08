@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RockTower
+  m_Controller: {fileID: 9100000, guid: 44cc325f880122344a888ebb3772f009, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 207ef6366899a3a4eae4adb6230eed55, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b349708b446064f49b03efca56218bc9, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7ab7453970c22ca499066a86f6fb677e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d4aabb1a665af614ab1274a1883ed5a4, type: 2}

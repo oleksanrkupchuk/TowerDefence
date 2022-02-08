@@ -29,10 +29,10 @@ public class WinMenu : BaseMenu {
         StarsData _starsData = SaveSystemStars.LoadStars();
         _starsCount = _starsData.stars;
         _currentLevelStars = _starsData.level[SceneManager.GetActiveScene().buildIndex];
-        print("count stars = " + _starsCount);
-        for (int i = 0; i < _starsData.level.Length; i++) {
-            print($"level {i} = " + _starsData.level[i]);
-        }
+        //print("count stars = " + _starsCount);
+        //for (int i = 0; i < _starsData.level.Length; i++) {
+        //    print($"level {i} = " + _starsData.level[i]);
+        //}
     }
 
     private void SubscriptionButtons() {
@@ -43,8 +43,8 @@ public class WinMenu : BaseMenu {
     }
 
     private void SaveStars() {
-        print("count stars = " + starsCurrentLevel);
-        print("_index Level = " + (_indexNextLevel - 1));
+        //print("count stars = " + starsCurrentLevel);
+        //print("_index Level = " + (_indexNextLevel - 1));
         if (starsCurrentLevel > _currentLevelStars) {
             _starsCount += (starsCurrentLevel - _currentLevelStars);
             SaveSystemStars.SaveStars(_starsCount, starsCurrentLevel, _indexNextLevel - 1);
