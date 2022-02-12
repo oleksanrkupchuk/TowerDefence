@@ -323,6 +323,7 @@ MonoBehaviour:
   _button: {fileID: 1980256261841172901}
   _percentageReductionInPriceTower: 30
   _percentageSellTower: 80
+  _chanceFireArea: 40
 --- !u!1 &6616298397263261198
 GameObject:
   m_ObjectHideFlags: 0

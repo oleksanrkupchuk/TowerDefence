@@ -19,10 +19,13 @@ public class Ability : MonoBehaviour {
     private int _percentageReductionInPriceTower;
     [SerializeField]
     private int _percentageSellTower;
+    [SerializeField]
+    private int _chanceFireArea;
 
     public AbilityData Data { get => _data; }
     public int PercentageReductionInPriceTower { get => _percentageReductionInPriceTower; }
     public int PercentageSellTower { get => _percentageSellTower; }
+    public int ChanceFireArea { get => _chanceFireArea; }
 
     public void Init(AbilityData abilityData, ShopMenu shopMenu) {
         _data = abilityData;

@@ -158,6 +158,7 @@ MonoBehaviour:
   _target: {fileID: 0}
   _damage: 1
   _damageBasic: 1
+  _speed: 3
   _bezierPointPrefab: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
   _amountBezierPoints: 3
   _destroyBullet: {fileID: 7400000, guid: 1b060d98101a565468749f9a9c4fff30, type: 2}

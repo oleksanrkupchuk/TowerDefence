@@ -5,19 +5,29 @@ using UnityEngine;
 public abstract class Bullet : MonoBehaviour {
     [SerializeField]
     protected Enemy _target;
-    protected AnimationEvent _destroyEvent = new AnimationEvent();
     protected float _axiYTower;
     protected Vector3 _nexPosition;
+    protected Vector3 _previousPosition;
     protected bool _isBeizerPointNotNull = true;
     protected Vector2 _targetPosition;
     protected float _t;
-    protected float _timeWay;
+    protected float _testDistance;
+    protected float _timeTest;
+    protected float _timeTest2;
+    protected float _timeFormula1;
+    protected float _timeFormula2;
+    protected float _timeFormulaBuffer;
+    protected float _timeDeltaTime;
+    protected float _timeWay = 0f;
+    protected AnimationEvent _destroyEvent = new AnimationEvent();
     protected List<GameObject> _bezierPoints = new List<GameObject>();
 
     [SerializeField]
     protected int _damage;
     [SerializeField]
     protected int _damageBasic;
+    [SerializeField]
+    protected float _speed;
     [SerializeField]
     protected GameObject _bezierPointPrefab;
     [SerializeField]
@@ -56,6 +66,14 @@ public abstract class Bullet : MonoBehaviour {
     }
 
     protected void OnEnable() {
+        //print("on enable bullet");
+        //InstantiatePointsForBeizerTrajectory();
+
+        //SetP0();
+    }
+
+    private void Start() {
+        //print("start bullet");
         InstantiatePointsForBeizerTrajectory();
 
         SetP0();
@@ -112,8 +130,24 @@ public abstract class Bullet : MonoBehaviour {
     }
 
     protected void CalculationT() {
-        _timeWay += Time.deltaTime;
-        _t = _timeWay / _timeFlight;
+        _previousPosition = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
+                       _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, _t - 0.1f);
+        _timeTest += Time.deltaTime;
+        _timeTest2 += Time.deltaTime;
+
+        _timeFormula1 += Time.deltaTime;
+
+        if (transform.position.y > _previousPosition.y) {
+            _timeFormulaBuffer = 1 / (1 + _timeFormula1) * _timeFormula1 * 1.2f;
+            _t = _timeFormulaBuffer;
+        }
+        else {
+            _timeFormula2 += Time.deltaTime;
+            //_t = _timeFormulaBuffer + (_timeFormula2 * _timeFormula2 * 1.5f);
+            _t = _timeFormulaBuffer + (_timeFormula2 * _timeFormula2 * 2.5f);
+        }
+
+        _timeFlight = _testDistance / _speed;
     }
 
     protected void Move() {
@@ -151,20 +185,6 @@ public abstract class Bullet : MonoBehaviour {
         _animator.SetTrigger("destroy");
     }
 
-    //protected virtual void OnTriggerEnter2D(Collider2D collision) {
-    //    Enemy _enemy = collision.gameObject.GetComponent<Enemy>();
-
-    //    if (_target != null) {
-    //        if (_target == _enemy) {
-    //            _target.LastPosition -= SetTargetPosition;
-    //            _target.TakeDamage(_damage);
-    //            _circleCollider.enabled = false;
-    //            _lastTargetPosition = _target.transform.position;
-    //            _target = null;
-    //        }
-    //    }
-    //}
-
     protected void SetTargetPositionAndSetTargetNull() {
         _targetPosition = _target.transform.position;
         _target = null;
@@ -182,6 +202,28 @@ public abstract class Bullet : MonoBehaviour {
 
     protected void DisableCircleCollider() {
         _circleCollider.enabled = false;
+    }
+
+    public void SetDistanceAndRange(float distance, float range) {
+        _testDistance = range;
+        //if (Mathf.Abs(distance - range) >= 0.5f && Mathf.Abs(distance - range) < 1f) {
+        //    _timeFlight = (_speed / range) - 0.1f;
+        //    print("time flight = " + _timeFlight);
+        //    return;
+        //}
+        //if (Mathf.Abs(distance - range) >= 1f && Mathf.Abs(distance - range) < 1.5f) {
+        //    _timeFlight = (_speed / range) - 0.15f;
+        //    print("time flight = " + _timeFlight);
+        //    return;
+        //}
+        //if (Mathf.Abs(distance - range) >= 1.5f) {
+        //    _timeFlight = (_speed / range) - 0.3f;
+        //    print("time flight = " + _timeFlight);
+        //    return;
+        //}
+
+        _timeFlight = _speed / range;
+        //print("time flight = " + _timeFlight);
     }
 
     protected void OnDrawGizmos() {

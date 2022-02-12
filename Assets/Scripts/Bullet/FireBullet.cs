@@ -6,6 +6,8 @@ public class FireBullet : Bullet {
     [SerializeField]
     private FireArea _fireArea;
 
+    [HideInInspector]
+    public int chanceFireArea;
     public bool burning;
     public bool fireArea;
 
@@ -47,7 +49,10 @@ public class FireBullet : Bullet {
 
     private void CheckBuyFireAreaAbilityAndBurnEnemy() {
         if (fireArea) {
-            Instantiate(_fireArea.gameObject, _targetPosition, Quaternion.identity);
+            int _chance = Random.Range(0, 100);
+            if (_chance <= chanceFireArea) {
+                Instantiate(_fireArea.gameObject, _targetPosition, Quaternion.identity);
+            }
         }
     }
 }

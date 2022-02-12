@@ -144,17 +144,22 @@ public abstract class Tower : MonoBehaviour {
     }
 
     protected void Shoot() {
+        //print("distance to target = " + _distanceToTarget);
         //print("shoot tower " + gameObject.name);
-        Bullet _bulletObject = Instantiate(_bullet, _bulletPosition.position, transform.rotation);
-        _bulletObject.name = "bullet " + countBullet;
-        countBullet++;
+        Bullet _bulletObject = Instantiate(_bullet, _bulletPosition.position, _bullet.transform.rotation);
         _bulletObject.SetDamage(_damage);
         if (target == null) {
+            float _distanceToTarget = Vector2.Distance(transform.position, _targetPosition.position);
             _bulletObject.Init(this, _targetPosition);
+            _bulletObject.SetDistanceAndRange(_distanceToTarget, _rangeAttack);
         }
         else {
+            float _distanceToTarget = Vector2.Distance(transform.position, target.transform.position);
             _bulletObject.Init(this);
+            _bulletObject.SetDistanceAndRange(_distanceToTarget, _rangeAttack);
         }
+        _bulletObject.name = "bullet " + countBullet;
+        countBullet++;
     }
 
     public void AddResetShootEventForShootAnimation() {
@@ -166,7 +171,7 @@ public abstract class Tower : MonoBehaviour {
     }
 
     protected void ResetShoot() {
-        _isShooting = true;
+        //_isShooting = true;
     }
 
     public void IncreaseDamage() {

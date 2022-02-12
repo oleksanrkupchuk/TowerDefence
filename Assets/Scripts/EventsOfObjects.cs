@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class EventsOfObjects : MonoBehaviour
-{
+public class EventsOfObjects : MonoBehaviour {
     private static EventsOfObjects _eventOfObjects;
 
     [SerializeField]
@@ -14,18 +13,17 @@ public class EventsOfObjects : MonoBehaviour
     private FireArea _fireArea;
 
     private void Awake() {
-        if(_eventOfObjects == null) {
+        if (_eventOfObjects == null) {
             _eventOfObjects = this;
         }
-        else if(_eventOfObjects != this) {
+        else if (_eventOfObjects != this) {
             Destroy(gameObject);
         }
 
         DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
-    {
+    void Start() {
         AddEventForTowerAnimation();
         AddEventForBulletAnimation();
         AddEventForEnemyAnimation();
@@ -52,9 +50,7 @@ public class EventsOfObjects : MonoBehaviour
     }
 
     private void AddEventForFireAreaAnimation() {
-        for (int i = 0; i < _enemy.Length; i++) {
-            _fireArea.AddEventDisableColliderForReductionAnimation();
-            _fireArea.AddEventDestroyForReductionAnimation();
-        }
+        _fireArea.AddEventDisableColliderForReductionAnimation();
+        _fireArea.AddEventDestroyForReductionAnimation();
     }
 }
