@@ -1,15 +1,22 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class Wave {
-    public List<Spawn> spawn = new List<Spawn>();
+    public List<Spawn> spawns = new List<Spawn>();
 }
 
-[System.Serializable]
+[Serializable]
 public class Spawn {
     public Transform spawnPoint;
-    public Enemy enemy;
-    public int amountEnemy;
     public List<Transform> wayPoints = new List<Transform>();
+    public List<EnemySpawn> enemies = new List<EnemySpawn>();
+}
+
+[Serializable]
+public class EnemySpawn {
+    public Enemy enemy;
+    [Range(1, 20)]
+    public int amount;
 }

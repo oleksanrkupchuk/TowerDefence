@@ -139,12 +139,15 @@ public abstract class Bullet : MonoBehaviour {
 
         if (transform.position.y > _previousPosition.y) {
             _timeFormulaBuffer = 1 / (1 + _timeFormula1) * _timeFormula1 * 1.2f;
+            //_timeFormulaBuffer = 1 / (1 + _timeFormula1) * _timeFormula1;
             _t = _timeFormulaBuffer;
         }
         else {
             _timeFormula2 += Time.deltaTime;
+            _t = _timeFormulaBuffer + _timeFormula2;
             //_t = _timeFormulaBuffer + (_timeFormula2 * _timeFormula2 * 1.5f);
-            _t = _timeFormulaBuffer + (_timeFormula2 * _timeFormula2 * 2.5f);
+            //_t = _timeFormulaBuffer + (_timeFormula2 * _timeFormula2 * 2.5f);
+            //_t = _timeFormulaBuffer + (_timeFormula2 + _timeFormula2 * _timeFormula2);
         }
 
         _timeFlight = _testDistance / _speed;

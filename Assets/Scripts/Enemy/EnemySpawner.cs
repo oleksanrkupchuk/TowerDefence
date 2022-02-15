@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour {
-    private float _timeWaitForNextSpawnEnemy;
-    private int _currentWaveInt = 0;
-    private Wave _currentWave;
+    private int _currentWave = 0;
+    private Wave _wave;
     private int _quantityWave;
 
     [Header("Parametrs")]
-    [SerializeField]
-    private int _startLayerEnemy;
     [SerializeField]
     private List<Wave> _waves = new List<Wave>();
     [SerializeField]
@@ -26,7 +23,7 @@ public class EnemySpawner : MonoBehaviour {
 
     public bool IsTheLastEnemyInTheLastWave {
         get {
-            if (_enemyList.Count == 0 && _currentWaveInt == _quantityWave) {
+            if (_enemyList.Count == 0 && _currentWave == _quantityWave) {
                 return true;
             }
 
@@ -36,7 +33,7 @@ public class EnemySpawner : MonoBehaviour {
 
     public bool IsLastWave {
         get {
-            if (_currentWaveInt == _quantityWave) {
+            if (_currentWave == _quantityWave) {
                 return true;
             }
 
@@ -55,7 +52,7 @@ public class EnemySpawner : MonoBehaviour {
     }
 
     private void OnEnable() {
-        _currentWave = _waves[0];
+        _wave = _waves[0];
         _quantityWave = _waves.Count;
     }
 
@@ -67,31 +64,35 @@ public class EnemySpawner : MonoBehaviour {
         _enemyList.Remove(enemy);
     }
 
-    public void StartEnemySpawn() {
-        _currentWaveInt++;
-        _gameManager.UpdateWaveText(_currentWaveInt, _waves.Count);
+    public void EnemyWaveSpawn() {
+        _currentWave++;
+        _gameManager.UpdateWaveText(_currentWave, _waves.Count);
 
-        for (int i = 0; i < _currentWave.spawn.Count; i++) {
-            StartCoroutine(EnemySpawn(_currentWave.spawn[i], i));
+        for (int i = 0; i < _wave.spawns.Count; i++) {
+            StartCoroutine(EnemySpawn(_wave.spawns[i]));
         }
 
-        if (_currentWaveInt < _waves.Count) {
-            _currentWave = _waves[_currentWaveInt];
+        if (_currentWave < _waves.Count) {
+            _wave = _waves[_currentWave];
         }
     }
 
-    private IEnumerator EnemySpawn(Spawn spawn, int number) {
-        for (int i = 0; i < spawn.amountEnemy; i++) {
-            Enemy _enemy = Instantiate(spawn.enemy, spawn.spawnPoint.position, Quaternion.identity);
-            _enemy.name = "enemy " + number;
+    private IEnumerator EnemySpawn(Spawn spawn) {
+        for (int i = 0; i < spawn.enemies.Count; i++) {
+            yield return StartCoroutine(Spawn(spawn, spawn.enemies[i]));
+        }
+    }
+
+    private IEnumerator Spawn(Spawn spawn, EnemySpawn enemyInSpawn) {
+        for (int i = 0; i < enemyInSpawn.amount; i++) {
+            Enemy _enemy = Instantiate(enemyInSpawn.enemy, spawn.spawnPoint.position, Quaternion.identity);
+            //_enemy.name = "enemy " + i;
             AddEnemy(_enemy);
             _enemy.Init(_gameManager, this);
             _enemy.SetWayPoints(spawn.wayPoints);
-            _startLayerEnemy--;
 
-            //_timeWaitForNextSpawnEnemy = Random.Range(_minTimeWaitForNextSpawnEnemy, _maxTimeWaitForNextSpawnEnemy);
-            //yield return new WaitForSeconds(_timeWaitForNextSpawnEnemy);
-            yield return new WaitForSeconds(2f);
+            float _timeWaitForNextSpawnEnemy = Random.Range(_minTimeWaitForNextSpawnEnemy, _maxTimeWaitForNextSpawnEnemy);
+            yield return new WaitForSeconds(_timeWaitForNextSpawnEnemy);
         }
     }
 }
