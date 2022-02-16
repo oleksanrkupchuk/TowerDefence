@@ -1,11 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyDebuff : MonoBehaviour
-{
+public class EnemyDebuff : MonoBehaviour {
     private float _time;
     private bool _isSlow = false;
     private bool _isBurning = false;
+
+    [SerializeField]
+    private bool _immunitySlow;
+    [SerializeField]
+    private bool _immunityBurning;
 
     [SerializeField]
     private Enemy _enemy;
@@ -19,13 +23,11 @@ public class EnemyDebuff : MonoBehaviour
     [SerializeField]
     private float _timeBurning;
 
-    private void Start()
-    {
+    private void Start() {
         _time = _timeBurning;
     }
 
-    private void Update()
-    {
+    private void Update() {
         if (_isBurning) {
             _time -= Time.deltaTime;
 
@@ -37,6 +39,10 @@ public class EnemyDebuff : MonoBehaviour
     }
 
     public void StartSlowMove() {
+        if (_immunitySlow) {
+            return;
+        }
+
         if (!_isSlow) {
             _isSlow = true;
             StartCoroutine(SlowMove());
@@ -56,6 +62,10 @@ public class EnemyDebuff : MonoBehaviour
     }
 
     public void StartBurning() {
+        if (_immunityBurning) {
+            return;
+        }
+
         if (!_isBurning) {
             StartCoroutine(Burning());
         }

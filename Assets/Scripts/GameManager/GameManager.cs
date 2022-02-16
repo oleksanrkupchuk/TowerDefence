@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     [SerializeField] 
@@ -29,6 +30,8 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private int _leftThePercentageOfHealthToReceiveThreeStar;
     public int Coin { get => _coin; }
+
+    public static event Action SpawnNewWave;
 
     private int LeftPercentageOfHealth {
         get {
@@ -88,6 +91,7 @@ public class GameManager : MonoBehaviour {
 
             else if (_timer <= 0) {
                 _enemySpawner.EnemyWaveSpawn();
+                SpawnNewWave?.Invoke();
                 _informationPanel.DisableTimerWaveObject();
             }
         }

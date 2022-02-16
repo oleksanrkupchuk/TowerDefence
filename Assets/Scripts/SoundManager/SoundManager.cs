@@ -1,16 +1,15 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
     [SerializeField]
     private Sound[] _sounds;
-    //private List<Sound> _sounds = new List<Sound>();
 
     public static SoundManager Instance;
 
     private void OnEnable() {
         Init();
+        AddAudioSourceForSounds();
     }
 
     private void Init() {
@@ -24,42 +23,41 @@ public class SoundManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start() {
-        PlaySound("Background", null);
+    private void AddAudioSourceForSounds() {
+        foreach (var sound in _sounds) {
+            sound.audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
-    public void PlaySound(string soundName, AudioSource audioSource) {
-        //Sound _sound = _sounds.FirstOrDefault(sound => sound.name == soundName);
+    private void Start() {
+        PlaySound("Background");
+    }
+
+    public void PlaySound(string soundName) {
         Sound _sound = Array.Find(_sounds, _sound => _sound.name == soundName);
         if(_sound == null) {
             print($"<color=red> Sound {soundName} is null </color>");
             return;
         }
 
-        bool _remove = false;
-        if(audioSource == null) {
-            audioSource = gameObject.AddComponent<AudioSource>();
-            _remove = true;
-        }
+        _sound.audioSource.loop = _sound.loop;
+        _sound.audioSource.clip = _sound.audioClip;
+        _sound.audioSource.volume = _sound.volume;
+        _sound.audioSource.pitch = _sound.pitch;
+        _sound.audioSource.spatialBlend = _sound.spaceSound;
 
-        audioSource.loop = _sound.loop;
-        audioSource.clip = _sound.audioClip;
-        audioSource.volume = _sound.volume;
-        audioSource.pitch = _sound.pitch;
-        audioSource.spatialBlend = _sound.spaceSound;
-        audioSource.Play();
-
-        if(!_sound.loop && _remove) {
-            Destroy(audioSource, _sound.audioClip.length);
-        }
+        _sound.audioSource.Play();
     }
 
-    public void SetVolume(float value) {
-        //_backgroundSound.volume = value;
+    public void SetSoudnsVolume(float value) {
+        foreach (var sound in _sounds) {
+            sound.volume = value;
+            sound.audioSource.volume = value;
+        }
     }
 }
 
-[System.Serializable]
+[Serializable]
 public class Sound {
     public string name;
     public bool loop;
@@ -70,4 +68,6 @@ public class Sound {
     [Range(0f, 1f)]
     public float spaceSound;
     public AudioClip audioClip;
+    [HideInInspector]
+    public AudioSource audioSource;
 }

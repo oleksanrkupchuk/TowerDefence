@@ -73,7 +73,7 @@ public class SettingsMenu : BaseMenu {
         }
     }
 
-    private void LoadSettingsAndSetResolution() {
+    public void LoadSettingsAndSetResolution() {
         SettingsData settingsData = SaveSystemSettings.LoadSettings();
 
         _screenResolutionDropDown.value = settingsData.indexResolution;
@@ -121,11 +121,11 @@ public class SettingsMenu : BaseMenu {
     }
 
     private void Update() {
-        SetSoundVolume();
+        SetSoundsVolume();
     }
 
-    private void SetSoundVolume() {
-        SoundManager.Instance.SetVolume(_slider.value);
+    private void SetSoundsVolume() {
+        SoundManager.Instance.SetSoudnsVolume(_slider.value);
         float _value = _slider.value * 100;
         _soundVolumeText.text = "" + _value.ToString("0");
     }

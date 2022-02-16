@@ -10,6 +10,7 @@ public abstract class Enemy : MonoBehaviour {
     protected int _indexPosition;
     protected Tower _tower;
     protected string _isDead = "isDying";
+    [SerializeField]
     protected float _speed;
     protected List<Transform> _currentWay = new List<Transform>();
     protected AnimationEvent _enemyEventDead = new AnimationEvent();
@@ -107,7 +108,7 @@ public abstract class Enemy : MonoBehaviour {
     }
 
     protected void Move() {
-        transform.position = Vector2.MoveTowards(transform.position, _nextWayPoint.position, _defaultSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, _nextWayPoint.position, _speed * Time.deltaTime);
     }
 
     protected void SetNextPosition() {
@@ -207,5 +208,9 @@ public abstract class Enemy : MonoBehaviour {
 
     public void StopBurningEffect() {
         _burningEffect.Stop();
+    }
+
+    public void Setlayer(int value) {
+        _spriteRenderer.sortingOrder = value;
     }
 }

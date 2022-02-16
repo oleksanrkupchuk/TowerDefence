@@ -497,7 +497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e88c5a880b42044a1e4264bf6ec43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultSpeed: 0.5
+  _speed: 0
+  _defaultSpeed: 0.6
   _health: 10
   _healthMax: 10
   _amountCoinForDeath: 3
@@ -525,8 +526,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2463cdf890599144da13adaf3fbbe1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _immunitySlow: 0
+  _immunityBurning: 1
   _enemy: {fileID: 7682988146873895387}
-  _slowSpeed: 0.6
+  _slowSpeed: 0.4
   _durationSlowSpeed: 5
   _timeBurning: 4
 --- !u!1001 &3226971300786396944

@@ -9,9 +9,16 @@ public class CameraMovement : MonoBehaviour {
     private float _leftBorderCamera;
     [SerializeField]
     private float _rightBorderCamera;
+    [SerializeField]
+    private SettingsMenu _settingMenu;
 
     private void OnEnable() {
         SettingsMenu.ChangeScreenResolution += SetResolution640x480;
+        LoadAndApplyScreenSetting();
+    }
+
+    private void LoadAndApplyScreenSetting() {
+        _settingMenu.LoadSettingsAndSetResolution();
     }
    
     private void SetResolution640x480(float weidth) {
