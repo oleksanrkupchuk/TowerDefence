@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Satyr_Doctor
+  m_Controller: {fileID: 9100000, guid: 2e8e1b6bf683758409ed279ddad63f04, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 3cef32a3e0fb3a0489b0692dadc810ce, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d6b44943764786240aeece06b5a29545, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c911112b53959e741be06e4ce8c3e44f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: cba3f84fb05e565458fec8664e206e68, type: 2}

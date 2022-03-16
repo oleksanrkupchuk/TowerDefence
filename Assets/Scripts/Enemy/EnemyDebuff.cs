@@ -7,24 +7,24 @@ public class EnemyDebuff : MonoBehaviour {
     private bool _isBurning = false;
 
     [SerializeField]
+    private Enemy _enemy;
+    [SerializeField]
     private bool _immunitySlow;
     [SerializeField]
     private bool _immunityBurning;
 
-    [SerializeField]
-    private Enemy _enemy;
     [Header("Debuff Slow")]
     [SerializeField]
-    protected float _slowSpeed;
+    private float _slowSpeed;
     [SerializeField]
-    protected float _durationSlowSpeed;
+    private float _durationSlowSpeed;
 
     [Header("Debuff Burning")]
     [SerializeField]
-    private float _timeBurning;
+    private float _durationBurning;
 
     private void Start() {
-        _time = _timeBurning;
+        _time = _durationBurning;
     }
 
     private void Update() {
@@ -33,7 +33,7 @@ public class EnemyDebuff : MonoBehaviour {
 
             if (_time <= 0) {
                 _isBurning = false;
-                _time = _timeBurning;
+                _time = _durationBurning;
             }
         }
     }
@@ -57,7 +57,7 @@ public class EnemyDebuff : MonoBehaviour {
             _isSlow = false;
         }
 
-        _enemy.InitSpeed();
+        _enemy.SetSpeedToDefault();
         _enemy.Animator.SetFloat("speedStateWalking", 1f);
     }
 

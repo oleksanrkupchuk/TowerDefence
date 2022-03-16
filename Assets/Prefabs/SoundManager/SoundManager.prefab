@@ -50,3 +50,26 @@ MonoBehaviour:
     pitch: 1
     spaceSound: 0
     audioClip: {fileID: 8300000, guid: 5438c5e365e37fe41a27495313303343, type: 3}
+    audioSource: {fileID: 0}
+  - name: WinGame
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: 4e70ec3730bb62f469f2f0991e6f6128, type: 3}
+    audioSource: {fileID: 0}
+  - name: LoseGame
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: 57a5f330824519f47beff6db85c67617, type: 3}
+    audioSource: {fileID: 0}
+  _soundsEffect:
+  - name: ButtonClick
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: 2ac85495f85ebdb42acc157f9f77631f, type: 3}
+    audioSource: {fileID: 0}

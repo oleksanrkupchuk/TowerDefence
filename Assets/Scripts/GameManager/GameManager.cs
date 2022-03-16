@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour {
             }
 
             else if (_timer <= 0) {
-                _enemySpawner.EnemyWaveSpawn();
+                _enemySpawner.EnableWaveEnemy();
                 SpawnNewWave?.Invoke();
                 _informationPanel.DisableTimerWaveObject();
             }
@@ -133,26 +133,26 @@ public class GameManager : MonoBehaviour {
 
     public void CheckHealthAndShowLoseMenuIfHealthZero() {
         if (IsNotZeroHealth) {
-            CheckLastEnemyAndEnableWinMenu();
+            CheckLastEnemyAndEnableWinMenuOrSpawnNewEnemyWave();
         }
         else {
+            SoundManager.Instance.PlaySound(SoundName.LoseGame);
             ShowLoseMenu();
             StopTime();
         }
     }
 
-    public void CheckLastEnemyAndEnableWinMenu() {
+    public void CheckLastEnemyAndEnableWinMenuOrSpawnNewEnemyWave() {
         if (_enemySpawner.IsTheLastEnemyInTheLastWave) {
+            SoundManager.Instance.PlaySound(SoundName.WinGame);
             _gameMenu.EnableBackgroundGameMenu();
             _gameMenu.EnableWinMenuAndSetDeafaultSpeedTime();
             _countStars = CalculationStars();
-            _gameMenu.WinMenu.starsCurrentLevel = _countStars;
+            _gameMenu.WinMenu.amountReceivedStarsOnCurrentLevel = _countStars;
             _gameMenu.WinMenu.StartAnimationStars();
-            //int _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            //SaveSystemStars.SaveStars(_countStars, _currentSceneIndex);
         }
 
-        else if (_enemySpawner.IsTheLastEnemyInWave) {
+        else if (_enemySpawner.IsTheLastEnemyInCurrentWave) {
             _informationPanel.EnableTimerWaveObject();
             _informationPanel.StartAnimationForTimerWave();
             SetValueForTimer(_time);

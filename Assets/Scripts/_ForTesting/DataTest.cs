@@ -44,12 +44,12 @@ public class DataTest : MonoBehaviour {
     }
 
     private void ResetAllData() {
-        StarsData _startData = SaveSystemStars.LoadStars();
-        for (int i = 0; i < _startData.level.Length; i++) {
+        LevelData _startData = SaveSystemLevel.LoadLevelData();
+        for (int i = 0; i < _startData.levels.Count; i++) {
             //_startData.level[i] = 0;
-            SaveSystemStars.SaveStars(0, 0, i);
+            //SaveSystemStars.SaveStars(0, 0, i);
         }
-        StarsData _startData2 = SaveSystemStars.LoadStars();
+        LevelData _startData2 = SaveSystemLevel.LoadLevelData();
         //for (int i = 0; i < _startData2.level.Length; i++) {
         //    print($"stars on {i + 1} level = " + _startData2.level[i]);
         //}
@@ -74,6 +74,5 @@ public class DataTest : MonoBehaviour {
     }
 
     private void AddStars() {
-        SaveSystemStars.SaveStars(50);
     }
 }

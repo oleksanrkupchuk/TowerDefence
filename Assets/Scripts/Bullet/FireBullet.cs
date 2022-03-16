@@ -11,12 +11,17 @@ public class FireBullet : Bullet {
     public bool burning;
     public bool fireArea;
 
-    private new void OnEnable() {
-        base.OnEnable();
+    private new void Start() {
+        base.Start();
     }
 
     private new void Update() {
         base.Update();
+    }
+
+    protected override void CalculationT() {
+        _timeWay += Time.deltaTime;
+        _t = _timeWay / _timeFlight;
     }
 
     protected override void CheckTAndDestroyBullet() {

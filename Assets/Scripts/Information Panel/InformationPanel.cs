@@ -73,6 +73,7 @@ public class InformationPanel : MonoBehaviour {
 
     private void SubscriptionButton() {
         _startButton.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             _gameManager.StartTime();
             _gameManager.GameUnpause();
             DisableStartButton();
@@ -82,6 +83,7 @@ public class InformationPanel : MonoBehaviour {
         });
 
         _buttonDefaultTimeSpeed.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             SetDeafaultTimeSpeed();
             EnableButtonDoubleTimeSpeed();
             DisableButtonDefaultTimeSpeed();
@@ -89,6 +91,7 @@ public class InformationPanel : MonoBehaviour {
         });
 
         _buttonDoubleTimeSpeed.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             SetDoubleTimeSpeed();
             EnableButtonDefaultTimeSpeed();
             DisableButtonDoubleTimeSpeed();

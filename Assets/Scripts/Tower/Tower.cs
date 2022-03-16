@@ -53,6 +53,7 @@ public abstract class Tower : MonoBehaviour {
     protected TowerUpgradeMenu _towerUpgradeMenu;
 
     public int Price { get => _price; }
+    public Enemy Target { get => target; }
     public float RangeAttack { get => _rangeAttack; }
     public List<Enemy> EnemyList { get => _enemyList; }
     public int Damage { get => _damage; }
@@ -171,7 +172,7 @@ public abstract class Tower : MonoBehaviour {
     }
 
     protected void ResetShoot() {
-        //_isShooting = true;
+        _isShooting = true;
     }
 
     public void IncreaseDamage() {
@@ -247,15 +248,7 @@ public abstract class Tower : MonoBehaviour {
         return false;
     }
 
-    public Enemy GetTarget() {
-        if (target != null) {
-            return target;
-        }
-
-        return null;
-    }
-
-    public void SetPositionTarget(Transform targetPosition) {
+    public void SetTargetPosition(Transform targetPosition) {
         _targetPosition = targetPosition;
     }
 

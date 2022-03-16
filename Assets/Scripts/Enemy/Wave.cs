@@ -10,13 +10,23 @@ public class Wave {
 [Serializable]
 public class Spawn {
     public Transform spawnPoint;
+    public TimerWave timerWave;
     public List<Transform> wayPoints = new List<Transform>();
-    public List<EnemySpawn> enemies = new List<EnemySpawn>();
+    public List<EnemySpawnRules> listEnemies = new List<EnemySpawnRules>();
+    public List<Chain> chains = new List<Chain>();
 }
 
 [Serializable]
-public class EnemySpawn {
-    public Enemy enemy;
+public class Chain {
+    public List<EnemySpawnRules> chainListEnemies = new List<EnemySpawnRules>();
+}
+
+[Serializable]
+public class EnemySpawnRules {
     [Range(1, 20)]
     public int amount;
+    public float minTimeDelayForNextEnemy;
+    public float maxTimeDelayForNextEnemy;
+    public Enemy enemy;
+    public bool needUnlockEnemy;
 }

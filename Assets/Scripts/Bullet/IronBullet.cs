@@ -3,8 +3,8 @@ using UnityEngine;
 public class IronBullet : Bullet {
     public bool thonr;
 
-    private new void OnEnable() {
-        base.OnEnable();
+    private new void Start() {
+        base.Start();
     }
 
     private new void Update() {
@@ -19,8 +19,6 @@ public class IronBullet : Bullet {
                 ChecBuyAbilityAndSlowEnemy(_target);
                 SetTargetPositionAndSetTargetNull();
             }
-            //if (_target != null) {
-            //}
         }
     }
 

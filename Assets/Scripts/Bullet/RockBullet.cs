@@ -13,8 +13,8 @@ public class RockBullet : Bullet {
     [SerializeField]
     private AnimationClip _destroyClip;
 
-    private new void OnEnable() {
-        base.OnEnable();
+    private new void Start() {
+        base.Start();
     }
 
     private new void Update() {

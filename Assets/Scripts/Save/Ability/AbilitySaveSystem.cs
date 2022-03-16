@@ -24,16 +24,6 @@ public class AbilitySaveSystem : MonoBehaviour {
         stream.Close();
     }
 
-    public static void SaveAbility(AbilityItem item) {
-        BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/ability.data";
-        FileStream stream = new FileStream(path, FileMode.Create);
-
-        AbilityPurchased abilityPurchase = new AbilityPurchased(item);
-        formatter.Serialize(stream, abilityPurchase);
-        stream.Close();
-    }
-
     public static AbilityPurchased LoadAbility() {
         string path = Application.persistentDataPath + "/ability.data";
         //print(path);

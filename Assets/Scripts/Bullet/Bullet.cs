@@ -11,13 +11,9 @@ public abstract class Bullet : MonoBehaviour {
     protected bool _isBeizerPointNotNull = true;
     protected Vector2 _targetPosition;
     protected float _t;
-    protected float _testDistance;
-    protected float _timeTest;
-    protected float _timeTest2;
     protected float _timeFormula1;
     protected float _timeFormula2;
     protected float _timeFormulaBuffer;
-    protected float _timeDeltaTime;
     protected float _timeWay = 0f;
     protected AnimationEvent _destroyEvent = new AnimationEvent();
     protected List<GameObject> _bezierPoints = new List<GameObject>();
@@ -43,12 +39,12 @@ public abstract class Bullet : MonoBehaviour {
     [SerializeField]
     protected CircleCollider2D _circleCollider;
 
-    public int Damage { get => _damage; set => _damage = value; }
+    public int Damage { get => _damage; }
     public event Action DestroyBeizerPoint;
 
     public void Init(Tower tower) {
         _axiYTower = tower.transform.position.y;
-        _target = tower.GetTarget();
+        _target = tower.Target;
         _target.LastPosition += SetTargetPosition;
     }
 
@@ -58,23 +54,15 @@ public abstract class Bullet : MonoBehaviour {
     }
 
     protected void SetTargetPosition() {
-        //print("set pos + " + gameObject.name);
         _circleCollider.enabled = false;
         _targetPosition = _target.transform.position;
         _target.LastPosition -= SetTargetPosition;
         _target = null;
     }
 
-    protected void OnEnable() {
-        //print("on enable bullet");
-        //InstantiatePointsForBeizerTrajectory();
-
-        //SetP0();
-    }
-
-    private void Start() {
-        //print("start bullet");
+    protected void Start() {
         InstantiatePointsForBeizerTrajectory();
+        DisableCollider();
 
         SetP0();
     }
@@ -87,6 +75,10 @@ public abstract class Bullet : MonoBehaviour {
             _point.name = "point " + i;
             _bezierPoints.Add(_point);
         }
+    }
+
+    protected void DisableCollider() {
+        _circleCollider.enabled = false;
     }
 
     public void AddDestroyEventForDestroyAnimation() {
@@ -103,6 +95,7 @@ public abstract class Bullet : MonoBehaviour {
             SetP1();
 
             CalculationT();
+            EnableCollider();
 
             Move();
             Rotation();
@@ -121,7 +114,6 @@ public abstract class Bullet : MonoBehaviour {
 
     protected void SetP2() {
         if (_target != null) {
-            //print("bullet have target");
             _bezierPoints[2].transform.position = _target.transform.position;
         }
         else {
@@ -129,11 +121,9 @@ public abstract class Bullet : MonoBehaviour {
         }
     }
 
-    protected void CalculationT() {
+    protected virtual void CalculationT() {
         _previousPosition = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
                        _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, _t - 0.1f);
-        _timeTest += Time.deltaTime;
-        _timeTest2 += Time.deltaTime;
 
         _timeFormula1 += Time.deltaTime;
 
@@ -149,8 +139,14 @@ public abstract class Bullet : MonoBehaviour {
             //_t = _timeFormulaBuffer + (_timeFormula2 * _timeFormula2 * 2.5f);
             //_t = _timeFormulaBuffer + (_timeFormula2 + _timeFormula2 * _timeFormula2);
         }
+    }
 
-        _timeFlight = _testDistance / _speed;
+    protected void EnableCollider() {
+        if (_circleCollider.enabled == false) {
+            if (_t >= 0.8f) {
+                _circleCollider.enabled = true;
+            }
+        }
     }
 
     protected void Move() {
@@ -208,25 +204,7 @@ public abstract class Bullet : MonoBehaviour {
     }
 
     public void SetDistanceAndRange(float distance, float range) {
-        _testDistance = range;
-        //if (Mathf.Abs(distance - range) >= 0.5f && Mathf.Abs(distance - range) < 1f) {
-        //    _timeFlight = (_speed / range) - 0.1f;
-        //    print("time flight = " + _timeFlight);
-        //    return;
-        //}
-        //if (Mathf.Abs(distance - range) >= 1f && Mathf.Abs(distance - range) < 1.5f) {
-        //    _timeFlight = (_speed / range) - 0.15f;
-        //    print("time flight = " + _timeFlight);
-        //    return;
-        //}
-        //if (Mathf.Abs(distance - range) >= 1.5f) {
-        //    _timeFlight = (_speed / range) - 0.3f;
-        //    print("time flight = " + _timeFlight);
-        //    return;
-        //}
-
         _timeFlight = _speed / range;
-        //print("time flight = " + _timeFlight);
     }
 
     protected void OnDrawGizmos() {

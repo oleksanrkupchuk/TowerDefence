@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System;
 
 public class SettingsMenu : BaseMenu {
+    private SaveSoundData _soundData;
+
     [Header("Buttons Settings Menu")]
     [SerializeField]
     private Button _back;
@@ -48,8 +50,14 @@ public class SettingsMenu : BaseMenu {
     }
 
     private void Start() {
+        InitSound();
         DisableConfirmSettings();
         SubscriptionButtons();
+    }
+
+    private void InitSound() {
+        _soundData = SaveSystemSettings.LoadSound();
+        _slider.value = _soundData.volume / 100;
     }
 
     private void InitScreenResolutionDropdown() {
@@ -86,19 +94,32 @@ public class SettingsMenu : BaseMenu {
 
     private void SubscriptionButtons() {
         _back.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             DisableAndEnableGameObject(ThisGameObject, enableObject);
         });
         _applySettings.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             EnableConfirmSettings();
         });
         _confirmSettings.Yes.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             DisableConfirmSettings();
             SetScreenResolution(_screenResolutionDropDown);
             SaveSettings();
+            SaveVolume();
         });
         _confirmSettings.No.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             DisableConfirmSettings();
         });
+    }
+
+    private void EnableConfirmSettings() {
+        _confirmSettings.ConfirmSettingsObject.SetActive(true);
+    }
+
+    private void DisableConfirmSettings() {
+        _confirmSettings.ConfirmSettingsObject.SetActive(false);
     }
 
     private void SetScreenResolution(TMP_Dropdown dropdown) {
@@ -112,12 +133,9 @@ public class SettingsMenu : BaseMenu {
         SaveSystemSettings.SaveSettings(this);
     }
 
-    private void EnableConfirmSettings() {
-        _confirmSettings.ConfirmSettingsObject.SetActive(true);
-    }
-
-    private void DisableConfirmSettings() {
-        _confirmSettings.ConfirmSettingsObject.SetActive(false);
+    private void SaveVolume() {
+        float _volume = _slider.value * 100;
+        SaveSystemSettings.SaveSoundData(_volume);
     }
 
     private void Update() {
@@ -125,7 +143,7 @@ public class SettingsMenu : BaseMenu {
     }
 
     private void SetSoundsVolume() {
-        SoundManager.Instance.SetSoudnsVolume(_slider.value);
+        SoundManager.Instance.SetSoundsVolume(_slider.value);
         float _value = _slider.value * 100;
         _soundVolumeText.text = "" + _value.ToString("0");
     }
