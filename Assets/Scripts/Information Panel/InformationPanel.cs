@@ -5,8 +5,6 @@ using System.Collections;
 
 public class InformationPanel : MonoBehaviour {
     [SerializeField]
-    private Button _startButton;
-    [SerializeField]
     private GameObject _backgroundMenu;
     [SerializeField]
     private Button _buttonDefaultTimeSpeed;
@@ -25,8 +23,6 @@ public class InformationPanel : MonoBehaviour {
     [SerializeField]
     private InformationObject _countWawe;
     [SerializeField]
-    private InformationObject _timerWave;
-    [SerializeField]
     private InformationObject _health;
 
     [Header("Information parameters")]
@@ -40,12 +36,13 @@ public class InformationPanel : MonoBehaviour {
     private TowerManager _towerManager;
 
     private void OnEnable() {
-        DisableTimerWaveObject();
         DisableTimeSpeedText();
+        DisableBackground();
+        DisableButtonDefaultTimeSpeed();
     }
 
     private void Start() {
-        DisableButtonDefaultTimeSpeed();
+        //DisableButtonDefaultTimeSpeed();
         SetValueOnPriceTowerTextAndSubsñriptionButtonsTower();
         SubscriptionButton();
     }
@@ -72,16 +69,6 @@ public class InformationPanel : MonoBehaviour {
     }
 
     private void SubscriptionButton() {
-        _startButton.onClick.AddListener(() => {
-            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
-            _gameManager.StartTime();
-            _gameManager.GameUnpause();
-            DisableStartButton();
-            DisableBackground();
-            EnableTimerWaveObject();
-            StartCoroutine(AnimationForTimerWave());
-        });
-
         _buttonDefaultTimeSpeed.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             SetDeafaultTimeSpeed();
@@ -101,22 +88,6 @@ public class InformationPanel : MonoBehaviour {
         });
     }
 
-    public void SetTimerText(float time) {
-        _timerWave.textComponent.text = time.ToString("0.0");
-    }
-
-    public bool IsActiveCounter() {
-        if (_timerWave.objectComponent.activeSelf == true) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private void DisableStartButton() {
-        _startButton.gameObject.SetActive(false);
-    }
-
     private void DisableBackground() {
         _backgroundMenu.gameObject.SetActive(false);
     }
@@ -125,24 +96,8 @@ public class InformationPanel : MonoBehaviour {
         _coin.textComponent.text = value;
     }
 
-    public void SetValueOnCountWaweText(string value) {
+    public void SetValueInCountWaweText(string value) {
         _countWawe.textComponent.text = value;
-    }
-
-    public void EnableTimerWaveObject() {
-        _timerWave.objectComponent.SetActive(true);
-    }
-
-    public void DisableTimerWaveObject() {
-        _timerWave.objectComponent.SetActive(false);
-    }
-
-    private void DisableTimerWaveText() {
-        _timerWave.textComponent.enabled = false;
-    }
-
-    public void EnableTimerWaveText() {
-        _timerWave.textComponent.enabled = true;
     }
 
     private void SetDeafaultTimeSpeed() {
@@ -185,35 +140,6 @@ public class InformationPanel : MonoBehaviour {
             ScaleGameObject(_timeSpeedText.gameObject, 1f, 1f);
             yield return new WaitForSeconds(1f);
         }
-    }
-
-    public void StartAnimationForTimerWave() {
-        StartCoroutine(AnimationForTimerWave());
-    }
-
-    private IEnumerator AnimationForTimerWave() {
-        float _time = 0.5f;
-        while (_timerWave.gameObject.activeSelf == true) {
-            ScaleGameObject(_timerWave.objectComponent, 1.2f, _time);
-            yield return new WaitForSeconds(_time);
-            ScaleGameObject(_timerWave.objectComponent, 1f, _time);
-            yield return new WaitForSeconds(_time);
-        }
-    }
-
-    public void SetRedColorForTextTimerWave() {
-        Color _redColor = Color.red;
-        _timerWave.textComponent.color = _redColor;
-    }
-
-    public void SetWhiteColorForTextTimerWave() {
-        Color _whiteColor = Color.white;
-        _timerWave.textComponent.color = _whiteColor;
-    }
-
-    public void PlayAnimationForTimerIcon() {
-        float amount = Mathf.Abs(_gameManager.GetTimerValue() - 5f) / 5f;
-        _timerWave.iconComponent.fillAmount = amount;
     }
 
     private void ScaleGameObject(GameObject gameObject, float size, float time) {

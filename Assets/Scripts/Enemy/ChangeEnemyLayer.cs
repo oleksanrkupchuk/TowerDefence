@@ -10,7 +10,7 @@ public class ChangeEnemyLayer : MonoBehaviour
     private bool _startLargeEnemyLayer;
 
     private void OnEnable() {
-        GameManager.SpawnNewWave += ValueReseEnemyLayer;
+        GameManager.IsSpawnNewWave += ValueReseEnemyLayer;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -32,6 +32,6 @@ public class ChangeEnemyLayer : MonoBehaviour
     }
 
     private void OnDestroy() {
-        GameManager.SpawnNewWave -= ValueReseEnemyLayer;
+        GameManager.IsSpawnNewWave -= ValueReseEnemyLayer;
     }
 }

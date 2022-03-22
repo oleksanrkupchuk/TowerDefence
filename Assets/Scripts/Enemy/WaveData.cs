@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Wave {
-    public List<Spawn> spawns = new List<Spawn>();
+public class WaveData {
+    public List<SpawnEnemyData> spawnsEnemyData = new List<SpawnEnemyData>();
 }
 
 [Serializable]
-public class Spawn {
+public class SpawnEnemyData {
     public Transform spawnPoint;
-    public TimerWave timerWave;
+    public NewWaveIcon newWaveIcon;
+    public Sprite iconTimerWave;
     public List<Transform> wayPoints = new List<Transform>();
-    public List<EnemySpawnRules> listEnemies = new List<EnemySpawnRules>();
-    public List<Chain> chains = new List<Chain>();
+    public List<ChainData> chainsData = new List<ChainData>();
 }
 
 [Serializable]
-public class Chain {
+public class ChainData {
     public List<EnemySpawnRules> chainListEnemies = new List<EnemySpawnRules>();
 }
 
@@ -25,8 +25,9 @@ public class Chain {
 public class EnemySpawnRules {
     [Range(1, 20)]
     public int amount;
+    public float timeSpawnForNextChain;
+    public Enemy enemy;
     public float minTimeDelayForNextEnemy;
     public float maxTimeDelayForNextEnemy;
-    public Enemy enemy;
     public bool needUnlockEnemy;
 }

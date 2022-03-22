@@ -34,7 +34,7 @@ public class SatyrRunner : Enemy {
             return;
         }
 
-        print("runner");
+        //print("runner");
         foreach (var enemy in _enemyRange.Enemies) {
             float _speed = enemy.Speed + _additionalSpeed;
             enemy.SetSpeed(_speed);

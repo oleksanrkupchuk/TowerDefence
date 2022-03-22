@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: -1422667895523256973}
   - component: {fileID: 7999381130678136794}
   - component: {fileID: -7190786575832944802}
-  - component: {fileID: -4969685682191864519}
   m_Layer: 0
   m_Name: Minotaur_3
   m_TagString: Untagged
@@ -161,6 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 0
+  _speed: 0
   _defaultSpeed: 0.7
   _healthMax: 7
   _amountCoinForDeath: 4
@@ -169,6 +169,8 @@ MonoBehaviour:
   _healthBar: {fileID: 0}
   _deadClip: {fileID: 7400000, guid: d89bd2b0b7d8bd945bd3e327f8cd164f, type: 2}
   _walkingClip: {fileID: 7400000, guid: 8497370bf6d671640973692112b0b06d, type: 2}
+  _healingEffect: {fileID: 0}
+  _burningEffect: {fileID: 0}
   lastPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &-7190786575832944802
 MonoBehaviour:
@@ -187,24 +189,7 @@ MonoBehaviour:
   _immunityBurning: 0
   _slowSpeed: 0.5
   _durationSlowSpeed: 2
-  _timeBurning: 2
-  _burningEffect: {fileID: 79250837196253040}
---- !u!114 &-4969685682191864519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8184616484324282893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83bbe9264c6c3084a9591efb4cd8f0f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemy: {fileID: 7999381130678136794}
-  _healingEffect: {fileID: 8427247557391657173}
-  _timeIncreaseEnemySpeed: 0
-  _additionalSpeed: 0
+  _durationBurning: 0
 --- !u!1001 &4484121247190768670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -265,11 +250,6 @@ PrefabInstance:
 --- !u!4 &79250837196253041 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4549553386678811503, guid: b23971305886c194c838ed4a5f16d37c, type: 3}
-  m_PrefabInstance: {fileID: 4484121247190768670}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &79250837196253040 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4549553386678811502, guid: b23971305886c194c838ed4a5f16d37c, type: 3}
   m_PrefabInstance: {fileID: 4484121247190768670}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5135081194767474338
@@ -340,11 +320,6 @@ PrefabInstance:
 --- !u!4 &8427247557391657172 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3724723331933206134, guid: 9b724024b7622a14c9285b60efc885a5, type: 3}
-  m_PrefabInstance: {fileID: 5135081194767474338}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8427247557391657173 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3724723331933206135, guid: 9b724024b7622a14c9285b60efc885a5, type: 3}
   m_PrefabInstance: {fileID: 5135081194767474338}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6997062672396968488

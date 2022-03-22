@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour {
     private int _leftThePercentageOfHealthToReceiveThreeStar;
     public int Coin { get => _coin; }
 
-    public static event Action SpawnNewWave;
+    public static event Action IsSpawnNewWave;
 
     private int LeftPercentageOfHealth {
         get {
@@ -52,14 +52,13 @@ public class GameManager : MonoBehaviour {
     private void Start() {
         _currentHealth = _health;
         _informationPanel.SetValueOnCointText(_coin.ToString());
-        _informationPanel.SetValueOnCountWaweText("WAVE: " + 0);
+        SetWaveText(_enemySpawner.CountWave);
         SetValueForTimer(_time);
         _informationPanel.SetHealthText(_health);
     }
 
     private void Update() {
         PauseGame();
-        CounterUntilWave();
     }
 
     private void PauseGame() {
@@ -68,32 +67,6 @@ public class GameManager : MonoBehaviour {
             StopTime();
             _gameMenu.SetActiveBackgroundGameMenu(_isPause);
             _gameMenu.SetActiveDisablePauseMenu(_isPause);
-        }
-    }
-
-
-    private void CounterUntilWave() {
-        if (_informationPanel.IsActiveCounter()) {
-            if (_timer > 0) {
-
-                _timer -= Time.deltaTime;
-                _informationPanel.SetTimerText(_timer);
-                _informationPanel.PlayAnimationForTimerIcon();
-
-                if (_timer > 3f) {
-                    _informationPanel.SetWhiteColorForTextTimerWave();
-                }
-
-                else if (_timer <= 3f) {
-                    _informationPanel.SetRedColorForTextTimerWave();
-                }
-            }
-
-            else if (_timer <= 0) {
-                _enemySpawner.EnableWaveEnemy();
-                SpawnNewWave?.Invoke();
-                _informationPanel.DisableTimerWaveObject();
-            }
         }
     }
 
@@ -119,8 +92,8 @@ public class GameManager : MonoBehaviour {
         _informationPanel.SetValueOnCointText(_coin.ToString());
     }
 
-    public void UpdateWaveText(int countWave, int maxCountWawe) {
-        _informationPanel.SetValueOnCountWaweText("WAVE: " + countWave + " / " + maxCountWawe);
+    public void SetWaveText(int countWave) {
+        _informationPanel.SetValueInCountWaweText("WAVE: " + countWave + " / " + _enemySpawner.Waves);
     }
 
     public void SetValueForTimer(float time) {
@@ -153,9 +126,8 @@ public class GameManager : MonoBehaviour {
         }
 
         else if (_enemySpawner.IsTheLastEnemyInCurrentWave) {
-            _informationPanel.EnableTimerWaveObject();
-            _informationPanel.StartAnimationForTimerWave();
-            SetValueForTimer(_time);
+            _enemySpawner.EnableNewWaveIcon();
+            IsSpawnNewWave();
         }
     }
 
@@ -183,7 +155,6 @@ public class GameManager : MonoBehaviour {
     }
 
     private int CalculationStars() {
-        //print("percent of health = " + LeftPercentageOfHealth);
         if(LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveThreeStar) {
             return 3;
         }

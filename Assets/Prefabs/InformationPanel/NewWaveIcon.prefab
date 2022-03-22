@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1332799384460380509}
   - component: {fileID: 1332799384460380508}
-  - component: {fileID: 8241617226901528160}
+  - component: {fileID: 8756049849126764199}
   m_Layer: 5
-  m_Name: TimerWaveSpawn
+  m_Name: NewWaveIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332799384460380498}
   m_CullTransparentMesh: 1
---- !u!114 &8241617226901528160
+--- !u!114 &8756049849126764199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,11 +55,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1332799384460380498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c675320d55405444b31bd342fa45465, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a585efcf6ea0204b883435a83960baa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 0
-  iconComponent: {fileID: 0}
+  _icon: {fileID: 1332799386308112670}
 --- !u!1 &1332799386308112668
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5372549}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

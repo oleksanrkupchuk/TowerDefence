@@ -27,6 +27,7 @@ public class LoseMenu : BaseMenu
     private void SubscriptionButtons() {
         _restart.onClick.AddListener(() => { 
             LoadGameLevel(_indexCurrentLevel);
+            StartTime();
         });
         _settings.onClick.AddListener(() => { 
             DisableAndEnableGameObject(ThisGameObject, _settingsObject); 
