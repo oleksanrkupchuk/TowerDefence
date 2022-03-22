@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8184616484324282996}
   - component: {fileID: 8184616484324282999}
-  - component: {fileID: -8207298505673668185}
-  - component: {fileID: 8896849610107323685}
-  - component: {fileID: -1422667895523256973}
-  - component: {fileID: 7999381130678136794}
-  - component: {fileID: -7190786575832944802}
+  - component: {fileID: 5635135550817884069}
+  - component: {fileID: 2457784478646050192}
+  - component: {fileID: 5647495333223532676}
+  - component: {fileID: 828398317645714691}
+  - component: {fileID: 5646311788584089807}
   m_Layer: 0
   m_Name: Minotaur_3
   m_TagString: Untagged
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &-8207298505673668185
+--- !u!50 &5635135550817884069
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &8896849610107323685
+--- !u!58 &2457784478646050192
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,7 +128,25 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 1.9599998}
   serializedVersion: 2
   m_Radius: 3.5999997
---- !u!95 &-1422667895523256973
+--- !u!114 &5647495333223532676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8184616484324282893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2463cdf890599144da13adaf3fbbe1c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemy: {fileID: 5646311788584089807}
+  _immunitySlow: 0
+  _immunityBurning: 0
+  _slowSpeed: 0.4
+  _durationSlowSpeed: 2
+  _durationBurning: 2
+--- !u!95 &828398317645714691
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -147,7 +165,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7999381130678136794
+--- !u!114 &5646311788584089807
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,34 +180,16 @@ MonoBehaviour:
   _health: 0
   _speed: 0
   _defaultSpeed: 0.7
-  _healthMax: 7
+  _healthMax: 6
   _amountCoinForDeath: 4
-  _canvas: {fileID: 0}
-  _enemyCartData: {fileID: 0}
-  _healthBar: {fileID: 0}
+  _canvas: {fileID: 8733965929345124863}
+  _enemyCartData: {fileID: 11400000, guid: 21b23129a169ad24d82792eb02e2c068, type: 2}
+  _healthBar: {fileID: 1146425217256842528}
   _deadClip: {fileID: 7400000, guid: d89bd2b0b7d8bd945bd3e327f8cd164f, type: 2}
   _walkingClip: {fileID: 7400000, guid: 8497370bf6d671640973692112b0b06d, type: 2}
-  _healingEffect: {fileID: 0}
-  _burningEffect: {fileID: 0}
+  _healingEffect: {fileID: 8427247557391657173}
+  _burningEffect: {fileID: 79250837196253040}
   lastPosition: {x: 0, y: 0, z: 0}
---- !u!114 &-7190786575832944802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8184616484324282893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2463cdf890599144da13adaf3fbbe1c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemy: {fileID: 7999381130678136794}
-  _immunitySlow: 0
-  _immunityBurning: 0
-  _slowSpeed: 0.5
-  _durationSlowSpeed: 2
-  _durationBurning: 0
 --- !u!1001 &4484121247190768670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -250,6 +250,11 @@ PrefabInstance:
 --- !u!4 &79250837196253041 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4549553386678811503, guid: b23971305886c194c838ed4a5f16d37c, type: 3}
+  m_PrefabInstance: {fileID: 4484121247190768670}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &79250837196253040 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4549553386678811502, guid: b23971305886c194c838ed4a5f16d37c, type: 3}
   m_PrefabInstance: {fileID: 4484121247190768670}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5135081194767474338
@@ -320,6 +325,11 @@ PrefabInstance:
 --- !u!4 &8427247557391657172 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3724723331933206134, guid: 9b724024b7622a14c9285b60efc885a5, type: 3}
+  m_PrefabInstance: {fileID: 5135081194767474338}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8427247557391657173 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3724723331933206135, guid: 9b724024b7622a14c9285b60efc885a5, type: 3}
   m_PrefabInstance: {fileID: 5135081194767474338}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6997062672396968488
@@ -424,3 +434,19 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6905280338123996145, guid: 13f63729d3f1a8548b16965a820559fa, type: 3}
   m_PrefabInstance: {fileID: 6997062672396968488}
   m_PrefabAsset: {fileID: 0}
+--- !u!223 &8733965929345124863 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 1742832382025067479, guid: 13f63729d3f1a8548b16965a820559fa, type: 3}
+  m_PrefabInstance: {fileID: 6997062672396968488}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1146425217256842528 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7994563083919492872, guid: 13f63729d3f1a8548b16965a820559fa, type: 3}
+  m_PrefabInstance: {fileID: 6997062672396968488}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

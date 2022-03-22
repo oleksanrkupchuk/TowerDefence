@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3151024033502776238}
   - component: {fileID: 3151024033502776239}
-  - component: {fileID: 7443217857104869315}
-  - component: {fileID: 1972233380121634501}
-  - component: {fileID: -395297537555914056}
-  - component: {fileID: 6631276681748440861}
-  - component: {fileID: 2024125806050402024}
+  - component: {fileID: 6265413079760294007}
+  - component: {fileID: 8537152293350770082}
+  - component: {fileID: 2407599821760253562}
+  - component: {fileID: 1151357592350510441}
+  - component: {fileID: 2314555891733913013}
   m_Layer: 10
   m_Name: Minotaur_2
   m_TagString: Untagged
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &7443217857104869315
+--- !u!50 &6265413079760294007
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &1972233380121634501
+--- !u!58 &8537152293350770082
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,7 +128,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 1.9599998}
   serializedVersion: 2
   m_Radius: 3.5999997
---- !u!114 &-395297537555914056
+--- !u!114 &2407599821760253562
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,13 +140,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2463cdf890599144da13adaf3fbbe1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 0}
+  _enemy: {fileID: 2314555891733913013}
   _immunitySlow: 0
   _immunityBurning: 0
-  _slowSpeed: 0
-  _durationSlowSpeed: 0
-  _durationBurning: 0
---- !u!95 &6631276681748440861
+  _slowSpeed: 0.4
+  _durationSlowSpeed: 2
+  _durationBurning: 2
+--- !u!95 &1151357592350510441
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -165,7 +165,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2024125806050402024
+--- !u!114 &2314555891733913013
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,16 +179,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 0
   _speed: 0
-  _defaultSpeed: 0
-  _healthMax: 0
-  _amountCoinForDeath: 0
-  _canvas: {fileID: 0}
-  _enemyCartData: {fileID: 0}
-  _healthBar: {fileID: 0}
-  _deadClip: {fileID: 0}
-  _walkingClip: {fileID: 0}
-  _healingEffect: {fileID: 0}
-  _burningEffect: {fileID: 0}
+  _defaultSpeed: 0.7
+  _healthMax: 5
+  _amountCoinForDeath: 3
+  _canvas: {fileID: 3716990836506769916}
+  _enemyCartData: {fileID: 11400000, guid: 988576c9b60f43b44b47ad9f95b85926, type: 2}
+  _healthBar: {fileID: 4992463856715552035}
+  _deadClip: {fileID: 7400000, guid: d3a4a5986769ccd42b4e2b8de5d4ebd0, type: 2}
+  _walkingClip: {fileID: 7400000, guid: 4f2c35af3a087f548a7ed6cedbc36cb4, type: 2}
+  _healingEffect: {fileID: 7886230762477520900}
+  _burningEffect: {fileID: 1136545979895445579}
   lastPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &3151024032417632811
 PrefabInstance:
@@ -292,6 +292,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6905280338123996145, guid: 13f63729d3f1a8548b16965a820559fa, type: 3}
   m_PrefabInstance: {fileID: 3151024032417632811}
   m_PrefabAsset: {fileID: 0}
+--- !u!223 &3716990836506769916 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 1742832382025067479, guid: 13f63729d3f1a8548b16965a820559fa, type: 3}
+  m_PrefabInstance: {fileID: 3151024032417632811}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4992463856715552035 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7994563083919492872, guid: 13f63729d3f1a8548b16965a820559fa, type: 3}
+  m_PrefabInstance: {fileID: 3151024032417632811}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3523662360084120357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -354,6 +370,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4549553386678811503, guid: b23971305886c194c838ed4a5f16d37c, type: 3}
   m_PrefabInstance: {fileID: 3523662360084120357}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &1136545979895445579 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4549553386678811502, guid: b23971305886c194c838ed4a5f16d37c, type: 3}
+  m_PrefabInstance: {fileID: 3523662360084120357}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6827849812541963891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -414,5 +435,10 @@ PrefabInstance:
 --- !u!4 &7886230762477520901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3724723331933206134, guid: 9b724024b7622a14c9285b60efc885a5, type: 3}
+  m_PrefabInstance: {fileID: 6827849812541963891}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7886230762477520900 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3724723331933206135, guid: 9b724024b7622a14c9285b60efc885a5, type: 3}
   m_PrefabInstance: {fileID: 6827849812541963891}
   m_PrefabAsset: {fileID: 0}

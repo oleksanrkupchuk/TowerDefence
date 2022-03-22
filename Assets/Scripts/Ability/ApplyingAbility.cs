@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public enum AbilityType {
-    IronTower,
+    SpeedShoot,
     Thorn,
     Burning,
     FireArea,
@@ -59,7 +59,7 @@ public class ApplyingAbility : MonoBehaviour {
 
     public void ApplyAbility(AbilityType type) {
         switch (type) {
-            case AbilityType.IronTower:
+            case AbilityType.SpeedShoot:
                 _ironTower.isBuyAbility = true;
                 break;
 

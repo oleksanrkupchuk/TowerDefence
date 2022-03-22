@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: IncreasePriceSellTower
   m_EditorClassIdentifier: 
   type: 6
-  icon: {fileID: 21300000, guid: 5ed7d30001b035d4baa97bcf65cf1468, type: 3}
+  icon: {fileID: 3946855171513640480, guid: e244bf7e74893824585653ab9ee3da1c, type: 3}
   iconAfterPurchased: {fileID: 0}
   price: 9
-  index: 6
+  name: Increase Sell Tower
   description: Description 7
   isPurchased: 0

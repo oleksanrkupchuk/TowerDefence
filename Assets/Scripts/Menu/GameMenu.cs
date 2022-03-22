@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameMenu : MonoBehaviour
+public class GameMenu : BaseMenu
 {
     [Header("Objects")]
     [SerializeField]
@@ -66,11 +66,7 @@ public class GameMenu : MonoBehaviour
     }
 
     public void EnableWinMenuAndSetDeafaultSpeedTime() {
-        SetDeafaultSpeedTime();
+        StartTime();
         _winMenu.gameObject.SetActive(true);
-    }
-
-    private void SetDeafaultSpeedTime() {
-        Time.timeScale = 1f;
     }
 }

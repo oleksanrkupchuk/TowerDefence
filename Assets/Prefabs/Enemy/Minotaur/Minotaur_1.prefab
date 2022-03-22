@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6037710262501487606}
   - component: {fileID: 6037710262501487113}
-  - component: {fileID: -3124096765849228845}
-  - component: {fileID: -6716200744745438746}
-  - component: {fileID: 2470653118629496874}
-  - component: {fileID: 994478155689114349}
-  - component: {fileID: -875101835403648323}
+  - component: {fileID: 2968825741893323940}
+  - component: {fileID: 4499364760183651030}
+  - component: {fileID: 1707765895965944118}
+  - component: {fileID: 9077531101288932754}
+  - component: {fileID: 1692862883609546770}
   m_Layer: 10
   m_Name: Minotaur_1
   m_TagString: Untagged
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &-3124096765849228845
+--- !u!50 &2968825741893323940
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -112,7 +112,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!95 &-6716200744745438746
+--- !u!58 &4499364760183651030
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6037710262501487112}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1.9599998}
+  serializedVersion: 2
+  m_Radius: 3.5999997
+--- !u!114 &1707765895965944118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6037710262501487112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2463cdf890599144da13adaf3fbbe1c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemy: {fileID: 1692862883609546770}
+  _immunitySlow: 0
+  _immunityBurning: 0
+  _slowSpeed: 0.3
+  _durationSlowSpeed: 2
+  _durationBurning: 2
+--- !u!95 &9077531101288932754
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -131,23 +165,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!58 &2470653118629496874
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6037710262501487112}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.9599998}
-  serializedVersion: 2
-  m_Radius: 3.5999997
---- !u!114 &994478155689114349
+--- !u!114 &1692862883609546770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,35 +179,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 0
   _speed: 0
-  _defaultSpeed: 0
-  _healthMax: 0
-  _amountCoinForDeath: 0
-  _canvas: {fileID: 0}
-  _enemyCartData: {fileID: 0}
-  _healthBar: {fileID: 0}
-  _deadClip: {fileID: 0}
-  _walkingClip: {fileID: 0}
-  _healingEffect: {fileID: 0}
-  _burningEffect: {fileID: 0}
+  _defaultSpeed: 0.6
+  _healthMax: 5
+  _amountCoinForDeath: 3
+  _canvas: {fileID: 4253517763164274}
+  _enemyCartData: {fileID: 11400000, guid: 64d59e29faaa16f449b506ad89c13dd2, type: 2}
+  _healthBar: {fileID: 8562100010639840429}
+  _deadClip: {fileID: 7400000, guid: 3cef32a3e0fb3a0489b0692dadc810ce, type: 2}
+  _walkingClip: {fileID: 7400000, guid: c911112b53959e741be06e4ce8c3e44f, type: 2}
+  _healingEffect: {fileID: 7065333795434424958}
+  _burningEffect: {fileID: 4409577680057745855}
   lastPosition: {x: 0, y: 0, z: 0}
---- !u!114 &-875101835403648323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6037710262501487112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2463cdf890599144da13adaf3fbbe1c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemy: {fileID: 994478155689114349}
-  _immunitySlow: 0
-  _immunityBurning: 0
-  _slowSpeed: 0
-  _durationSlowSpeed: 0
-  _durationBurning: 0
 --- !u!1001 &149380999023639249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -254,6 +254,11 @@ PrefabInstance:
 --- !u!4 &4409577680057745854 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4549553386678811503, guid: b23971305886c194c838ed4a5f16d37c, type: 3}
+  m_PrefabInstance: {fileID: 149380999023639249}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4409577680057745855 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4549553386678811502, guid: b23971305886c194c838ed4a5f16d37c, type: 3}
   m_PrefabInstance: {fileID: 149380999023639249}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1738622948018181029
@@ -358,6 +363,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6905280338123996145, guid: 13f63729d3f1a8548b16965a820559fa, type: 3}
   m_PrefabInstance: {fileID: 1738622948018181029}
   m_PrefabAsset: {fileID: 0}
+--- !u!223 &4253517763164274 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 1742832382025067479, guid: 13f63729d3f1a8548b16965a820559fa, type: 3}
+  m_PrefabInstance: {fileID: 1738622948018181029}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8562100010639840429 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7994563083919492872, guid: 13f63729d3f1a8548b16965a820559fa, type: 3}
+  m_PrefabInstance: {fileID: 1738622948018181029}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5890140440448113673
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -418,5 +439,10 @@ PrefabInstance:
 --- !u!4 &7065333795434424959 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3724723331933206134, guid: 9b724024b7622a14c9285b60efc885a5, type: 3}
+  m_PrefabInstance: {fileID: 5890140440448113673}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7065333795434424958 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3724723331933206135, guid: 9b724024b7622a14c9285b60efc885a5, type: 3}
   m_PrefabInstance: {fileID: 5890140440448113673}
   m_PrefabAsset: {fileID: 0}

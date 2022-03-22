@@ -6,6 +6,7 @@ public class EnemyCartData : ScriptableObject
     public bool unlockEnemy;
     public Sprite unlockEnemyIcon;
     public Sprite lockEnemyIcon;
+    public new string name;
     [TextArea(4, 10)]
     public string description;
     public Enemy enemy;

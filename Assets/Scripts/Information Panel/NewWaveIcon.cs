@@ -22,7 +22,6 @@ public class NewWaveIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
 
     public void OnPointerClick(PointerEventData eventData) {
-        //print("startNewWave");
         _enemySpawner.EnableWaveEnemy();
     }
 }

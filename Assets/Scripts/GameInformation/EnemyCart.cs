@@ -13,6 +13,8 @@ public class EnemyCart : MonoBehaviour
     [SerializeField]
     private Image _icon;
     [SerializeField]
+    private TextMeshProUGUI _title;
+    [SerializeField]
     private TextMeshProUGUI _description;
     [SerializeField]
     private Slider _health;
@@ -67,6 +69,7 @@ public class EnemyCart : MonoBehaviour
     }
 
     private void SetCharacteristics() {
+        _title.text = _cartData.name;
         _description.text = _cartData.description;
         SetHealthAndSpeed();
     }

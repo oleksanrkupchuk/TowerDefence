@@ -47,14 +47,8 @@ public class Ability : MonoBehaviour {
 
     private void SubscriptionButton() {
         _button.onClick.AddListener(() => {
-            SetAbilityDetails();
-            _shopMenu.SetCurrentAbility(this);
+            _shopMenu.SetCurrentAbilityAndUpdateDetails(this);
             _shopMenu.CheckPurchasedAbilityAndEnableOrDisableBuyButton();
         });
-    }
-
-    private void SetAbilityDetails() {
-        _shopMenu.SetDetailsAbilityIcon(_data.icon);
-        _shopMenu.SetDetailsAbilityDescription(_data.description);
     }
 }
