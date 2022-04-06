@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour {
+    protected Tower _tower;
     [SerializeField]
     protected Enemy _target;
     protected float _axiYTower;
@@ -29,7 +30,7 @@ public abstract class Bullet : MonoBehaviour {
     [SerializeField]
     protected int _amountBezierPoints;
     [SerializeField]
-    protected AnimationClip _destroyBullet;
+    protected AnimationClip _destroyClip;
     [SerializeField]
     protected Animator _animator;
     [SerializeField]
@@ -43,25 +44,42 @@ public abstract class Bullet : MonoBehaviour {
     public event Action DestroyBeizerPoint;
 
     public void Init(Tower tower) {
-        _axiYTower = tower.transform.position.y;
-        _target = tower.Target;
+        _tower = tower;
+        _axiYTower = _tower.transform.position.y;
+        _target = _tower.Target;
         _target.LastPosition += SetTargetPosition;
+        InstantiatePointsForBeizerTrajectory();
     }
 
     public void Init(Tower tower, Transform targetPosition) {
-        _axiYTower = tower.transform.position.y;
+        _tower = tower;
+        _axiYTower = _tower.transform.position.y;
         _targetPosition = targetPosition.position;
+        InstantiatePointsForBeizerTrajectory();
     }
 
     protected void SetTargetPosition() {
         _circleCollider.enabled = false;
+
         _targetPosition = _target.transform.position;
         _target.LastPosition -= SetTargetPosition;
         _target = null;
     }
 
+    public void SetNullTarget() {
+        print("tower = " + _tower.name + " bullet " + gameObject.name);
+        if (_target != null) {
+            _target.LastPosition -= SetTargetPosition;
+        }
+        _circleCollider.enabled = false;
+
+        _targetPosition = _tower.GetTargetPosition().position;
+        //_targetPosition = _target.transform.position;
+        _target = null;
+    }
+
     protected void Start() {
-        InstantiatePointsForBeizerTrajectory();
+        //InstantiatePointsForBeizerTrajectory();
         DisableCollider();
 
         SetP0();
@@ -82,11 +100,11 @@ public abstract class Bullet : MonoBehaviour {
     }
 
     public void AddDestroyEventForDestroyAnimation() {
-        float _playingAnimationTime = _destroyBullet.length;
+        float _playingAnimationTime = _destroyClip.length;
         _destroyEvent.time = _playingAnimationTime;
         _destroyEvent.functionName = nameof(DestroyBulletAndBeizerPoints);
 
-        _destroyBullet.AddEvent(_destroyEvent);
+        _destroyClip.AddEvent(_destroyEvent);
     }
 
     protected void Update() {
@@ -128,16 +146,16 @@ public abstract class Bullet : MonoBehaviour {
         _timeFormula1 += Time.deltaTime;
 
         if (transform.position.y > _previousPosition.y) {
-            _timeFormulaBuffer = 1 / (1 + _timeFormula1) * _timeFormula1 * 1.2f;
+            _timeFormulaBuffer = 1 / (1 + _timeFormula1) * _timeFormula1 * 1.5f;
             //_timeFormulaBuffer = 1 / (1 + _timeFormula1) * _timeFormula1;
             _t = _timeFormulaBuffer;
         }
         else {
             _timeFormula2 += Time.deltaTime;
-            _t = _timeFormulaBuffer + _timeFormula2;
+            //_t = _timeFormulaBuffer + _timeFormula2;
             //_t = _timeFormulaBuffer + (_timeFormula2 * _timeFormula2 * 1.5f);
             //_t = _timeFormulaBuffer + (_timeFormula2 * _timeFormula2 * 2.5f);
-            //_t = _timeFormulaBuffer + (_timeFormula2 + _timeFormula2 * _timeFormula2);
+            _t = _timeFormulaBuffer + (_timeFormula2 + _timeFormula2 * _timeFormula2);
         }
     }
 
@@ -154,7 +172,7 @@ public abstract class Bullet : MonoBehaviour {
                 _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, _t);
     }
 
-    protected void Rotation() {
+    protected virtual void Rotation() {
         _nexPosition = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
                        _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, _t + 0.1f);
         Vector2 _moveDirection = _nexPosition - transform.position;
@@ -190,6 +208,7 @@ public abstract class Bullet : MonoBehaviour {
     }
 
     protected void DestroyBulletAndBeizerPoints() {
+        _tower.RemoveBullet(this);
         _bezierPoints.Clear();
         DestroyBeizerPoint?.Invoke();
         Destroy(gameObject);
@@ -203,7 +222,7 @@ public abstract class Bullet : MonoBehaviour {
         _circleCollider.enabled = false;
     }
 
-    public void SetDistanceAndRange(float distance, float range) {
+    public void SetDistanceAndRange(float range) {
         _timeFlight = _speed / range;
     }
 

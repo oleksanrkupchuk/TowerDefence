@@ -28,10 +28,11 @@ public class TowerRange : MonoBehaviour {
             if (_tower.Target == enemy) {
                 //_tower.GetTarget().GetLastPosition();
                 _tower.SetTargetPosition(enemy.transform);
+                //_tower.Target.GetLastPosition();
+                _tower.RemoveBulletsAndSetTargetNull();
+                print(_tower.gameObject.name + " enemy go went " + enemy.gameObject.name);
             }
-            
-            //print("enemy go went " + enemy.gameObject.name);
-            enemy.GetLastPosition();
+            //enemy.GetLastPosition();
             _tower.RemoveTarget(enemy);
             _tower.SetTarget();
         }

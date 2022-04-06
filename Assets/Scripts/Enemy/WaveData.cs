@@ -10,8 +10,7 @@ public class WaveData {
 [Serializable]
 public class SpawnEnemyData {
     public Transform spawnPoint;
-    public NewWaveIcon newWaveIcon;
-    public Sprite iconTimerWave;
+    public NewWaveIcon newWave;
     public List<Transform> wayPoints = new List<Transform>();
     public List<ChainData> chainsData = new List<ChainData>();
 }
@@ -25,7 +24,7 @@ public class ChainData {
 public class EnemySpawnRules {
     [Range(1, 20)]
     public int amount;
-    public float timeSpawnForNextChain;
+    public float _waitTimeForNexEnemies;
     public Enemy enemy;
     public float minTimeDelayForNextEnemy;
     public float maxTimeDelayForNextEnemy;

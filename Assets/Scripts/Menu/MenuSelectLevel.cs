@@ -19,6 +19,8 @@ public class MenuSelectLevel : BaseMenu {
     private GameObject _containerLevel;
     [SerializeField]
     private LevelCart _levelCart;
+    [SerializeField]
+    private LevelLoader _levelLoader;
 
     public int AmountLevel { get => _amountLevel; }
 
@@ -61,7 +63,10 @@ public class MenuSelectLevel : BaseMenu {
 
     private void SubscriptionLevelButton(Button levelButton, int indexLevel) {
         levelButton.onClick.AddListener(() => {
-            LoadGameLevel(indexLevel);
+            _levelLoader.gameObject.SetActive(true);
+            _levelLoader.LoadLevel(indexLevel);
+            //LoadGameLevel(indexLevel);
+
         });
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour {
+    [SerializeField]
     private int _amountEnemyInWawe;
     private int _counttWave = 0;
     private WaveData _currentWave;
@@ -16,12 +17,14 @@ public class EnemySpawner : MonoBehaviour {
     [SerializeField]
     private Camera _camera;
     [SerializeField]
-    private List<WaveData> _wavesData = new List<WaveData>();
-
-    [SerializeField]
     private GameObject _waveObject;
     [SerializeField]
     private Wave _wave;
+    [SerializeField]
+    private List<WaveData> _wavesData = new List<WaveData>();
+
+    public List<WaveData> WavesData { get => _wavesData; }
+
 
     public int Waves { get => _waves.Count; }
     public int CountWave { get => _counttWave; }
@@ -31,11 +34,6 @@ public class EnemySpawner : MonoBehaviour {
             if (_currentWave == _wavesData[_wavesData.Count - 1] && IsTheLastEnemyInCurrentWave) {
                 return true;
             }
-            else if (IsTheLastEnemyInCurrentWave) {
-                _counttWave++;
-                _currentWave = _wavesData[_counttWave];
-                CalculationEnemyInCurrentWave();
-            }
 
             return false;
         }
@@ -44,6 +42,11 @@ public class EnemySpawner : MonoBehaviour {
     public bool IsTheLastEnemyInCurrentWave {
         get {
             if (_amountEnemyInWawe == 0) {
+                if (_counttWave + 1 < _wavesData.Count) {
+                    _counttWave++;
+                    _currentWave = _wavesData[_counttWave - 1];
+                    CalculationEnemyInCurrentWave();
+                }
                 return true;
             }
 
@@ -55,6 +58,7 @@ public class EnemySpawner : MonoBehaviour {
         _currentWave = _wavesData[0];
         SpawnWaves();
         CalculationEnemyInCurrentWave();
+        EnableTimerWave();
     }
 
     private void SpawnWaves() {
@@ -68,7 +72,7 @@ public class EnemySpawner : MonoBehaviour {
 
     private void CalculationEnemyInCurrentWave() {
         for (int numberSpawn = 0; numberSpawn < _waves[_counttWave].Spawns.Count; numberSpawn++) {
-            _amountEnemyInWawe += _waves[_counttWave].Spawns[numberSpawn].CountEnemies;
+            _amountEnemyInWawe += _waves[_counttWave].Spawns[numberSpawn].AmountEnemies;
         }
     }
 
@@ -76,15 +80,16 @@ public class EnemySpawner : MonoBehaviour {
         _amountEnemyInWawe--;
     }
 
-    public void EnableNewWaveIcon() {
+    public void EnableTimerWave() {
         foreach (SpawnEnemyData spawn in _currentWave.spawnsEnemyData) {
-            spawn.newWaveIcon.gameObject.SetActive(true);
+            spawn.newWave.SetCurrentRules();
+            spawn.newWave.gameObject.SetActive(true);
         }
     }
 
     private void DisableTimerWave() {
         foreach (SpawnEnemyData spawn in _currentWave.spawnsEnemyData) {
-            spawn.newWaveIcon.gameObject.SetActive(false);
+            spawn.newWave.gameObject.SetActive(false);
         }
     }
 

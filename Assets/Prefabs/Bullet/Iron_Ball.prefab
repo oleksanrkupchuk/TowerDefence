@@ -161,9 +161,9 @@ MonoBehaviour:
   _speed: 3
   _bezierPointPrefab: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
   _amountBezierPoints: 3
-  _destroyBullet: {fileID: 7400000, guid: 1b060d98101a565468749f9a9c4fff30, type: 2}
+  _destroyClip: {fileID: 7400000, guid: 1b060d98101a565468749f9a9c4fff30, type: 2}
   _animator: {fileID: 7793658618141576227}
   _timeFlight: 1
   _axisYP1: 6.5
   _circleCollider: {fileID: 4544291592785701273}
-  thonr: 1
+  thonr: 0

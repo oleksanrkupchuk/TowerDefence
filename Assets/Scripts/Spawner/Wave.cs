@@ -27,7 +27,7 @@ public class Wave : MonoBehaviour
             _spawns.Add(_spawnObject);
             _spawnObject.transform.SetParent(gameObject.transform);
 
-            _waveData.spawnsEnemyData[i].newWaveIcon.Init(_enemySpawner, _waveData.spawnsEnemyData[i].iconTimerWave);
+            _waveData.spawnsEnemyData[i].newWave.Init(_enemySpawner);
         }
     }
 

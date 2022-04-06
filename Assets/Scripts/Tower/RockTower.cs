@@ -9,4 +9,8 @@ public class RockTower : Tower
     {
         base.Update();
     }
+
+    protected override void PlayShootSound() {
+        SoundManager.Instance.PlaySoundEffect(SoundName.RockShot);
+    }
 }

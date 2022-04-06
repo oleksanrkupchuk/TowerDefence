@@ -32,6 +32,9 @@ public abstract class Enemy : MonoBehaviour {
     protected List<Transform> _currentWay = new List<Transform>();
     protected AnimationEvent _enemyEventDead = new AnimationEvent();
 
+    [SerializeField]
+    private CartSpawnInfoData _cartSpawnInfoData;
+
     [Header("Parametrs")]
     [SerializeField]
     protected float _defaultSpeed;
@@ -74,6 +77,7 @@ public abstract class Enemy : MonoBehaviour {
     public Animator Animator { get => _animator; }
     public EnemyDebuff Debuff { get => _debuff; }
     public EnemyCartData EnemyCartData { get => _enemyCartData; }
+    public CartSpawnInfoData CartSpawnInfoData { get => _cartSpawnInfoData; }
 
     public void Init(GameManager gameManager, EnemySpawner enemySpawner, Camera camera) {
         _gameManager = gameManager;
@@ -81,8 +85,11 @@ public abstract class Enemy : MonoBehaviour {
         _camera = camera;
 
         GetComponents();
+
         _rigidbody.gravityScale = 0f;
         _collider.isTrigger = true;
+        _collider.radius = 0.25f;
+        _collider.offset = new Vector2(0f, 0.2f);
     }
 
     protected void GetComponents() {
@@ -169,6 +176,7 @@ public abstract class Enemy : MonoBehaviour {
     public virtual void TakeDamage(float damage) {
         if (!IsDead) {
             _health -= damage;
+            SoundManager.Instance.PlaySoundEffect(SoundName.HitEnemy);
             ShiftHealthBar();
 
             if (IsDead) {
@@ -182,19 +190,15 @@ public abstract class Enemy : MonoBehaviour {
     }
 
     protected void DeathFromBullet() {
-        GetLastPosition();
+        LastPosition?.Invoke();
         _tower.SetTargetPosition(transform);
+        _tower.RemoveTarget(this);
+        _tower.SetTarget();
         _gameManager.AddCoin(_amountCoinForDeath);
         _enemySpawner.RemoveEnemyInCurrentWave();
         DisableHealthBar();
-        _tower.RemoveTarget(this);
-        _tower.SetTarget();
         _gameManager.CheckLastEnemyAndEnableWinMenuOrSpawnNewEnemyWave();
         PlayDeadAnimation();
-    }
-
-    public void GetLastPosition() {
-        LastPosition?.Invoke();
     }
 
     protected void DisableHealthBar() {

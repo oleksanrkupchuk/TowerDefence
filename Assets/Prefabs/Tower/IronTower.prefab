@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 4901526597910268738}
   - component: {fileID: 8461052127138531771}
   - component: {fileID: 5687387542962379581}
+  - component: {fileID: 3774265821982142368}
   m_Layer: 0
   m_Name: IronTower
   m_TagString: Tower
@@ -235,8 +236,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508cbccbce579e24fb548068cc19ad3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isShooting: 0
+  _bullets: []
   _enemyList: []
-  _rangeAttack: 3
+  _rangeAttack: 3.3
   _timeShoot: 1
   _timer: 0
   _bulletPosition: {fileID: 7122407904162336630}
@@ -245,13 +248,13 @@ MonoBehaviour:
   _animator: {fileID: 725847513850568493}
   _shootAnimation: {fileID: 7400000, guid: 7ab7453970c22ca499066a86f6fb677e, type: 2}
   _shootFrameRateInShootAnimation: 15
-  _canvas: {fileID: 41659570170411722}
   _rangeCollider: {fileID: 6379824112264347013}
   _bullet: {fileID: 3719912613258583181, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
   _lineRenderer: {fileID: 8461052127138531771}
   target: {fileID: 0}
   _placeForTower: {fileID: 0}
   _towerUpgradeMenu: {fileID: 2010742382795597176}
+  increaseDamage: 0
   isBuyAbility: 0
 --- !u!120 &8461052127138531771
 LineRenderer:
@@ -293,7 +296,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 99
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
@@ -378,6 +381,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.64, y: 1.77}
   m_EdgeRadius: 0
+--- !u!114 &3774265821982142368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6192337432427718456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d263298a55fe1543917661894d4419d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tower: {fileID: 4901526597910268738}
 --- !u!1 &6192337433770386402
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,8 +745,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eafee90e8c7484478c8e89cfb49a30c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &41659570170411722 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7660518506066780155, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-  m_PrefabInstance: {fileID: 7699925932524053809}
-  m_PrefabAsset: {fileID: 0}

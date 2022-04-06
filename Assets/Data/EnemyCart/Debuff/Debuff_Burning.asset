@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: -1538873551591825017, guid: 23e18caff561b084687001d05a9a150b, type: 3}
   title: Burning
-  description: Inflicts damage on the enemy once every half a second
+  description: Has immunity about burning

@@ -65,6 +65,13 @@ MonoBehaviour:
     spaceSound: 0
     audioClip: {fileID: 8300000, guid: 57a5f330824519f47beff6db85c67617, type: 3}
     audioSource: {fileID: 0}
+  - name: StartWave
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: ff4d777275479d849928c4d13cece4e2, type: 3}
+    audioSource: {fileID: 0}
   _soundsEffect:
   - name: ButtonClick
     loop: 0
@@ -72,4 +79,60 @@ MonoBehaviour:
     pitch: 1
     spaceSound: 0
     audioClip: {fileID: 8300000, guid: 2ac85495f85ebdb42acc157f9f77631f, type: 3}
+    audioSource: {fileID: 0}
+  - name: TowerUpgrade
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: 0fbebc4c396308a4c83107a856bed345, type: 3}
+    audioSource: {fileID: 0}
+  - name: ErrorSetTower
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: 1da7d51d8a05f394c9e6c785c890477f, type: 3}
+    audioSource: {fileID: 0}
+  - name: SellTower
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: 0dd63c16304f568428f14330fb235a3f, type: 3}
+    audioSource: {fileID: 0}
+  - name: HitEnemy
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: 52d8572482df9364c9f34ba684196d56, type: 3}
+    audioSource: {fileID: 0}
+  - name: FireShot
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: 45c2a80abf1e5a74b833acbdfb601d45, type: 3}
+    audioSource: {fileID: 0}
+  - name: IronShot
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: a6e807af1fa5afd49bdb52501b181757, type: 3}
+    audioSource: {fileID: 0}
+  - name: RockShot
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: ba38d14de6e0cca40a2beae30f005084, type: 3}
+    audioSource: {fileID: 0}
+  - name: Explosion
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: 58a240c8d363d1c469d44d4e99d216ca, type: 3}
     audioSource: {fileID: 0}

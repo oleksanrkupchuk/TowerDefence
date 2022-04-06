@@ -305,6 +305,7 @@ GameObject:
   - component: {fileID: 1787142671323376124}
   - component: {fileID: -8981171591237418239}
   - component: {fileID: 8154061008290254054}
+  - component: {fileID: 6859766938066363660}
   m_Layer: 0
   m_Name: FireTower
   m_TagString: Tower
@@ -448,7 +449,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 99
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -519,23 +520,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b988ea7f87389404fb408e970798b7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isShooting: 0
+  _bullets: []
   _enemyList: []
   _rangeAttack: 3
   _timeShoot: 1.5
   _timer: 0
-  _bulletPosition: {fileID: 4986359563472622328}
   _stepDegree: 10
   _price: 12
+  _bulletPosition: {fileID: 4986359563472622328}
   _animator: {fileID: 8154061008290254054}
   _shootAnimation: {fileID: 7400000, guid: df621ba34153c2545a4cf1c10aede92f, type: 2}
   _shootFrameRateInShootAnimation: 15
-  _canvas: {fileID: 3784897731316563199}
   _rangeCollider: {fileID: 7168467813448346326}
   _bullet: {fileID: 6973668464270465113, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
   _lineRenderer: {fileID: 1787142671323376124}
   target: {fileID: 0}
   _placeForTower: {fileID: 0}
   _towerUpgradeMenu: {fileID: 3455737340584272717}
+  increaseDamage: 0
 --- !u!95 &8154061008290254054
 Animator:
   serializedVersion: 3
@@ -555,6 +558,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6859766938066363660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7727614519314563346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d263298a55fe1543917661894d4419d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tower: {fileID: -8981171591237418239}
 --- !u!1 &8307250471579622793
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,6 +677,22 @@ PrefabInstance:
       propertyPath: _priceIncrease
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1590323484003748934, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1590323484003748934, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1590323484003748934, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1590323484003748934, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3102444125379914329, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _price
       value: 14
@@ -669,6 +701,22 @@ PrefabInstance:
       propertyPath: _priceIncrease
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4169888068106940776, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4169888068106940776, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4169888068106940776, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4169888068106940776, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5755333093339995236, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _price
       value: 15
@@ -676,6 +724,10 @@ PrefabInstance:
     - target: {fileID: 5755333093339995236, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _priceIncrease
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966778880186622147, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6109435081150076895, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _price
@@ -696,6 +748,14 @@ PrefabInstance:
     - target: {fileID: 7660518506066780155, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8159456401197924425, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _numberOfUpgrades
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8159456401197924425, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _additionRangeRadius
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8438457688127442628, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_Name
@@ -767,8 +827,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eafee90e8c7484478c8e89cfb49a30c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3784897731316563199 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7660518506066780155, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-  m_PrefabInstance: {fileID: 6829999726853923588}
-  m_PrefabAsset: {fileID: 0}

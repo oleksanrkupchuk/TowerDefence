@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ReducePriceTower
   m_EditorClassIdentifier: 
   type: 5
-  icon: {fileID: 5232967260695475927, guid: e244bf7e74893824585653ab9ee3da1c, type: 3}
+  icon: {fileID: -4876874764541158417, guid: e244bf7e74893824585653ab9ee3da1c, type: 3}
   iconAfterPurchased: {fileID: 0}
   price: 4
   name: Reduce Price Tower
-  description: Reduce price of tower
+  description: Reduces price all towers on 30 percent
   isPurchased: 0

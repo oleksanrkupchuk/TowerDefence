@@ -8,6 +8,8 @@ public class EventsOfObjects : MonoBehaviour {
     [SerializeField]
     private Bullet[] _bullet;
     [SerializeField]
+    private RockBullet _rockBullet;
+    [SerializeField]
     private Enemy[] _enemy;
     [SerializeField]
     private FireArea _fireArea;
@@ -32,7 +34,7 @@ public class EventsOfObjects : MonoBehaviour {
 
     private void AddEventForTowerAnimation() {
         for (int i = 0; i < _towers.Length; i++) {
-            _towers[i].AddResetShootEventForShootAnimation();
+            //_towers[i].AddResetShootEventForShootAnimation();
             _towers[i].AddShootEventForShootAnimation();
         }
     }
@@ -41,6 +43,8 @@ public class EventsOfObjects : MonoBehaviour {
         for (int i = 0; i < _bullet.Length; i++) {
             _bullet[i].AddDestroyEventForDestroyAnimation();
         }
+
+        _rockBullet.AddEventExplosionForDestroyAnimation();
     }
 
     private void AddEventForEnemyAnimation() {

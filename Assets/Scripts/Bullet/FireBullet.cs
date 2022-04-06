@@ -37,6 +37,7 @@ public class FireBullet : Bullet {
     protected void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.TryGetComponent(out Enemy enemy)) {
             if (enemy == _target) {
+                _tower.RemoveBullet(this);
                 _target.LastPosition -= SetTargetPosition;
                 _target.TakeDamage(_damage);
                 CheckBuyBurningAbilityAndBurnEnemy(_target);

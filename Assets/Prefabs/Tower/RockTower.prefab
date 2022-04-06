@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 6905664480513818955}
   - component: {fileID: 2562439637406433296}
   - component: {fileID: 4749409143156034352}
+  - component: {fileID: -436428205397470914}
   m_Layer: 0
   m_Name: RockTower
   m_TagString: Tower
@@ -335,7 +336,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 99
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -406,23 +407,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fec7c435e01ca043924a0ebf41278a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isShooting: 0
+  _bullets: []
   _enemyList: []
-  _rangeAttack: 3
+  _rangeAttack: 2.7
   _timeShoot: 2
   _timer: 0
-  _bulletPosition: {fileID: 3573270289235324146}
   _stepDegree: 10
-  _price: 18
+  _price: 21
+  _bulletPosition: {fileID: 3573270289235324146}
   _animator: {fileID: 4749409143156034352}
   _shootAnimation: {fileID: 7400000, guid: d4aabb1a665af614ab1274a1883ed5a4, type: 2}
   _shootFrameRateInShootAnimation: 15
-  _canvas: {fileID: 3552020727547702417}
   _rangeCollider: {fileID: 611613967024040103}
   _bullet: {fileID: 1933788421987285462, guid: e32a2b3586e66ac40998ab5703b4b2c6, type: 3}
   _lineRenderer: {fileID: 6905664480513818955}
   target: {fileID: 0}
   _placeForTower: {fileID: 0}
   _towerUpgradeMenu: {fileID: 3042399990200939299}
+  increaseDamage: 0
 --- !u!95 &4749409143156034352
 Animator:
   serializedVersion: 3
@@ -442,6 +445,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-436428205397470914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6456233943789270498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d263298a55fe1543917661894d4419d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tower: {fileID: 2562439637406433296}
 --- !u!1 &7650884226836216918
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,6 +673,22 @@ PrefabInstance:
       propertyPath: _price
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1590323484003748934, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1590323484003748934, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1590323484003748934, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1590323484003748934, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3102444125379914329, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _price
       value: 25
@@ -665,6 +697,22 @@ PrefabInstance:
       propertyPath: _priceIncrease
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4169888068106940776, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4169888068106940776, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4169888068106940776, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4169888068106940776, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5755333093339995236, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _price
       value: 21
@@ -672,6 +720,10 @@ PrefabInstance:
     - target: {fileID: 5755333093339995236, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _priceIncrease
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966778880186622147, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6109435081150076895, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _price
@@ -692,6 +744,14 @@ PrefabInstance:
     - target: {fileID: 8159456401197924425, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _tower
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8159456401197924425, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _numberOfUpgrades
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8159456401197924425, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _additionRangeRadius
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8438457688127442628, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_Name
@@ -763,8 +823,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eafee90e8c7484478c8e89cfb49a30c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3552020727547702417 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7660518506066780155, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
-  m_PrefabInstance: {fileID: 6558631897669612394}
-  m_PrefabAsset: {fileID: 0}

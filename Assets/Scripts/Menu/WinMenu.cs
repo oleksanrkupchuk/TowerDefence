@@ -10,6 +10,9 @@ public class WinMenu : BaseMenu {
     private int _countAllStars;
     private List<Level> _levels;
 
+    [SerializeField]
+    private LevelLoader _levelLoader;
+
     [Header("Buttons Win Menu")]
     [SerializeField]
     private Button _nextLevel;
@@ -17,6 +20,7 @@ public class WinMenu : BaseMenu {
     [Header("Stars")]
     [SerializeField]
     private Star[] _star;
+
 
     public int amountReceivedStarsOnCurrentLevel = 0;
 
@@ -37,7 +41,9 @@ public class WinMenu : BaseMenu {
     private void SubscriptionButtons() {
         _nextLevel.onClick.AddListener(() => {
             CheckExistDataLevelsFileAndSaveLevels();
-            LoadGameLevel(_indexNextLevel);
+            _levelLoader.gameObject.SetActive(true);
+            _levelLoader.LoadLevel(_indexNextLevel);
+            //LoadGameLevel(_indexNextLevel);
         });
     }
 

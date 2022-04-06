@@ -3,13 +3,15 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour {
     protected AnimationEvent _towerEventShoot = new AnimationEvent();
-    protected AnimationEvent _towerEventResetShoot = new AnimationEvent();
+    [SerializeField]
     protected bool _isShooting = false;
     protected int countBullet = 0;
     protected int _damage;
     protected TowerManager _towerManager;
     protected GameManager _gameManager;
     protected Transform _targetPosition;
+    [SerializeField]
+    protected List<Bullet> _bullets = new List<Bullet>();
 
     [SerializeField]
     protected List<Enemy> _enemyList = new List<Enemy>();
@@ -22,11 +24,11 @@ public abstract class Tower : MonoBehaviour {
     [SerializeField]
     protected float _timer;
     [SerializeField]
-    protected Transform _bulletPosition;
-    [SerializeField]
     protected int _stepDegree;
     [SerializeField]
     protected int _price;
+    [SerializeField]
+    protected Transform _bulletPosition;
     [SerializeField]
     protected Animator _animator;
     [SerializeField]
@@ -52,13 +54,14 @@ public abstract class Tower : MonoBehaviour {
     [SerializeField]
     protected TowerUpgradeMenu _towerUpgradeMenu;
 
+    public int increaseDamage;
+
     public int Price { get => _price; }
     public Enemy Target { get => target; }
     public float RangeAttack { get => _rangeAttack; }
     public List<Enemy> EnemyList { get => _enemyList; }
     public int Damage { get => _damage; }
     public PlaceForTower PlaceForTower { get => _placeForTower; }
-    public TowerUpgradeMenu TowerUpgradeMenu { get => _towerUpgradeMenu; }
 
     public void Initialization(TowerManager towerManager, GameManager gameManager) {
         _towerManager = towerManager;
@@ -67,8 +70,7 @@ public abstract class Tower : MonoBehaviour {
     }
 
     protected void Start() {
-        _lineRenderer.enabled = false;
-        DisableUpgradeMenu();
+        DisableLineRenderer();
         SetRangeRadius();
         _towerManager.towersList.Add(this);
 
@@ -145,39 +147,33 @@ public abstract class Tower : MonoBehaviour {
     }
 
     protected void Shoot() {
-        //print("distance to target = " + _distanceToTarget);
-        //print("shoot tower " + gameObject.name);
+        PlayShootSound();
         Bullet _bulletObject = Instantiate(_bullet, _bulletPosition.position, _bullet.transform.rotation);
         _bulletObject.SetDamage(_damage);
         if (target == null) {
-            float _distanceToTarget = Vector2.Distance(transform.position, _targetPosition.position);
             _bulletObject.Init(this, _targetPosition);
-            _bulletObject.SetDistanceAndRange(_distanceToTarget, _rangeAttack);
+            _bulletObject.SetDistanceAndRange(_rangeAttack);
         }
         else {
-            float _distanceToTarget = Vector2.Distance(transform.position, target.transform.position);
             _bulletObject.Init(this);
-            _bulletObject.SetDistanceAndRange(_distanceToTarget, _rangeAttack);
+            _bulletObject.SetDistanceAndRange(_rangeAttack);
         }
         _bulletObject.name = "bullet " + countBullet;
         countBullet++;
+        _bullets.Add(_bulletObject);
     }
 
-    public void AddResetShootEventForShootAnimation() {
-        float _playingAnimationTime = _shootAnimation.length;
-        _towerEventResetShoot.time = _playingAnimationTime - 0.01f;
-        _towerEventResetShoot.functionName = nameof(ResetShoot);
+    protected virtual void PlayShootSound() {
 
-        _shootAnimation.AddEvent(_towerEventResetShoot);
     }
 
-    protected void ResetShoot() {
+    public void ResetShoot() {
         _isShooting = true;
     }
 
     public void IncreaseDamage() {
-        _damage += DamageCalculation();
-        //print("tower damage = " + _buletScript.Damage);
+        increaseDamage = DamageCalculation();
+        _damage += increaseDamage;
     }
 
     protected int DamageCalculation() {
@@ -186,12 +182,10 @@ public abstract class Tower : MonoBehaviour {
         if (damage < 1) {
             damage = 1;
         }
-        //print("calculation damage = " + damage);
         return damage;
     }
 
     public void IncreaseRange(float range) {
-        //print("Range up");
         _rangeAttack += range;
         _rangeCollider.radius = _rangeAttack;
         SetRangeRadius();
@@ -215,13 +209,21 @@ public abstract class Tower : MonoBehaviour {
 
     public void SetTarget() {
         if (_enemyList.Count > 0) {
-            target = _enemyList[0];
-            //print("tower = " + gameObject.name);
-            //print("target = " + target.name);
+            SetNearestEnemy();
+            //target = _enemyList[0];
         }
         else {
             target = null;
-            //Debug.LogWarning("list of enemys empty");
+        }
+    }
+
+    private void SetNearestEnemy() {
+        float distanceToClosestEnemy = Mathf.Infinity;
+        foreach (Enemy currentEnemy in _enemyList) {
+            float distanceToEnemy = (currentEnemy.transform.position - transform.position).sqrMagnitude;
+            if(distanceToEnemy < distanceToClosestEnemy) {
+                target = currentEnemy;
+            }
         }
     }
 
@@ -230,14 +232,12 @@ public abstract class Tower : MonoBehaviour {
     }
 
     public void DisableUpgradeMenu() {
+        _towerUpgradeMenu.DisableTextAmountObject();
         _towerUpgradeMenu.gameObject.SetActive(false);
     }
 
     public void RemoveTarget(Enemy enemy) {
         _enemyList.Remove(enemy);
-        //for (int i = 0; i < _enemyList.Count; i++) {
-        //    print($"enemy {i} name = " + _enemyList[i].name);
-        //}
     }
 
     public bool IsTargetNull() {
@@ -252,6 +252,10 @@ public abstract class Tower : MonoBehaviour {
         _targetPosition = targetPosition;
     }
 
+    public Transform GetTargetPosition() {
+        return _targetPosition;
+    }
+
     public void SetPlaceForTower(PlaceForTower placeForTower) {
         _placeForTower = placeForTower;
     }
@@ -262,5 +266,15 @@ public abstract class Tower : MonoBehaviour {
 
     public void DestroyTower(float timeDestroy) {
         Destroy(gameObject, timeDestroy);
+    }
+
+    public void RemoveBulletsAndSetTargetNull() {
+        foreach (Bullet bullet in _bullets) {
+            bullet.SetNullTarget();
+        }
+    }
+
+    public void RemoveBullet(Bullet bullet) {
+        _bullets.Remove(bullet);
     }
 }

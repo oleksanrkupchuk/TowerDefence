@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour {
         }
 
         else if (_enemySpawner.IsTheLastEnemyInCurrentWave) {
-            _enemySpawner.EnableNewWaveIcon();
+            _enemySpawner.EnableTimerWave();
             IsSpawnNewWave();
         }
     }

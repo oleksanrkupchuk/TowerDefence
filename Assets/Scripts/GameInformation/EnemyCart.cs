@@ -11,6 +11,8 @@ public class EnemyCart : MonoBehaviour
     private EnemyCartData _cartData;
 
     [SerializeField]
+    private RectTransform _rectTransform;
+    [SerializeField]
     private Image _icon;
     [SerializeField]
     private TextMeshProUGUI _title;
@@ -40,15 +42,21 @@ public class EnemyCart : MonoBehaviour
         SetCharacteristics();
 
         if (_cartData.unlockEnemy) {
+            SetSizeRectTransform(_cartData.unlockEnemyIcon);
             _icon.sprite = _cartData.unlockEnemyIcon;
             SetctiveCharacteristics(true, false);
             SpawnDebuffs();
             SetWeidthForParentDebuff();
         }
         else {
+            SetSizeRectTransform(_cartData.lockEnemyIcon);
             _icon.sprite = _cartData.lockEnemyIcon;
             SetctiveCharacteristics(false, true);
         }
+    }
+
+    private void SetSizeRectTransform(Sprite sprite) {
+        _rectTransform.sizeDelta = new Vector2(sprite.bounds.size.x * 100, sprite.bounds.size.y * 100);
     }
 
     private void SpawnDebuffs() {

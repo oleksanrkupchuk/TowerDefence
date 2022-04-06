@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
-    private int _enemies;
+    private List<EnemySpawnRules> _rules = new List<EnemySpawnRules>();
+    private int _amountEnemies;
     private GameManager _gameManager;
     private EnemySpawner _enemySpawner;
     private Camera _camera;
     private SpawnEnemyData _spawnData;
     private List<ChainEnemy> _chainsEnemy = new List<ChainEnemy>();
-    public int CountEnemies { get => _enemies; }
+    public int AmountEnemies { get => _amountEnemies; }
 
     public void Init(SpawnEnemyData spawnData, GameManager gameManager, Camera camera, EnemySpawner enemySpawner) {
         _spawnData = spawnData;
@@ -27,8 +28,11 @@ public class Spawn : MonoBehaviour
             _chainEnemyObject.Init(_spawnData.chainsData[i], _spawnData, _gameManager, _camera, _enemySpawner);
             _chainsEnemy.Add(_chainEnemyObject);
             _chainEnemyObject.transform.SetParent(gameObject.transform);
-            _enemies += _chainEnemyObject.CountEnemies;
+            _amountEnemies += _chainEnemyObject.Enemies.Count;
+            _rules.AddRange(_chainEnemyObject.rules);
         }
+
+        _spawnData.newWave.SetListEnemy(_rules);
     }
 
     public void EnableSpawnsEnemy() {

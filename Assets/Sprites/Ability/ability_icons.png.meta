@@ -10,19 +10,19 @@ TextureImporter:
     second: Thorn
   - first:
       213: -7827241295674515642
-    second: Fire_Area
+    second: Explosion
   - first:
       213: -4876874764541158417
-    second: Speed_Shoot
+    second: Reduce_Tower_Price
   - first:
       213: 3946855171513640480
     second: Increase_Sell_Tower
   - first:
       213: 5232967260695475927
-    second: Reduce_Tower_Price
+    second: Speed_Shoot
   - first:
       213: -789167663086783970
-    second: Explosion
+    second: Fire_Area
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -160,7 +160,7 @@ TextureImporter:
       name: Thorn
       rect:
         serializedVersion: 2
-        x: 87
+        x: 98
         y: 0
         width: 100
         height: 100
@@ -178,10 +178,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fire_Area
+      name: Explosion
       rect:
         serializedVersion: 2
-        x: 600
+        x: 198
         y: 0
         width: 100
         height: 100
@@ -199,10 +199,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Speed_Shoot
+      name: Reduce_Tower_Price
       rect:
         serializedVersion: 2
-        x: 501
+        x: 299
         y: 0
         width: 100
         height: 100
@@ -241,10 +241,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Reduce_Tower_Price
+      name: Speed_Shoot
       rect:
         serializedVersion: 2
-        x: 299
+        x: 501
         y: 0
         width: 100
         height: 100
@@ -262,12 +262,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Explosion
+      name: Fire_Area
       rect:
         serializedVersion: 2
-        x: 195
+        x: 600
         y: 0
-        width: 100
+        width: 96
         height: 100
       alignment: 0
       pivot: {x: 0, y: 0}

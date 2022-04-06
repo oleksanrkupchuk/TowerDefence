@@ -64,7 +64,7 @@ public class InformationPanel : MonoBehaviour {
 
     private void SubscriptionTowerButtons(TowerButton towerButton) {
         towerButton.Button.onClick.AddListener(() => {
-            _towerManager.SelectedTower(towerButton);
+            _towerManager.SetSelectedTower(towerButton);
         });
     }
 

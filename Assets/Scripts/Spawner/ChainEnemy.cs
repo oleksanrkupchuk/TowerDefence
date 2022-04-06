@@ -11,7 +11,9 @@ public class ChainEnemy : MonoBehaviour
     private SpawnEnemyData _spawnEnemyData;
     private int _amountEnemyInChain = 0;
     public List<Enemy> enemies = new List<Enemy>();
-    public int CountEnemies { get => enemies.Count; }
+    public List<Enemy> Enemies { get => enemies; }
+
+    public List<EnemySpawnRules> rules = new List<EnemySpawnRules>();
 
     public void Init(ChainData chainData, SpawnEnemyData spawnEnemyData, GameManager gameManager, Camera camera, EnemySpawner enemySpawner) {
         _chainData = chainData;
@@ -42,6 +44,8 @@ public class ChainEnemy : MonoBehaviour
                 _enemy.gameObject.SetActive(false);
                 enemies.Add(_enemy);
             }
+
+            rules.Add(_chainData.chainListEnemies[numberListEnemy]);
         }
     }
 
@@ -53,7 +57,7 @@ public class ChainEnemy : MonoBehaviour
     }
 
     private IEnumerator EnableEnemies(EnemySpawnRules enemySpawnRules) {
-        yield return new WaitForSeconds(enemySpawnRules.timeSpawnForNextChain);
+        yield return new WaitForSeconds(enemySpawnRules._waitTimeForNexEnemies);
 
         for (int i = 0; i < enemySpawnRules.amount; i++) {
             enemies[_amountEnemyInChain].gameObject.SetActive(true);

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 2963749817242540814, guid: 23e18caff561b084687001d05a9a150b, type: 3}
   title: Fast Move
-  description: Fast
+  description: Gives enemies, which are nearby, acceleration to movement

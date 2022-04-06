@@ -10,24 +10,22 @@ public class ShopMenu : BaseMenu {
     private List<Ability> _abilityes = new List<Ability>();
     private LevelData _levelData;
 
-    [Header("Buttons Lose Menu")]
+    [Header("Buttons Shop Menu")]
     [SerializeField]
     private Button _back;
     [SerializeField]
     private Button _buy;
     [SerializeField]
-    private Button _yes;
-    [SerializeField]
-    private Button _no;
-    [SerializeField]
     private Button _ok;
 
     [Header("Windows")]
     [SerializeField]
-    private GameObject _confirmBuyAbilityWindow;
+    private ConfirmBuyAbilityWindow _confirmBuyAbilityWindow;
     [SerializeField]
     private GameObject _notEnoughMoneyWindow;
 
+    [SerializeField]
+    private TextMeshProUGUI _titleScreen;
     [SerializeField]
     private Ability _ability;
     [SerializeField]
@@ -80,15 +78,16 @@ public class ShopMenu : BaseMenu {
     }
 
     private void Start() {
+        _titleScreen.text = ShopMenuText.titleScreen;
         LoadAbility();
         InitAbilityData();
         SpawnAbility();
-        DisableConfirmBuyAbilityWindow();
+        _confirmBuyAbilityWindow.Disable();
         DisableNotEnoughMoneyWindow();
         SubscriptionButtons();
 
-        _abilityIcon.sprite = _abilityData[0].icon;
-        _abilityDescription.text = _abilityData[0].description;
+        //_abilityIcon.sprite = _abilityData[0].icon;
+        //_abilityDescription.text = _abilityData[0].description;
 
         if (_currentAbility.Data.isPurchased) {
             DisableBuyButton();
@@ -135,18 +134,18 @@ public class ShopMenu : BaseMenu {
             CheckMoneyAndEnableAbilityOrNotEnoughMoneyWindow();
         });
 
-        _yes.onClick.AddListener(() => {
+        _confirmBuyAbilityWindow.yes.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             SubstractPrice();
             SaveStars();
             SavePurchasedAbility();
             ApplyAbility();
-            DisableConfirmBuyAbilityWindow();
+            _confirmBuyAbilityWindow.Disable();
         });
 
-        _no.onClick.AddListener(() => {
+        _confirmBuyAbilityWindow.no.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
-            DisableConfirmBuyAbilityWindow();
+            _confirmBuyAbilityWindow.Disable();
         });
 
         _ok.onClick.AddListener(() => {
@@ -160,7 +159,8 @@ public class ShopMenu : BaseMenu {
             EnableNotEnoughMoneyWindow();
         }
         else {
-            EnableConfirmBuyAbilityWindow();
+            _confirmBuyAbilityWindow.SetDescription(_currentAbility.Data.price);
+            _confirmBuyAbilityWindow.Enable();
         }
     }
 
@@ -168,21 +168,17 @@ public class ShopMenu : BaseMenu {
         _notEnoughMoneyWindow.SetActive(true);
     }
 
-    private void EnableConfirmBuyAbilityWindow() {
-        _confirmBuyAbilityWindow.SetActive(true);
-    }
-
-    private void SubstractPrice() {
+    public void SubstractPrice() {
         _amountAllStars -= _currentAbility.Data.price;
         _starsText.text = "" + _amountAllStars;
     }
 
-    private void SaveStars() {
+    public void SaveStars() {
         List<Level> _levels = _levelData.levels;
         SaveSystemLevel.SaveLevel(_amountAllStars, _levels);
     }
 
-    private void SavePurchasedAbility() {
+    public void SavePurchasedAbility() {
         _currentAbility.Data.isPurchased = true;
         _currentAbility.CheckForPurchasedAbilityAndSetIcon();
 
@@ -198,12 +194,8 @@ public class ShopMenu : BaseMenu {
         AbilitySaveSystem.SaveAbility(_abilities);
     }
 
-    private void ApplyAbility() {
+    public void ApplyAbility() {
         _applyingAbility.ApplyAbility(_currentAbility.Data.type);
-    }
-
-    private void DisableConfirmBuyAbilityWindow() {
-        _confirmBuyAbilityWindow.SetActive(false);
     }
 
     private void DisableNotEnoughMoneyWindow() {

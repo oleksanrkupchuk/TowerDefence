@@ -107,4 +107,13 @@ public static class SoundName {
     public static readonly string Background = "Background";
     public static readonly string LoseGame = "LoseGame";
     public static readonly string WinGame = "WinGame";
+    public static readonly string TowerUpgrade = "TowerUpgrade";
+    public static readonly string ErrorSetTower = "ErrorSetTower";
+    public static readonly string SellTower = "SellTower";
+    public static readonly string HitEnemy = "HitEnemy";
+    public static readonly string FireShot = "FireShot";
+    public static readonly string IronShot = "IronShot";
+    public static readonly string RockShot = "RockShot";
+    public static readonly string StartWave = "StartWave";
+    public static readonly string Explosion = "Explosion";
 }

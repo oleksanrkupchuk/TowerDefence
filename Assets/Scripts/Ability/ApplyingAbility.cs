@@ -7,7 +7,8 @@ public enum AbilityType {
     FireArea,
     Explosion,
     ReducePriceTower,
-    IncreasePriceSell
+    IncreasePriceSell,
+    AccessSpawnInfo
 }
 
 public class ApplyingAbility : MonoBehaviour {
@@ -28,34 +29,33 @@ public class ApplyingAbility : MonoBehaviour {
     private TowerUpgradeMenu _towerUpgradeMenu;
     [SerializeField]
     private Ability _ability;
+    [SerializeField]
+    private SpawnInfo _spawnInfo;
 
     private void Awake() {
-        //_ironTower.ReducePrice(_ability.PercentageReductionInPriceTower);
-        //_fireTower.ReducePrice(_ability.PercentageReductionInPriceTower);
-        //_rockTower.ReducePrice(_ability.PercentageReductionInPriceTower);
         if (_applyingAbility == null) {
             _applyingAbility = this;
         }
-        else if(_applyingAbility != this) {
+        else if (_applyingAbility != this) {
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start() {
-        if (AbilitySaveSystem.IsExistsSaveAbilityFile()) {
-            AbilityPurchased _abilityPurchased = AbilitySaveSystem.LoadAbility();
-            for (int i = 0; i < _abilityPurchased.abilities.Count; i++) {
-                CheckPurchasedAbility(_abilityPurchased.abilities[i]);
-            }
-        }
-    }
+    //private void Start() {
+    //    AbilityPurchased _abilityPurchased = AbilitySaveSystem.LoadAbility();
+    //    for (int i = 0; i < _abilityPurchased.abilities.Count; i++) {
+    //        if (_abilityPurchased.abilities[i].type != AbilityType.ReducePriceTower) {
+    //            CheckPurchasedAbility(_abilityPurchased.abilities[i]);
+    //        }
+    //    }
+    //}
 
-    private void CheckPurchasedAbility(AbilityItem item) {
-        if (item.isPurchased == true) {
-            ApplyAbility(item.type);
-        }
-    }
+    //private void CheckPurchasedAbility(AbilityItem item) {
+    //    if (item.isPurchased == true) {
+    //        ApplyAbility(item.type);
+    //    }
+    //}
 
     public void ApplyAbility(AbilityType type) {
         switch (type) {
@@ -77,17 +77,22 @@ public class ApplyingAbility : MonoBehaviour {
                 break;
 
             case AbilityType.Explosion:
-                _rockBullet.AddEventExplosionForDestroyAnimation();
+                _rockBullet.chanceExplosion = _ability.ChanceExplosion;
+                _rockBullet.isExplosion = true;
                 break;
 
             case AbilityType.IncreasePriceSell:
-                _towerUpgradeMenu.percentSellTower = _ability.PercentageSellTower;
+                _towerUpgradeMenu.percentSellTower = _ability.PercentSellTower;
                 break;
 
             case AbilityType.ReducePriceTower:
-                _ironTower.ReducePrice(_ability.PercentageReductionInPriceTower);
-                _fireTower.ReducePrice(_ability.PercentageReductionInPriceTower);
-                _rockTower.ReducePrice(_ability.PercentageReductionInPriceTower);
+                _ironTower.ReducePrice(_ability.PercentReductionInPriceTower);
+                _fireTower.ReducePrice(_ability.PercentReductionInPriceTower);
+                _rockTower.ReducePrice(_ability.PercentReductionInPriceTower);
+                break;
+
+            case AbilityType.AccessSpawnInfo:
+                _spawnInfo.isAccessSpawnInfo = true;
                 break;
         }
     }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e15df53b2a02144a8995171e64407af, type: 3}
   m_Name: Minotaur_3
   m_EditorClassIdentifier: 
-  unlockEnemy: 1
+  unlockEnemy: 0
   unlockEnemyIcon: {fileID: 21300000, guid: 899589e82c55a0140aa37e16c72a64d1, type: 3}
   lockEnemyIcon: {fileID: 21300000, guid: 3f0251bfa5896fe44b529580d17583c4, type: 3}
   name: Minotaur 3
@@ -21,5 +21,4 @@ MonoBehaviour:
 
 '
   enemy: {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-  debuffs:
-  - {fileID: 11400000, guid: d2763aaafe8b56147a982d3291779090, type: 2}
+  debuffs: []

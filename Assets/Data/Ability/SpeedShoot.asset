@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: SpeedShoot
   m_EditorClassIdentifier: 
   type: 0
-  icon: {fileID: -4876874764541158417, guid: e244bf7e74893824585653ab9ee3da1c, type: 3}
+  icon: {fileID: 5232967260695475927, guid: e244bf7e74893824585653ab9ee3da1c, type: 3}
   iconAfterPurchased: {fileID: 21300000, guid: 1345c0f7b87d2d14d9ee89951de86f7c, type: 3}
   price: 3
   name: Speed Shoot
-  description: Speed shoot
+  description: Iron tower shoots twice speed
   isPurchased: 0
