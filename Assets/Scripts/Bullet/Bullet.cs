@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour {
@@ -8,15 +7,12 @@ public abstract class Bullet : MonoBehaviour {
     protected Enemy _target;
     protected float _axiYTower;
     protected Vector3 _nexPosition;
-    protected Vector3 _previousPosition;
     protected bool _isBeizerPointNotNull = true;
     protected Vector2 _targetPosition;
     protected float _t;
-    protected float _timeFormula1;
-    protected float _timeFormula2;
-    protected float _timeFormulaBuffer;
     protected float _timeWay = 0f;
     protected AnimationEvent _destroyEvent = new AnimationEvent();
+    [SerializeField]
     protected List<GameObject> _bezierPoints = new List<GameObject>();
 
     [SerializeField]
@@ -26,9 +22,7 @@ public abstract class Bullet : MonoBehaviour {
     [SerializeField]
     protected float _speed;
     [SerializeField]
-    protected GameObject _bezierPointPrefab;
-    [SerializeField]
-    protected int _amountBezierPoints;
+    protected GameObject _bezierPoint;
     [SerializeField]
     protected AnimationClip _destroyClip;
     [SerializeField]
@@ -41,25 +35,31 @@ public abstract class Bullet : MonoBehaviour {
     protected CircleCollider2D _circleCollider;
 
     public int Damage { get => _damage; }
-    public event Action DestroyBeizerPoint;
 
     public void Init(Tower tower) {
         _tower = tower;
+    }
+
+    public void SetParametrs() {
+        transform.position = _tower._bulletPosition.position;
         _axiYTower = _tower.transform.position.y;
         _target = _tower.Target;
         _target.LastPosition += SetTargetPosition;
-        InstantiatePointsForBeizerTrajectory();
     }
 
-    public void Init(Tower tower, Transform targetPosition) {
-        _tower = tower;
+    public void SetParametrs(Transform targetPosition) {
+        transform.position = _tower._bulletPosition.position;
         _axiYTower = _tower.transform.position.y;
         _targetPosition = targetPosition.position;
-        InstantiatePointsForBeizerTrajectory();
+    }
+
+    protected void OnEnable() {
+        _t = 0;
+        _timeWay = 0;
     }
 
     protected void SetTargetPosition() {
-        _circleCollider.enabled = false;
+        //_circleCollider.enabled = false;
 
         _targetPosition = _target.transform.position;
         _target.LastPosition -= SetTargetPosition;
@@ -67,7 +67,6 @@ public abstract class Bullet : MonoBehaviour {
     }
 
     public void SetNullTarget() {
-        print("tower = " + _tower.name + " bullet " + gameObject.name);
         if (_target != null) {
             _target.LastPosition -= SetTargetPosition;
         }
@@ -79,19 +78,21 @@ public abstract class Bullet : MonoBehaviour {
     }
 
     protected void Start() {
-        //InstantiatePointsForBeizerTrajectory();
         DisableCollider();
 
         SetP0();
     }
 
-    protected void InstantiatePointsForBeizerTrajectory() {
-        for (int i = 0; i < _amountBezierPoints; i++) {
-            GameObject _point = Instantiate(_bezierPointPrefab);
-            BezierPoint bezierPoint = _point.GetComponent<BezierPoint>();
-            bezierPoint.SetBullet(this);
+    public void SetP0() {
+        _bezierPoints[0].transform.position = transform.position;
+    }
+
+    public void CreatePointsForBeizerTrajectory(Transform parent) {
+        for (int i = 0; i < 3; i++) {
+            GameObject _point = Instantiate(_bezierPoint);
             _point.name = "point " + i;
-            _bezierPoints.Add(_point);
+            _point.transform.SetParent(parent);
+            _bezierPoints.Add(_point.gameObject);
         }
     }
 
@@ -107,27 +108,23 @@ public abstract class Bullet : MonoBehaviour {
         _destroyClip.AddEvent(_destroyEvent);
     }
 
+    protected void DestroyBulletAndBeizerPoints() {
+        //_tower.RemoveBullet(this);
+        gameObject.SetActive(false);
+    }
+
     protected void Update() {
+        SetP2();
+        SetP1();
+
+        CalculationT();
+        EnableCollider();
+
+        Move();
+        Rotation();
+        CheckTAndDestroyBullet();
         if (_isBeizerPointNotNull) {
-            SetP2();
-            SetP1();
-
-            CalculationT();
-            EnableCollider();
-
-            Move();
-            Rotation();
-            CheckTAndDestroyBullet();
         }
-    }
-
-    public void SetP0() {
-        _bezierPoints[0].transform.position = transform.position;
-    }
-
-    protected void SetP1() {
-        float _axisX = (_bezierPoints[0].transform.position.x - _bezierPoints[2].transform.position.x) / 2;
-        _bezierPoints[1].transform.position = new Vector2(_bezierPoints[0].transform.position.x - _axisX, _axiYTower + _axisYP1);
     }
 
     protected void SetP2() {
@@ -139,24 +136,14 @@ public abstract class Bullet : MonoBehaviour {
         }
     }
 
-    protected virtual void CalculationT() {
-        _previousPosition = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
-                       _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, _t - 0.1f);
+    protected void SetP1() {
+        float _axisX = (_bezierPoints[0].transform.position.x - _bezierPoints[2].transform.position.x) / 2;
+        _bezierPoints[1].transform.position = new Vector2(_bezierPoints[0].transform.position.x - _axisX, _axiYTower + _axisYP1);
+    }
 
-        _timeFormula1 += Time.deltaTime;
-
-        if (transform.position.y > _previousPosition.y) {
-            _timeFormulaBuffer = 1 / (1 + _timeFormula1) * _timeFormula1 * 1.5f;
-            //_timeFormulaBuffer = 1 / (1 + _timeFormula1) * _timeFormula1;
-            _t = _timeFormulaBuffer;
-        }
-        else {
-            _timeFormula2 += Time.deltaTime;
-            //_t = _timeFormulaBuffer + _timeFormula2;
-            //_t = _timeFormulaBuffer + (_timeFormula2 * _timeFormula2 * 1.5f);
-            //_t = _timeFormulaBuffer + (_timeFormula2 * _timeFormula2 * 2.5f);
-            _t = _timeFormulaBuffer + (_timeFormula2 + _timeFormula2 * _timeFormula2);
-        }
+    protected void CalculationT() {
+        _timeWay += Time.deltaTime;
+        _t = _timeWay / _timeFlight;
     }
 
     protected void EnableCollider() {
@@ -207,10 +194,7 @@ public abstract class Bullet : MonoBehaviour {
         _target = null;
     }
 
-    protected void DestroyBulletAndBeizerPoints() {
-        _tower.RemoveBullet(this);
-        _bezierPoints.Clear();
-        DestroyBeizerPoint?.Invoke();
+    protected virtual void DestroyBulletAfterTime() {
         Destroy(gameObject);
     }
 

@@ -11,6 +11,11 @@ public class FireBullet : Bullet {
     public bool burning;
     public bool fireArea;
 
+    private new void OnEnable() {
+        base.OnEnable();
+        _timeWay = 0;
+    }
+
     private new void Start() {
         base.Start();
     }
@@ -19,20 +24,15 @@ public class FireBullet : Bullet {
         base.Update();
     }
 
-    protected override void CalculationT() {
-        _timeWay += Time.deltaTime;
-        _t = _timeWay / _timeFlight;
-    }
-
-    protected override void CheckTAndDestroyBullet() {
-        if (!_isEndWay) {
-            if (_t >= 1) {
-                CheckBuyFireAreaAbilityAndBurnEnemy();
-                PlayAnimationDestroy();
-                _isEndWay = true;
-            }
-        }
-    }
+    //protected override void CheckTAndDestroyBullet() {
+    //    if (!_isEndWay) {
+    //        if (_t >= 1) {
+    //            _isEndWay = true;
+    //            CheckBuyFireAreaAbilityAndBurnEnemy();
+    //            PlayAnimationDestroy();
+    //        }
+    //    }
+    //}
 
     protected void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.TryGetComponent(out Enemy enemy)) {

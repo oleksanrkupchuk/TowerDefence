@@ -145,6 +145,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2989755007123382660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4508324762723707657}
+  m_Layer: 0
+  m_Name: PullBullet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4508324762723707657
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2989755007123382660}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6456233943789270496}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6204021774707274668
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,6 +245,7 @@ Transform:
   - {fileID: 5309600492019184782}
   - {fileID: 3323547092456357280}
   - {fileID: 6256051992699418421}
+  - {fileID: 4508324762723707657}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -409,6 +440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isShooting: 0
   _bullets: []
+  _poolBullets: []
   _enemyList: []
   _rangeAttack: 2.7
   _timeShoot: 2
@@ -419,6 +451,7 @@ MonoBehaviour:
   _animator: {fileID: 4749409143156034352}
   _shootAnimation: {fileID: 7400000, guid: d4aabb1a665af614ab1274a1883ed5a4, type: 2}
   _shootFrameRateInShootAnimation: 15
+  _poolBullet: {fileID: 4508324762723707657}
   _rangeCollider: {fileID: 611613967024040103}
   _bullet: {fileID: 1933788421987285462, guid: e32a2b3586e66ac40998ab5703b4b2c6, type: 3}
   _lineRenderer: {fileID: 6905664480513818955}

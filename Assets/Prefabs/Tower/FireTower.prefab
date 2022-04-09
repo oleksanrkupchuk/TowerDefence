@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &28177817531595303
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2558490597750310324}
+  m_Layer: 0
+  m_Name: PullBullet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2558490597750310324
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28177817531595303}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7727614519314563345}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2288499390424263270
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,6 +358,7 @@ Transform:
   - {fileID: 9219330053181337550}
   - {fileID: 3157696370734050766}
   - {fileID: 4031344235514605624}
+  - {fileID: 2558490597750310324}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -522,6 +553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isShooting: 0
   _bullets: []
+  _poolBullets: []
   _enemyList: []
   _rangeAttack: 3
   _timeShoot: 1.5
@@ -532,6 +564,7 @@ MonoBehaviour:
   _animator: {fileID: 8154061008290254054}
   _shootAnimation: {fileID: 7400000, guid: df621ba34153c2545a4cf1c10aede92f, type: 2}
   _shootFrameRateInShootAnimation: 15
+  _poolBullet: {fileID: 2558490597750310324}
   _rangeCollider: {fileID: 7168467813448346326}
   _bullet: {fileID: 6973668464270465113, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
   _lineRenderer: {fileID: 1787142671323376124}

@@ -530,5 +530,5 @@ MonoBehaviour:
   _scrollRect: {fileID: 3346672770901758033}
   _scroll: {fileID: 3346672769798065726}
   _verticalLayoutGroup: {fileID: 3346672770307481415}
-  isAccessSpawnInfo: 0
+  isAccessSpawnInfo: 1
   newWaveIcon: {fileID: 0}

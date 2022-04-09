@@ -28,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945258179174288900}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &945258179174288899
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -156,16 +156,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
+  _t: 0
+  _bezierPoints: []
   _damage: 2
   _damageBasic: 2
   _speed: 3
-  _bezierPointPrefab: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
+  _bezierPoint: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
   _amountBezierPoints: 3
   _destroyClip: {fileID: 7400000, guid: 324278fab0bf55243890827f85382af4, type: 2}
   _animator: {fileID: 2174756978729729258}
-  _timeFlight: 1.5
+  _timeFlight: 1.3
   _axisYP1: 6.5
   _circleCollider: {fileID: 5098031056570507187}
+  _firsSpriteBullet: {fileID: 21300000, guid: fbbb99a154767a54cb6223701bce4415, type: 3}
+  _spriteRenderer: {fileID: 0}
   _fireArea: {fileID: 1214481618115712216, guid: 4368b3fce25ab65449157a5615985dad, type: 3}
   chanceFireArea: 0
   burning: 0

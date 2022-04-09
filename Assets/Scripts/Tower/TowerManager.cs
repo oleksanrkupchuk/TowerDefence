@@ -87,7 +87,7 @@ public class TowerManager : MonoBehaviour {
         placeForTower.DisableIlluminationIcon();
 
         Tower tower = Instantiate(_towerButtonPressed.TowerScript, placeForTower.transform.position, Quaternion.identity);
-        tower.Initialization(this, _gameManager);
+        tower.Init(this, _gameManager);
         tower.name = tower.name + " " + _countTower;
         _countTower++;
         tower.SetPlaceForTower(placeForTower);

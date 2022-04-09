@@ -12,6 +12,10 @@ public abstract class Tower : MonoBehaviour {
     protected Transform _targetPosition;
     [SerializeField]
     protected List<Bullet> _bullets = new List<Bullet>();
+    [SerializeField]
+    protected List<Bullet> _poolBullets = new List<Bullet>();
+    [SerializeField]
+    protected Bullet _currentBullet;
 
     [SerializeField]
     protected List<Enemy> _enemyList = new List<Enemy>();
@@ -27,14 +31,17 @@ public abstract class Tower : MonoBehaviour {
     protected int _stepDegree;
     [SerializeField]
     protected int _price;
-    [SerializeField]
-    protected Transform _bulletPosition;
+
+
+    public Transform _bulletPosition;
     [SerializeField]
     protected Animator _animator;
     [SerializeField]
     protected AnimationClip _shootAnimation;
     [SerializeField]
     protected int _shootFrameRateInShootAnimation;
+    [SerializeField]
+    private Transform _poolBullet;
 
     [Header("Components visible")]
     [SerializeField]
@@ -63,10 +70,23 @@ public abstract class Tower : MonoBehaviour {
     public int Damage { get => _damage; }
     public PlaceForTower PlaceForTower { get => _placeForTower; }
 
-    public void Initialization(TowerManager towerManager, GameManager gameManager) {
+    public void Init(TowerManager towerManager, GameManager gameManager) {
         _towerManager = towerManager;
         _gameManager = gameManager;
         _towerUpgradeMenu.Initialization(_gameManager, this);
+
+        CreatePoolBulet();
+    }
+
+    private void CreatePoolBulet() {
+        for (int i = 0; i < 5; i++) {
+            Bullet _bulletObject = Instantiate(_bullet, _bulletPosition.position, _bullet.transform.rotation);
+            _bulletObject.Init(this);
+            _bulletObject.CreatePointsForBeizerTrajectory(_poolBullet);
+            _bulletObject.gameObject.SetActive(false);
+            _bulletObject.transform.SetParent(_poolBullet);
+            _poolBullets.Add(_bulletObject);
+        }
     }
 
     protected void Start() {
@@ -125,7 +145,7 @@ public abstract class Tower : MonoBehaviour {
         }
 
         if (_timer <= 0f) {
-            if (target != null) { //&& _enemyList.Count > 0
+            if (target != null) { 
                 _isShooting = false;
                 _timer = _timeShoot;
                 PlayShootAnimation();
@@ -148,19 +168,30 @@ public abstract class Tower : MonoBehaviour {
 
     protected void Shoot() {
         PlayShootSound();
-        Bullet _bulletObject = Instantiate(_bullet, _bulletPosition.position, _bullet.transform.rotation);
-        _bulletObject.SetDamage(_damage);
+        GetCurrentBullet();
+
+        //_currentBullet.transform.position = _bulletPosition.position;
+        _currentBullet.SetDamage(_damage);
+
         if (target == null) {
-            _bulletObject.Init(this, _targetPosition);
-            _bulletObject.SetDistanceAndRange(_rangeAttack);
+            _currentBullet.SetParametrs(_targetPosition);
+            _currentBullet.SetDistanceAndRange(_rangeAttack);
         }
         else {
-            _bulletObject.Init(this);
-            _bulletObject.SetDistanceAndRange(_rangeAttack);
+            _currentBullet.SetParametrs();
+            _currentBullet.SetDistanceAndRange(_rangeAttack);
         }
-        _bulletObject.name = "bullet " + countBullet;
-        countBullet++;
-        _bullets.Add(_bulletObject);
+        _bullets.Add(_currentBullet);
+    }
+
+    protected void GetCurrentBullet() {
+        for (int i = 0; i < _poolBullets.Count; i++) {
+            if(_poolBullets[i].gameObject.activeSelf == false) {
+                _currentBullet = _poolBullets[i];
+                _currentBullet.gameObject.SetActive(true);
+                return;
+            }
+        }
     }
 
     protected virtual void PlayShootSound() {
@@ -221,7 +252,7 @@ public abstract class Tower : MonoBehaviour {
         float distanceToClosestEnemy = Mathf.Infinity;
         foreach (Enemy currentEnemy in _enemyList) {
             float distanceToEnemy = (currentEnemy.transform.position - transform.position).sqrMagnitude;
-            if(distanceToEnemy < distanceToClosestEnemy) {
+            if (distanceToEnemy < distanceToClosestEnemy) {
                 target = currentEnemy;
             }
         }
@@ -270,7 +301,7 @@ public abstract class Tower : MonoBehaviour {
 
     public void RemoveBulletsAndSetTargetNull() {
         foreach (Bullet bullet in _bullets) {
-            bullet.SetNullTarget();
+            //bullet.SetNullTarget();
         }
     }
 
