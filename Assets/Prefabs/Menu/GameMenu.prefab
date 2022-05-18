@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e0c530750d7a2f4a80f65d379389d7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableObject: {fileID: 0}
   _backgroundGameMenu: {fileID: 5284401508579052429}
   _pauseMenu: {fileID: 5284401509718685875}
   _loseMenu: {fileID: 5284401509150017800}
@@ -289,6 +290,26 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2600581218544838835, guid: 045e6daeed2af8548973d80568aa1793, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4481468276656836511, guid: 045e6daeed2af8548973d80568aa1793, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5102295869257976731, guid: 045e6daeed2af8548973d80568aa1793, type: 3}
+      propertyPath: m_text
+      value: "\u0423\u043A\u0430\u043F\u0430\u043F sdsdaasd"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5102295869257976731, guid: 045e6daeed2af8548973d80568aa1793, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+    - target: {fileID: 5102295869257976731, guid: 045e6daeed2af8548973d80568aa1793, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
     - target: {fileID: 7256532322400069964, guid: 045e6daeed2af8548973d80568aa1793, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -694,6 +715,10 @@ PrefabInstance:
     - target: {fileID: 9060527336261508450, guid: 58981ca991146bb4b9116253e16912ba, type: 3}
       propertyPath: m_Name
       value: SettingsMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 9060527336261508450, guid: 58981ca991146bb4b9116253e16912ba, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58981ca991146bb4b9116253e16912ba, type: 3}

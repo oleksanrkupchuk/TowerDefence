@@ -2,44 +2,41 @@ using System.Collections;
 using UnityEngine;
 
 public class EnemyDebuff : MonoBehaviour {
-    private float _time;
     private bool _isSlow = false;
     private bool _isBurning = false;
+    private bool _isPosion = false;
 
     [SerializeField]
     private Enemy _enemy;
-    [SerializeField]
-    private bool _immunitySlow;
-    [SerializeField]
-    private bool _immunityBurning;
 
     [Header("Debuff Slow")]
+    public bool immunitySlow;
     [SerializeField]
     private float _slowSpeed;
     [SerializeField]
     private float _durationSlowSpeed;
 
     [Header("Debuff Burning")]
+    public bool immunityBurning;
     [SerializeField]
     private float _durationBurning;
 
-    private void Start() {
-        _time = _durationBurning;
-    }
+    [Header("Debuff Poison")]
+    public bool immunityPoison;
+    [SerializeField]
+    private float _durationPoison;
 
-    private void Update() {
-        if (_isBurning) {
-            _time -= Time.deltaTime;
-
-            if (_time <= 0) {
-                _isBurning = false;
-                _time = _durationBurning;
-            }
+    public void TakeDamage(float damage) {
+        if (immunityBurning) {
+            _enemy.StopBurningEffect();
+        }
+        else {
+            _enemy.TakeDamage(damage);
         }
     }
 
     public void StartSlowMove() {
-        if (_immunitySlow) {
+        if (immunitySlow) {
             return;
         }
 
@@ -62,7 +59,7 @@ public class EnemyDebuff : MonoBehaviour {
     }
 
     public void StartBurning() {
-        if (_immunityBurning) {
+        if (immunityBurning) {
             return;
         }
 
@@ -74,12 +71,54 @@ public class EnemyDebuff : MonoBehaviour {
     private IEnumerator Burning() {
         _isBurning = true;
         _enemy.PlayBurningEffect();
+        Invoke(nameof(StopBurningAfterTime), _durationBurning);
 
         while (_isBurning) {
-            yield return new WaitForSeconds(1f);
-            _enemy.TakeDamage(0.5f);
+            yield return new WaitForSeconds(1.5f);
+            TakeDamage(1.5f);
         }
 
         _enemy.StopBurningEffect();
+    }
+
+    private void StopBurningAfterTime() {
+        _isBurning = false;
+    }
+
+    public void StartPoison() {
+        if (immunityPoison) {
+            return;
+        }
+
+        if (!_isPosion) {
+            StartCoroutine(Poison());
+        }
+    }
+
+    private IEnumerator Poison() {
+        _isPosion = true;
+        _enemy.PlayBurningEffect();
+
+        Invoke(nameof(StopPosionAfterTime), _durationPoison);
+
+        while (_isPosion) {
+            yield return new WaitForSeconds(1f);
+            TakeDamage(.5f);
+        }
+
+        _enemy.StopBurningEffect();
+    }
+
+    private void StopPosionAfterTime() {
+        _isPosion = false;
+    }
+
+    public void StartImmunityBurninfForSomeTime() {
+        immunityBurning = true;
+        Invoke(nameof(StopImunityBurning), 3f);
+    }
+
+    private void StopImunityBurning() {
+        immunityBurning = false;
     }
 }

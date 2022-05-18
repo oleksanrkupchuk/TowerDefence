@@ -56,4 +56,4 @@ MonoBehaviour:
   - {fileID: 1692862883609546770, guid: caedb2076ef91a541bccf3a9349a1d88, type: 3}
   - {fileID: 2314555891733913013, guid: c7c8f43afe7640d4482198323e513eeb, type: 3}
   - {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-  _fireArea: {fileID: 1214481618115712216, guid: 4368b3fce25ab65449157a5615985dad, type: 3}
+  - {fileID: 8829218115865705396, guid: dde804828e2899a4f8b059a89d2e4131, type: 3}

@@ -4,10 +4,11 @@ public class SatyrDoctor : Enemy {
     private float _halfHealth;
     private bool _isHealing = false;
 
-    [SerializeField]
-    private float _healing;
+    [Header("Satyr Doctor")]
     [SerializeField]
     private EnemyRange _enemyRange;
+    [SerializeField]
+    private int _percentageOfRecovery;
 
     private new void Start() {
         base.Start();
@@ -42,13 +43,13 @@ public class SatyrDoctor : Enemy {
     }
 
     private void Healing() {
-        print("health");
+        //print("health");
         _isHealing = true;
-        AddHealth(_healing);
+        AddHealth(_percentageOfRecovery);
         PlayHealingEffect();
 
         foreach (var enemy in _enemyRange.Enemies) {
-            enemy.AddHealth(_healing);
+            enemy.AddHealth(_percentageOfRecovery);
             enemy.PlayHealingEffect();
         }
     }

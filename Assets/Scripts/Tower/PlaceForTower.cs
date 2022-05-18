@@ -10,23 +10,41 @@ public class PlaceForTower : MonoBehaviour
     private Color _alpha;
     [SerializeField]
     private BoxCollider2D _boxCollider;
+    [SerializeField]
+    private LineRenderer _lineRenderer;
+
+    private void Start() {
+        _lineRenderer.enabled = false;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         _towerManager = collision.GetComponent<TowerManager>();
+        if (_towerManager != null) {
+            if (_towerManager.TowerButtonPressed == null) {
+                return;
+            }
+
+            _icon.sprite = _towerManager.TowerButtonPressed.Sprite;
+            _icon.color = _alpha;
+            float _radius = _towerManager.TowerButtonPressed.Tower.RangeAttack;
+            _towerManager.TowerButtonPressed.Tower.SetRadiusInLineRanderer(transform, _lineRenderer, _radius);
+            _lineRenderer.enabled = true;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
-        if(_towerManager != null) {
-            if(_towerManager.TowerButtonPressed == null) {
-                return;
-            }
-            _icon.sprite = _towerManager.TowerButtonPressed.Sprite;
-            _icon.color = _alpha;
-        }
+        //if(_towerManager != null) {
+        //    if(_towerManager.TowerButtonPressed == null) {
+        //        return;
+        //    }
+        //    _icon.sprite = _towerManager.TowerButtonPressed.Sprite;
+        //    _icon.color = _alpha;
+        //}
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
         DisableIlluminationIcon();
+        _lineRenderer.enabled = false;
     }
 
     public void DisableIlluminationIcon() {

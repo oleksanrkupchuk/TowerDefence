@@ -142,11 +142,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 2099646473255476814}
-  _immunitySlow: 0
-  _immunityBurning: 0
+  immunitySlow: 0
   _slowSpeed: 0.4
   _durationSlowSpeed: 2
+  immunityBurning: 0
   _durationBurning: 2
+  immunityPoison: 0
+  _durationPoison: 4
 --- !u!95 &2099646473255476813
 Animator:
   serializedVersion: 3
@@ -178,10 +180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704d2bbbd5cfb3b449a9466ca55d85b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 0
-  _speed: 0
-  _defaultSpeed: 0.7
-  _healthMax: 5
+  _cartSpawnInfoData: {fileID: 0}
+  _health: 9
+  _speed: 0.7
   _amountCoinForDeath: 4
   _canvas: {fileID: 7396089091894451858}
   _enemyCartData: {fileID: 11400000, guid: 79d9e9704b428c040a9fbdf48875c0cb, type: 2}
@@ -191,7 +192,7 @@ MonoBehaviour:
   _healingEffect: {fileID: 2861279972466608681}
   _burningEffect: {fileID: 9003768656916355648}
   lastPosition: {x: 0, y: 0, z: 0}
-  _timeIncreaseEnemySpeed: 4
+  _timeIncreaseEnemySpeed: 12
   _additionalSpeed: 0.3
   _enemyRange: {fileID: 485114480459337196}
 --- !u!1001 &1442751513002982494

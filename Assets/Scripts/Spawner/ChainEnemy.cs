@@ -8,16 +8,14 @@ public class ChainEnemy : MonoBehaviour
     private EnemySpawner _enemySpawner;
     private Camera _camera;
     private ChainData _chainData;
-    private SpawnEnemyData _spawnEnemyData;
     private int _amountEnemyInChain = 0;
     public List<Enemy> enemies = new List<Enemy>();
     public List<Enemy> Enemies { get => enemies; }
 
     public List<EnemySpawnRules> rules = new List<EnemySpawnRules>();
 
-    public void Init(ChainData chainData, SpawnEnemyData spawnEnemyData, GameManager gameManager, Camera camera, EnemySpawner enemySpawner) {
+    public void Init(ChainData chainData, GameManager gameManager, Camera camera, EnemySpawner enemySpawner) {
         _chainData = chainData;
-        _spawnEnemyData = spawnEnemyData;
         _gameManager = gameManager;
         _camera = camera;
         _enemySpawner = enemySpawner;
@@ -30,11 +28,11 @@ public class ChainEnemy : MonoBehaviour
             for (int amountEnemy = 0; amountEnemy < _chainData.chainListEnemies[numberListEnemy].amount; amountEnemy++) {
                 EnemySpawnRules _enemySpawnRules = _chainData.chainListEnemies[numberListEnemy];
                 Enemy _enemy = Instantiate(_enemySpawnRules.enemy,
-                    _spawnEnemyData.spawnPoint.position, Quaternion.identity);
+                    _chainData.wayPoints[0].position, Quaternion.identity);
 
                 _enemy.name = _enemy.name + " " + amountEnemy;
                 _enemy.Init(_gameManager, _enemySpawner, _camera);
-                _enemy.SetWayPoints(_spawnEnemyData.wayPoints);
+                _enemy.SetWayPoints(_chainData.wayPoints);
 
                 if (_enemySpawnRules.needUnlockEnemy) {
                     _enemy.gameObject.AddComponent<UnlockEnemy>();

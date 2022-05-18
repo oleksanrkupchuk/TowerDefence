@@ -227,10 +227,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -239,7 +241,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -269,13 +271,14 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -287,7 +290,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -299,7 +302,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -311,7 +314,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -1738,9 +1741,76 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      tileset_autumn_53: -8052608456135817955
+      tileset_autumn_27: 6088789275091238298
+      tileset_autumn_35: -111070461484576823
+      tileset_autumn_47: -4479447438892137458
+      tileset_autumn_49: 7338146208625539568
+      tileset_autumn_21: 2769317287399625680
+      tileset_autumn_8: 1266782884583784644
+      tileset_autumn_39: 1972889271954950305
+      tileset_autumn_3: -422954520386403005
+      tileset_autumn_67: 171636589262637204
+      tileset_autumn_31: -1392086738826372182
+      tileset_autumn_50: 1899798800145622817
+      tileset_autumn_16: 4635734632843868615
+      tileset_autumn_29: 4863420766128258867
+      tileset_autumn_14: 3927164760401814575
+      tileset_autumn_56: 7204815619805379170
+      tileset_autumn_25: 3610264219556725260
+      tileset_autumn_59: -476539748922083213
+      tileset_autumn_57: 4434688523722616715
+      tileset_autumn_68: -6247300779027581730
+      tileset_autumn_43: -5978336535316643191
+      tileset_autumn_48: -4745417044324077174
+      tileset_autumn_63: -602099266828244640
+      tileset_autumn_64: 8415367284633567768
+      tileset_autumn_11: 7272682838699249611
+      tileset_autumn_20: -5814922516328325435
+      tileset_autumn_9: 4106240613349374409
+      tileset_autumn_22: -5491525835635063162
+      tileset_autumn_36: -4993857406473732185
+      tileset_autumn_60: -8525644695311523745
+      tileset_autumn_1: 824540428292808635
+      tileset_autumn_13: -3582341465007077815
+      tileset_autumn_19: -5927331988788811184
+      tileset_autumn_55: 6141301291783528303
+      tileset_autumn_38: 3751505893760281639
+      tileset_autumn_28: 1654577531018540274
+      tileset_autumn_15: 6958646569057998470
+      tileset_autumn_30: -9215852878396555825
+      tileset_autumn_0: -6928917349246601065
+      tileset_autumn_66: 4036881051905820450
+      tileset_autumn_62: -4990245124476382595
+      tileset_autumn_7: 2067663145012727179
+      tileset_autumn_10: 7447575444072532001
+      tileset_autumn_65: -55804007657273868
+      tileset_autumn_34: 294659825531748610
+      tileset_autumn_2: -6269286129470366515
+      tileset_autumn_46: -5588129590611753028
+      tileset_autumn_42: -9183216859037031617
+      tileset_autumn_52: 3258217240107762290
+      tileset_autumn_54: -4451529472184040712
+      tileset_autumn_24: 5552159298320981638
+      tileset_autumn_17: -3824736669408961275
+      tileset_autumn_33: 5014367599285893372
+      tileset_autumn_41: -6202022163348744872
+      tileset_autumn_26: 1504290806392765609
+      tileset_autumn_23: 6613368203444472540
+      tileset_autumn_18: -3992758512619148236
+      tileset_autumn_44: 2837476277110541213
+      tileset_autumn_45: 6311120721275764290
+      tileset_autumn_5: 1922157619736225975
+      tileset_autumn_58: 2036005134619379008
+      tileset_autumn_61: -3798804681797508064
+      tileset_autumn_12: -3020135262227811703
+      tileset_autumn_51: 8765632095686416253
+      tileset_autumn_37: 3596690837649673862
+      tileset_autumn_40: 4271468882240973135
+      tileset_autumn_32: -7330284316861690206
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

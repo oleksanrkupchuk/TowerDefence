@@ -19,8 +19,6 @@ public class SpawnInfo : MonoBehaviour {
     private VerticalLayoutGroup _verticalLayoutGroup;
 
     public bool isAccessSpawnInfo;
-    [HideInInspector]
-    public NewWaveIcon newWaveIcon;
 
     public void Awake() {
         SpawnCartInfo();
@@ -39,8 +37,7 @@ public class SpawnInfo : MonoBehaviour {
         }
     }
 
-    public void EnableCartInfo(List<EnemySpawnRules> rules, NewWaveIcon newWave) {
-        newWaveIcon = newWave;
+    public void EnableCartInfo(List<EnemySpawnRules> rules) {
         DisableCartInfo();
         SetSizeObject(rules.Count);
 

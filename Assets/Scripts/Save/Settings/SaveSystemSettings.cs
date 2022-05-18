@@ -16,12 +16,12 @@ public static class SaveSystemSettings {
     }
 
     public static void SaveSettings(SettingsMenu settingsMenu) {
-        BinaryFormatter formatter = new BinaryFormatter();
-        FileStream stream = new FileStream(_pathFileSettings, FileMode.Create);
+        BinaryFormatter _formatter = new BinaryFormatter();
+        FileStream _stream = new FileStream(_pathFileSettings, FileMode.Create);
 
-        SettingsData settingsData = new SettingsData(settingsMenu);
-        formatter.Serialize(stream, settingsData);
-        stream.Close();
+        SettingsData _settingsData = new SettingsData(settingsMenu);
+        _formatter.Serialize(_stream, _settingsData);
+        _stream.Close();
     }
 
     public static SettingsData LoadSettings() {

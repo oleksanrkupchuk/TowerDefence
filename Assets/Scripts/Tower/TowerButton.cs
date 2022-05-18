@@ -16,7 +16,7 @@ public class TowerButton : MonoBehaviour
         _icon.sprite = _towerSprite;
     }
 
-    public Tower TowerScript {
+    public Tower Tower {
         get {
             return _tower;
         }

@@ -141,11 +141,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 5646311788584089807}
-  _immunitySlow: 0
-  _immunityBurning: 0
+  immunitySlow: 0
   _slowSpeed: 0.4
   _durationSlowSpeed: 2
+  immunityBurning: 0
   _durationBurning: 2
+  immunityPoison: 0
+  _durationPoison: 4
 --- !u!95 &828398317645714691
 Animator:
   serializedVersion: 3
@@ -177,8 +179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e88c5a880b42044a1e4264bf6ec43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 0
-  _speed: 0
+  _health: 6
+  _speed: 0.7
   _cartSpawnInfoData: {fileID: 11400000, guid: 0168662ae497c5f4086606f1bdb59674, type: 2}
   _defaultSpeed: 0.7
   _healthMax: 6

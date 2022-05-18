@@ -11,8 +11,6 @@ public class EventsOfObjects : MonoBehaviour {
     private RockBullet _rockBullet;
     [SerializeField]
     private Enemy[] _enemy;
-    [SerializeField]
-    private FireArea _fireArea;
 
     private void Awake() {
         if (_eventOfObjects == null) {
@@ -29,7 +27,6 @@ public class EventsOfObjects : MonoBehaviour {
         AddEventForTowerAnimation();
         AddEventForBulletAnimation();
         AddEventForEnemyAnimation();
-        AddEventForFireAreaAnimation();
     }
 
     private void AddEventForTowerAnimation() {
@@ -43,18 +40,11 @@ public class EventsOfObjects : MonoBehaviour {
         for (int i = 0; i < _bullet.Length; i++) {
             _bullet[i].AddDestroyEventForDestroyAnimation();
         }
-
-        _rockBullet.AddEventExplosionForDestroyAnimation();
     }
 
     private void AddEventForEnemyAnimation() {
         for (int i = 0; i < _enemy.Length; i++) {
             _enemy[i].AddDestroyEventForDeadAnimation();
         }
-    }
-
-    private void AddEventForFireAreaAnimation() {
-        _fireArea.AddEventDisableColliderForReductionAnimation();
-        _fireArea.AddEventDestroyForReductionAnimation();
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour {
     [SerializeField]
     private int _amountEnemyInWawe;
-    private int _counttWave = 0;
+    private int _countWave = 0;
     private WaveData _currentWave;
     private List<Wave> _waves = new List<Wave>();
 
@@ -22,12 +22,14 @@ public class EnemySpawner : MonoBehaviour {
     private Wave _wave;
     [SerializeField]
     private List<WaveData> _wavesData = new List<WaveData>();
+    [SerializeField]
+    private InformationPanel _informationPanel;
 
     public List<WaveData> WavesData { get => _wavesData; }
 
 
     public int Waves { get => _waves.Count; }
-    public int CountWave { get => _counttWave; }
+    public int CountWave { get => _countWave; }
 
     public bool IsTheLastEnemyInTheLastWave {
         get {
@@ -42,9 +44,9 @@ public class EnemySpawner : MonoBehaviour {
     public bool IsTheLastEnemyInCurrentWave {
         get {
             if (_amountEnemyInWawe == 0) {
-                if (_counttWave + 1 < _wavesData.Count) {
-                    _counttWave++;
-                    _currentWave = _wavesData[_counttWave - 1];
+                if (_countWave + 1 < _wavesData.Count) {
+                    _countWave++;
+                    _currentWave = _wavesData[_countWave - 1];
                     CalculationEnemyInCurrentWave();
                 }
                 return true;
@@ -71,8 +73,8 @@ public class EnemySpawner : MonoBehaviour {
     }
 
     private void CalculationEnemyInCurrentWave() {
-        for (int numberSpawn = 0; numberSpawn < _waves[_counttWave].Spawns.Count; numberSpawn++) {
-            _amountEnemyInWawe += _waves[_counttWave].Spawns[numberSpawn].AmountEnemies;
+        for (int numberSpawn = 0; numberSpawn < _waves[_countWave].Spawns.Count; numberSpawn++) {
+            _amountEnemyInWawe += _waves[_countWave].Spawns[numberSpawn].AmountEnemies;
         }
     }
 
@@ -94,8 +96,8 @@ public class EnemySpawner : MonoBehaviour {
     }
 
     public void EnableWaveEnemy() {
-        _waves[_counttWave].EnableSpawns();
-        _gameManager.SetWaveText(CountWave + 1);
+        _waves[_countWave].EnableSpawns();
+        _gameManager.SetWaveText(CountWave + 1);//_countWave++ for update text
         DisableTimerWave();
     }
 }

@@ -464,10 +464,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -476,7 +478,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -506,13 +508,14 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -524,7 +527,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -536,7 +539,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -548,7 +551,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -565,7 +568,7 @@ TextureImporter:
         x: 0
         y: 224
         width: 32
-        height: 64
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3645,6 +3648,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: tileset_summer_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d79859cf223f3b380800000000000000
+      internalID: -8956547902317688451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -3655,9 +3679,157 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      tileset_summer_122: -8052634374045127273
+      tileset_summer_39: 718308574213787062
+      tileset_summer_107: 6196927775227275699
+      tileset_summer_61: 989951748080124728
+      tileset_summer_129: 5887882417977935966
+      tileset_summer_85: -2966068768530525730
+      tileset_summer_34: 529173607104495507
+      tileset_summer_89: -7281547843997537208
+      tileset_summer_15: 5280848924016424285
+      tileset_summer_17: 3647636032493436193
+      tileset_summer_71: 8350907407343507512
+      tileset_summer_124: 4752599125497005331
+      tileset_summer_42: -3428531658772912157
+      tileset_summer_54: -115553033415149377
+      tileset_summer_51: -3841041959960040478
+      tileset_summer_62: -1371664691558649048
+      tileset_summer_27: 5838283612807567876
+      tileset_summer_102: 205792164499675543
+      tileset_summer_132: 1719858609051162596
+      tileset_summer_86: 1305156683232730010
+      tileset_summer_136: -1134592928000712292
+      tileset_summer_91: -1321701652087542411
+      tileset_summer_30: -596434640032208868
+      tileset_summer_110: 3965122380194104701
+      tileset_summer_16: 1007303213971869555
+      tileset_summer_146: 7237916205216682615
+      tileset_summer_118: -640043929941707090
+      tileset_summer_78: -304405598415086354
+      tileset_summer_133: 437179159473312871
+      tileset_summer_31: -7459749629718768034
+      tileset_summer_13: 2709233367889269389
+      tileset_summer_139: -4247415995722462514
+      tileset_summer_9: 3795260993041293406
+      tileset_summer_121: -4865258992004368213
+      tileset_summer_70: -6654431536569898001
+      tileset_summer_92: 8745187690431045802
+      tileset_summer_120: 4325112574849364313
+      tileset_summer_127: 4231142515882063762
+      tileset_summer_98: 3524510388945422428
+      tileset_summer_117: 9211164725514687385
+      tileset_summer_10: -8956547902317688451
+      tileset_summer_95: -7682410054291103793
+      tileset_summer_93: 3287399030096027189
+      tileset_summer_119: -2528584741220137487
+      tileset_summer_73: -1751118543415205411
+      tileset_summer_5: -7482219737416089656
+      tileset_summer_69: -7120713770755836414
+      tileset_summer_108: 4201548674773889847
+      tileset_summer_49: -1102183846535920987
+      tileset_summer_106: 2193919350354947380
+      tileset_summer_112: 2200485265695832846
+      tileset_summer_21: 4947551456727386803
+      tileset_summer_135: 3376658897134542605
+      tileset_summer_147: -3586560404681400298
+      tileset_summer_126: -8575019273760414145
+      tileset_summer_2: -6089326253323264175
+      tileset_summer_104: -1666787189519642366
+      tileset_summer_123: 5014535898897546695
+      tileset_summer_38: -1473277953419843225
+      tileset_summer_32: 4835587523346929967
+      tileset_summer_55: 8929073365847005007
+      tileset_summer_81: 4780858255297727480
+      tileset_summer_116: 4582673286337974150
+      tileset_summer_131: 4475807341324522534
+      tileset_summer_94: 7827042637528345916
+      tileset_summer_100: -5658088076037704532
+      tileset_summer_44: 7021133809157001075
+      tileset_summer_128: -2148003706749054655
+      tileset_summer_138: 6914319620134933212
+      tileset_summer_59: -2119363856780643924
+      tileset_summer_113: -1744068358203342480
+      tileset_summer_3: -7712764217132254916
+      tileset_summer_11: -4039333605309899801
+      tileset_summer_77: -5477453704069082550
+      tileset_summer_4: -495818710430494703
+      tileset_summer_47: 5775884782491770925
+      tileset_summer_115: -8009613911216278336
+      tileset_summer_64: 4132937271636762735
+      tileset_summer_33: 6909878719879040534
+      tileset_summer_83: -6838728150300406565
+      tileset_summer_90: -2108885356963526400
+      tileset_summer_45: -8674967903388065357
+      tileset_summer_99: 1153726383033874218
+      tileset_summer_1: 4858981657537806564
+      tileset_summer_67: 1057238229991593758
+      tileset_summer_80: 7156453478355806613
+      tileset_summer_97: -2293761840254914815
+      tileset_summer_143: -6075846515752004170
+      tileset_summer_20: -2923165526386803734
+      tileset_summer_137: -8309851130207485660
+      tileset_summer_88: 2890641722712556792
+      tileset_summer_66: 8220974725388776595
+      tileset_summer_105: -5137296651865553629
+      tileset_summer_144: 6153287660057650848
+      tileset_summer_41: -860882902563073048
+      tileset_summer_36: -5405901588948466224
+      tileset_summer_43: -8321833678516149903
+      tileset_summer_50: -3723446312875871601
+      tileset_summer_111: -37928704027075845
+      tileset_summer_141: 6812538900924198508
+      tileset_summer_24: 6686281011079603185
+      tileset_summer_0: -7619523155897739947
+      tileset_summer_29: 1303271143575266389
+      tileset_summer_74: -1910026271812090416
+      tileset_summer_140: -4563559115679899946
+      tileset_summer_125: -2930434177985288387
+      tileset_summer_23: -292631160897041294
+      tileset_summer_79: 7832215928676422399
+      tileset_summer_22: -39380061300915078
+      tileset_summer_48: 789282271940776463
+      tileset_summer_72: -7949851756193007159
+      tileset_summer_7: -5540708591071027982
+      tileset_summer_40: 7788408049993829341
+      tileset_summer_56: 7612948883084599088
+      tileset_summer_109: 6528844579165329669
+      tileset_summer_63: 6512223888463051312
+      tileset_summer_68: 22680055160066551
+      tileset_summer_46: -9104404374783556529
+      tileset_summer_52: 6821427521820674430
+      tileset_summer_82: -345048936496924299
+      tileset_summer_35: 7584557293238471075
+      tileset_summer_130: 1739392840059464396
+      tileset_summer_65: 599385003120980611
+      tileset_summer_103: 2853535797388580361
+      tileset_summer_25: 3392375778956908335
+      tileset_summer_134: -8777472395599863998
+      tileset_summer_14: 3935209653961644797
+      tileset_summer_60: -6869774903707606511
+      tileset_summer_6: 5744602047976588671
+      tileset_summer_19: -1698972984506179730
+      tileset_summer_76: -4929427929266713430
+      tileset_summer_114: 1992535243230924724
+      tileset_summer_58: 5392541703240642971
+      tileset_summer_84: -5421333153227499374
+      tileset_summer_142: -3661310641312980857
+      tileset_summer_37: 1742659879774706892
+      tileset_summer_145: 9181147872968256934
+      tileset_summer_12: 1176491533104099743
+      tileset_summer_57: 8098408897195254750
+      tileset_summer_96: -9115146729545369817
+      tileset_summer_8: -2506071223275477529
+      tileset_summer_18: 6668784176539075523
+      tileset_summer_53: -4033661371276416726
+      tileset_summer_75: 2706283077291681438
+      tileset_summer_26: -3216882214740694817
+      tileset_summer_87: 5798501463346827106
+      tileset_summer_28: 1302699074362397882
+      tileset_summer_101: -1758548558347527574
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2558490597750310324}
   m_Layer: 0
-  m_Name: PullBullet
+  m_Name: PoolBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -480,10 +480,16 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 99
+  m_SortingOrder: 900
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 1, z: 0}
+  - {x: -1, y: 0, z: 1}
+  - {x: 0, y: -1, z: 1}
+  - {x: 1, y: 0, z: 1}
+  - {x: 1, y: 0, z: 1}
+  - {x: 1, y: 0, z: 1}
+  - {x: 1, y: 0, z: 1}
+  - {x: 1, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -492,7 +498,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.05153333
+        value: 0.05
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -552,25 +558,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isShooting: 0
-  _bullets: []
   _poolBullets: []
+  _currentBullet: {fileID: 0}
   _enemyList: []
   _rangeAttack: 3
   _timeShoot: 1.5
-  _timer: 0
   _stepDegree: 10
   _price: 12
   _bulletPosition: {fileID: 4986359563472622328}
   _animator: {fileID: 8154061008290254054}
   _shootAnimation: {fileID: 7400000, guid: df621ba34153c2545a4cf1c10aede92f, type: 2}
   _shootFrameRateInShootAnimation: 15
-  _poolBullet: {fileID: 2558490597750310324}
+  _poolBulletObject: {fileID: 2558490597750310324}
   _rangeCollider: {fileID: 7168467813448346326}
   _bullet: {fileID: 6973668464270465113, guid: 8d71391f25de1d540a15f1e7e9e60056, type: 3}
   _lineRenderer: {fileID: 1787142671323376124}
   target: {fileID: 0}
   _placeForTower: {fileID: 0}
   _towerUpgradeMenu: {fileID: 3455737340584272717}
+  _bulletAbility: {fileID: 1214481618115712216, guid: 4368b3fce25ab65449157a5615985dad, type: 3}
   increaseDamage: 0
 --- !u!95 &8154061008290254054
 Animator:

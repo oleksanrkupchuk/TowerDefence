@@ -1,20 +1,23 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RockBullet : Bullet {
-    private AnimationEvent _explosionEvent = new AnimationEvent();
 
     [Header("Explosion")]
     [SerializeField]
-    private GameObject _explosionObject;
+    private Explosion _explosion;
     [SerializeField]
     private float _radiusExplosionCollider;
     [SerializeField]
     private float _explosionDamage;
     [SerializeField]
     private int _explosionFrameRateInDestroyAnimation;
+    [SerializeField]
+    private Explosion _currentExplosion;
+    [SerializeField]
+    private int chanceExplosion;
 
     public bool isExplosion = false;
-    public int chanceExplosion;
 
     private new void Start() {
         base.Start();
@@ -25,44 +28,44 @@ public class RockBullet : Bullet {
     }
 
     protected override void Rotation() {
-        _nexPosition = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
+        _nextPosition = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
                        _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, _t + 0.7f);
-        Vector2 _moveDirection = _nexPosition - transform.position;
+        Vector2 _moveDirection = _nextPosition - transform.position;
         float _angle = Mathf.Atan2(_moveDirection.y, _moveDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, _angle);
     }
 
-    public void AddEventExplosionForDestroyAnimation() {
-        float _playingAnimationTime = _explosionFrameRateInDestroyAnimation / _destroyClip.frameRate;
-        _explosionEvent.time = _playingAnimationTime;
-        _explosionEvent.functionName = nameof(SetSizeExplosionCollider);
-
-        _destroyClip.AddEvent(_explosionEvent);
+    protected override void SpecialAction() {
+        _isApplySpecialAbility = true;
+        EnableExplosion();
     }
 
-    protected void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.TryGetComponent(out Enemy enemy)) {
-            _tower.RemoveBullet(this);
-            if (_target == enemy) {
-                _target.LastPosition -= SetTargetPosition;
-                _target.TakeDamage(_damage);
-                DisableCircleCollider();
-                SetTargetPositionAndSetTargetNull();
-            }
+    private void EnableExplosion() {
+        if (isExplosion) {
+            GetDisableExplosion();
+            _currentExplosion.transform.position = new Vector3(_targetPosition.x, _targetPosition.y);
+            _currentExplosion.SetParametrsToDefault();
+            SoundManager.Instance.PlaySoundEffect(SoundName.Explosion);
+        }
+    }
 
-            int _chance = Random.Range(0, 100);
-
-            if (isExplosion && _chance <= chanceExplosion) {
-                enemy.TakeDamage(_explosionDamage);
+    private void GetDisableExplosion() {
+        for (int i = 0; i < _bulletAbilities.Count; i++) {
+            if(_bulletAbilities[i].gameObject.activeSelf == false) {
+                _currentExplosion = (Explosion)_bulletAbilities[i];
             }
         }
     }
 
-    private void SetSizeExplosionCollider() {
-        if (isExplosion) {
-            _circleCollider.radius = _radiusExplosionCollider;
-            EnableCircleCollider();
-            SoundManager.Instance.PlaySoundEffect(SoundName.Explosion);
+    protected void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.TryGetComponent(out Enemy enemy)) {
+
+            if (_target == enemy) {
+                //_target.LastPosition -= SetTargetPosition;
+                _target.Debuff.TakeDamage(_damage);
+                DisableCircleCollider();
+                CollisionTarget(enemy);
+            }
         }
     }
 }

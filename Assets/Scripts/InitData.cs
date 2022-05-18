@@ -16,7 +16,7 @@ public class InitData : MonoBehaviour {
         }
 
         if (!AbilitySaveSystem.IsExistsSaveAbilityFile()) {
-            InitAbilityData();
+            CreateAbilityFileAndInitAbilityData();
         }
 
         if (!SaveSystemSettings.IsExistsSaveSoundFile()) {
@@ -46,7 +46,7 @@ public class InitData : MonoBehaviour {
         SaveSystemLevel.SaveLevel(0, _levels);
     }
 
-    private void InitAbilityData() {
+    private void CreateAbilityFileAndInitAbilityData() {
         List<AbilityItem> _abilities = new List<AbilityItem>();
         AbilityItem _abilityItem;
 
@@ -62,6 +62,18 @@ public class InitData : MonoBehaviour {
         SaveSystemSettings.SaveSoundData(100f);
         //SaveSoundData _data = SaveSystemSettings.LoadSound();
         //print("volume = " + _data.volume);
+    }
+
+    private void CreateSettingsFileAndInitSettingsData() {
+        if (!SaveSystemSettings.IsExistsSaveSettingsFile()) {
+            SettingsData _settingsData = new SettingsData();
+            _settingsData.soundVolume = 100f;
+            _settingsData.indexResolution = 0;
+            _settingsData.fullScreenToggle = true;
+
+            //SaveSystemSettings.SaveSettings(_settingsData);
+        }
+
     }
 
     private void CreateCartEnemies() {

@@ -82,11 +82,11 @@ public class TowerManager : MonoBehaviour {
 
         //null коли не вибираєш башню і тицяєш на місце для башні
         _collider.enabled = false;
-        int price = _towerButtonPressed.TowerScript.Price;
+        int price = _towerButtonPressed.Tower.Price;
         _gameManager.SubstractCoin(price);
         placeForTower.DisableIlluminationIcon();
 
-        Tower tower = Instantiate(_towerButtonPressed.TowerScript, placeForTower.transform.position, Quaternion.identity);
+        Tower tower = Instantiate(_towerButtonPressed.Tower, placeForTower.transform.position, Quaternion.identity);
         tower.Init(this, _gameManager);
         tower.name = tower.name + " " + _countTower;
         _countTower++;

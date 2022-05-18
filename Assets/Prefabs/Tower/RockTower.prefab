@@ -155,7 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4508324762723707657}
   m_Layer: 0
-  m_Name: PullBullet
+  m_Name: PoolBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -367,7 +367,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 99
+  m_SortingOrder: 900
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -439,25 +439,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isShooting: 0
-  _bullets: []
   _poolBullets: []
+  _currentBullet: {fileID: 0}
   _enemyList: []
   _rangeAttack: 2.7
   _timeShoot: 2
-  _timer: 0
   _stepDegree: 10
   _price: 21
   _bulletPosition: {fileID: 3573270289235324146}
   _animator: {fileID: 4749409143156034352}
   _shootAnimation: {fileID: 7400000, guid: d4aabb1a665af614ab1274a1883ed5a4, type: 2}
   _shootFrameRateInShootAnimation: 15
-  _poolBullet: {fileID: 4508324762723707657}
+  _poolBulletObject: {fileID: 4508324762723707657}
   _rangeCollider: {fileID: 611613967024040103}
   _bullet: {fileID: 1933788421987285462, guid: e32a2b3586e66ac40998ab5703b4b2c6, type: 3}
   _lineRenderer: {fileID: 6905664480513818955}
   target: {fileID: 0}
   _placeForTower: {fileID: 0}
   _towerUpgradeMenu: {fileID: 3042399990200939299}
+  _bulletAbility: {fileID: 8667138823914026948, guid: 127fedf009bed48479e53433a5d6918c, type: 3}
   increaseDamage: 0
 --- !u!95 &4749409143156034352
 Animator:

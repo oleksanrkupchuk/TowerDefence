@@ -6,16 +6,16 @@ public abstract class Tower : MonoBehaviour {
     [SerializeField]
     protected bool _isShooting = false;
     protected int countBullet = 0;
-    protected int _damage;
+    protected int _bulletDamage;
     protected TowerManager _towerManager;
     protected GameManager _gameManager;
     protected Transform _targetPosition;
     [SerializeField]
-    protected List<Bullet> _bullets = new List<Bullet>();
-    [SerializeField]
     protected List<Bullet> _poolBullets = new List<Bullet>();
     [SerializeField]
     protected Bullet _currentBullet;
+    protected List<BulletAbility> _bulletsAbility = new List<BulletAbility>();
+    protected float _timer = 0;
 
     [SerializeField]
     protected List<Enemy> _enemyList = new List<Enemy>();
@@ -26,14 +26,12 @@ public abstract class Tower : MonoBehaviour {
     [SerializeField]
     protected float _timeShoot;
     [SerializeField]
-    protected float _timer;
-    [SerializeField]
     protected int _stepDegree;
     [SerializeField]
     protected int _price;
 
-
-    public Transform _bulletPosition;
+    [SerializeField]
+    private Transform _bulletPosition;
     [SerializeField]
     protected Animator _animator;
     [SerializeField]
@@ -41,7 +39,7 @@ public abstract class Tower : MonoBehaviour {
     [SerializeField]
     protected int _shootFrameRateInShootAnimation;
     [SerializeField]
-    private Transform _poolBullet;
+    private Transform _poolBulletObject;
 
     [Header("Components visible")]
     [SerializeField]
@@ -61,40 +59,55 @@ public abstract class Tower : MonoBehaviour {
     [SerializeField]
     protected TowerUpgradeMenu _towerUpgradeMenu;
 
+    [SerializeField]
+    private BulletAbility _bulletAbility;
+
     public int increaseDamage;
 
     public int Price { get => _price; }
-    public Enemy Target { get => target; }
     public float RangeAttack { get => _rangeAttack; }
+    public Enemy Target { get => target; }
     public List<Enemy> EnemyList { get => _enemyList; }
-    public int Damage { get => _damage; }
     public PlaceForTower PlaceForTower { get => _placeForTower; }
+    public Transform BulletPosition { get => _bulletPosition; }
+    public List<BulletAbility> BulletsAbility { get => _bulletsAbility; }
 
     public void Init(TowerManager towerManager, GameManager gameManager) {
         _towerManager = towerManager;
         _gameManager = gameManager;
         _towerUpgradeMenu.Initialization(_gameManager, this);
 
+        CreateBulletAbility();
         CreatePoolBulet();
+    }
+
+    private void CreateBulletAbility() {
+        for (int i = 0; i < 5; i++) {
+            BulletAbility _bulletAbilityObject = Instantiate(_bulletAbility);
+            _bulletAbilityObject.transform.SetParent(_bulletPosition);
+            _bulletAbilityObject.gameObject.SetActive(false);
+            _bulletsAbility.Add(_bulletAbilityObject);
+        }
     }
 
     private void CreatePoolBulet() {
         for (int i = 0; i < 5; i++) {
             Bullet _bulletObject = Instantiate(_bullet, _bulletPosition.position, _bullet.transform.rotation);
             _bulletObject.Init(this);
-            _bulletObject.CreatePointsForBeizerTrajectory(_poolBullet);
+            _bulletObject.CreatePointsForBeizerTrajectory(_poolBulletObject);
             _bulletObject.gameObject.SetActive(false);
-            _bulletObject.transform.SetParent(_poolBullet);
+            _bulletObject.transform.SetParent(_poolBulletObject);
             _poolBullets.Add(_bulletObject);
         }
     }
 
     protected void Start() {
+        Enemy.Dead += TargetDead;
         DisableLineRenderer();
         SetRangeRadius();
         _towerManager.towersList.Add(this);
 
-        _damage = _bullet.Damage;
+        _bulletDamage = _bullet.Damage;
     }
 
     public void ReducePrice(int percent) {
@@ -107,14 +120,14 @@ public abstract class Tower : MonoBehaviour {
     protected void SetRangeRadius() {
         _rangeCollider.radius = _rangeAttack;
 
-        SetRadiusInLineRanderer(_rangeAttack);
+        SetRadiusInLineRanderer(transform, _lineRenderer, _rangeAttack);
     }
 
 
-    protected void SetRadiusInLineRanderer(float radius) {
+    public void SetRadiusInLineRanderer(Transform transform, LineRenderer lineRenderer, float radius) {
         int _countStep = 360 / _stepDegree;
 
-        _lineRenderer.positionCount = _countStep;
+        lineRenderer.positionCount = _countStep;
 
         float _dotX;
         float _dotY;
@@ -127,16 +140,14 @@ public abstract class Tower : MonoBehaviour {
 
             float _degreeInRadians = _degree * Mathf.PI / 180;
             _dotX = transform.position.x + radius * Mathf.Cos(_degreeInRadians);
-            //Debug.Log($"dot x {i} = " + _dotX);
             _dotY = transform.position.y + radius * Mathf.Sin(_degreeInRadians);
-            //Debug.Log($"dot y {i} = " + _dotY);
 
             _positionPoints[i] = new Vector3(_dotX, _dotY, -7);
 
             _degree += _stepDegree;
         }
 
-        _lineRenderer.SetPositions(_positionPoints);
+        lineRenderer.SetPositions(_positionPoints);
     }
 
     protected void Update() {
@@ -145,7 +156,7 @@ public abstract class Tower : MonoBehaviour {
         }
 
         if (_timer <= 0f) {
-            if (target != null) { 
+            if (target != null) {
                 _isShooting = false;
                 _timer = _timeShoot;
                 PlayShootAnimation();
@@ -170,23 +181,21 @@ public abstract class Tower : MonoBehaviour {
         PlayShootSound();
         GetCurrentBullet();
 
-        //_currentBullet.transform.position = _bulletPosition.position;
-        _currentBullet.SetDamage(_damage);
+        _currentBullet.SetDamage(_bulletDamage);
 
         if (target == null) {
-            _currentBullet.SetParametrs(_targetPosition);
+            _currentBullet.SetDefaulPositionBulletAndTargetPosition(_targetPosition);
             _currentBullet.SetDistanceAndRange(_rangeAttack);
         }
         else {
-            _currentBullet.SetParametrs();
+            _currentBullet.SetDefaulPositionBulletAndTarget();
             _currentBullet.SetDistanceAndRange(_rangeAttack);
         }
-        _bullets.Add(_currentBullet);
     }
 
     protected void GetCurrentBullet() {
         for (int i = 0; i < _poolBullets.Count; i++) {
-            if(_poolBullets[i].gameObject.activeSelf == false) {
+            if (_poolBullets[i].gameObject.activeSelf == false) {
                 _currentBullet = _poolBullets[i];
                 _currentBullet.gameObject.SetActive(true);
                 return;
@@ -204,12 +213,12 @@ public abstract class Tower : MonoBehaviour {
 
     public void IncreaseDamage() {
         increaseDamage = DamageCalculation();
-        _damage += increaseDamage;
+        _bulletDamage += increaseDamage;
     }
 
     protected int DamageCalculation() {
         int damage = 0;
-        damage += _damage / 2;
+        damage += _bulletDamage / 2;
         if (damage < 1) {
             damage = 1;
         }
@@ -238,10 +247,9 @@ public abstract class Tower : MonoBehaviour {
         return false;
     }
 
-    public void SetTarget() {
+    public void SetNewTarget() {
         if (_enemyList.Count > 0) {
             SetNearestEnemy();
-            //target = _enemyList[0];
         }
         else {
             target = null;
@@ -267,6 +275,14 @@ public abstract class Tower : MonoBehaviour {
         _towerUpgradeMenu.gameObject.SetActive(false);
     }
 
+    public void TargetDead(Enemy enemy) {
+        if (enemy == target) {
+            SetTargetPosition(enemy.transform);
+            RemoveTarget(enemy);
+            SetNewTarget();
+        }
+    }
+
     public void RemoveTarget(Enemy enemy) {
         _enemyList.Remove(enemy);
     }
@@ -279,12 +295,8 @@ public abstract class Tower : MonoBehaviour {
         return false;
     }
 
-    public void SetTargetPosition(Transform targetPosition) {
-        _targetPosition = targetPosition;
-    }
-
-    public Transform GetTargetPosition() {
-        return _targetPosition;
+    public void SetTargetPosition(Transform position) {
+        _targetPosition = position;
     }
 
     public void SetPlaceForTower(PlaceForTower placeForTower) {
@@ -299,13 +311,15 @@ public abstract class Tower : MonoBehaviour {
         Destroy(gameObject, timeDestroy);
     }
 
-    public void RemoveBulletsAndSetTargetNull() {
-        foreach (Bullet bullet in _bullets) {
-            //bullet.SetNullTarget();
+    public void EnemyOutRange(Enemy enemy) {
+        foreach (Bullet bullet in _poolBullets) {
+            if(bullet.gameObject.activeSelf == true) {
+                bullet.EnemyOutRangeTower(enemy);
+            }
         }
     }
 
-    public void RemoveBullet(Bullet bullet) {
-        _bullets.Remove(bullet);
+    protected void OnDestroy() {
+        Enemy.Dead -= TargetDead;
     }
 }

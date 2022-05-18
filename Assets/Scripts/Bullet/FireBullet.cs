@@ -1,19 +1,20 @@
 using UnityEngine;
 
 public class FireBullet : Bullet {
-    private bool _isEndWay = false;
 
+    [Header("Fire Bullet")]
     [SerializeField]
     private FireArea _fireArea;
+    [SerializeField]
+    private FireArea _currentFireArea;
+    [SerializeField]
+    private int chanceFireArea;
 
-    [HideInInspector]
-    public int chanceFireArea;
     public bool burning;
     public bool fireArea;
 
     private new void OnEnable() {
         base.OnEnable();
-        _timeWay = 0;
     }
 
     private new void Start() {
@@ -24,25 +25,41 @@ public class FireBullet : Bullet {
         base.Update();
     }
 
-    //protected override void CheckTAndDestroyBullet() {
-    //    if (!_isEndWay) {
-    //        if (_t >= 1) {
-    //            _isEndWay = true;
-    //            CheckBuyFireAreaAbilityAndBurnEnemy();
-    //            PlayAnimationDestroy();
-    //        }
-    //    }
-    //}
+    protected override void SpecialAction() {
+        _isApplySpecialAbility = true;
+        CheckBuyFireAreaAbilityAndBurnEnemy();
+    }
+
+    private void CheckBuyFireAreaAbilityAndBurnEnemy() {
+        if (!fireArea) {
+            return;
+        }
+
+        int _chance = Random.Range(0, 100);
+        if (_chance <= chanceFireArea) {
+            GetFireArea();
+            _currentFireArea.transform.position = new Vector2(_targetPosition.x, _targetPosition.y);
+            _currentFireArea.SetDefaultParam();
+        }
+    }
+
+    private void GetFireArea() {
+        for (int i = 0; i < _bulletAbilities.Count; i++) {
+            if(_bulletAbilities[i].gameObject.activeSelf == false) {
+                _currentFireArea = (FireArea)_bulletAbilities[i];
+                return;
+            }
+        }
+    }
 
     protected void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.TryGetComponent(out Enemy enemy)) {
             if (enemy == _target) {
-                _tower.RemoveBullet(this);
-                _target.LastPosition -= SetTargetPosition;
-                _target.TakeDamage(_damage);
-                CheckBuyBurningAbilityAndBurnEnemy(_target);
+                CollisionTarget(enemy);
+                //enemy.LastPosition -= SetTargetPosition;
+                enemy.Debuff.TakeDamage(_damage);
+                CheckBuyBurningAbilityAndBurnEnemy(enemy);
                 //_circleCollider.enabled = false;
-                SetTargetPositionAndSetTargetNull();
             }
         }
     }
@@ -50,15 +67,6 @@ public class FireBullet : Bullet {
     private void CheckBuyBurningAbilityAndBurnEnemy(Enemy _enemy) {
         if (burning) {
             _enemy.Debuff.StartBurning();
-        }
-    }
-
-    private void CheckBuyFireAreaAbilityAndBurnEnemy() {
-        if (fireArea) {
-            int _chance = Random.Range(0, 100);
-            if (_chance <= chanceFireArea) {
-                Instantiate(_fireArea.gameObject, _targetPosition, Quaternion.identity);
-            }
         }
     }
 }

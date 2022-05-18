@@ -27,7 +27,7 @@ public class WinMenu : BaseMenu {
     void Start() {
         _currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
         _indexNextLevel = _currentLevelIndex + 1;
-        print("index level = " + (_indexNextLevel - 1));
+        //print("index level = " + (_indexNextLevel - 1));
         LoadLevels();
         SubscriptionButtons();
     }

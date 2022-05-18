@@ -31,8 +31,6 @@ public class GameManager : MonoBehaviour {
     private int _leftThePercentageOfHealthToReceiveThreeStar;
     public int Coin { get => _coin; }
 
-    public static event Action IsSpawnNewWave;
-
     private int LeftPercentageOfHealth {
         get {
             return (_currentHealth * 100) / _health;
@@ -52,6 +50,7 @@ public class GameManager : MonoBehaviour {
     private void Start() {
         _currentHealth = _health;
         _informationPanel.SetValueOnCointText(_coin.ToString());
+        //StartCoroutine(_informationPanel.InitStringEvent());
         SetWaveText(_enemySpawner.CountWave);
         SetValueForTimer(_time);
         _informationPanel.SetHealthText(_health);
@@ -93,7 +92,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void SetWaveText(int countWave) {
-        _informationPanel.SetValueInCountWaweText("WAVE: " + countWave + " / " + _enemySpawner.Waves);
+        _informationPanel.SetValueInCountWaweText(countWave + " / " + _enemySpawner.Waves);//countWave + " / " + _enemySpawner.Waves
     }
 
     public void SetValueForTimer(float time) {
@@ -127,7 +126,6 @@ public class GameManager : MonoBehaviour {
 
         else if (_enemySpawner.IsTheLastEnemyInCurrentWave) {
             _enemySpawner.EnableTimerWave();
-            IsSpawnNewWave();
         }
     }
 

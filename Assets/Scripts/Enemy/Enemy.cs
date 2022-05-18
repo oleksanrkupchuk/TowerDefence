@@ -12,6 +12,9 @@ public abstract class Enemy : MonoBehaviour {
     protected string _speedAnimatiorParametr = "speedStateWalking";
     protected bool _isIncreaseSpeed = false;
     protected float _durationIncreaseSpeed = 3.5f;
+    protected Vector2 _previousPosition;
+    protected Vector2 _startPosition;
+    protected float _timeForCalculationPreviousPosition;
 
     protected SpriteRenderer _spriteRenderer;
     protected Rigidbody2D _rigidbody;
@@ -23,23 +26,22 @@ public abstract class Enemy : MonoBehaviour {
     protected Transform _nextWayPoint;
     protected Camera _camera;
     protected int _indexPosition;
+    [SerializeField]
     protected Tower _tower;
     protected string _isDead = "isDying";
-    [SerializeField]
-    protected float _health;
-    [SerializeField]
-    protected float _speed;
     protected List<Transform> _currentWay = new List<Transform>();
     protected AnimationEvent _enemyEventDead = new AnimationEvent();
+    protected float _defaultSpeed;
+    protected float _healthMax;
 
     [SerializeField]
     private CartSpawnInfoData _cartSpawnInfoData;
 
     [Header("Parametrs")]
     [SerializeField]
-    protected float _defaultSpeed;
+    protected float _health;
     [SerializeField]
-    protected float _healthMax;
+    protected float _speed;
     [SerializeField]
     protected int _amountCoinForDeath;
 
@@ -73,11 +75,12 @@ public abstract class Enemy : MonoBehaviour {
     public float Health { get => _health; }
     public float Speed { get => _defaultSpeed; }
     public bool IsDead { get => _health <= 0; }
-    public event Action LastPosition;
     public Animator Animator { get => _animator; }
     public EnemyDebuff Debuff { get => _debuff; }
     public EnemyCartData EnemyCartData { get => _enemyCartData; }
     public CartSpawnInfoData CartSpawnInfoData { get => _cartSpawnInfoData; }
+
+    public static event Action<Enemy> Dead;
 
     public void Init(GameManager gameManager, EnemySpawner enemySpawner, Camera camera) {
         _gameManager = gameManager;
@@ -108,6 +111,7 @@ public abstract class Enemy : MonoBehaviour {
         SetHealthToDefault();
         SetSpeedToDefault();
         StopBurningEffect();
+        _startPosition = transform.position;
 
         if (_collider == null) {
             Debug.LogError("component is null");
@@ -115,11 +119,11 @@ public abstract class Enemy : MonoBehaviour {
     }
 
     public void SetHealthToDefault() {
-        _health = _healthMax;
+        _healthMax = _health;
     }
 
     public void SetSpeedToDefault() {
-        _speed = _defaultSpeed;
+        _defaultSpeed = _speed;
     }
 
     public void AddDestroyEventForDeadAnimation() {
@@ -136,12 +140,14 @@ public abstract class Enemy : MonoBehaviour {
             if (_currentWay != null) {
                 SetNextPosition();
                 Move();
+                SetLayer();
             }
         }
     }
 
     protected void SetNextPosition() {
         if (Vector2.Distance(transform.position, _nextWayPoint.position) <= 0.2f) {
+
             _indexPosition++;
             if (_indexPosition < _currentWay.Count) {
                 _nextWayPoint = _currentWay[_indexPosition];
@@ -153,6 +159,23 @@ public abstract class Enemy : MonoBehaviour {
 
     protected void Move() {
         transform.position = Vector2.MoveTowards(transform.position, _nextWayPoint.position, _speed * Time.deltaTime);
+    }
+
+    protected void SetLayer() {
+        float _different = transform.position.y - _startPosition.y;
+        //print("different = " + _different);
+
+        if (_different >= 0.1) {
+            _spriteRenderer.sortingOrder -= 1;
+            _startPosition = transform.position;
+        }
+
+        else if (_different < -0.1) {
+            _spriteRenderer.sortingOrder += 1;
+            _startPosition = transform.position;
+        }
+
+        //print("Layer enemy = " + _spriteRenderer.sortingOrder);
     }
 
     protected void CheckFlipSprite() {
@@ -190,15 +213,13 @@ public abstract class Enemy : MonoBehaviour {
     }
 
     protected void DeathFromBullet() {
-        LastPosition?.Invoke();
-        _tower.SetTargetPosition(transform);
-        _tower.RemoveTarget(this);
-        _tower.SetTarget();
-        _gameManager.AddCoin(_amountCoinForDeath);
+        Dead?.Invoke(this);
+        _collider.enabled = false;
         _enemySpawner.RemoveEnemyInCurrentWave();
         DisableHealthBar();
-        _gameManager.CheckLastEnemyAndEnableWinMenuOrSpawnNewEnemyWave();
         PlayDeadAnimation();
+        _gameManager.AddCoin(_amountCoinForDeath);
+        _gameManager.CheckLastEnemyAndEnableWinMenuOrSpawnNewEnemyWave();
     }
 
     protected void DisableHealthBar() {
@@ -217,7 +238,7 @@ public abstract class Enemy : MonoBehaviour {
     }
 
     protected void DisableEnemyAfterTime() {
-        Invoke(nameof(DisableEnemy), 0.5f);
+        Invoke(nameof(DisableEnemy), 0.2f);
     }
 
     protected void DisableEnemy() {
@@ -239,7 +260,8 @@ public abstract class Enemy : MonoBehaviour {
     }
 
     public void AddHealth(float value) {
-        _health += value;
+        int _recoveryHealth = (int)((value * _health) / 100);
+        _health += _recoveryHealth;
         if (_health > _healthMax) {
             _health = _healthMax;
         }

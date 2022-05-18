@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Components;
 
 public class InformationPanel : MonoBehaviour {
     [SerializeField]
@@ -35,6 +37,11 @@ public class InformationPanel : MonoBehaviour {
     [SerializeField]
     private TowerManager _towerManager;
 
+    [SerializeField]
+    private LocalizeStringEvent _localizedStringEvent;
+    [SerializeField]
+    private EnemySpawner _enemySpawner;
+
     private void OnEnable() {
         DisableTimeSpeedText();
         DisableBackground();
@@ -59,7 +66,7 @@ public class InformationPanel : MonoBehaviour {
     }
 
     private void SetValueOnPriceTextTower(TextMeshProUGUI priceText, TowerButton towerButton) {
-        priceText.text = "" + towerButton.TowerScript.Price;
+        priceText.text = "" + towerButton.Tower.Price;
     }
 
     private void SubscriptionTowerButtons(TowerButton towerButton) {
@@ -96,8 +103,16 @@ public class InformationPanel : MonoBehaviour {
         _coin.textComponent.text = value;
     }
 
+    public IEnumerator InitStringEvent() {
+        _localizedStringEvent.StringReference.Arguments = new[] { _enemySpawner };
+        yield return LocalizationSettings.InitializationOperation;
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
+        print("language = " + LocalizationSettings.AvailableLocales.Locales[0].name);
+    }
+
     public void SetValueInCountWaweText(string value) {
-        _countWawe.textComponent.text = value;
+        //print("var = " + _localizedStringEvent.StringReference.GetLocalizedString());
+        //_localizedStringEvent.RefreshString();
     }
 
     private void SetDeafaultTimeSpeed() {

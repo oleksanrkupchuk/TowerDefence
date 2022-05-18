@@ -20,6 +20,27 @@ TextureImporter:
   - first:
       213: 9076342535034434301
     second: head_enemies_icon_5
+  - first:
+      213: 1218984880025622687
+    second: head_enemies_icon_6
+  - first:
+      213: -2284859523631235079
+    second: head_enemies_icon_7
+  - first:
+      213: 6584196547444156131
+    second: head_enemies_icon_8
+  - first:
+      213: -1478480558385303388
+    second: head_enemies_icon_9
+  - first:
+      213: -8498762597458894836
+    second: head_enemies_icon_10
+  - first:
+      213: 6982697808867382623
+    second: golem_lava_head
+  - first:
+      213: 8727788839753868730
+    second: golem_berserk_head
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -38,10 +59,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -80,6 +103,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -179,7 +203,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 912
-        y: 1166
+        y: 1167
         width: 320
         height: 320
       alignment: 0
@@ -258,6 +282,153 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: head_enemies_icon_6
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 803
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f98df783a44bae010800000000000000
+      internalID: 1218984880025622687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: head_enemies_icon_7
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 810
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ffba447e5c8a40e0800000000000000
+      internalID: -2284859523631235079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: head_enemies_icon_8
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 807
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e623c510e3cf5b50800000000000000
+      internalID: 6584196547444156131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: head_enemies_icon_9
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 67
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a07f16f3c16b7be0800000000000000
+      internalID: -1478480558385303388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: head_enemies_icon_10
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 71
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c00261c22745e0a80800000000000000
+      internalID: -8498762597458894836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_lava_head
+      rect:
+        serializedVersion: 2
+        x: 2026
+        y: 785
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f55507749a687e060800000000000000
+      internalID: 6982697808867382623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_berserk_head
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 85
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab5e52c35b55f1970800000000000000
+      internalID: 8727788839753868730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -268,9 +439,22 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      minotaur_brown_head: 3535357356142937186
+      head_enemies_icon_5: 9076342535034434301
+      satyr_runner_head: -1055227398290639081
+      head_enemies_icon_9: -1478480558385303388
+      head_enemies_icon_7: -2284859523631235079
+      golem_berserk_head: 8727788839753868730
+      satyr_doctor_head: -2586773509729375468
+      head_enemies_icon_10: -8498762597458894836
+      minotaur_grey_head: 3152881202367322003
+      minotaur_green_head: 1301005720723886518
+      head_enemies_icon_8: 6584196547444156131
+      golem_lava_head: 6982697808867382623
+      head_enemies_icon_6: 1218984880025622687
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

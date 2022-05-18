@@ -72,12 +72,10 @@ public class ApplyingAbility : MonoBehaviour {
                 break;
 
             case AbilityType.FireArea:
-                _fireBullet.chanceFireArea = _ability.ChanceFireArea;
                 _fireBullet.fireArea = true;
                 break;
 
             case AbilityType.Explosion:
-                _rockBullet.chanceExplosion = _ability.ChanceExplosion;
                 _rockBullet.isExplosion = true;
                 break;
 

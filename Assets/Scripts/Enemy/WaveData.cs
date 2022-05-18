@@ -9,20 +9,19 @@ public class WaveData {
 
 [Serializable]
 public class SpawnEnemyData {
-    public Transform spawnPoint;
     public NewWaveIcon newWave;
-    public List<Transform> wayPoints = new List<Transform>();
     public List<ChainData> chainsData = new List<ChainData>();
 }
 
 [Serializable]
 public class ChainData {
+    public List<Transform> wayPoints = new List<Transform>();
     public List<EnemySpawnRules> chainListEnemies = new List<EnemySpawnRules>();
 }
 
 [Serializable]
 public class EnemySpawnRules {
-    [Range(1, 20)]
+    [Range(0, 20)]
     public int amount;
     public float _waitTimeForNexEnemies;
     public Enemy enemy;

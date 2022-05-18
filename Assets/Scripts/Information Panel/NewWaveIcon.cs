@@ -30,9 +30,7 @@ public class NewWaveIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
 
     private void EnableCartInfo() {
-        if (_spawnInfo.newWaveIcon != this) {
-            _spawnInfo.EnableCartInfo(_currentRules, this);
-        }
+        _spawnInfo.EnableCartInfo(_currentRules);
     }
 
     public void OnPointerExit(PointerEventData eventData) {

@@ -18,23 +18,22 @@ public class TowerRange : MonoBehaviour {
             _enemy.SetTower(_tower);
 
             if (_tower.IsTargetNull()) {
-                _tower.SetTarget();
+                _tower.SetNewTarget();
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision.gameObject.TryGetComponent(out Enemy enemy)) {
-            if (_tower.Target == enemy) {
-                //_tower.GetTarget().GetLastPosition();
-                _tower.SetTargetPosition(enemy.transform);
-                //_tower.Target.GetLastPosition();
-                _tower.RemoveBulletsAndSetTargetNull();
-                print(_tower.gameObject.name + " enemy go went " + enemy.gameObject.name);
-            }
-            //enemy.GetLastPosition();
             _tower.RemoveTarget(enemy);
-            _tower.SetTarget();
+
+            if (_tower.Target == enemy) {
+                _tower.SetTargetPosition(enemy.transform);
+                //print(_tower.gameObject.name + " enemy go went " + enemy.gameObject.name);
+                _tower.SetNewTarget();
+            }
+
+            _tower.EnemyOutRange(enemy);
         }
     }
 }

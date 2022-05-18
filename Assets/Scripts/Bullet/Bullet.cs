@@ -2,13 +2,16 @@
 using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour {
+    protected bool _isApplySpecialAbility;
     protected Tower _tower;
+
     [SerializeField]
-    protected Enemy _target;
+    public Enemy _target;
+    public Vector2 _targetPosition;
+
     protected float _axiYTower;
-    protected Vector3 _nexPosition;
+    protected Vector3 _nextPosition;
     protected bool _isBeizerPointNotNull = true;
-    protected Vector2 _targetPosition;
     protected float _t;
     protected float _timeWay = 0f;
     protected AnimationEvent _destroyEvent = new AnimationEvent();
@@ -33,51 +36,65 @@ public abstract class Bullet : MonoBehaviour {
     protected float _axisYP1;
     [SerializeField]
     protected CircleCollider2D _circleCollider;
+    [SerializeField]
+    protected List<BulletAbility> _bulletAbilities = new List<BulletAbility>();
 
     public int Damage { get => _damage; }
 
     public void Init(Tower tower) {
         _tower = tower;
+        _bulletAbilities = _tower.BulletsAbility;
     }
 
-    public void SetParametrs() {
-        transform.position = _tower._bulletPosition.position;
-        _axiYTower = _tower.transform.position.y;
+    public void SetDefaulPositionBulletAndTarget() {
+        SetStartPositionBullet();
+
         _target = _tower.Target;
-        _target.LastPosition += SetTargetPosition;
     }
 
-    public void SetParametrs(Transform targetPosition) {
-        transform.position = _tower._bulletPosition.position;
+    public void SetDefaulPositionBulletAndTargetPosition(Transform position) {
+        SetStartPositionBullet();
+
+        _targetPosition = position.position;
+    }
+
+    private void SetStartPositionBullet() {
+        transform.position = _tower.BulletPosition.position;
         _axiYTower = _tower.transform.position.y;
-        _targetPosition = targetPosition.position;
     }
 
     protected void OnEnable() {
         _t = 0;
         _timeWay = 0;
+        _isApplySpecialAbility = false;
     }
 
-    protected void SetTargetPosition() {
-        //_circleCollider.enabled = false;
-
-        _targetPosition = _target.transform.position;
-        _target.LastPosition -= SetTargetPosition;
-        _target = null;
-    }
-
-    public void SetNullTarget() {
+    public void CollisionTarget(Enemy enemy) {
         if (_target != null) {
-            _target.LastPosition -= SetTargetPosition;
+            SetTartgetNullAndLastPosition(enemy);
         }
-        _circleCollider.enabled = false;
+    }
 
-        _targetPosition = _tower.GetTargetPosition().position;
-        //_targetPosition = _target.transform.position;
+    protected void EnemyDead(Enemy enemy) {
+        //_circleCollider.enabled = false;
+        if (_target == enemy) {
+            SetTartgetNullAndLastPosition(enemy);
+        }
+    }
+
+    public void EnemyOutRangeTower(Enemy enemy) {
+        if (_target == enemy) {
+            SetTartgetNullAndLastPosition(enemy);
+        }
+    }
+
+    protected void SetTartgetNullAndLastPosition(Enemy enemy) {
+        _targetPosition = enemy.transform.position;
         _target = null;
     }
 
     protected void Start() {
+        Enemy.Dead += EnemyDead;
         DisableCollider();
 
         SetP0();
@@ -123,8 +140,6 @@ public abstract class Bullet : MonoBehaviour {
         Move();
         Rotation();
         CheckTAndDestroyBullet();
-        if (_isBeizerPointNotNull) {
-        }
     }
 
     protected void SetP2() {
@@ -160,17 +175,27 @@ public abstract class Bullet : MonoBehaviour {
     }
 
     protected virtual void Rotation() {
-        _nexPosition = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
+        _nextPosition = Bezier.GetTrajectoryForBullet(_bezierPoints[0].transform.position,
                        _bezierPoints[1].transform.position, _bezierPoints[2].transform.position, _t + 0.1f);
-        Vector2 _moveDirection = _nexPosition - transform.position;
+        Vector2 _moveDirection = _nextPosition - transform.position;
         float _angle = Mathf.Atan2(_moveDirection.y, _moveDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, _angle);
     }
 
-    protected virtual void CheckTAndDestroyBullet() {
-        if (_t >= 1) {
-            PlayAnimationDestroy();
+    protected void CheckTAndDestroyBullet() {
+        if (_t < 1) {
+            return;
         }
+
+        if (!_isApplySpecialAbility) {
+            SpecialAction();
+        }
+
+        PlayAnimationDestroy();
+    }
+
+    protected virtual void SpecialAction() {
+        _isApplySpecialAbility = true;
     }
 
     public void SetDamage(int value) {
@@ -181,25 +206,8 @@ public abstract class Bullet : MonoBehaviour {
         _damage = _damageBasic;
     }
 
-    public void SetBezierPointsNull() {
-        _isBeizerPointNotNull = false;
-    }
-
     protected void PlayAnimationDestroy() {
         _animator.SetTrigger("destroy");
-    }
-
-    protected void SetTargetPositionAndSetTargetNull() {
-        _targetPosition = _target.transform.position;
-        _target = null;
-    }
-
-    protected virtual void DestroyBulletAfterTime() {
-        Destroy(gameObject);
-    }
-
-    protected void EnableCircleCollider() {
-        _circleCollider.enabled = true;
     }
 
     protected void DisableCircleCollider() {
@@ -211,6 +219,10 @@ public abstract class Bullet : MonoBehaviour {
     }
 
     protected void OnDrawGizmos() {
+        if (_bezierPoints.Count == 0) {
+            return;
+        }
+
         int sigmentNumber = 60;
         Vector2 previousPoint = _bezierPoints[0].transform.position;
 
@@ -221,5 +233,9 @@ public abstract class Bullet : MonoBehaviour {
             Gizmos.DrawLine(previousPoint, point);
             previousPoint = point;
         }
+    }
+
+    protected void OnDestroy() {
+        Enemy.Dead -= EnemyDead;
     }
 }

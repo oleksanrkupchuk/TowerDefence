@@ -25,7 +25,7 @@ public class Spawn : MonoBehaviour
     private void SpawnChainEnemy() {
         for (int i = 0; i < _spawnData.chainsData.Count; i++) {
             ChainEnemy _chainEnemyObject = Instantiate(Resources.Load("ChainEnemy", typeof(ChainEnemy))) as ChainEnemy;
-            _chainEnemyObject.Init(_spawnData.chainsData[i], _spawnData, _gameManager, _camera, _enemySpawner);
+            _chainEnemyObject.Init(_spawnData.chainsData[i], _gameManager, _camera, _enemySpawner);
             _chainsEnemy.Add(_chainEnemyObject);
             _chainEnemyObject.transform.SetParent(gameObject.transform);
             _amountEnemies += _chainEnemyObject.Enemies.Count;

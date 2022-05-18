@@ -7,8 +7,10 @@ using TMPro;
 public class LevelLoader : MonoBehaviour {
     [SerializeField]
     private Slider _slider;
+    //[SerializeField]
+    //private TextMeshProUGUI _progressValue;
     [SerializeField]
-    private TextMeshProUGUI _progressValue;
+    private Text _progressValue;
 
     private void Start() {
         gameObject.SetActive(false);

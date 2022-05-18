@@ -268,25 +268,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isShooting: 0
-  _bullets: []
   _poolBullets: []
+  _currentBullet: {fileID: 0}
   _enemyList: []
   _rangeAttack: 3.3
   _timeShoot: 1
-  _timer: 0
   _stepDegree: 10
   _price: 10
   _bulletPosition: {fileID: 7122407904162336630}
   _animator: {fileID: 725847513850568493}
   _shootAnimation: {fileID: 7400000, guid: 7ab7453970c22ca499066a86f6fb677e, type: 2}
   _shootFrameRateInShootAnimation: 15
-  _poolBullet: {fileID: 4517954842708215992}
+  _poolBulletObject: {fileID: 4517954842708215992}
   _rangeCollider: {fileID: 6379824112264347013}
   _bullet: {fileID: 3719912613258583181, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
   _lineRenderer: {fileID: 8461052127138531771}
   target: {fileID: 0}
   _placeForTower: {fileID: 0}
   _towerUpgradeMenu: {fileID: 2010742382795597176}
+  _bulletAbility: {fileID: 1296446910535246073, guid: 7a81706ab30451344b6328792c4ea376, type: 3}
   increaseDamage: 0
   isBuyAbility: 0
 --- !u!120 &8461052127138531771
@@ -329,8 +329,42 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 99
+  m_SortingOrder: 900
   m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   m_Parameters:
