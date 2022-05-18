@@ -2,131 +2,183 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using Random = UnityEngine.Random;
+using System.Collections;
 
-public class Enemy : MonoBehaviour {
-    private EnemySpawner _enemySpawner;
-    private GameManager _gameManager;
-    private Transform _nextWayPoint;
-    private int _indexPosition;
-    private List<Transform> _currentWayPoint = new List<Transform>();
-    private List<DataWayPoints> _dataWayPoints = new List<DataWayPoints>();
-    private Tower _tower;
-    private AnimationEvent _enemyAnimationDead = new AnimationEvent();
-    private string _isDead = "isDying";
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(EnemyDebuff))]
+[RequireComponent(typeof(Animator))]
+public abstract class Enemy : MonoBehaviour {
+    protected string _speedAnimatiorParametr = "speedStateWalking";
+    protected bool _isIncreaseSpeed = false;
+    protected float _durationIncreaseSpeed = 3.5f;
+    protected Vector2 _previousPosition;
+    protected Vector2 _startPosition;
+    protected float _timeForCalculationPreviousPosition;
+
+    protected SpriteRenderer _spriteRenderer;
+    protected Rigidbody2D _rigidbody;
+    protected EnemyDebuff _debuff;
+    protected Animator _animator;
+    protected CircleCollider2D _collider;
+    protected GameManager _gameManager;
+    protected EnemySpawner _enemySpawner;
+    protected Transform _nextWayPoint;
+    protected Camera _camera;
+    protected int _indexPosition;
+    [SerializeField]
+    protected Tower _tower;
+    protected string _isDead = "isDying";
+    protected List<Transform> _currentWay = new List<Transform>();
+    protected AnimationEvent _enemyEventDead = new AnimationEvent();
+    protected float _defaultSpeed;
+    protected float _healthMax;
+
+    [SerializeField]
+    private CartSpawnInfoData _cartSpawnInfoData;
 
     [Header("Parametrs")]
     [SerializeField]
-    private int _speed;
+    protected float _health;
     [SerializeField]
-    private int _health;
+    protected float _speed;
     [SerializeField]
-    private int _healthMax;
-    [SerializeField]
-    private int _amountCoinForDeath;
-    [SerializeField]
-    private int _sortingLayer;
+    protected int _amountCoinForDeath;
 
     [Header("Components")]
     [SerializeField]
-    private BoxCollider2D _boxCollider;
+    protected Canvas _canvas;
     [SerializeField]
-    private Animator _animator;
-    [SerializeField]
-    private SpriteRenderer _spriteRenderer;
-    [SerializeField]
-    private Canvas _canvas;
-
-    [Header("GameObjects")]
-    [SerializeField]
-    private GameObject _healthBarBackground;
+    protected EnemyCartData _enemyCartData;
 
     [Header("UI")]
     [SerializeField]
-    private RectTransform _healthBarRectTransform;
-    [SerializeField]
-    private Image _healthBar;
+    protected Image _healthBar;
 
     [Header("Animator parametrs")]
     [SerializeField]
-    private AnimationClip _deadAnimationClip;
-
+    protected AnimationClip _deadClip;
     [SerializeField]
-    private bool _isCloseForWayPoint;
+    protected AnimationClip _walkingClip;
+    [SerializeField]
+    private AnimationState _animationState;
 
+    [Header("Effects")]
+    [SerializeField]
+    protected ParticleSystem _healingEffect;
+    [SerializeField]
+    private ParticleSystem _burningEffect;
+
+    [HideInInspector]
+    public Vector3 lastPosition;
+
+    public float Health { get => _health; }
+    public float Speed { get => _defaultSpeed; }
     public bool IsDead { get => _health <= 0; }
-    public Vector3 diePosition;
-    public event Action Dead;
-    public event Action OutRangeTower;
+    public Animator Animator { get => _animator; }
+    public EnemyDebuff Debuff { get => _debuff; }
+    public EnemyCartData EnemyCartData { get => _enemyCartData; }
+    public CartSpawnInfoData CartSpawnInfoData { get => _cartSpawnInfoData; }
 
-    public void Initialization(EnemySpawner enemySpawner, GameManager gameManager, List<DataWayPoints> dataWayPoints) {
-        _enemySpawner = enemySpawner;
+    public static event Action<Enemy> Dead;
+
+    public void Init(GameManager gameManager, EnemySpawner enemySpawner, Camera camera) {
         _gameManager = gameManager;
-        _dataWayPoints = dataWayPoints;
+        _enemySpawner = enemySpawner;
+        _camera = camera;
+
+        GetComponents();
+
+        _rigidbody.gravityScale = 0f;
+        _collider.isTrigger = true;
+        _collider.radius = 0.25f;
+        _collider.offset = new Vector2(0f, 0.2f);
     }
 
-    public void InitializationTower(Tower tower) {
+    protected void GetComponents() {
+        _collider = GetComponent<CircleCollider2D>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _debuff = GetComponent<EnemyDebuff>();
+        _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    public void SetTower(Tower tower) {
         _tower = tower;
     }
 
-    private void Start() {
-        if (_boxCollider == null) {
+    protected void Start() {
+        SetHealthToDefault();
+        SetSpeedToDefault();
+        StopBurningEffect();
+        _startPosition = transform.position;
+
+        if (_collider == null) {
             Debug.LogError("component is null");
         }
-
-        _healthBarBackground.SetActive(true);
-
-        _enemySpawner.AddEnemy(gameObject.GetComponent<Enemy>());
-        SetWayPoints();
-        SubscribeToEventInTheEndDeadAnimation();
     }
 
-    private void Update() {
+    public void SetHealthToDefault() {
+        _healthMax = _health;
+    }
+
+    public void SetSpeedToDefault() {
+        _defaultSpeed = _speed;
+    }
+
+    public void AddDestroyEventForDeadAnimation() {
+        float _playingAnimationTime = _deadClip.length;
+        _enemyEventDead.time = _playingAnimationTime;
+        _enemyEventDead.functionName = nameof(DisableEnemyAfterTime);
+
+        _deadClip.AddEvent(_enemyEventDead);
+    }
+
+    protected void Update() {
         if (!IsDead) {
-            SetNextPosition();
 
-            //ChangeMaxLayer();
-
-            Move();
-
-            CkeckLastWayPoint();
+            if (_currentWay != null) {
+                SetNextPosition();
+                Move();
+                SetLayer();
+            }
         }
     }
 
-    private void Move() {
-        transform.position = Vector2.MoveTowards(transform.position, _nextWayPoint.position, _speed * Time.deltaTime);
-    }
-
-    private void SetNextPosition() {
+    protected void SetNextPosition() {
         if (Vector2.Distance(transform.position, _nextWayPoint.position) <= 0.2f) {
+
             _indexPosition++;
-            if (_indexPosition < _currentWayPoint.Count) {
-                _nextWayPoint = _currentWayPoint[_indexPosition];
+            if (_indexPosition < _currentWay.Count) {
+                _nextWayPoint = _currentWay[_indexPosition];
             }
-            _isCloseForWayPoint = true;
 
             CheckFlipSprite();
         }
     }
 
-    private void CkeckLastWayPoint() {
-        if (IsCloseForLasrWayPoint()) {
-            DeathFromLastWay();
-        }
+    protected void Move() {
+        transform.position = Vector2.MoveTowards(transform.position, _nextWayPoint.position, _speed * Time.deltaTime);
     }
 
-    private bool IsCloseForLasrWayPoint() {
-        int _lastPoint = _currentWayPoint.Count - 1;
-        if (_nextWayPoint == _currentWayPoint[_lastPoint]) {
-            if (Vector2.Distance(transform.position, _nextWayPoint.position) <= 0.2f) {
-                return true;
-            }
+    protected void SetLayer() {
+        float _different = transform.position.y - _startPosition.y;
+        //print("different = " + _different);
+
+        if (_different >= 0.1) {
+            _spriteRenderer.sortingOrder -= 1;
+            _startPosition = transform.position;
         }
 
-        return false;
+        else if (_different < -0.1) {
+            _spriteRenderer.sortingOrder += 1;
+            _startPosition = transform.position;
+        }
+
+        //print("Layer enemy = " + _spriteRenderer.sortingOrder);
     }
 
-    private void CheckFlipSprite() {
+    protected void CheckFlipSprite() {
         if (transform.position.x - _nextWayPoint.position.x < 0) {
             FlipSpriteLeft();
         }
@@ -136,48 +188,18 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    public void ChangeMaxLayer() {
-        float _distanceForWayPoint = Math.Abs(transform.position.y - _nextWayPoint.position.y);
-        //print("Distance = " + _distanceForWayPoint);
-        if (_distanceForWayPoint < 1f && _isCloseForWayPoint) {
-            _isCloseForWayPoint = false;
-            int index = _indexPosition + 1;
-            Transform nextWayPoint = _currentWayPoint[index];
-            if (transform.position.y - nextWayPoint.position.y < 0) {
-                ChangeLayerOnMin();
-            }
-
-            if (transform.position.y - nextWayPoint.position.y > 0) {
-                ChangeLayerOnMax();
-
-            }
-        }
-    }
-
-    private void ChangeLayerOnMax() {
-        SetLayer(_enemySpawner.maxLayerEnemy);
-        _enemySpawner.maxLayerEnemy--;
-    }
-
-    private void ChangeLayerOnMin() {
-        SetLayer(_enemySpawner.minLayerEnemy);
-        _enemySpawner.minLayerEnemy++;
-    }
-
-    private void FlipSpriteLeft() {
+    protected void FlipSpriteLeft() {
         _spriteRenderer.flipX = false;
     }
 
-    private void FlipSpriteRight() {
+    protected void FlipSpriteRight() {
         _spriteRenderer.flipX = true;
     }
 
-    public void TakeDamage(int damage) {
-        //print("--------------");
-        //print("HIT = " + damage);
-
+    public virtual void TakeDamage(float damage) {
         if (!IsDead) {
             _health -= damage;
+            SoundManager.Instance.PlaySoundEffect(SoundName.HitEnemy);
             ShiftHealthBar();
 
             if (IsDead) {
@@ -186,82 +208,109 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag(Tags.finish)) {
-            DeathFromBullet();
-        }
+    protected void ShiftHealthBar() {
+        _healthBar.fillAmount = _health / _healthMax;
     }
 
-    private void DeathFromLastWay() {
-        _enemySpawner.RemoveEnemy(this);
-        _gameManager.TakeAwayOneHealth();
-        _gameManager.CheckHealthAndShowLoseMenuIfHealthZero();
-        DestroyEnemy();
-    }
-
-    private void DeathFromBullet() {
-        GetDiePosition();
-        _gameManager.AddCoin(_amountCoinForDeath);
-        _enemySpawner.RemoveEnemy(this);
+    protected void DeathFromBullet() {
+        Dead?.Invoke(this);
+        _collider.enabled = false;
+        _enemySpawner.RemoveEnemyInCurrentWave();
         DisableHealthBar();
-        _boxCollider.enabled = false;
-        _tower.RemoveTarget(this);
-        _tower.SetTarget();
-        _gameManager.CheckLastEnemyAndEnableWinMenu();
         PlayDeadAnimation();
+        _gameManager.AddCoin(_amountCoinForDeath);
+        _gameManager.CheckLastEnemyAndEnableWinMenuOrSpawnNewEnemyWave();
     }
 
-    private void SubscribeToEventInTheEndDeadAnimation() {
-        float _playingAnimationTime = _deadAnimationClip.length;
-        _enemyAnimationDead.time = _playingAnimationTime;
-        _enemyAnimationDead.functionName = nameof(DestroyEnemy);
-
-        _deadAnimationClip.AddEvent(_enemyAnimationDead);
+    protected void DisableHealthBar() {
+        _canvas.gameObject.SetActive(false);
     }
 
-    public void GetDiePosition() {
-        diePosition = transform.position;
-        //print("die position = " + diePosition);
-        Dead?.Invoke();
-    }
-
-    public void GetLastPosition() {
-        diePosition = transform.position;
-        //print("last position = " + diePosition);
-        OutRangeTower?.Invoke();
-    }
-
-    private void DestroyEnemy() {
-        Destroy(gameObject, 0.5f);
-    }
-
-    private void PlayDeadAnimation() {
+    protected void PlayDeadAnimation() {
         _animator.SetTrigger(_isDead);
     }
 
-    private void ShiftHealthBar() {
-        _healthBar.fillAmount = (float)_health / _healthMax;
+    public void DeathFromLastWay() {
+        _enemySpawner.RemoveEnemyInCurrentWave();
+        _gameManager.TakeAwayOneHealth();
+        _gameManager.CheckHealthAndShowLoseMenuIfHealthZero();
+        DisableEnemyAfterTime();
     }
 
-    private void DisableHealthBar() {
-        _healthBarBackground.SetActive(false);
+    protected void DisableEnemyAfterTime() {
+        Invoke(nameof(DisableEnemy), 0.2f);
     }
 
-    public void SetWayPoints() {
-        if (_dataWayPoints.Count <= 1) {
-            _currentWayPoint = _dataWayPoints[0].WayPoints;
-            _nextWayPoint = _currentWayPoint[0];
+    protected void DisableEnemy() {
+        gameObject.SetActive(false);
+    }
+
+    public void SetWayPoints(List<Transform> currentWay) {
+        _currentWay = currentWay;
+        _nextWayPoint = _currentWay[0];
+    }
+
+    public void SetSpeed(float value) {
+        _speed = value;
+    }
+
+    public void Setlayer(int value) {
+        _spriteRenderer.sortingOrder = value;
+        SetLayerEffects(value);
+    }
+
+    public void AddHealth(float value) {
+        int _recoveryHealth = (int)((value * _health) / 100);
+        _health += _recoveryHealth;
+        if (_health > _healthMax) {
+            _health = _healthMax;
         }
-        else {
-            int randomWayPoints = Random.Range(0, _dataWayPoints.Count);
-            //print("random number = " + randomWayPoints);
-            _currentWayPoint = _dataWayPoints[randomWayPoints].WayPoints;
-            _nextWayPoint = _currentWayPoint[0];
-        }
+
+        ShiftHealthBar();
     }
 
-    public void SetLayer(int layer) {
-        _spriteRenderer.sortingOrder = layer;
-        _canvas.sortingOrder = layer;
+    public void PlayHealingEffect() {
+        _healingEffect.Play();
+    }
+
+    public void PlayBurningEffect() {
+        _burningEffect.Play();
+    }
+
+    public void StopBurningEffect() {
+        _burningEffect.Stop();
+    }
+
+    public void SetLayerEffects(int value) {
+        _burningEffect.GetComponent<ParticleSystemRenderer>().sortingOrder = value + 1;
+        _healingEffect.GetComponent<ParticleSystemRenderer>().sortingOrder = value + 2;
+    }
+
+    public void SetSpeedAnimationWalking(float speed) {
+        float _value = (speed * 1) / _defaultSpeed;
+        _animator.SetFloat(_speedAnimatiorParametr, _value);
+    }
+
+    public IEnumerator IncreaseSpeed() {
+        _isIncreaseSpeed = true;
+
+        while (_isIncreaseSpeed) {
+            _durationIncreaseSpeed -= Time.deltaTime;
+
+            if (_durationIncreaseSpeed <= 0) {
+                _isIncreaseSpeed = false;
+            }
+
+            yield return null;
+        }
+
+        SetSpeedToDefault();
+        SetSpeedAnimationWalkingToDefault();
+
+        _durationIncreaseSpeed = 3f;
+    }
+
+    public void SetSpeedAnimationWalkingToDefault() {
+        _animator.SetFloat(_speedAnimatiorParametr, 1f);
     }
 }

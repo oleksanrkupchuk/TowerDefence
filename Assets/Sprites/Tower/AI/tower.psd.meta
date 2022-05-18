@@ -20,10 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -62,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -1033,9 +1036,50 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      tower_5: -7308512354818369184
+      tower_6: -8082108663505521789
+      tower_151: 6245595512486298986
+      tower_38: -4366810484538516984
+      tower_139: -8231998608122530885
+      tower_153: 752968618744046239
+      tower_8: 1563938865286940623
+      tower_40: -7806956195345873653
+      tower_171: 1547717439199492893
+      tower_73: 6860514258559231368
+      tower_20: -782430147291612745
+      tower_0: 6304826840174917774
+      tower_19: -714592507013538468
+      tower_4: -6654274059127827711
+      tower_24: 8454396959361900603
+      tower_96: 7732742297674024945
+      tower_143: 179470305972249709
+      tower_68: 8348588996171842274
+      tower_122: -5803146703686476011
+      tower_7: -2670911830488086266
+      tower_21: -4234283849339767829
+      tower_12: -7434226952023802429
+      tower_163: -63284107456635134
+      tower_196: 254339432825189114
+      tower_174: 7894232637678352033
+      tower_156: -2519979753516934994
+      tower_27: -7877826892814322386
+      tower_13: 5464582102072492579
+      tower_11: -2738006986957162725
+      tower_22: 2902631449436473863
+      tower_140: 4873574543273643792
+      tower_84: -8181094190125798180
+      tower_36: 6603988908407499885
+      tower_18: -6629746990847456009
+      tower_44: -7312776122571522834
+      tower_144: 7456252574873248496
+      tower_70: -3568005926359830577
+      tower_17: 8169612452012051181
+      tower_23: 5882470949310267021
+      tower_148: -3147658154664981035
+      tower_158: -4815375466814114531
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 

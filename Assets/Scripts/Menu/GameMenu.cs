@@ -1,27 +1,27 @@
 using UnityEngine;
 
-public class GameMenu : MonoBehaviour
+public class GameMenu : BaseMenu
 {
     [Header("Objects")]
     [SerializeField]
     private GameObject _backgroundGameMenu;
     [SerializeField]
-    private GameObject _pauseMenu;
+    private PauseMenu _pauseMenu;
     [SerializeField]
     private GameObject _loseMenu;
     [SerializeField]
     private GameObject _settingsMenu;
     [SerializeField]
-    private GameObject _winMenu;
+    private WinMenu _winMenu;
 
     [Header("Scripts")]
     [SerializeField]
     private GameManager _gameManager;
-    [SerializeField]
-    private PauseMenu _pauseMenuScript;
+
+    public WinMenu WinMenu { get => _winMenu; }
 
     private void OnEnable() {
-        _pauseMenuScript.SetGameManager(_gameManager);
+        _pauseMenu.SetGameManager(_gameManager);
         DisableBackgroundGameMenu();
         DisableLoseMenu();
         DisablePauseMenu();
@@ -42,11 +42,11 @@ public class GameMenu : MonoBehaviour
     }
 
     public void SetActiveDisablePauseMenu(bool isActive) {
-        _pauseMenu.SetActive(isActive);
+        _pauseMenu.gameObject.SetActive(isActive);
     }
 
     public void DisablePauseMenu() {
-        _pauseMenu.SetActive(false);
+        _pauseMenu.gameObject.SetActive(false);
     }
 
     public void DisableLoseMenu() {
@@ -62,10 +62,11 @@ public class GameMenu : MonoBehaviour
     }
 
     public void DisableWinMenu() {
-        _winMenu.SetActive(false);
+        _winMenu.gameObject.SetActive(false);
     }
 
-    public void EnableWinMenu() {
-        _winMenu.SetActive(true);
+    public void EnableWinMenuAndSetDeafaultSpeedTime() {
+        StartTime();
+        _winMenu.gameObject.SetActive(true);
     }
 }

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e15df53b2a02144a8995171e64407af, type: 3}
+  m_Name: Golem_Berserk
+  m_EditorClassIdentifier: 
+  unlockEnemy: 0
+  unlockEnemyIcon: {fileID: 21300000, guid: 901fc53861d6b2941a52150299043457, type: 3}
+  lockEnemyIcon: {fileID: 21300000, guid: 5e831c7f0bb5c0a448b6927a090ad321, type: 3}
+  name: golem berserk
+  description: 
+  enemy: {fileID: 9011182623694102915, guid: aa882aec2ebc8d842bb95f6a414c9856, type: 3}
+  debuffs: []

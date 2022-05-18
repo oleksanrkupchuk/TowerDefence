@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: SettingsTable_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 97e8e52605ec87049af7cdea3d188c1c, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 34016256000
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 424795365376
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 660255203328
+    m_Localized: You want accept this settings?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1457848246272
+    m_Localized: 'Language:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1767362715648
+    m_Localized: 'Sound:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2323972022272
+    m_Localized: SETTINGS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2963007791104
+    m_Localized: 'Screen resolution:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4907755560960
+    m_Localized: 'Full screen:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5511345266688
+    m_Localized: Apply
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

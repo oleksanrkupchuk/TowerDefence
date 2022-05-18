@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class LoseMenu : MenuBase
+public class LoseMenu : BaseMenu
 {
     [Header("Buttons Lose Menu")]
     [SerializeField]
@@ -25,7 +25,10 @@ public class LoseMenu : MenuBase
     }
 
     private void SubscriptionButtons() {
-        _restart.onClick.AddListener(() => { LoadGameLevel(_indexCurrentLevel); });
+        _restart.onClick.AddListener(() => { 
+            LoadGameLevel(_indexCurrentLevel);
+            StartTime();
+        });
         _settings.onClick.AddListener(() => { 
             DisableAndEnableGameObject(ThisGameObject, _settingsObject); 
             SetEnableObject(ThisGameObject, _settingsObject);

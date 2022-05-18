@@ -1,31 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerButton : MonoBehaviour
 {
-    [SerializeField] private GameObject towerObject;
-    [SerializeField] private Sprite towerSprite;
+    [SerializeField]
+    private Tower _tower;
+    [SerializeField]
+    private Image _icon;
+    [SerializeField] 
+    private Sprite _towerSprite;
+    [SerializeField]
+    private Button _button;
 
-    public GameObject TowerObject
-    {
-        get
-        {
-            return towerObject;
-        }
+    private void Start() {
+        _icon.sprite = _towerSprite;
     }
 
-    public Tower TowerScript {
+    public Tower Tower {
         get {
-            return towerObject.GetComponent<Tower>();
+            return _tower;
         }
     }
 
-    public Sprite TowerSprite
+    public Sprite Sprite
     {
         get
         {
-            return towerSprite;
+            return _towerSprite;
         }
     }
+
+    public Button Button { get => _button; }
 }

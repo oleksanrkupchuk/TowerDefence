@@ -1,28 +1,45 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-    [SerializeField] private int _coin;
+    [SerializeField] 
+    private int _coin;
+    private int _currentHealth;
+    private int _countStars;
+    private float _timer;
 
     [SerializeField]
     private EnemySpawner _enemySpawner;
     [SerializeField]
     private InformationPanel _informationPanel;
-
-    [Header("Menu")]
     [SerializeField]
     private GameMenu _gameMenu;
 
     [SerializeField]
+    private KeyCode _pauseButton;
+    [SerializeField]
     private bool _isPause;
-    private float _timer;
     [SerializeField]
     private float _time;
     [SerializeField]
     private int _health;
+    [SerializeField]
+    private int _leftThePercentageOfHealthToReceiveOneStar;
+    [SerializeField]
+    private int _leftThePercentageOfHealthToReceiveTwoStar;
+    [SerializeField]
+    private int _leftThePercentageOfHealthToReceiveThreeStar;
+    public int Coin { get => _coin; }
+
+    private int LeftPercentageOfHealth {
+        get {
+            return (_currentHealth * 100) / _health;
+        }
+    }
 
     private bool IsNotZeroHealth {
         get {
-            if (_health > 0) {
+            if (_currentHealth > 0) {
                 return true;
             }
 
@@ -30,45 +47,17 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public int Coin { get => _coin; }
-
-    [SerializeField]
-    private KeyCode _pauseButton;
-
     private void Start() {
+        _currentHealth = _health;
         _informationPanel.SetValueOnCointText(_coin.ToString());
-        _informationPanel.SetValueOnCountWaweText("WAVE: " + 0);
+        //StartCoroutine(_informationPanel.InitStringEvent());
+        SetWaveText(_enemySpawner.CountWave);
         SetValueForTimer(_time);
         _informationPanel.SetHealthText(_health);
     }
 
     private void Update() {
         PauseGame();
-        CounterUntilWave();
-    }
-
-    private void CounterUntilWave() {
-        if (_informationPanel.IsActiveCounter()) {
-            if (_timer > 0) {
-
-                _timer -= Time.deltaTime;
-                _informationPanel.SetTimerText(_timer);
-                _informationPanel.PlayAnimationForTimerIcon();
-
-                if (_timer > 3f) {
-                    _informationPanel.SetWhiteColorForTextTimerWave();
-                }
-
-                else if (_timer <= 3f) {
-                    _informationPanel.SetRedColorForTextTimerWave();
-                }
-            }
-
-            else if (_timer <= 0) {
-                _enemySpawner.StartSpawn();
-                _informationPanel.DisableTimerWaveObject();
-            }
-        }
     }
 
     private void PauseGame() {
@@ -102,8 +91,8 @@ public class GameManager : MonoBehaviour {
         _informationPanel.SetValueOnCointText(_coin.ToString());
     }
 
-    public void UpdateWaveText(int countWave) {
-        _informationPanel.SetValueOnCountWaweText("WAVE: " + countWave);
+    public void SetWaveText(int countWave) {
+        _informationPanel.SetValueInCountWaweText(countWave + " / " + _enemySpawner.Waves);//countWave + " / " + _enemySpawner.Waves
     }
 
     public void SetValueForTimer(float time) {
@@ -116,35 +105,37 @@ public class GameManager : MonoBehaviour {
 
     public void CheckHealthAndShowLoseMenuIfHealthZero() {
         if (IsNotZeroHealth) {
-            CheckLastEnemyAndEnableWinMenu();
+            CheckLastEnemyAndEnableWinMenuOrSpawnNewEnemyWave();
         }
         else {
+            SoundManager.Instance.PlaySound(SoundName.LoseGame);
             ShowLoseMenu();
             StopTime();
         }
     }
 
-    public void CheckLastEnemyAndEnableWinMenu() {
+    public void CheckLastEnemyAndEnableWinMenuOrSpawnNewEnemyWave() {
         if (_enemySpawner.IsTheLastEnemyInTheLastWave) {
+            SoundManager.Instance.PlaySound(SoundName.WinGame);
             _gameMenu.EnableBackgroundGameMenu();
-            _gameMenu.EnableWinMenu();
-            StopTime();
+            _gameMenu.EnableWinMenuAndSetDeafaultSpeedTime();
+            _countStars = CalculationStars();
+            _gameMenu.WinMenu.amountReceivedStarsOnCurrentLevel = _countStars;
+            _gameMenu.WinMenu.StartAnimationStars();
         }
 
-        else if(_enemySpawner.IsTheLastEnemyInWave) {
-            _informationPanel.EnableTimerWaveObject();
-            _informationPanel.StartAnimationForTimerWave();
-            SetValueForTimer(_time);
+        else if (_enemySpawner.IsTheLastEnemyInCurrentWave) {
+            _enemySpawner.EnableTimerWave();
         }
     }
 
     public void TakeAwayOneHealth() {
-        _health--;
+        _currentHealth--;
         UpdateHealthText();
     }
 
     private void UpdateHealthText() {
-        _informationPanel.SetHealthText(_health);
+        _informationPanel.SetHealthText(_currentHealth);
     }
 
     private void ShowLoseMenu() {
@@ -159,5 +150,18 @@ public class GameManager : MonoBehaviour {
 
     public void GameUnpause() {
         _isPause = false;
+    }
+
+    private int CalculationStars() {
+        if(LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveThreeStar) {
+            return 3;
+        }
+        if(LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveTwoStar) {
+            return 2;
+        }
+        if(LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveOneStar) {
+            return 1;
+        }
+        return 0;
     }
 }

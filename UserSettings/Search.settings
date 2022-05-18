@@ -10,6 +10,12 @@ scopes = {
 	"last_search.785D90A9" = ""
 	"InspectorPreview.785D90A9" = "0"
 	"currentGroup.785D90A9" = "all"
+	"last_search.D6F0A2B8" = "Addressables groups"
+	"OpenInspectorPreview.D6F0A2B8" = "0"
+	"currentGroup.D6F0A2B8" = "all"
+	"last_search.D2F0A2B8" = "Addressables"
+	"OpenInspectorPreview.D2F0A2B8" = "0"
+	"currentGroup.D2F0A2B8" = "menu"
 }
 providers = {
 	asset = {
@@ -47,10 +53,37 @@ providers = {
 		priority = 100
 		defaultAction = null
 	}
+	at = {
+		active = true
+		priority = 100
+		defaultAction = null
+	}
+	st = {
+		active = true
+		priority = 100
+		defaultAction = null
+	}
+	adb = {
+		active = false
+		priority = 2500
+		defaultAction = null
+	}
+	performance = {
+		active = false
+		priority = 100
+		defaultAction = null
+	}
 }
 recentSearches = [
+	"Addressables"
 ]
 searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
 showSavedSearchPanel = false
+expandedQueries = [
+]
+queryBuilder = true
+ignoredProperties = "id;name;classname;imagecontentshash"
+helperWidgetCurrentArea = "all"
+disabledIndexers = ""

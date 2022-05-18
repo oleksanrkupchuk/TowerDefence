@@ -43,18 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7deb0b0165c8d8a4192b14158833456b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointSpawn: {fileID: 0}
-  enemyPrefab: {fileID: 6037710262501487112, guid: caedb2076ef91a541bccf3a9349a1d88, type: 3}
-  _enemyAmountInWave: 1
-  _enemyAmountSpawn: 0
-  _quantityWave: 3
-  _startLayerEnemy: 50
-  maxLayerEnemy: 50
-  minLayerEnemy: 1
-  _dataWayPoints:
-  - _wayPoints: []
+  _amountEnemyInWawe: 0
   _gameManager: {fileID: 0}
-  _informationPanel: {fileID: 0}
-  _minTimeWaitForNextSpawnEnemy: 0.5
-  _maxTimeWaitForNextSpawnEnemy: 3
-  _enemyList: []
+  _camera: {fileID: 0}
+  _wavesData: []
+  _waveObject: {fileID: 0}
+  _wave: {fileID: 6908251765174013129, guid: 18a097c73d065e8408a0576aa228547f, type: 3}
