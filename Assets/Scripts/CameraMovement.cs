@@ -18,7 +18,7 @@ public class CameraMovement : MonoBehaviour {
     }
 
     private void LoadAndApplyScreenSetting() {
-        _settingMenu.LoadSettingsAndSetResolution();
+        //_settingMenu.LoadSettingsAndSetResolution();
     }
    
     private void SetResolution640x480(float weidth) {

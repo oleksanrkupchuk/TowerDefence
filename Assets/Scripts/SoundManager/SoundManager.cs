@@ -47,11 +47,11 @@ public class SoundManager : MonoBehaviour {
     }
 
     private void InitSoundVolume() {
-        SaveSoundData _soundData = SaveSystemSettings.LoadSound();
+        SettingsData _settingData = SaveSystemSettings.LoadSettings();
 
         foreach (var sound in _sounds) {
-            sound.volume = _soundData.volume / 100;
-            sound.audioSource.volume = _soundData.volume / 100;
+            sound.volume = _settingData.soundVolume;
+            sound.audioSource.volume = _settingData.soundVolume;
         }
     }
 

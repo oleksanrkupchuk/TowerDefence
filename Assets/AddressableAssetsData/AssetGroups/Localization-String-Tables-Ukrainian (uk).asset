@@ -29,6 +29,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-uk
     - Preload
+  - m_GUID: 366ab6f4afce11f4d997894b1e6437aa
+    m_Address: MainMenuTable_uk
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-uk
+    - Preload
+  - m_GUID: f4c64bddd83c7b64a8fbd2acf66436af
+    m_Address: ShopTable_uk
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-uk
+    - Preload
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: f7c03c416bfe98c4f89aa5edca3260d4, type: 2}
   m_SchemaSet:

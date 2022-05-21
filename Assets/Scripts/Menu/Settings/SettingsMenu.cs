@@ -7,7 +7,6 @@ using UnityEngine.Localization.Settings;
 using System.Collections;
 
 public class SettingsMenu : BaseMenu {
-    private SaveSoundData _soundData;
     private SettingsData _settingsData;
 
     [Header("Buttons Settings Menu")]
@@ -37,56 +36,35 @@ public class SettingsMenu : BaseMenu {
     private ConfirmSettings _confirmSettings;
 
     public static event Action<float> ChangeScreenResolution;
-    public int GetIndexScreenResolutionDropDown {
-        get {
-            return _screenResolutionDropDown.value;
-        }
-    }
-
-    public bool GetFullScreenTogle {
-        get {
-            return _fullScreenToggle.isOn;
-        }
-    }
-
-    public float SoundVolume { get => _sliderSound.value; }
 
     private void OnEnable() {
-        LoadSettings();
-        InitSound();
-        StartCoroutine(InitLanguageDropdown());
-        InitScreenResolutionDropdown();
-        //print("enable settings");
+        StartCoroutine(Init());
     }
 
-    private void LoadSettings() {
+    private IEnumerator Init() {
+        LoadSettings();
+        yield return StartCoroutine(LoadLanguages());
+        InitLanguageDropdown();
+        InitScreenResolutionDropdown();
+        InitSettings();
+    }
+
+    public void LoadSettings() {
         _settingsData = SaveSystemSettings.LoadSettings();
     }
 
-    private void InitSound() {
-        _sliderSound.value = _settingsData.soundVolume;
+    public IEnumerator LoadLanguages() {
+        yield return LocalizationSettings.InitializationOperation;
     }
 
-    private IEnumerator InitLanguageDropdown() {
+    private void InitLanguageDropdown() {
         _languageDropDown.options.Clear();
-        yield return LocalizationSettings.InitializationOperation;
 
         for (int i = 0; i < LocalizationSettings.AvailableLocales.Locales.Count; i++) {
-            //_languageDropDown.options.Add(new Dropdown.OptionData(LocalizationSettings.AvailableLocales.Locales[i].name));
             _languageDropDown.options.Add(new Dropdown.OptionData() {
                 text = LocalizationSettings.AvailableLocales.Locales[i].name
             });
         }
-
-        //_languageDropDown.value = 0;
-        _languageDropDownLabel.text = LocalizationSettings.AvailableLocales.Locales[0].name;
-        LocaleSelected(0);
-        _languageDropDown.onValueChanged.AddListener(LocaleSelected);
-    }
-
-    private void LocaleSelected(int index) {
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
-        //print("language = " + LocalizationSettings.AvailableLocales.Locales[index].name);
     }
 
     private void InitScreenResolutionDropdown() {
@@ -97,35 +75,19 @@ public class SettingsMenu : BaseMenu {
                 text = resolution.weidth + " x " + resolution.height
             });
         }
-
-        CheckSaveSettingsAndLoad();
     }
 
-    public void CheckSaveSettingsAndLoad() {
-        if (SaveSystemSettings.IsExistsSaveSettingsFile()) {
-            LoadSettingsAndSetResolution();
-        }
-        else {
-            print("file not create");
-        }
-    }
-
-    public void LoadSettingsAndSetResolution() {
+    private void InitSettings() {
+        _languageDropDownLabel.text = LocalizationSettings.AvailableLocales.Locales[_settingsData.indexLanguage].name;
+        _languageDropDown.value = _settingsData.indexLanguage;
         _screenResolutionDropDown.value = _settingsData.indexResolution;
+        _sliderSound.value = _settingsData.soundVolume;
         _fullScreenToggle.isOn = _settingsData.fullScreenToggle;
-
-        Screen.SetResolution(_resolutions[_settingsData.indexResolution].weidth,
-                _resolutions[_settingsData.indexResolution].height, _fullScreenToggle.isOn);
-        ChangeScreenResolution?.Invoke(_resolutions[_settingsData.indexResolution].weidth);
     }
 
     private void Start() {
-        DisableConfirmSettings();
         SubscriptionButtons();
-    }
-
-    private void DisableConfirmSettings() {
-        _confirmSettings.ConfirmSettingsObject.SetActive(false);
+        DisableConfirmSettings();
     }
 
     private void SubscriptionButtons() {
@@ -140,9 +102,9 @@ public class SettingsMenu : BaseMenu {
         _confirmSettings.Yes.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             DisableConfirmSettings();
-            SetScreenResolution(_screenResolutionDropDown);
             SaveSettings();
-            SaveVolume();
+            SetScreenResolution();
+            LocaleSelected(_languageDropDown.value);
         });
         _confirmSettings.No.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
@@ -150,24 +112,39 @@ public class SettingsMenu : BaseMenu {
         });
     }
 
-    private void EnableConfirmSettings() {
-        _confirmSettings.ConfirmSettingsObject.SetActive(true);
+    private void DisableConfirmSettings() {
+        _confirmSettings.gameObject.SetActive(false);
     }
 
-    private void SetScreenResolution(TMP_Dropdown dropdown) {
-        int _index = dropdown.value;
-        Screen.SetResolution(_resolutions[_index].weidth, _resolutions[_index].height, _fullScreenToggle.isOn);
-        ChangeScreenResolution?.Invoke(_resolutions[_index].weidth);
-        //print("index = " + _index);
+    private void EnableConfirmSettings() {
+        _confirmSettings.gameObject.SetActive(true);
     }
 
     private void SaveSettings() {
-        SaveSystemSettings.SaveSettings(this);
+        _settingsData = new SettingsData();
+        _settingsData.soundVolume = _sliderSound.value;
+        _settingsData.fullScreenToggle = _fullScreenToggle.isOn;
+        _settingsData.indexResolution = _screenResolutionDropDown.value;
+        _settingsData.indexLanguage = _languageDropDown.value;
+
+        SaveSystemSettings.SaveSettings(_settingsData);
+
+        //print("-------SAVE-------");
+        //print("volume = " + _settingsData.soundVolume);
+        //print("resolution = " + _settingsData.indexResolution);
+        //print("language = " + _settingsData.indexLanguage);
+        //print("fullScreen = " + _settingsData.fullScreenToggle);
     }
 
-    private void SaveVolume() {
-        float _volume = _sliderSound.value * 100;
-        SaveSystemSettings.SaveSoundData(_volume);
+    private void SetScreenResolution() {
+        Screen.SetResolution(_resolutions[_screenResolutionDropDown.value].weidth,
+                _resolutions[_screenResolutionDropDown.value].height, _fullScreenToggle.isOn);
+
+        ChangeScreenResolution?.Invoke(_resolutions[_screenResolutionDropDown.value].weidth);
+    }
+
+    public void LocaleSelected(int indexLanguage) {
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[indexLanguage];
     }
 
     private void Update() {

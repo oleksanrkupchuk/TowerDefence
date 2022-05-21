@@ -30,7 +30,7 @@ public class MainMenu : BaseMenu
     private void Start()
     {
         _settingsMenu = _settingsObject.GetComponent<SettingsMenu>();
-        _settingsMenu.CheckSaveSettingsAndLoad();
+        //_settingsMenu.CheckSaveSettingsAndLoad();
 
         SubscriptionButtons();
     }
