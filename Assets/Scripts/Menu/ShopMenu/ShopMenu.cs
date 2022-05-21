@@ -25,8 +25,6 @@ public class ShopMenu : BaseMenu {
     private GameObject _notEnoughMoneyWindow;
 
     [SerializeField]
-    private TextMeshProUGUI _titleScreen;
-    [SerializeField]
     private Ability _ability;
     [SerializeField]
     private ApplyingAbility _applyingAbility;
@@ -48,6 +46,7 @@ public class ShopMenu : BaseMenu {
     private TextMeshProUGUI _abilityName;
 
     public int AmountAbility { get => _abilityData.Count; }
+    public int PriceAbility { get => _currentAbility.Data.price; }
 
     private void OnEnable() {
         _scrollBar.value = 0f;
@@ -78,16 +77,12 @@ public class ShopMenu : BaseMenu {
     }
 
     private void Start() {
-        _titleScreen.text = ShopMenuText.titleScreen;
         LoadAbility();
         InitAbilityData();
         SpawnAbility();
         _confirmBuyAbilityWindow.Disable();
         DisableNotEnoughMoneyWindow();
         SubscriptionButtons();
-
-        //_abilityIcon.sprite = _abilityData[0].icon;
-        //_abilityDescription.text = _abilityData[0].description;
 
         if (_currentAbility.Data.isPurchased) {
             DisableBuyButton();
@@ -159,7 +154,6 @@ public class ShopMenu : BaseMenu {
             EnableNotEnoughMoneyWindow();
         }
         else {
-            _confirmBuyAbilityWindow.SetDescription(_currentAbility.Data.price);
             _confirmBuyAbilityWindow.Enable();
         }
     }

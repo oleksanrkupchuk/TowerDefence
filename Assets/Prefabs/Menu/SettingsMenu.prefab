@@ -4925,9 +4925,8 @@ MonoBehaviour:
   enableObject: {fileID: 0}
   _back: {fileID: 4248295239817910721}
   _applySettings: {fileID: 2182724416406122352}
-  _slider: {fileID: 3549266178141743369}
+  _sliderSound: {fileID: 3549266178141743369}
   _screenResolutionDropDown: {fileID: 2048223898854528699}
-  _screenResolutionDropDownLabel: {fileID: 8022342001584061489}
   _languageDropDown: {fileID: 2209502147900712282}
   _languageDropDownLabel: {fileID: 8444398487254164237}
   _fullScreenToggle: {fileID: 701352713773109791}

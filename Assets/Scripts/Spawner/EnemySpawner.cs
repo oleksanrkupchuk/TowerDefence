@@ -27,7 +27,6 @@ public class EnemySpawner : MonoBehaviour {
 
     public List<WaveData> WavesData { get => _wavesData; }
 
-
     public int Waves { get => _waves.Count; }
     public int CountWave { get => _countWave; }
 

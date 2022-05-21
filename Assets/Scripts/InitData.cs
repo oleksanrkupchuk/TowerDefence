@@ -9,6 +9,8 @@ public class InitData : MonoBehaviour {
     private MenuSelectLevel _menuSelectLevel;
     [SerializeField]
     private ShopMenu _shopMenu;
+    [SerializeField]
+    private SettingsMenu _settingsMenu;
 
     private void OnEnable() {
         if (!SaveSystemLevel.IsExistsSaveLevelsFile()) {
@@ -19,9 +21,7 @@ public class InitData : MonoBehaviour {
             CreateAbilityFileAndInitAbilityData();
         }
 
-        if (!SaveSystemSettings.IsExistsSaveSoundFile()) {
-            CreateSoundFile();
-        }
+        StartCoroutine(CreateSettingsFileAndInitSettingsData());
 
         if (!SaveAndLoadEnemyCart.IsExistsSaveEnemyCartFile()) {
             CreateCartEnemies();
@@ -58,22 +58,30 @@ public class InitData : MonoBehaviour {
         AbilitySaveSystem.SaveAbility(_abilities);
     }
 
-    private void CreateSoundFile() {
-        SaveSystemSettings.SaveSoundData(100f);
-        //SaveSoundData _data = SaveSystemSettings.LoadSound();
-        //print("volume = " + _data.volume);
-    }
+    private IEnumerator CreateSettingsFileAndInitSettingsData() {
+        SettingsData _settingsData;
 
-    private void CreateSettingsFileAndInitSettingsData() {
         if (!SaveSystemSettings.IsExistsSaveSettingsFile()) {
-            SettingsData _settingsData = new SettingsData();
-            _settingsData.soundVolume = 100f;
+            _settingsData = new SettingsData();
+            _settingsData.soundVolume = 1f;
             _settingsData.indexResolution = 0;
+            _settingsData.indexLanguage = 0;
             _settingsData.fullScreenToggle = true;
 
-            //SaveSystemSettings.SaveSettings(_settingsData);
+            SaveSystemSettings.SaveSettings(_settingsData);
+        }
+        else {
+            _settingsData = SaveSystemSettings.LoadSettings();
+
         }
 
+        yield return StartCoroutine( _settingsMenu.LoadLanguages());
+        _settingsMenu.LocaleSelected(_settingsData.indexLanguage);
+
+        print("volume = " + _settingsData.soundVolume);
+        print("resolution = " + _settingsData.indexResolution);
+        print("language = " + _settingsData.indexLanguage);
+        print("fullScreen = " + _settingsData.fullScreenToggle);
     }
 
     private void CreateCartEnemies() {
