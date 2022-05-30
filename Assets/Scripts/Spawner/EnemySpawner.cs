@@ -22,8 +22,6 @@ public class EnemySpawner : MonoBehaviour {
     private Wave _wave;
     [SerializeField]
     private List<WaveData> _wavesData = new List<WaveData>();
-    [SerializeField]
-    private InformationPanel _informationPanel;
 
     public List<WaveData> WavesData { get => _wavesData; }
 

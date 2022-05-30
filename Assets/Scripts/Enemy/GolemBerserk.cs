@@ -23,7 +23,7 @@ public class GolemBerserk : Enemy
             ShiftHealthBar();
 
             if (IsDead) {
-                DeathFromBullet();
+                DeadFromBullet();
             }
 
         }

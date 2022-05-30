@@ -45,6 +45,8 @@ public class EventsOfObjects : MonoBehaviour {
     private void AddEventForEnemyAnimation() {
         for (int i = 0; i < _enemy.Length; i++) {
             _enemy[i].AddDestroyEventForDeadAnimation();
+            _enemy[i].AddEnableEventForAttackAnimation();
+            _enemy[i].AddDisableEventForAttackAnimation();
         }
     }
 }

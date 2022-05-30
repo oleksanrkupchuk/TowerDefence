@@ -14,7 +14,9 @@ public abstract class Enemy : MonoBehaviour {
     protected float _durationIncreaseSpeed = 3.5f;
     protected Vector2 _previousPosition;
     protected Vector2 _startPosition;
-    protected float _timeForCalculationPreviousPosition;
+    protected bool _isFlipLeft = false;
+    protected ParticleSystemRenderer _burningRenderer;
+    protected ParticleSystemRenderer _healingRenderer;
 
     protected SpriteRenderer _spriteRenderer;
     protected Rigidbody2D _rigidbody;
@@ -31,6 +33,7 @@ public abstract class Enemy : MonoBehaviour {
     protected string _isDead = "isDying";
     protected List<Transform> _currentWay = new List<Transform>();
     protected AnimationEvent _enemyEventDead = new AnimationEvent();
+    protected AnimationEvent _attackEvent = new AnimationEvent();
     protected float _defaultSpeed;
     protected float _healthMax;
 
@@ -43,6 +46,8 @@ public abstract class Enemy : MonoBehaviour {
     [SerializeField]
     protected float _speed;
     [SerializeField]
+    protected float _damage;
+    [SerializeField]
     protected int _amountCoinForDeath;
 
     [Header("Components")]
@@ -50,6 +55,8 @@ public abstract class Enemy : MonoBehaviour {
     protected Canvas _canvas;
     [SerializeField]
     protected EnemyCartData _enemyCartData;
+    [SerializeField]
+    private BoxCollider2D _attackCollider;
 
     [Header("UI")]
     [SerializeField]
@@ -59,9 +66,15 @@ public abstract class Enemy : MonoBehaviour {
     [SerializeField]
     protected AnimationClip _deadClip;
     [SerializeField]
+    protected AnimationClip _attackClip;
+    [SerializeField]
     protected AnimationClip _walkingClip;
     [SerializeField]
     private AnimationState _animationState;
+    [SerializeField]
+    private int _frameRateEnableAttackCollider;
+    [SerializeField]
+    private int _frameRateDisableAttackCollider;
 
     [Header("Effects")]
     [SerializeField]
@@ -72,12 +85,18 @@ public abstract class Enemy : MonoBehaviour {
     [HideInInspector]
     public Vector3 lastPosition;
 
+    public bool isUnderAttack;
+
     public float Health { get => _health; }
     public float Speed { get => _defaultSpeed; }
+    public float Damage { get => _damage; }
     public bool IsDead { get => _health <= 0; }
     public Animator Animator { get => _animator; }
+    public Transform NextWayPoint { get => _nextWayPoint; }
     public EnemyDebuff Debuff { get => _debuff; }
     public EnemyCartData EnemyCartData { get => _enemyCartData; }
+    public CircleCollider2D CircleCollider2D { get => _collider; }
+    public BoxCollider2D AttackCollider { get => _attackCollider; }
     public CartSpawnInfoData CartSpawnInfoData { get => _cartSpawnInfoData; }
 
     public static event Action<Enemy> Dead;
@@ -93,6 +112,7 @@ public abstract class Enemy : MonoBehaviour {
         _collider.isTrigger = true;
         _collider.radius = 0.25f;
         _collider.offset = new Vector2(0f, 0.2f);
+        _attackCollider.enabled = false;
     }
 
     protected void GetComponents() {
@@ -101,6 +121,8 @@ public abstract class Enemy : MonoBehaviour {
         _debuff = GetComponent<EnemyDebuff>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _burningRenderer = _burningEffect.GetComponent<ParticleSystemRenderer>();
+        _healingRenderer = _healingEffect.GetComponent<ParticleSystemRenderer>();
     }
 
     public void SetTower(Tower tower) {
@@ -112,10 +134,10 @@ public abstract class Enemy : MonoBehaviour {
         SetSpeedToDefault();
         StopBurningEffect();
         _startPosition = transform.position;
+    }
 
-        if (_collider == null) {
-            Debug.LogError("component is null");
-        }
+    public void DisableBetweetCollider(Collider2D colliderOne, Collider2D colliderTwo) {
+        Physics2D.IgnoreCollision(colliderOne, colliderTwo, true);
     }
 
     public void SetHealthToDefault() {
@@ -134,27 +156,68 @@ public abstract class Enemy : MonoBehaviour {
         _deadClip.AddEvent(_enemyEventDead);
     }
 
+    public void AddEnableEventForAttackAnimation() {
+        float _playingAnimationTime = _frameRateEnableAttackCollider / _attackClip.frameRate;
+        _attackEvent.time = _playingAnimationTime;
+        _attackEvent.functionName = nameof(EnableAttackCollier);
+
+        _attackClip.AddEvent(_attackEvent);
+    }
+
+    public void AddDisableEventForAttackAnimation() {
+        float _playingAnimationTime = _frameRateDisableAttackCollider / _attackClip.frameRate;
+        _attackEvent.time = _playingAnimationTime;
+        _attackEvent.functionName = nameof(DisableAttackCollider);
+
+        _attackClip.AddEvent(_attackEvent);
+    }
+
+    private void EnableAttackCollier() {
+        print("attack enable");
+        _attackCollider.enabled = true;
+    }
+
+    private void DisableAttackCollider() {
+        _attackCollider.enabled = false;
+    }
+
     protected void Update() {
         if (!IsDead) {
-
-            if (_currentWay != null) {
-                SetNextPosition();
+            if (_currentWay != null && !isUnderAttack) {
+                GetNextPosition();
                 Move();
                 SetLayer();
             }
+
+            CheckUnderAttack();
         }
     }
 
-    protected void SetNextPosition() {
-        if (Vector2.Distance(transform.position, _nextWayPoint.position) <= 0.2f) {
+    protected void GetNextPosition() {
+        if (Vector2.Distance(transform.position, _nextWayPoint.position) <= 0.02f) {
 
             _indexPosition++;
             if (_indexPosition < _currentWay.Count) {
                 _nextWayPoint = _currentWay[_indexPosition];
             }
 
-            CheckFlipSprite();
+            CheckFlipSprite(_nextWayPoint);
         }
+    }
+
+    public void CheckFlipSprite(Transform target) {
+        if (transform.position.x - target.position.x < 0 && _isFlipLeft) {
+            FlipSprite();
+        }
+
+        if (transform.position.x - target.position.x > 0 && !_isFlipLeft) {
+            FlipSprite();
+        }
+    }
+
+    protected void FlipSprite() {
+        _isFlipLeft = !_isFlipLeft;
+        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y);
     }
 
     protected void Move() {
@@ -163,7 +226,6 @@ public abstract class Enemy : MonoBehaviour {
 
     protected void SetLayer() {
         float _different = transform.position.y - _startPosition.y;
-        //print("different = " + _different);
 
         if (_different >= 0.1) {
             _spriteRenderer.sortingOrder -= 1;
@@ -174,26 +236,15 @@ public abstract class Enemy : MonoBehaviour {
             _spriteRenderer.sortingOrder += 1;
             _startPosition = transform.position;
         }
-
-        //print("Layer enemy = " + _spriteRenderer.sortingOrder);
     }
 
-    protected void CheckFlipSprite() {
-        if (transform.position.x - _nextWayPoint.position.x < 0) {
-            FlipSpriteLeft();
+    protected void CheckUnderAttack() {
+        if (isUnderAttack) {
+            _animator.SetBool("isUnderAttack", true);
         }
-
-        if (transform.position.x - _nextWayPoint.position.x > 0) {
-            FlipSpriteRight();
+        else {
+            _animator.SetBool("isUnderAttack", false);
         }
-    }
-
-    protected void FlipSpriteLeft() {
-        _spriteRenderer.flipX = false;
-    }
-
-    protected void FlipSpriteRight() {
-        _spriteRenderer.flipX = true;
     }
 
     public virtual void TakeDamage(float damage) {
@@ -203,7 +254,7 @@ public abstract class Enemy : MonoBehaviour {
             ShiftHealthBar();
 
             if (IsDead) {
-                DeathFromBullet();
+                DeadFromBullet();
             }
         }
     }
@@ -212,7 +263,7 @@ public abstract class Enemy : MonoBehaviour {
         _healthBar.fillAmount = _health / _healthMax;
     }
 
-    protected void DeathFromBullet() {
+    protected void DeadFromBullet() {
         Dead?.Invoke(this);
         _collider.enabled = false;
         _enemySpawner.RemoveEnemyInCurrentWave();
@@ -282,8 +333,8 @@ public abstract class Enemy : MonoBehaviour {
     }
 
     public void SetLayerEffects(int value) {
-        _burningEffect.GetComponent<ParticleSystemRenderer>().sortingOrder = value + 1;
-        _healingEffect.GetComponent<ParticleSystemRenderer>().sortingOrder = value + 2;
+        _burningRenderer.sortingOrder = value + 1;
+        _healingRenderer.sortingOrder = value + 2;
     }
 
     public void SetSpeedAnimationWalking(float speed) {

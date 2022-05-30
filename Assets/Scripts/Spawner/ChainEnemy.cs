@@ -34,6 +34,9 @@ public class ChainEnemy : MonoBehaviour
                 _enemy.Init(_gameManager, _enemySpawner, _camera);
                 _enemy.SetWayPoints(_chainData.wayPoints);
 
+                //_enemy.DisableBetweetCollider(_enemy.CircleCollider2D, _chainData.npc.BodyCollider);
+                _enemy.DisableBetweetCollider(_enemy.AttackCollider, _chainData.npc.AttackCollider);
+
                 if (_enemySpawnRules.needUnlockEnemy) {
                     _enemy.gameObject.AddComponent<UnlockEnemy>();
                     _enemySpawnRules.needUnlockEnemy = false;
@@ -63,7 +66,8 @@ public class ChainEnemy : MonoBehaviour
 
 
             float _timeWaitForNextSpawnEnemy = Random.Range(enemySpawnRules.minTimeDelayForNextEnemy, enemySpawnRules.maxTimeDelayForNextEnemy);
-            yield return new WaitForSeconds(_timeWaitForNextSpawnEnemy);
+            //yield return new WaitForSeconds(_timeWaitForNextSpawnEnemy);
+            yield return new WaitForSeconds(4f);
         }
     }
 }
