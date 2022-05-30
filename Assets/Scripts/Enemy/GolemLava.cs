@@ -25,7 +25,7 @@ public class GolemLava : Enemy
 
             if (IsDead) {
                 CallImmunityBurningInEnemies();
-                DeathFromBullet();
+                DeadFromBullet();
             }
         }
     }

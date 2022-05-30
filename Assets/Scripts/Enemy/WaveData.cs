@@ -15,6 +15,7 @@ public class SpawnEnemyData {
 
 [Serializable]
 public class ChainData {
+    public NPCMinotaur npc;
     public List<Transform> wayPoints = new List<Transform>();
     public List<EnemySpawnRules> chainListEnemies = new List<EnemySpawnRules>();
 }

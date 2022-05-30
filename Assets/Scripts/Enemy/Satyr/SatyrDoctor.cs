@@ -27,7 +27,7 @@ public class SatyrDoctor : Enemy {
             ShiftHealthBar();
 
             if (IsDead) {
-                DeathFromBullet();
+                DeadFromBullet();
             }
         }
     }
