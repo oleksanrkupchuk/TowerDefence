@@ -13,9 +13,8 @@ public class InitData : MonoBehaviour {
     private SettingsMenu _settingsMenu;
 
     private void OnEnable() {
-        if (!SaveSystemLevel.IsExistsSaveLevelsFile()) {
-            InitDataLevelsAndCreateFile();
-        }
+        CreateStarsFile();
+        CreateLevelFileAndInitLevels();
 
         if (!AbilitySaveSystem.IsExistsSaveAbilityFile()) {
             CreateAbilityFileAndInitAbilityData();
@@ -28,22 +27,44 @@ public class InitData : MonoBehaviour {
         }
     }
 
-    private void InitDataLevelsAndCreateFile() {
-        List<Level> _levels = new List<Level>();
-        Level _level;
-
-        for (int i = 0; i < _menuSelectLevel.AmountLevel; i++) {
-            if (i == 0) {
-                _level = new Level(i, 0, true);
-                _levels.Add(_level);
-            }
-            else {
-                _level = new Level(i, 0, false);
-                _levels.Add(_level);
-            }
+    private void CreateStarsFile() {
+        if (SaveAndLoadStars.IsExistsStarsFile()) {
+            return;
         }
 
-        SaveSystemLevel.SaveLevel(0, _levels);
+        StarsData _starsData = new StarsData();
+        _starsData.stars = 0;
+
+        SaveAndLoadStars.SaveStars(_starsData);
+    }
+
+    private void CreateLevelFileAndInitLevels() {
+        if (SaveSystemLevel.IsExistsLevelsFile()) {
+            return;
+        }
+
+        List<Level> _levels = new List<Level>();
+
+        for (int i = 0; i < _menuSelectLevel.AmountLevel; i++) {
+            Level _level;
+
+            if (i == 0) {
+                _level = new Level();
+                _level.levelIndex = i;
+                _level.stars = 0;
+                _level.isUnlock = true;
+            }
+            else {
+                _level = new Level();
+                _level.levelIndex = i;
+                _level.stars = 0;
+                _level.isUnlock = false;
+            }
+
+            _levels.Add(_level);
+        }
+
+        SaveSystemLevel.SaveLevels(_levels);
     }
 
     private void CreateAbilityFileAndInitAbilityData() {
@@ -64,6 +85,7 @@ public class InitData : MonoBehaviour {
         if (!SaveSystemSettings.IsExistsSaveSettingsFile()) {
             _settingsData = new SettingsData();
             _settingsData.soundVolume = 1f;
+            _settingsData.effectVolume = 1f;
             _settingsData.indexResolution = 0;
             _settingsData.indexLanguage = 0;
             _settingsData.fullScreenToggle = true;
@@ -75,7 +97,7 @@ public class InitData : MonoBehaviour {
 
         }
 
-        yield return StartCoroutine( _settingsMenu.LoadLanguages());
+        yield return StartCoroutine(_settingsMenu.LoadLanguages());
         _settingsMenu.LocaleSelected(_settingsData.indexLanguage);
 
         print("volume = " + _settingsData.soundVolume);
@@ -86,7 +108,7 @@ public class InitData : MonoBehaviour {
 
     private void CreateCartEnemies() {
         List<bool> _isUnlocksEnemy = new List<bool>();
-        for (int i = 0; i < _gameInformation.EnemyCartData; i++) {
+        for (int i = 0; i < _gameInformation.AmountEnemyCartData; i++) {
             _isUnlocksEnemy.Add(false);
         }
 

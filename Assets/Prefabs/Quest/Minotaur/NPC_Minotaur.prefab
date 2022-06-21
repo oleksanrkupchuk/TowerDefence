@@ -212,7 +212,7 @@ MonoBehaviour:
   _frameRateEnableAttackCollider: 1
   _frameRateDisableAttackCollider: 2
   _gameManager: {fileID: 0}
-  _goldPrefab: {fileID: 1892861741398673580, guid: ad1e625469bb5d34ba1e5871461ad956, type: 3}
+  _goldPrefab: {fileID: 4220824456198655695, guid: ad1e625469bb5d34ba1e5871461ad956, type: 3}
   _canvas: {fileID: 0}
   move: 0
   onRoad: 0

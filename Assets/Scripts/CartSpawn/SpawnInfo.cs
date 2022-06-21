@@ -42,7 +42,7 @@ public class SpawnInfo : MonoBehaviour {
         SetSizeObject(rules.Count);
 
         for (int numberRules = 0; numberRules < rules.Count; numberRules++) {
-            _carts[numberRules].Init(rules[numberRules].enemy.CartSpawnInfoData, rules[numberRules].amount);
+            _carts[numberRules].Init(rules[numberRules].enemy.CartSpawnInfoData);
             _carts[numberRules].gameObject.SetActive(true);
         }
 

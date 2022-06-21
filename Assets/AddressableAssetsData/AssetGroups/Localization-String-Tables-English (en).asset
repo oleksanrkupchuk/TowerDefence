@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 3045c97813980164b9fc336d4d59ab9f
   m_SerializeEntries:
   - m_GUID: e16506ff48d587b47a68e7290bb991ce
-    m_Address: UIText_en
+    m_Address: Information_Panel_Text_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
@@ -30,13 +30,19 @@ MonoBehaviour:
     - Locale-en
     - Preload
   - m_GUID: cdb1f772b62412645aadc3568bcaf2d0
-    m_Address: MainMenuTable_en
+    m_Address: Menu_Table_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     - Preload
   - m_GUID: dfcc83c71dc8f3d4c99e6c1a0175119f
     m_Address: ShopTable_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Preload
+  - m_GUID: d90050e443f81234e9e316c19bcbbb03
+    m_Address: Enemy_Cart_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en

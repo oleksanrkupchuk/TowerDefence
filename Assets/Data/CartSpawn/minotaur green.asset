@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: minotaur green
   m_EditorClassIdentifier: 
   icon: {fileID: 1301005720723886518, guid: 0ab0f8a40c3992d43a23a8298a115a71, type: 3}
-  name: minotaur green
+  name: Minotaur Green

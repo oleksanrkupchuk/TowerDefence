@@ -28,8 +28,6 @@ public abstract class Enemy : MonoBehaviour {
     protected Transform _nextWayPoint;
     protected Camera _camera;
     protected int _indexPosition;
-    [SerializeField]
-    protected Tower _tower;
     protected string _isDead = "isDying";
     protected List<Transform> _currentWay = new List<Transform>();
     protected AnimationEvent _enemyEventDead = new AnimationEvent();
@@ -125,10 +123,6 @@ public abstract class Enemy : MonoBehaviour {
         _healingRenderer = _healingEffect.GetComponent<ParticleSystemRenderer>();
     }
 
-    public void SetTower(Tower tower) {
-        _tower = tower;
-    }
-
     protected void Start() {
         SetHealthToDefault();
         SetSpeedToDefault();
@@ -173,7 +167,7 @@ public abstract class Enemy : MonoBehaviour {
     }
 
     private void EnableAttackCollier() {
-        print("attack enable");
+        //print("attack enable");
         _attackCollider.enabled = true;
     }
 
@@ -187,6 +181,7 @@ public abstract class Enemy : MonoBehaviour {
                 GetNextPosition();
                 Move();
                 SetLayer();
+                SetLayerEffects();
             }
 
             CheckUnderAttack();
@@ -305,11 +300,6 @@ public abstract class Enemy : MonoBehaviour {
         _speed = value;
     }
 
-    public void Setlayer(int value) {
-        _spriteRenderer.sortingOrder = value;
-        SetLayerEffects(value);
-    }
-
     public void AddHealth(float value) {
         int _recoveryHealth = (int)((value * _health) / 100);
         _health += _recoveryHealth;
@@ -332,9 +322,9 @@ public abstract class Enemy : MonoBehaviour {
         _burningEffect.Stop();
     }
 
-    public void SetLayerEffects(int value) {
-        _burningRenderer.sortingOrder = value + 1;
-        _healingRenderer.sortingOrder = value + 2;
+    public void SetLayerEffects() {
+        _burningRenderer.sortingOrder = _spriteRenderer.sortingOrder + 1;
+        _healingRenderer.sortingOrder = _spriteRenderer.sortingOrder + 2;
     }
 
     public void SetSpeedAnimationWalking(float speed) {

@@ -32,16 +32,6 @@ public class PlaceForTower : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision) {
-        //if(_towerManager != null) {
-        //    if(_towerManager.TowerButtonPressed == null) {
-        //        return;
-        //    }
-        //    _icon.sprite = _towerManager.TowerButtonPressed.Sprite;
-        //    _icon.color = _alpha;
-        //}
-    }
-
     private void OnTriggerExit2D(Collider2D collision) {
         DisableIlluminationIcon();
         _lineRenderer.enabled = false;

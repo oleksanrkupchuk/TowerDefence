@@ -19,9 +19,7 @@ public abstract class Bullet : MonoBehaviour {
     protected List<GameObject> _bezierPoints = new List<GameObject>();
 
     [SerializeField]
-    protected int _damage;
-    [SerializeField]
-    protected int _damageBasic;
+    protected float _damage;
     [SerializeField]
     protected float _speed;
     [SerializeField]
@@ -39,7 +37,7 @@ public abstract class Bullet : MonoBehaviour {
     [SerializeField]
     protected List<BulletAbility> _bulletAbilities = new List<BulletAbility>();
 
-    public int Damage { get => _damage; }
+    public float Damage { get => _damage; }
 
     public void Init(Tower tower) {
         _tower = tower;
@@ -198,12 +196,8 @@ public abstract class Bullet : MonoBehaviour {
         _isApplySpecialAbility = true;
     }
 
-    public void SetDamage(int value) {
+    public void SetDamage(float value) {
         _damage = value;
-    }
-
-    public void ResetDamage() {
-        _damage = _damageBasic;
     }
 
     protected void PlayAnimationDestroy() {

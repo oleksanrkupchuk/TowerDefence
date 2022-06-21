@@ -20,4 +20,4 @@ MonoBehaviour:
   description: When bullet of fire tower touch earth is being created circle of fire,
     chance creation circle of fire have 40 percent. Enemies which cross circle of
     fire burning some time
-  isPurchased: 1
+  isPurchased: 0

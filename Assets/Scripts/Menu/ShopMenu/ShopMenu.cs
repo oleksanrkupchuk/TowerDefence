@@ -5,10 +5,10 @@ using TMPro;
 
 public class ShopMenu : BaseMenu {
     private Ability _currentAbility;
-    private int _amountAllStars;
+    private int _stars;
     private AbilityPurchased _abilityPurchased;
     private List<Ability> _abilityes = new List<Ability>();
-    private LevelData _levelData;
+    private StarsData _starsData;
 
     [Header("Buttons Shop Menu")]
     [SerializeField]
@@ -66,9 +66,9 @@ public class ShopMenu : BaseMenu {
     }
 
     private void LoadStars() {
-        _levelData = SaveSystemLevel.LoadLevelData();
-        _amountAllStars = _levelData.stars;
-        _starsText.text = "" + _amountAllStars;
+        _starsData = SaveAndLoadStars.LoadStars();
+        _stars = _starsData.stars;
+        _starsText.text = "" + _stars;
     }
 
     private void LoadAbility() {
@@ -150,7 +150,7 @@ public class ShopMenu : BaseMenu {
     }
 
     private void CheckMoneyAndEnableAbilityOrNotEnoughMoneyWindow() {
-        if (_amountAllStars < _currentAbility.Data.price) {
+        if (_stars < _currentAbility.Data.price) {
             EnableNotEnoughMoneyWindow();
         }
         else {
@@ -163,13 +163,13 @@ public class ShopMenu : BaseMenu {
     }
 
     public void SubstractPrice() {
-        _amountAllStars -= _currentAbility.Data.price;
-        _starsText.text = "" + _amountAllStars;
+        _stars -= _currentAbility.Data.price;
+        _starsText.text = "" + _stars;
     }
 
     public void SaveStars() {
-        List<Level> _levels = _levelData.levels;
-        SaveSystemLevel.SaveLevel(_amountAllStars, _levels);
+        _starsData.stars = _stars;
+        SaveAndLoadStars.SaveStars(_starsData);
     }
 
     public void SavePurchasedAbility() {

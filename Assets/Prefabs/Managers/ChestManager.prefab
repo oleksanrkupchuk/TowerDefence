@@ -44,11 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64da7cdbf27ad2f40b49c652846ef2c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _amountChestInMap: 3
+  _amountChestInMap: 1
   _chanseSpawnPotion: 35
   _canvas: {fileID: 0}
-  _chest: {fileID: 359484932845289934, guid: 931db3ff4ca1d5147a8e5e6cb1b2773c, type: 3}
+  _chests:
+  - {fileID: 1582787994989440456, guid: 931db3ff4ca1d5147a8e5e6cb1b2773c, type: 3}
+  - {fileID: 8730107441953816597, guid: 7fcdcedbbe6b6214e9f69c9e93b2ffcf, type: 3}
+  - {fileID: 6079116026476472056, guid: b7e8ecca17a511742856ff320cdd5c02, type: 3}
+  - {fileID: 1232726249180227045, guid: 39aadd3837f4d7e4180d171926e77832, type: 3}
+  - {fileID: 7533166359854881208, guid: df28a4cbc8f219940b3942d3702e57ff, type: 3}
   _potionsPrefabs:
-  - {fileID: 7898302637149537687, guid: 37af0ce6d85d9af47a7c283e7c63daec, type: 3}
-  - {fileID: 8614385729184402706, guid: a68e32dad8566024d9ef1f0e917db717, type: 3}
-  - {fileID: 603271927023331089, guid: d83e0558b91bf5e4295b2cfeb2015649, type: 3}
+  - {fileID: 4691102546835205941, guid: 37af0ce6d85d9af47a7c283e7c63daec, type: 3}
+  - {fileID: 3554019068851513345, guid: a68e32dad8566024d9ef1f0e917db717, type: 3}
+  - {fileID: 8709871873661176092, guid: d83e0558b91bf5e4295b2cfeb2015649, type: 3}

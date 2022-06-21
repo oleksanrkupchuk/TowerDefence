@@ -20,7 +20,12 @@ MonoBehaviour:
     - rid: 2528746237973233683
   m_TableData:
   - m_Id: 783316082688
-    m_Localized: "\u0425\u0432\u0438\u043B\u044F: {CountWave}/{Waves}"
+    m_Localized: "\u0425\u0432\u0438\u043B\u044F: {countWave}/{Waves}"
+    m_Metadata:
+      m_Items:
+      - rid: 2528746237973233683
+  - m_Id: 11895843707518976
+    m_Localized: "\u041C\u043E\u043D\u0435\u0442\u0438: {Coins}"
     m_Metadata:
       m_Items:
       - rid: 2528746237973233683
@@ -30,4 +35,4 @@ MonoBehaviour:
     - rid: 2528746237973233683
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00e04661b6000000
+        m_Entries: 00e04661b600000000807df234432a00

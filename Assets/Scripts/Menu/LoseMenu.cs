@@ -25,14 +25,19 @@ public class LoseMenu : BaseMenu
     }
 
     private void SubscriptionButtons() {
-        _restart.onClick.AddListener(() => { 
+        _restart.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             LoadGameLevel(_indexCurrentLevel);
             StartTime();
         });
-        _settings.onClick.AddListener(() => { 
+        _settings.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             DisableAndEnableGameObject(ThisGameObject, _settingsObject); 
             SetEnableObject(ThisGameObject, _settingsObject);
         });
-        _home.onClick.AddListener(() => { LoadGameLevel(IndexMainMenu); });
+        _home.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
+            LoadGameLevel(IndexMainMenu); 
+        });
     }
 }

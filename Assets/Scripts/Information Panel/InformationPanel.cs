@@ -2,10 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
-using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Components;
 
 public class InformationPanel : MonoBehaviour {
+    private string _valueTimeDoubletSpeed = "X2";
+
     [SerializeField]
     private GameObject _backgroundMenu;
     [SerializeField]
@@ -17,35 +18,48 @@ public class InformationPanel : MonoBehaviour {
     [SerializeField]
     private TowerButton[] _towerButton;
 
-    private string _valueTimeDoubletSpeed = "X2";
-
     [Header("Information objects")]
     [SerializeField]
-    private InformationObject _coin;
+    private Text _coins;
     [SerializeField]
-    private InformationObject _countWawe;
-    [SerializeField]
-    private InformationObject _health;
+    private Text _health;
 
     [Header("Information parameters")]
     [SerializeField]
     private TextMeshProUGUI[] _priceTowerText;
 
-    [Header("Game Manager")]
+    [Header("Managers")]
     [SerializeField]
     private GameManager _gameManager;
     [SerializeField]
     private TowerManager _towerManager;
-
-    [SerializeField]
-    private LocalizeStringEvent _localizedStringEvent;
     [SerializeField]
     private EnemySpawner _enemySpawner;
 
+    [Header("String events")]
+    [SerializeField]
+    private LocalizeStringEvent _countWaveStringEvent;
+    [SerializeField]
+    private Transform _parentUnlockToolTipEnemy;
+    [SerializeField]
+    private UnlockEnemyToolTip _unlockToolTip;
+
     private void OnEnable() {
+        InitStringEvents();
         DisableTimeSpeedText();
         DisableBackground();
         DisableButtonDefaultTimeSpeed();
+        UnlockEnemy.IsUnlockEnemy += SpawnUnlockToolTipEnemy;
+    }
+
+    public void InitStringEvents() {
+        _countWaveStringEvent.StringReference.Arguments = new[] { _enemySpawner };
+    }
+
+    private void SpawnUnlockToolTipEnemy() {
+        UnlockEnemyToolTip _unlockToolTipObject = Instantiate(_unlockToolTip);
+        _unlockToolTipObject.transform.SetParent(_parentUnlockToolTipEnemy);
+        _unlockToolTipObject.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     private void Start() {
@@ -99,20 +113,8 @@ public class InformationPanel : MonoBehaviour {
         _backgroundMenu.gameObject.SetActive(false);
     }
 
-    public void SetValueOnCointText(string value) {
-        _coin.textComponent.text = value;
-    }
-
-    public IEnumerator InitStringEvent() {
-        _localizedStringEvent.StringReference.Arguments = new[] { _enemySpawner };
-        yield return LocalizationSettings.InitializationOperation;
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
-        print("language = " + LocalizationSettings.AvailableLocales.Locales[0].name);
-    }
-
-    public void SetValueInCountWaweText(string value) {
-        //print("var = " + _localizedStringEvent.StringReference.GetLocalizedString());
-        //_localizedStringEvent.RefreshString();
+    public void SetValueOnCointText(int coins) {
+        _coins.text = "" + coins;
     }
 
     private void SetDeafaultTimeSpeed() {
@@ -162,7 +164,15 @@ public class InformationPanel : MonoBehaviour {
         LeanTween.scale(gameObject, scaletext, time);
     }
 
-    public void SetHealthText(int value) {
-        _health.textComponent.text = "" + value;
+    public void SetHealthText(int health) {
+        _health.text = "" + health;
+    }
+
+    public void UpdateCountWaweText() {
+        _countWaveStringEvent.RefreshString();
+    }
+
+    private void OnDestroy() {
+        UnlockEnemy.IsUnlockEnemy -= SpawnUnlockToolTipEnemy;
     }
 }

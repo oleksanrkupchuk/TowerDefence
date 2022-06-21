@@ -14,19 +14,24 @@ public class SettingsMenu : BaseMenu {
     private Button _back;
     [SerializeField]
     private Button _applySettings;
-
     [SerializeField]
     private Slider _sliderSound;
     [SerializeField]
-    private TMP_Dropdown _screenResolutionDropDown;
+    private Text _soundVolumeText;
+    [SerializeField]
+    private Slider _sliderEffect;
+    [SerializeField]
+    private Text _effectVolumeText;
+    [SerializeField]
+    private Dropdown _screenResolutionDropDown;
+    [SerializeField]
+    private Text _screenResolutionDropDownLabel;
     [SerializeField]
     private Dropdown _languageDropDown;
     [SerializeField]
     private Text _languageDropDownLabel;
     [SerializeField]
     private Toggle _fullScreenToggle;
-    [SerializeField]
-    private Text _soundVolumeText;
 
     [SerializeField]
     private List<ResolutionScreen> _resolutions = new List<ResolutionScreen>();
@@ -71,7 +76,7 @@ public class SettingsMenu : BaseMenu {
         _screenResolutionDropDown.options.Clear();
 
         foreach (var resolution in _resolutions) {
-            _screenResolutionDropDown.options.Add(new TMP_Dropdown.OptionData() {
+            _screenResolutionDropDown.options.Add(new Dropdown.OptionData() {
                 text = resolution.weidth + " x " + resolution.height
             });
         }
@@ -80,8 +85,12 @@ public class SettingsMenu : BaseMenu {
     private void InitSettings() {
         _languageDropDownLabel.text = LocalizationSettings.AvailableLocales.Locales[_settingsData.indexLanguage].name;
         _languageDropDown.value = _settingsData.indexLanguage;
+
+        _screenResolutionDropDownLabel.text = _resolutions[_settingsData.indexResolution].weidth + " x " + _resolutions[_settingsData.indexResolution].height;
         _screenResolutionDropDown.value = _settingsData.indexResolution;
+
         _sliderSound.value = _settingsData.soundVolume;
+        _sliderEffect.value = _settingsData.effectVolume;
         _fullScreenToggle.isOn = _settingsData.fullScreenToggle;
     }
 
@@ -123,6 +132,7 @@ public class SettingsMenu : BaseMenu {
     private void SaveSettings() {
         _settingsData = new SettingsData();
         _settingsData.soundVolume = _sliderSound.value;
+        _settingsData.effectVolume = _sliderEffect.value;
         _settingsData.fullScreenToggle = _fullScreenToggle.isOn;
         _settingsData.indexResolution = _screenResolutionDropDown.value;
         _settingsData.indexLanguage = _languageDropDown.value;
@@ -149,11 +159,18 @@ public class SettingsMenu : BaseMenu {
 
     private void Update() {
         SetSoundsVolume();
+        SetEffectsVolume();
     }
 
     private void SetSoundsVolume() {
         SoundManager.Instance.SetSoundsVolume(_sliderSound.value);
         float _value = _sliderSound.value * 100;
         _soundVolumeText.text = "" + _value.ToString("0");
+    }
+
+    private void SetEffectsVolume() {
+        SoundManager.Instance.SetEffectsVolume(_sliderEffect.value);
+        float _value = _sliderEffect.value * 100;
+        _effectVolumeText.text = "" + _value.ToString("0");
     }
 }

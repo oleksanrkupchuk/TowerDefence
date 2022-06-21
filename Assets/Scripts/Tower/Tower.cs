@@ -6,7 +6,7 @@ public abstract class Tower : MonoBehaviour {
     [SerializeField]
     protected bool _isShooting = false;
     protected int countBullet = 0;
-    protected int _bulletDamage;
+    protected float _bulletDamage;
     protected TowerManager _towerManager;
     protected GameManager _gameManager;
     protected Transform _targetPosition;
@@ -62,7 +62,7 @@ public abstract class Tower : MonoBehaviour {
     [SerializeField]
     private BulletAbility _bulletAbility;
 
-    public int increaseDamage;
+    public float increaseDamage;
 
     public int Price { get => _price; }
     public float RangeAttack { get => _rangeAttack; }
@@ -216,12 +216,9 @@ public abstract class Tower : MonoBehaviour {
         _bulletDamage += increaseDamage;
     }
 
-    protected int DamageCalculation() {
-        int damage = 0;
+    protected float DamageCalculation() {
+        float damage = 0;
         damage += _bulletDamage / 2;
-        if (damage < 1) {
-            damage = 1;
-        }
         return damage;
     }
 

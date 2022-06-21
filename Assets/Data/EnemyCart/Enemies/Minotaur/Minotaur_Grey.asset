@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e15df53b2a02144a8995171e64407af, type: 3}
+  m_Name: Minotaur_Grey
+  m_EditorClassIdentifier: 
+  unlockEnemy: 0
+  unlockEnemyIcon: {fileID: 21300000, guid: 0e4d5777062fd524291ed6b1d2dc6fd5, type: 3}
+  lockEnemyIcon: {fileID: -376066804, guid: 2967770b6f74fab43b7ca2898d6ae3db, type: 3}
+  name: Minotaur Grey
+  description: 'This type of minotaur is the weakest. Has considerable health and
+    normal speed. Weak to all kinds of attacks.
+
+'
+  enemy: {fileID: 2314555891733913013, guid: c7c8f43afe7640d4482198323e513eeb, type: 3}
+  debuffs: []

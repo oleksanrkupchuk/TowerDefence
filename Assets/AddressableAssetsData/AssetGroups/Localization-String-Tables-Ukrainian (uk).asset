@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 710b05795947945479ac9ed8b9676d7d
   m_SerializeEntries:
   - m_GUID: 2720e26145b1e514fa4039b5177bffaf
-    m_Address: UIText_uk
+    m_Address: Information_Panel_Text_uk
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-uk
@@ -30,13 +30,19 @@ MonoBehaviour:
     - Locale-uk
     - Preload
   - m_GUID: 366ab6f4afce11f4d997894b1e6437aa
-    m_Address: MainMenuTable_uk
+    m_Address: Menu_Table_uk
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-uk
     - Preload
   - m_GUID: f4c64bddd83c7b64a8fbd2acf66436af
     m_Address: ShopTable_uk
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-uk
+    - Preload
+  - m_GUID: a85f9a57ea06fbc4e86b0da147f9c98d
+    m_Address: Enemy_Cart_uk
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-uk

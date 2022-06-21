@@ -43,6 +43,7 @@ public class SoundManager : MonoBehaviour {
 
     private void Start() {
         InitSoundVolume();
+        InitEffectVolume();
         PlaySound(SoundName.Background);
     }
 
@@ -52,6 +53,15 @@ public class SoundManager : MonoBehaviour {
         foreach (var sound in _sounds) {
             sound.volume = _settingData.soundVolume;
             sound.audioSource.volume = _settingData.soundVolume;
+        }
+    }
+
+    private void InitEffectVolume() {
+        SettingsData _settingData = SaveSystemSettings.LoadSettings();
+
+        foreach (var effect in _soundsEffect) {
+            effect.volume = _settingData.soundVolume;
+            effect.audioSource.volume = _settingData.soundVolume;
         }
     }
 
@@ -83,6 +93,13 @@ public class SoundManager : MonoBehaviour {
         foreach (var sound in _sounds) {
             sound.volume = value;
             sound.audioSource.volume = value;
+        }
+    }
+
+    public void SetEffectsVolume(float value) {
+        foreach (var effect in _soundsEffect) {
+            effect.volume = value;
+            effect.audioSource.volume = value;
         }
     }
 }

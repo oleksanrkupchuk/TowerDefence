@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: golem_berserk
   m_EditorClassIdentifier: 
   icon: {fileID: 8727788839753868730, guid: 0ab0f8a40c3992d43a23a8298a115a71, type: 3}
-  name: golem berserk
+  name: Golem Berserk

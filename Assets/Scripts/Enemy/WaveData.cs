@@ -9,13 +9,12 @@ public class WaveData {
 
 [Serializable]
 public class SpawnEnemyData {
-    public NewWaveIcon newWave;
+    public StartWave startWave;
     public List<ChainData> chainsData = new List<ChainData>();
 }
 
 [Serializable]
 public class ChainData {
-    public NPCMinotaur npc;
     public List<Transform> wayPoints = new List<Transform>();
     public List<EnemySpawnRules> chainListEnemies = new List<EnemySpawnRules>();
 }

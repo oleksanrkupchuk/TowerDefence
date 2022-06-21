@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class NPCMinotaur : BaseCharacterParametrs {
-    private IState _currentState;
+    private MinotaurState _currentState;
     private AnimationEvent _attackEvent = new AnimationEvent();
     private AnimationEvent _deadkEvent = new AnimationEvent();
     private List<Enemy> _enemies = new List<Enemy>();
@@ -38,8 +38,6 @@ public class NPCMinotaur : BaseCharacterParametrs {
     private GameManager _gameManager;
     [SerializeField]
     private Gold _goldPrefab;
-    [SerializeField]
-    private Canvas _canvas;
 
     public bool move;
     public bool onRoad = false;
@@ -111,7 +109,7 @@ public class NPCMinotaur : BaseCharacterParametrs {
         _deadClip.AddEvent(_deadkEvent);
     }
 
-    public void ChangeState(IState newState) {
+    public void ChangeState(MinotaurState newState) {
         if (_currentState != null) {
             _currentState.Exit();
         }
@@ -122,8 +120,6 @@ public class NPCMinotaur : BaseCharacterParametrs {
     private void SpawGold() {
         _gold = Instantiate(_goldPrefab, transform.position, Quaternion.identity);
         _gold.Init(_gameManager);
-        _gold.transform.SetParent(_canvas.transform);
-        _gold.transform.localScale = new Vector3(1f, 1f, 1f);
         _gold.transform.position = transform.position;
         _gold.gameObject.SetActive(false);
     }

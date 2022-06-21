@@ -17,5 +17,5 @@ MonoBehaviour:
   iconAfterPurchased: {fileID: 0}
   price: 5
   name: Thorn
-  description: thorn
+  description: Bullet of iron tower slow enemy for some time
   isPurchased: 0
