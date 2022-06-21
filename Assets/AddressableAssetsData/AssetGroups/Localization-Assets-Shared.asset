@@ -33,6 +33,10 @@ MonoBehaviour:
     m_Address: Assets/Localization/Shop/ShopTable Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: db1a9046c8972864aa01a324fb71f603
+    m_Address: Assets/Localization/Tables/EnemyCart/Enemy_Cart Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: f7c03c416bfe98c4f89aa5edca3260d4, type: 2}
   m_SchemaSet:

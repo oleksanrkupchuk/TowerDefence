@@ -54,6 +54,10 @@ MonoBehaviour:
     m_Localized: Apply
     m_Metadata:
       m_Items: []
+  - m_Id: 10901964866813952
+    m_Localized: 'Effect:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

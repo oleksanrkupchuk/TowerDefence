@@ -29,15 +29,20 @@ public class PauseMenu : BaseMenu
 
     private void SubscriptionButtons() {
         _continue.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             DisableGameObject(ThisGameObject);
             DisableGameObject(_background);
             StartTime();
             _gameManager.GameUnpause();
         });
         _settings.onClick.AddListener(() => { 
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             DisableAndEnableGameObject(ThisGameObject, _settingsObject); 
             SetEnableObject(ThisGameObject, _settingsObject); 
         });
-        _home.onClick.AddListener(() => { LoadGameLevel(IndexMainMenu); });
+        _home.onClick.AddListener(() => { 
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
+            LoadGameLevel(IndexMainMenu); 
+        });
     }
 }

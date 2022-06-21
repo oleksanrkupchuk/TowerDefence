@@ -72,8 +72,8 @@ public class DataTest : MonoBehaviour {
     }
 
     private void AddStars() {
-        LevelData _levelData = SaveSystemLevel.LoadLevelData();
-        List<Level> _levels = _levelData.levels;
-        SaveSystemLevel.SaveLevel(50, _levels);
+        //LevelData _levelData = SaveSystemLevel.LoadLevelData();
+        //List<Level> _levels = _levelData.levels;
+        //SaveSystemLevel.SaveLevel(50, _levels);
     }
 }

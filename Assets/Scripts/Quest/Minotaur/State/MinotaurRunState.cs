@@ -2,90 +2,65 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinotaurRunState : IState {
-    private NPCMinotaur _npc;
-
+public class MinotaurRunState : MinotaurState {
     private int _indexPosition;
 
-    public void Enter(NPCMinotaur npc) {
-        _npc = npc;
-        _npc.Animator.SetBool("run", true);
+    public override void Enter(NPCMinotaur npcMinotaur) {
+        _npcMinotaur = npcMinotaur;
+        _npcMinotaur.Animator.SetBool("run", true);
     }
 
-    public void Execute() {
-        if (_npc == null) {
+    public override void Execute() {
+        if (_npcMinotaur == null) {
             return;
         }
 
-        if (_npc.runWayPoint) {
+        if (_npcMinotaur.runWayPoint) {
             GetNextPosition();
-            Move(_npc.nextWayPoint);
-            CheckFlipSprite(_npc.nextWayPoint);
+            _npcMinotaur.Move(_npcMinotaur.nextWayPoint);
+            _npcMinotaur.CheckFlipSprite(_npcMinotaur.nextWayPoint);
         }
 
-        if (!_npc.runWayPoint) {
-            if (_npc.Target != null && !_npc.Target.IsDead) {
-                _npc.SetLayer();
-                CheckFlipSprite(_npc.Target.transform);
+        if (!_npcMinotaur.runWayPoint) {
+            if (_npcMinotaur.Target != null && !_npcMinotaur.Target.IsDead) {
+                _npcMinotaur.SetLayer();
+                _npcMinotaur.CheckFlipSprite(_npcMinotaur.Target.transform);
                 CheckDistanceToTargetAndAttackOrMove();
             }
             else {
-                _npc.ChangeState(new MinotaurIdleState());
+                _npcMinotaur.ChangeState(new MinotaurIdleState());
             }
         }
     }
 
     private void GetNextPosition() {
-        if (Vector2.Distance(_npc.transform.position, _npc.nextWayPoint.position) <= 0.02f) {
+        if (Vector2.Distance(_npcMinotaur.transform.position, _npcMinotaur.nextWayPoint.position) <= 0.02f) {
 
             _indexPosition++;
-            if (_indexPosition < _npc.WayPoints.Count) {
-                _npc.nextWayPoint = _npc.WayPoints[_indexPosition];
+            if (_indexPosition < _npcMinotaur.WayPoints.Count) {
+                _npcMinotaur.nextWayPoint = _npcMinotaur.WayPoints[_indexPosition];
             }
             else {
-                _npc.InitStartPosition();
-                _npc.runWayPoint = false;
-                _npc.onRoad = true;
-                _npc.ChangeState(new MinotaurIdleState());
+                _npcMinotaur.InitStartPosition();
+                _npcMinotaur.runWayPoint = false;
+                _npcMinotaur.onRoad = true;
+                _npcMinotaur.ChangeState(new MinotaurIdleState());
             }
         }
-    }
-
-    private void Move(Transform target) {
-        _npc.transform.position = Vector2.MoveTowards(_npc.transform.position, target.position, _npc.speed * Time.deltaTime);
-    }
-
-    private void CheckFlipSprite(Transform target) {
-        if (_npc.transform.position.x - target.position.x < 0 && _npc.isFlipLeft) {
-            FlipSprite();
-        }
-
-        if (_npc.transform.position.x - target.position.x > 0 && !_npc.isFlipLeft) {
-            FlipSprite();
-        }
-    }
-
-    private void FlipSprite() {
-        _npc.isFlipLeft = !_npc.isFlipLeft;
-        _npc.transform.localScale = new Vector3(_npc.transform.localScale.x * -1, _npc.transform.localScale.y);
     }
 
     private void CheckDistanceToTargetAndAttackOrMove() {
-        if (Vector2.Distance(_npc.transform.position, _npc.Target.transform.position) <= 0.5f) {
-            _npc.Target.isUnderAttack = true;
-            _npc.Target.CheckFlipSprite(_npc.transform);
-            _npc.ChangeState(new MinotaurAttackState());
+        if (Vector2.Distance(_npcMinotaur.transform.position, _npcMinotaur.Target.transform.position) <= 0.5f) {
+            _npcMinotaur.Target.isUnderAttack = true;
+            _npcMinotaur.Target.CheckFlipSprite(_npcMinotaur.transform);
+            _npcMinotaur.ChangeState(new MinotaurAttackState());
         }
         else {
-            Move(_npc.Target.transform);
+            _npcMinotaur.Move(_npcMinotaur.Target.transform);
         }
     }
 
-    public void Exit() {
-        _npc.Animator.SetBool("run", false);
-    }
-
-    public void OnEnterCollision() {
-        throw new System.NotImplementedException();
+    public override void Exit() {
+        _npcMinotaur.Animator.SetBool("run", false);
     }
 }

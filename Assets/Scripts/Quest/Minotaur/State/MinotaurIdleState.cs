@@ -1,37 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+public class MinotaurIdleState : MinotaurState {
 
-public class MinotaurIdleState : IState {
-    private NPCMinotaur _npc;
-
-    public void Enter(NPCMinotaur npc) {
-        _npc = npc;
-    }
-
-    public void Execute() {
-        if(_npc == null) {
+    public override void Execute() {
+        if(_npcMinotaur == null) {
             return;
         }
 
-        if (_npc.move) {
-            _npc.ChangeState(new MinotaurRunState());
+        if (_npcMinotaur.move) {
+            _npcMinotaur.ChangeState(new MinotaurRunState());
         }
 
-        if (_npc.Target != null && !_npc.Target.IsDead && _npc.onRoad) {
-            _npc.ChangeState(new MinotaurRunState());
+        if (_npcMinotaur.Target != null && !_npcMinotaur.Target.IsDead && _npcMinotaur.onRoad) {
+            _npcMinotaur.ChangeState(new MinotaurRunState());
         }
 
-        if(_npc.Target != null && _npc.Target.IsDead && _npc.onRoad) {
-            _npc.SetTarget();
+        if(_npcMinotaur.Target != null && _npcMinotaur.Target.IsDead && _npcMinotaur.onRoad) {
+            _npcMinotaur.SetTarget();
         }
     }
 
-    public void Exit() {
-        _npc.move = false;
-    }
-
-    public void OnEnterCollision() {
-        throw new System.NotImplementedException();
+    public override void Exit() {
+        _npcMinotaur.move = false;
     }
 }

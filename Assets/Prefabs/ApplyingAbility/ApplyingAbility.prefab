@@ -27,9 +27,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4937486023921759556
 MonoBehaviour:
@@ -51,3 +52,4 @@ MonoBehaviour:
   _rockBullet: {fileID: 1933788421987285462, guid: e32a2b3586e66ac40998ab5703b4b2c6, type: 3}
   _towerUpgradeMenu: {fileID: 8159456401197924425, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
   _ability: {fileID: -8399922370622489414, guid: 1f9374582cba63f4eac742e22a1137e0, type: 3}
+  _spawnInfo: {fileID: 6082195393445296207, guid: 8653e8c69c533d647aa14a35958f25cc, type: 3}

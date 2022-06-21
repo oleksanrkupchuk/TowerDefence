@@ -15,7 +15,6 @@ public class TowerRange : MonoBehaviour {
 
         if (_enemy != null) {
             _tower.EnemyList.Add(_enemy);
-            _enemy.SetTower(_tower);
 
             if (_tower.IsTargetNull()) {
                 _tower.SetNewTarget();

@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 public class WinMenu : BaseMenu {
     private int _currentLevelIndex;
-    private int _indexNextLevel;
-    private int _countAllStars;
-    private List<Level> _levels;
+    private int _nextLevelIndex;
+    private StarsData _starsData;
+    private List<Level> _levels = new List<Level>();
 
     [SerializeField]
     private LevelLoader _levelLoader;
@@ -21,49 +21,63 @@ public class WinMenu : BaseMenu {
     [SerializeField]
     private Star[] _star;
 
+    private int LastSceneIndex {
+        get => SceneManager.sceneCountInBuildSettings - 2;
+    }
 
     public int amountReceivedStarsOnCurrentLevel = 0;
 
     void Start() {
         _currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
-        _indexNextLevel = _currentLevelIndex + 1;
+        CheckExistNextLevel();
         //print("index level = " + (_indexNextLevel - 1));
         LoadLevels();
         SubscriptionButtons();
     }
 
+    private void CheckExistNextLevel() {
+        if(_currentLevelIndex < LastSceneIndex) {
+            _nextLevelIndex = _currentLevelIndex + 1;
+        }
+        else {
+            _nextLevelIndex = 0;
+        }
+    }
+
     private void LoadLevels() {
-        LevelData _starsData = SaveSystemLevel.LoadLevelData();
-        _countAllStars = _starsData.stars;
-        _levels = _starsData.levels;
+        _levels = SaveSystemLevel.LoadLevels();
+        _starsData = SaveAndLoadStars.LoadStars();
     }
 
     private void SubscriptionButtons() {
         _nextLevel.onClick.AddListener(() => {
-            CheckExistDataLevelsFileAndSaveLevels();
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
+            CheckAmountStarsOnCurrentLevelSaveStarsAndLevel();
             _levelLoader.gameObject.SetActive(true);
-            _levelLoader.LoadLevel(_indexNextLevel);
-            //LoadGameLevel(_indexNextLevel);
+            _levelLoader.LoadLevel(_nextLevelIndex);
         });
     }
 
-    private void CheckExistDataLevelsFileAndSaveLevels() {
-        if (amountReceivedStarsOnCurrentLevel > _levels[_currentLevelIndex - 1].stars) {
-            int _differentStars = amountReceivedStarsOnCurrentLevel - _levels[_currentLevelIndex - 1].stars;
-            SaveStars(_differentStars, amountReceivedStarsOnCurrentLevel);
-            return;
+    private void CheckAmountStarsOnCurrentLevelSaveStarsAndLevel() {
+        if(_levels[_currentLevelIndex - 1].stars == 0) {
+            SaveLevelAndStars(amountReceivedStarsOnCurrentLevel, amountReceivedStarsOnCurrentLevel);
         }
-
-        SaveStars(amountReceivedStarsOnCurrentLevel, amountReceivedStarsOnCurrentLevel);
+        else if(amountReceivedStarsOnCurrentLevel > _levels[_currentLevelIndex - 1].stars) {
+            int _differentStars = amountReceivedStarsOnCurrentLevel - _levels[_currentLevelIndex - 1].stars;
+            SaveLevelAndStars(_differentStars, amountReceivedStarsOnCurrentLevel);
+        }
     }
 
-    private void SaveStars(int amountStars, int amountStarsForCurrentLevel) {
+    private void SaveLevelAndStars(int amountStars, int amountStarsForCurrentLevel) {
+        _starsData.stars += amountStars;
+        SaveAndLoadStars.SaveStars(_starsData);
+
         int _currentLevel = _currentLevelIndex - 1;
         int _nextLevel = _currentLevelIndex;
-        _countAllStars += amountStars;
+
         _levels[_currentLevel].stars = amountStarsForCurrentLevel;
         _levels[_nextLevel].isUnlock = true;
-        SaveSystemLevel.SaveLevel(_countAllStars, _levels);
+        SaveSystemLevel.SaveLevels(_levels);
     }
 
     public void StartAnimationStars() {

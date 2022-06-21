@@ -17,5 +17,5 @@ MonoBehaviour:
   iconAfterPurchased: {fileID: 0}
   price: 9
   name: Increase Sell Tower
-  description: Description 7
+  description: Increases price sell of tower to 80 percent
   isPurchased: 0

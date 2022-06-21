@@ -58,7 +58,7 @@ public class TowerUpgradeMenu : MonoBehaviour {
     }
 
     private void IncreaseDamage() {
-        if (_gameManager.Coin >= _damageUpgrade.Price) {
+        if (_gameManager.Coins >= _damageUpgrade.Price) {
             SoundManager.Instance.PlaySoundEffect(SoundName.TowerUpgrade);
             _totalMoneyForUpgrade += _damageUpgrade.Price;
             _gameManager.SubstractCoin(_damageUpgrade.Price);
@@ -70,7 +70,7 @@ public class TowerUpgradeMenu : MonoBehaviour {
     }
 
     private void IncreaseRange() {
-        if (_gameManager.Coin >= _rangeUpgrade.Price) {
+        if (_gameManager.Coins >= _rangeUpgrade.Price) {
             SoundManager.Instance.PlaySoundEffect(SoundName.TowerUpgrade);
             _totalMoneyForUpgrade += _rangeUpgrade.Price;
             _gameManager.SubstractCoin(_rangeUpgrade.Price);

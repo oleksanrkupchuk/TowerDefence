@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: golem_lava
   m_EditorClassIdentifier: 
   icon: {fileID: 6982697808867382623, guid: 0ab0f8a40c3992d43a23a8298a115a71, type: 3}
-  name: golem lava
+  name: Golem Lava

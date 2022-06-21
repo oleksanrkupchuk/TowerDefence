@@ -1,7 +1,7 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Gold : MonoBehaviour, IPointerDownHandler {
+[RequireComponent(typeof(BoxCollider2D))]
+public class Gold : MonoBehaviour {
     private GameManager _gameManager;
 
     [SerializeField]
@@ -11,7 +11,7 @@ public class Gold : MonoBehaviour, IPointerDownHandler {
         _gameManager = gameManager;
     }
 
-    public void OnPointerDown(PointerEventData eventData) {
+    private void OnMouseDown() {
         _gameManager.AddCoin(_coin);
         gameObject.SetActive(false);
     }

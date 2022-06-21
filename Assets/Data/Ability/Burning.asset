@@ -17,5 +17,6 @@ MonoBehaviour:
   iconAfterPurchased: {fileID: 21300000, guid: 082ac95b597b5f049906d7f139728c63, type: 3}
   price: 3
   name: Burning
-  description: burning
+  description: Bullet of fire tower sets fire to enemy when touch his, enemy burning
+    for some time
   isPurchased: 0

@@ -38,7 +38,7 @@ public class IronBullet : Bullet {
         if (collision.gameObject.TryGetComponent(out Enemy enemy)) {
             if (_target == enemy) {
                 _target.Debuff.TakeDamage(_damage);
-                //ChecBuyAbilityAndPoisonEnemy(_target);
+                ChecBuyAbilityAndPoisonEnemy(_target);
                 CollisionTarget(enemy);
             }
         }

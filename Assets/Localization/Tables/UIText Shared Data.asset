@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
   m_Name: UIText Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: UIText
+  m_TableCollectionName: Information_Panel_Text
   m_TableCollectionNameGuidString: c47632cf3b7114e4cba2eb5444f84f72
   m_Entries:
   - m_Id: 783316082688
-    m_Key: WaveCount
+    m_Key: Key_WaveCount
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11895843707518976
+    m_Key: Key_Coins
     m_Metadata:
       m_Items: []
   m_Metadata:

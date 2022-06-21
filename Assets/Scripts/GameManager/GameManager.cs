@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-    [SerializeField] 
-    private int _coin;
+    [SerializeField]
+    private int _coins;
     private int _currentHealth;
     private int _countStars;
-    private float _timer;
 
     [SerializeField]
     private EnemySpawner _enemySpawner;
@@ -20,8 +20,6 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private bool _isPause;
     [SerializeField]
-    private float _time;
-    [SerializeField]
     private int _health;
     [SerializeField]
     private int _leftThePercentageOfHealthToReceiveOneStar;
@@ -29,14 +27,12 @@ public class GameManager : MonoBehaviour {
     private int _leftThePercentageOfHealthToReceiveTwoStar;
     [SerializeField]
     private int _leftThePercentageOfHealthToReceiveThreeStar;
-    public int Coin { get => _coin; }
 
     private int LeftPercentageOfHealth {
         get {
             return (_currentHealth * 100) / _health;
         }
     }
-
     private bool IsNotZeroHealth {
         get {
             if (_currentHealth > 0) {
@@ -46,13 +42,12 @@ public class GameManager : MonoBehaviour {
             return false;
         }
     }
+    public int Coins { get => _coins; }
 
     private void Start() {
         _currentHealth = _health;
-        _informationPanel.SetValueOnCointText(_coin.ToString());
-        //StartCoroutine(_informationPanel.InitStringEvent());
-        SetWaveText(_enemySpawner.CountWave);
-        SetValueForTimer(_time);
+        _informationPanel.SetValueOnCointText(_coins);
+        SetWaveText();
         _informationPanel.SetHealthText(_health);
     }
 
@@ -78,29 +73,17 @@ public class GameManager : MonoBehaviour {
     }
 
     public void AddCoin(int amount) {
-        _coin += amount;
-        UpdateAmountCoin();
+        _coins += amount;
+        _informationPanel.SetValueOnCointText(_coins);
     }
 
     public void SubstractCoin(int amount) {
-        _coin -= amount;
-        UpdateAmountCoin();
+        _coins -= amount;
+        _informationPanel.SetValueOnCointText(_coins);
     }
 
-    private void UpdateAmountCoin() {
-        _informationPanel.SetValueOnCointText(_coin.ToString());
-    }
-
-    public void SetWaveText(int countWave) {
-        _informationPanel.SetValueInCountWaweText(countWave + " / " + _enemySpawner.Waves);//countWave + " / " + _enemySpawner.Waves
-    }
-
-    public void SetValueForTimer(float time) {
-        _timer = time;
-    }
-
-    public float GetTimerValue() {
-        return _timer;
+    public void SetWaveText() {
+        _informationPanel.UpdateCountWaweText();
     }
 
     public void CheckHealthAndShowLoseMenuIfHealthZero() {
@@ -126,15 +109,12 @@ public class GameManager : MonoBehaviour {
 
         else if (_enemySpawner.IsTheLastEnemyInCurrentWave) {
             _enemySpawner.EnableTimerWave();
+            _enemySpawner.CalculationEnemyInCurrentWave();
         }
     }
 
     public void TakeAwayOneHealth() {
         _currentHealth--;
-        UpdateHealthText();
-    }
-
-    private void UpdateHealthText() {
         _informationPanel.SetHealthText(_currentHealth);
     }
 
@@ -153,13 +133,13 @@ public class GameManager : MonoBehaviour {
     }
 
     private int CalculationStars() {
-        if(LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveThreeStar) {
+        if (LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveThreeStar) {
             return 3;
         }
-        if(LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveTwoStar) {
+        if (LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveTwoStar) {
             return 2;
         }
-        if(LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveOneStar) {
+        if (LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveOneStar) {
             return 1;
         }
         return 0;

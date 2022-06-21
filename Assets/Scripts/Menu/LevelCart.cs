@@ -10,7 +10,7 @@ public class LevelCart : MonoBehaviour {
     [SerializeField]
     private Button _button;
     [SerializeField]
-    private TextMeshProUGUI _text;
+    private Text _title;
     [SerializeField]
     private Color _color;
     [SerializeField]
@@ -18,7 +18,7 @@ public class LevelCart : MonoBehaviour {
 
     public bool isUnlock;
     public Button Button { get => _button; }
-    public TextMeshProUGUI Text { get => _text; }
+    public Text Title { get => _title; }
 
     public void CheckUnlockLevelAndSetIntractable(bool isUnlock) {
         if (!isUnlock) {

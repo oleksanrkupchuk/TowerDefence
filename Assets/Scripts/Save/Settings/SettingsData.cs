@@ -5,4 +5,5 @@ public class SettingsData
     public int indexLanguage;
     public bool fullScreenToggle;
     public float soundVolume;
+    public float effectVolume;
 }

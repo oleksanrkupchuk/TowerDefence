@@ -19,4 +19,4 @@ MonoBehaviour:
   name: Explosion
   description: When bullet of rock tower touch earth happens very strong explosion,
     which give damage surrounding enemies
-  isPurchased: 1
+  isPurchased: 0

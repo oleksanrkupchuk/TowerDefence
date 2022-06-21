@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1300826480416921124}
   - component: {fileID: 1300826480416921130}
   - component: {fileID: 1300826480416921131}
-  - component: {fileID: 5383781451713555280}
   m_Layer: 5
   m_Name: CountWave
   m_TagString: Untagged
@@ -63,7 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.28235295, g: 0.28235295, b: 0.28235295, a: 0.6313726}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -79,22 +78,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5383781451713555280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1300826480416921125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e6844f62e635f04b973de4a8d3731cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectComponent: {fileID: 1300826480416921125}
-  textComponent: {fileID: 5986870586919345200}
-  iconComponent: {fileID: 1300826480708351248}
-  time: 0
 --- !u!1 &1300826480708351250
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +165,7 @@ GameObject:
   - component: {fileID: 7484312669912730963}
   - component: {fileID: 8993639443180478180}
   - component: {fileID: 5986870586919345200}
-  - component: {fileID: 8115795180350489340}
+  - component: {fileID: 2287953954727544359}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -252,7 +235,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u0425\u0432\u0438\u043B\u044F: 1/10"
---- !u!114 &8115795180350489340
+--- !u!114 &2287953954727544359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -283,24 +266,12 @@ MonoBehaviour:
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
   references:
     version: 2
     RefIds: []

@@ -32,7 +32,7 @@ public class Spawn : MonoBehaviour
             _rules.AddRange(_chainEnemyObject.rules);
         }
 
-        _spawnData.newWave.SetListEnemy(_rules);
+        _spawnData.startWave.SetListEnemy(_rules);
     }
 
     public void EnableSpawnsEnemy() {

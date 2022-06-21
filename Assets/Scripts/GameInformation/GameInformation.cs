@@ -11,7 +11,7 @@ public class GameInformation : BaseMenu {
     [SerializeField]
     private EnemyCartData[] _enemyCartData;
 
-    public int EnemyCartData { get => _enemyCartData.Length; }
+    public int AmountEnemyCartData { get => _enemyCartData.Length; }
 
     void Start() {
         //InitEnemyCartData();

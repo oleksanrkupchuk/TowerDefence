@@ -51,6 +51,10 @@ MonoBehaviour:
     m_Key: Key_Apply
     m_Metadata:
       m_Items: []
+  - m_Id: 10901964866813952
+    m_Key: Key_Effect
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

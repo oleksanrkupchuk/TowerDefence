@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChestManager : MonoBehaviour
-{
+public class ChestManager : MonoBehaviour {
     private List<Potion> _potions = new List<Potion>();
     private bool _isSpawnPotion = false;
     private int _countChest;
@@ -15,13 +14,15 @@ public class ChestManager : MonoBehaviour
     [SerializeField]
     private Canvas _canvas;
     [SerializeField]
-    private Chest _chest;
+    private Chest[] _chests;
     [SerializeField]
     private List<Potion> _potionsPrefabs = new List<Potion>();
 
     private void Awake() {
         SpawnPotions();
-        _chest.AddOpenEventForOpenAnimation();
+        foreach (Chest chest in _chests) {
+            chest.AddOpenEventForOpenAnimation();
+        }
     }
 
     private void SpawnPotions() {
@@ -39,7 +40,7 @@ public class ChestManager : MonoBehaviour
 
         if (!_isSpawnPotion) {
             int _chace = Random.Range(0, 100);
-            if(_chace <= _chanseSpawnPotion) {
+            if (_chace <= _chanseSpawnPotion) {
                 SpawnPotionOnChest(chest);
             }
 
