@@ -45,15 +45,10 @@ public class InformationPanel : MonoBehaviour {
     private UnlockEnemyToolTip _unlockToolTip;
 
     private void OnEnable() {
-        InitStringEvents();
         DisableTimeSpeedText();
         DisableBackground();
         DisableButtonDefaultTimeSpeed();
         UnlockEnemy.IsUnlockEnemy += SpawnUnlockToolTipEnemy;
-    }
-
-    public void InitStringEvents() {
-        _countWaveStringEvent.StringReference.Arguments = new[] { _enemySpawner };
     }
 
     private void SpawnUnlockToolTipEnemy() {
@@ -63,9 +58,14 @@ public class InformationPanel : MonoBehaviour {
     }
 
     private void Start() {
-        //DisableButtonDefaultTimeSpeed();
+        InitStringEvent();
+        _countWaveStringEvent.gameObject.SetActive(true);
         SetValueOnPriceTowerTextAndSubsñriptionButtonsTower();
         SubscriptionButton();
+    }
+
+    private void InitStringEvent() {
+        _countWaveStringEvent.StringReference.Arguments = new[] { _enemySpawner };
     }
 
     private void DisableButtonDefaultTimeSpeed() {
@@ -85,7 +85,12 @@ public class InformationPanel : MonoBehaviour {
 
     private void SubscriptionTowerButtons(TowerButton towerButton) {
         towerButton.Button.onClick.AddListener(() => {
+            if(_gameManager.Coins >= towerButton.Tower.Price) {
             _towerManager.SetSelectedTower(towerButton);
+            }
+            else {
+                SoundManager.Instance.PlaySoundEffect(SoundName.ErrorSetTower);
+            }
         });
     }
 

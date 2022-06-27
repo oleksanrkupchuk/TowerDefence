@@ -12,6 +12,7 @@ public abstract class Bullet : MonoBehaviour {
     protected float _axiYTower;
     protected Vector3 _nextPosition;
     protected bool _isBeizerPointNotNull = true;
+    [SerializeField]
     protected float _t;
     protected float _timeWay = 0f;
     protected AnimationEvent _destroyEvent = new AnimationEvent();
@@ -42,6 +43,7 @@ public abstract class Bullet : MonoBehaviour {
     public void Init(Tower tower) {
         _tower = tower;
         _bulletAbilities = _tower.BulletsAbility;
+        _circleCollider.enabled = false;
     }
 
     public void SetDefaulPositionBulletAndTarget() {
@@ -93,7 +95,6 @@ public abstract class Bullet : MonoBehaviour {
 
     protected void Start() {
         Enemy.Dead += EnemyDead;
-        DisableCollider();
 
         SetP0();
     }
@@ -109,10 +110,6 @@ public abstract class Bullet : MonoBehaviour {
             _point.transform.SetParent(parent);
             _bezierPoints.Add(_point.gameObject);
         }
-    }
-
-    protected void DisableCollider() {
-        _circleCollider.enabled = false;
     }
 
     public void AddDestroyEventForDestroyAnimation() {
@@ -161,7 +158,7 @@ public abstract class Bullet : MonoBehaviour {
 
     protected void EnableCollider() {
         if (_circleCollider.enabled == false) {
-            if (_t >= 0.8f) {
+            if (_t >= 0.95f) {
                 _circleCollider.enabled = true;
             }
         }
@@ -202,10 +199,6 @@ public abstract class Bullet : MonoBehaviour {
 
     protected void PlayAnimationDestroy() {
         _animator.SetTrigger("destroy");
-    }
-
-    protected void DisableCircleCollider() {
-        _circleCollider.enabled = false;
     }
 
     public void SetDistanceAndRange(float range) {

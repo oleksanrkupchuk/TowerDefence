@@ -12,6 +12,8 @@ public class WinMenu : BaseMenu {
 
     [SerializeField]
     private LevelLoader _levelLoader;
+    [SerializeField]
+    private MenuSelectLevel _menuSelectLevel;
 
     [Header("Buttons Win Menu")]
     [SerializeField]
@@ -36,7 +38,7 @@ public class WinMenu : BaseMenu {
     }
 
     private void CheckExistNextLevel() {
-        if(_currentLevelIndex < LastSceneIndex) {
+        if (_currentLevelIndex < LastSceneIndex) {
             _nextLevelIndex = _currentLevelIndex + 1;
         }
         else {
@@ -53,16 +55,22 @@ public class WinMenu : BaseMenu {
         _nextLevel.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             CheckAmountStarsOnCurrentLevelSaveStarsAndLevel();
+            StartCoroutine(WaitForChangeToggle());
             _levelLoader.gameObject.SetActive(true);
-            _levelLoader.LoadLevel(_nextLevelIndex);
+            _levelLoader.LoadLevel(0);
         });
     }
 
+    private IEnumerator WaitForChangeToggle() {
+        _menuSelectLevel.isPassLevel = true;
+        yield return new WaitForSeconds(1f);
+    }
+
     private void CheckAmountStarsOnCurrentLevelSaveStarsAndLevel() {
-        if(_levels[_currentLevelIndex - 1].stars == 0) {
+        if (_levels[_currentLevelIndex - 1].stars == 0) {
             SaveLevelAndStars(amountReceivedStarsOnCurrentLevel, amountReceivedStarsOnCurrentLevel);
         }
-        else if(amountReceivedStarsOnCurrentLevel > _levels[_currentLevelIndex - 1].stars) {
+        else if (amountReceivedStarsOnCurrentLevel > _levels[_currentLevelIndex - 1].stars) {
             int _differentStars = amountReceivedStarsOnCurrentLevel - _levels[_currentLevelIndex - 1].stars;
             SaveLevelAndStars(_differentStars, amountReceivedStarsOnCurrentLevel);
         }
@@ -72,11 +80,13 @@ public class WinMenu : BaseMenu {
         _starsData.stars += amountStars;
         SaveAndLoadStars.SaveStars(_starsData);
 
-        int _currentLevel = _currentLevelIndex - 1;
-        int _nextLevel = _currentLevelIndex;
+        int _currentLevelIndexInList = _currentLevelIndex - 1;
+        int _nextLevelIndexInList = _currentLevelIndex;
 
-        _levels[_currentLevel].stars = amountStarsForCurrentLevel;
-        _levels[_nextLevel].isUnlock = true;
+        _levels[_currentLevelIndexInList].stars = amountStarsForCurrentLevel;
+        if (_nextLevelIndexInList < _levels.Count) {
+            _levels[_nextLevelIndexInList].isUnlock = true;
+        }
         SaveSystemLevel.SaveLevels(_levels);
     }
 

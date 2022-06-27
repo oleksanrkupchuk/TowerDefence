@@ -80,9 +80,9 @@ public class ShopMenu : BaseMenu {
         LoadAbility();
         InitAbilityData();
         SpawnAbility();
-        _confirmBuyAbilityWindow.Disable();
-        DisableNotEnoughMoneyWindow();
         SubscriptionButtons();
+        //_confirmBuyAbilityWindow.Disable();
+        DisableNotEnoughMoneyWindow();
 
         if (_currentAbility.Data.isPurchased) {
             DisableBuyButton();

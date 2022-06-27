@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using System.Collections.Generic;
 using System;
 using UnityEngine.Localization.Settings;
@@ -102,23 +101,53 @@ public class SettingsMenu : BaseMenu {
     private void SubscriptionButtons() {
         _back.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
-            DisableAndEnableGameObject(ThisGameObject, enableObject);
+            CheckSettingsAndSave();
         });
-        _applySettings.onClick.AddListener(() => {
-            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
-            EnableConfirmSettings();
-        });
+        //_applySettings.onClick.AddListener(() => {
+        //    SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
+        //    EnableConfirmSettings();
+        //});
         _confirmSettings.Yes.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             DisableConfirmSettings();
             SaveSettings();
             SetScreenResolution();
             LocaleSelected(_languageDropDown.value);
+            DisableAndEnableGameObject(ThisGameObject, enableObject);
         });
         _confirmSettings.No.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             DisableConfirmSettings();
         });
+    }
+
+    private void CheckSettingsAndSave() {
+        if (IsChangeSettings()) {
+            EnableConfirmSettings();
+        }
+        else {
+            DisableAndEnableGameObject(ThisGameObject, enableObject);
+        }
+    }
+
+    private bool IsChangeSettings() {
+        if (_settingsData.fullScreenToggle != _fullScreenToggle.isOn) {
+            return true;
+        }
+        if (_settingsData.effectVolume != _sliderEffect.value) {
+            return true;
+        }
+        if (_settingsData.soundVolume != _sliderSound.value) {
+            return true;
+        }
+        if (_settingsData.indexLanguage != _languageDropDown.value) {
+            return true;
+        }
+        if (_settingsData.indexResolution != _screenResolutionDropDown.value) {
+            return true;
+        }
+
+        return false;
     }
 
     private void DisableConfirmSettings() {

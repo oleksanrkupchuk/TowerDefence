@@ -117,7 +117,7 @@ RectTransform:
   - {fileID: 8318761030709860788}
   - {fileID: 7747770076368370318}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -176,6 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableObject: {fileID: 0}
   _levelLoader: {fileID: 0}
+  _menuSelectLevel: {fileID: 6802603150507226903, guid: 8a33b750aa490be4fb89352e99dbdb1e, type: 3}
   _nextLevel: {fileID: 7747770076368370313}
   _star:
   - {fileID: 6960281818883835724}

@@ -100,10 +100,10 @@ public class InitData : MonoBehaviour {
         yield return StartCoroutine(_settingsMenu.LoadLanguages());
         _settingsMenu.LocaleSelected(_settingsData.indexLanguage);
 
-        print("volume = " + _settingsData.soundVolume);
-        print("resolution = " + _settingsData.indexResolution);
-        print("language = " + _settingsData.indexLanguage);
-        print("fullScreen = " + _settingsData.fullScreenToggle);
+        //print("volume = " + _settingsData.soundVolume);
+        //print("resolution = " + _settingsData.indexResolution);
+        //print("language = " + _settingsData.indexLanguage);
+        //print("fullScreen = " + _settingsData.fullScreenToggle);
     }
 
     private void CreateCartEnemies() {

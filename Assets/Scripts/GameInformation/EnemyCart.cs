@@ -56,9 +56,7 @@ public class EnemyCart : MonoBehaviour
     }
 
     private void SetSizeRectTransform(Sprite sprite) {
-        //float _coeficient = 1000 / (sprite.bounds.size.x * 100);
         _rectTransform.sizeDelta = new Vector2(sprite.bounds.size.x * 100, sprite.bounds.size.y * 100);
-        //_rectTransform.sizeDelta = new Vector2(sprite.bounds.size.x * 100 * _coeficient, sprite.bounds.size.y * 100 * _coeficient);
     }
 
     private void SpawnDebuffs() {

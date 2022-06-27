@@ -442,6 +442,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 19.800003
       objectReference: {fileID: 0}
+    - target: {fileID: 4589768903230931960, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4589768903230931960, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5248705556706215342, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: _gameManager
       value: 
@@ -555,6 +563,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8304001431856206500, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816410517870627891, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816410517870627891, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816410517870627891, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
@@ -3789,6 +3809,10 @@ PrefabInstance:
     - target: {fileID: 7238201604597870933, guid: ad163bbe73ae4d449b480314aa665542, type: 3}
       propertyPath: m_Name
       value: LoadLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7238201604597870933, guid: ad163bbe73ae4d449b480314aa665542, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7238201604597870934, guid: ad163bbe73ae4d449b480314aa665542, type: 3}
       propertyPath: m_Pivot.x
@@ -7290,6 +7314,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2214578445108501390, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: managedReferences[1073714275247456367]
+      value: Unity.Localization UnityEngine.Localization.SmartFormat.PersistentVariables.ObjectVariable
+      objectReference: {fileID: 0}
+    - target: {fileID: 2214578445108501390, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2214578445108501390, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: managedReferences[1073714275247456367].m_Value
+      value: 
+      objectReference: {fileID: 1259703004}
+    - target: {fileID: 2214578445108501390, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.data[0].name
+      value: _spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 2214578445108501390, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.data[0].variable
+      value: 1073714275247456367
+      objectReference: {fileID: 0}
+    - target: {fileID: 2817744562355158837, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 184.71002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6168079987534635639, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
@@ -7340,6 +7392,14 @@ PrefabInstance:
     - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
       propertyPath: _time
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
+      propertyPath: _coins
+      value: 56
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
+      propertyPath: _health
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
       propertyPath: _gameMenu

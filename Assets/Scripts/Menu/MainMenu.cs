@@ -3,8 +3,6 @@ using UnityEngine.UI;
 
 public class MainMenu : BaseMenu
 {
-    private SettingsMenu _settingsMenu;
-
     [Header("Buttons Lose Menu")]
     [SerializeField]
     private Button _start;
@@ -29,9 +27,6 @@ public class MainMenu : BaseMenu
 
     private void Start()
     {
-        _settingsMenu = _settingsObject.GetComponent<SettingsMenu>();
-        //_settingsMenu.CheckSaveSettingsAndLoad();
-
         SubscriptionButtons();
     }
 

@@ -20,6 +20,10 @@ public class MenuSelectLevel : BaseMenu {
     private LevelCart _levelCart;
     [SerializeField]
     private LevelLoader _levelLoader;
+    [SerializeField]
+    private MainMenu _mainMenu;
+
+    public bool isPassLevel;
 
     public int AmountLevel { get => _amountLevel; }
 
@@ -28,7 +32,13 @@ public class MenuSelectLevel : BaseMenu {
         SubscriptionButtons();
         SpawnLevelContainer();
         InitStarsOnLevelCart();
-        DisableGameObject(gameObject);
+        if (!isPassLevel) {
+            DisableGameObject(gameObject);
+        }
+        else {
+            _mainMenu.gameObject.SetActive(false);
+            enableObject = _mainMenu.gameObject;
+        }
     }
 
     private void LoadLevelData() {

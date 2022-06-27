@@ -28,7 +28,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1093916876800
-    m_Localized: You really want to buy this ability for {_shopMenu.PriceAbility}
+    m_Localized: You really want to buy this ability for {shopMenu.PriceAbility}
       stars
     m_Metadata:
       m_Items:

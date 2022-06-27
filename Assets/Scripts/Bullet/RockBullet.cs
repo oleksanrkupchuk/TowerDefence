@@ -63,7 +63,7 @@ public class RockBullet : Bullet {
             if (_target == enemy) {
                 //_target.LastPosition -= SetTargetPosition;
                 _target.Debuff.TakeDamage(_damage);
-                DisableCircleCollider();
+                _circleCollider.enabled = false;
                 CollisionTarget(enemy);
             }
         }

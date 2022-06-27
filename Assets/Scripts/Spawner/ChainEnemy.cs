@@ -66,8 +66,8 @@ public class ChainEnemy : MonoBehaviour {
 
 
             float _timeWaitForNextSpawnEnemy = Random.Range(enemySpawnRules.minTimeDelayForNextEnemy, enemySpawnRules.maxTimeDelayForNextEnemy);
-            //yield return new WaitForSeconds(_timeWaitForNextSpawnEnemy);
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(_timeWaitForNextSpawnEnemy);
+            //yield return new WaitForSeconds(4f);
         }
     }
 }

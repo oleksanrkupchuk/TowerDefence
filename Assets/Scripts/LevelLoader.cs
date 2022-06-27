@@ -2,13 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class LevelLoader : MonoBehaviour {
+
     [SerializeField]
     private Slider _slider;
-    //[SerializeField]
-    //private TextMeshProUGUI _progressValue;
     [SerializeField]
     private Text _progressValue;
 
