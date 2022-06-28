@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 3962
+  controlID: 57
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 3963
+  controlID: 58
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 3964
+  controlID: 59
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -232,9 +232,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 9e6d0100
-      m_LastClickedID: 93598
-      m_ExpandedIDs: 62a9feffceb0feff1ab1feff68bafeff4cc1feffb0c7feff5ecefeff40d1feff24dafeffd009ffffd409ffffc60bffff0253ffff0653ffff2853ffffdc9dfffff49effff6ca1ffff70a1ffff04a5ffff38aaffff86aaffffc4b3ffff9cbafffff4c0ffff96c7ffff6ecaffffdad1ffff5af8ffff5ef8ffff1efbffff3a5c0000c25c000060220100502301003e240100da2401003c3b010078430100f86c0100fa6d0100166e0100266e0100006f0100
+      m_SelectedIDs: 4c5b0000
+      m_LastClickedID: 23372
+      m_ExpandedIDs: 24fbffff245b0000125c0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -317,7 +317,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -63656
+  m_LastSelectedObjectID: 29200
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -506,7 +506,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 303}
     m_SelectedIDs: 6a720000
     m_LastClickedID: 29290
-    m_ExpandedIDs: 00000000bc760000be760000c0760000c2760000c4760000c6760000c8760000ca760000cc760000ce760000d0760000d2760000d4760000d6760000d8760000da760000dc760000de760000e0760000e2760000e4760000e6760000e8760000ea76000000ca9a3b
+    m_ExpandedIDs: 00000000bc700000be700000c0700000c2700000c4700000c6700000c8700000ca700000cc700000ce700000d0700000d2700000d4700000d6700000d8700000da700000dc700000de700000e0700000e2700000e4700000e6700000e8700000ea700000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -534,7 +534,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000bc760000be760000c0760000c2760000c4760000c6760000c8760000ca760000cc760000ce760000d0760000d2760000d4760000d6760000d8760000da760000dc760000de760000e0760000e2760000e4760000e6760000e8760000ea76000000ca9a3b
+    m_ExpandedIDs: 00000000bc700000be700000c0700000c2700000c4700000c6700000c8700000ca700000cc700000ce700000d0700000d2700000d4700000d6700000d8700000da700000dc700000de700000e0700000e2700000e4700000e6700000e8700000ea700000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -890,7 +890,7 @@ MonoBehaviour:
       containerId: overlay-toolbar__left
       floating: 0
       collapsed: 0
-      displayed: 1
+      displayed: 0
       snapOffset: {x: 0, y: 25}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
@@ -907,9 +907,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -18.70255, y: 1.8022352, z: 0.18240686}
+    m_Target: {x: 3.9350548, y: 1.1516048, z: 557.39124}
     speed: 2
-    m_Value: {x: -18.70255, y: 1.8022352, z: 0.18240686}
+    m_Value: {x: 3.9350548, y: 1.1516048, z: 557.39124}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -959,9 +959,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 4.305454
+    m_Target: 4.656692
     speed: 2
-    m_Value: 4.305454
+    m_Value: 4.656692
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1069,9 +1069,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 00770000
-    m_LastClickedID: 30464
-    m_ExpandedIDs: 00000000bc760000be760000c0760000c2760000c4760000c6760000c8760000ca760000cc760000ce760000d0760000d2760000d4760000d6760000d8760000da760000dc760000de760000e0760000e2760000e4760000e6760000e8760000ea7600001c770000b2780000be78000000ca9a3b
+    m_SelectedIDs: fa700000
+    m_LastClickedID: 28922
+    m_ExpandedIDs: 00000000bc700000be700000c0700000c2700000c4700000c6700000c8700000ca700000cc700000ce700000d0700000d2700000d4700000d6700000d8700000da700000dc700000de700000e0700000e2700000e4700000e6700000e8700000ea70000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1099,7 +1099,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000bc760000be760000c0760000c2760000c4760000c6760000c8760000ca760000cc760000ce760000d0760000d2760000d4760000d6760000d8760000da760000dc760000de760000e0760000e2760000e4760000e6760000e8760000ea76000000ca9a3b
+    m_ExpandedIDs: 00000000bc700000be700000c0700000c2700000c4700000c6700000c8700000ca700000cc700000ce700000d0700000d2700000d4700000d6700000d8700000da700000dc700000de700000e0700000e2700000e4700000e6700000e8700000ea700000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1124,9 +1124,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 9e6d0100
-    m_LastClickedInstanceID: 93598
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 4c5b0000
+    m_LastClickedInstanceID: 23372
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000f0b10000f6b10000ecb1000012b200000ab2000028cd0000b8b10000be6f00000e7700003c5f0000f06c0000b45f0000ce6600009e670000f2f50000aeaa0000f45e0000dc6e00004ea30100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1213,7 +1213,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -63656
+  m_LastSelectedObjectID: 29200
 --- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1488,7 +1488,7 @@ MonoBehaviour:
       containerId: overlay-toolbar__left
       floating: 0
       collapsed: 0
-      displayed: 1
+      displayed: 0
       snapOffset: {x: 0, y: 25}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0

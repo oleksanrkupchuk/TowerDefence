@@ -41878,11 +41878,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _wavesData.Array.data[4].spawnsEnemyData.Array.data[0].chainsData.Array.data[1].chainListEnemies.Array.data[0].maxTimeDelayForNextEnemy
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _wavesData.Array.data[4].spawnsEnemyData.Array.data[0].chainsData.Array.data[1].chainListEnemies.Array.data[0].minTimeDelayForNextEnemy
-      value: 1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _wavesData.Array.data[4].spawnsEnemyData.Array.data[0].chainsData.Array.data[1].chainListEnemies.Array.data[1].maxTimeDelayForNextEnemy
@@ -41902,11 +41902,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _wavesData.Array.data[4].spawnsEnemyData.Array.data[0].chainsData.Array.data[2].chainListEnemies.Array.data[0].maxTimeDelayForNextEnemy
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _wavesData.Array.data[4].spawnsEnemyData.Array.data[0].chainsData.Array.data[2].chainListEnemies.Array.data[0].minTimeDelayForNextEnemy
-      value: 1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _wavesData.Array.data[4].spawnsEnemyData.Array.data[0].chainsData.Array.data[3].chainListEnemies.Array.data[0].maxTimeDelayForNextEnemy
@@ -41984,6 +41984,22 @@ PrefabInstance:
       propertyPath: _levelLoader
       value: 
       objectReference: {fileID: 1307282120}
+    - target: {fileID: 2181042314531539008, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181042314531539008, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181042314531539008, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181042314531539008, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2546030064313605261, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -42134,6 +42150,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6172456730151218541, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299878089137800828, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299878089137800828, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299878089137800828, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299878089137800828, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8304001431856206500, guid: cc03368b3e69223478dedd514cadeb95, type: 3}

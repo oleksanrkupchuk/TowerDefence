@@ -17,7 +17,7 @@ public class WinMenu : BaseMenu {
 
     [Header("Buttons Win Menu")]
     [SerializeField]
-    private Button _nextLevel;
+    private Button _nextLevelButton;
 
     [Header("Stars")]
     [SerializeField]
@@ -30,9 +30,9 @@ public class WinMenu : BaseMenu {
     public int amountReceivedStarsOnCurrentLevel = 0;
 
     void Start() {
+        _nextLevelButton.interactable = false;
         _currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
         CheckExistNextLevel();
-        //print("index level = " + (_indexNextLevel - 1));
         LoadLevels();
         SubscriptionButtons();
     }
@@ -52,7 +52,7 @@ public class WinMenu : BaseMenu {
     }
 
     private void SubscriptionButtons() {
-        _nextLevel.onClick.AddListener(() => {
+        _nextLevelButton.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             CheckAmountStarsOnCurrentLevelSaveStarsAndLevel();
             StartCoroutine(WaitForChangeToggle());
@@ -87,6 +87,7 @@ public class WinMenu : BaseMenu {
         if (_nextLevelIndexInList < _levels.Count) {
             _levels[_nextLevelIndexInList].isUnlock = true;
         }
+
         SaveSystemLevel.SaveLevels(_levels);
     }
 
@@ -105,5 +106,7 @@ public class WinMenu : BaseMenu {
         for (int i = 0; i < amountReceivedStarsOnCurrentLevel; i++) {
             _star[i].StartBlinkAnimation();
         }
+
+        _nextLevelButton.interactable = true;
     }
 }

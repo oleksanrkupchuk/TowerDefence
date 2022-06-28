@@ -46,19 +46,21 @@ public class TowerUpgradeMenu : MonoBehaviour {
 
     public void SubscribleButtonOnEvent() {
         _damageUpgrade.Button.onClick.AddListener(() => {
-            IncreaseDamage(); 
+            IncreaseDamage();
         });
         _rangeUpgrade.Button.onClick.AddListener(() => {
-            IncreaseRange(); 
+            IncreaseRange();
         });
         _buttonSell.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.SellTower);
-            SellTower(); 
+            SellTower();
         });
     }
 
     private void IncreaseDamage() {
+        print("click");
         if (_gameManager.Coins >= _damageUpgrade.Price) {
+            print("click2");
             SoundManager.Instance.PlaySoundEffect(SoundName.TowerUpgrade);
             _totalMoneyForUpgrade += _damageUpgrade.Price;
             _gameManager.SubstractCoin(_damageUpgrade.Price);

@@ -212,14 +212,9 @@ public abstract class Tower : MonoBehaviour {
     }
 
     public void IncreaseDamage() {
-        increaseDamage = DamageCalculation();
+        increaseDamage = (_bulletDamage * 30) / 100;
         _bulletDamage += increaseDamage;
-    }
-
-    protected float DamageCalculation() {
-        float damage = 0;
-        damage += _bulletDamage / 2;
-        return damage;
+        print("damage bullet " + _bulletDamage);
     }
 
     public void IncreaseRange(float range) {

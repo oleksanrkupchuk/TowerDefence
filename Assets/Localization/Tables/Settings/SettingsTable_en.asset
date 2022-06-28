@@ -58,6 +58,11 @@ MonoBehaviour:
     m_Localized: 'Effect:'
     m_Metadata:
       m_Items: []
+  - m_Id: 15177915997978624
+    m_Localized: In this advanced the screen is cropped, use right of mouse button
+      for to move the camera on the map
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

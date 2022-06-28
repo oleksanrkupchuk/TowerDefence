@@ -177,7 +177,7 @@ MonoBehaviour:
   enableObject: {fileID: 0}
   _levelLoader: {fileID: 0}
   _menuSelectLevel: {fileID: 6802603150507226903, guid: 8a33b750aa490be4fb89352e99dbdb1e, type: 3}
-  _nextLevel: {fileID: 7747770076368370313}
+  _nextLevelButton: {fileID: 7747770076368370313}
   _star:
   - {fileID: 6960281818883835724}
   - {fileID: 5037717450853806933}

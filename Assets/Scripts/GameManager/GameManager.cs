@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     [SerializeField]
@@ -97,6 +95,16 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    private void ShowLoseMenu() {
+        GameUnpause();
+        _gameMenu.EnableBackgroundGameMenu();
+        _gameMenu.EnableLoseMenu();
+    }
+
+    public void GameUnpause() {
+        _isPause = false;
+    }
+
     public void CheckLastEnemyAndEnableWinMenuOrSpawnNewEnemyWave() {
         if (_enemySpawner.IsTheLastEnemyInTheLastWave) {
             SoundManager.Instance.PlaySound(SoundName.WinGame);
@@ -113,25 +121,6 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void TakeAwayOneHealth() {
-        _currentHealth--;
-        _informationPanel.SetHealthText(_currentHealth);
-    }
-
-    private void ShowLoseMenu() {
-        GameUnpause();
-        _gameMenu.EnableBackgroundGameMenu();
-        _gameMenu.EnableLoseMenu();
-    }
-
-    public void GamePause() {
-        _isPause = true;
-    }
-
-    public void GameUnpause() {
-        _isPause = false;
-    }
-
     private int CalculationStars() {
         if (LeftPercentageOfHealth > _leftThePercentageOfHealthToReceiveThreeStar) {
             return 3;
@@ -143,5 +132,14 @@ public class GameManager : MonoBehaviour {
             return 1;
         }
         return 0;
+    }
+
+    public void TakeAwayOneHealth() {
+        _currentHealth--;
+        _informationPanel.SetHealthText(_currentHealth);
+    }
+
+    public void GamePause() {
+        _isPause = true;
     }
 }

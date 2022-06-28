@@ -8,7 +8,7 @@ using System.Collections;
 public class SettingsMenu : BaseMenu {
     private SettingsData _settingsData;
 
-    [Header("Buttons Settings Menu")]
+    [Header("Objects Settings Menu")]
     [SerializeField]
     private Button _back;
     [SerializeField]
@@ -31,6 +31,8 @@ public class SettingsMenu : BaseMenu {
     private Text _languageDropDownLabel;
     [SerializeField]
     private Toggle _fullScreenToggle;
+    [SerializeField]
+    private GameObject _tipsResolution;
 
     [SerializeField]
     private List<ResolutionScreen> _resolutions = new List<ResolutionScreen>();
@@ -79,6 +81,19 @@ public class SettingsMenu : BaseMenu {
                 text = resolution.weidth + " x " + resolution.height
             });
         }
+
+        _screenResolutionDropDown.onValueChanged.AddListener(delegate {
+            Check640x480ResolutionAndShowTips();
+        });
+    }
+
+    private void Check640x480ResolutionAndShowTips() {
+        if(_screenResolutionDropDown.value == (_resolutions.Count - 1)) {
+            _tipsResolution.SetActive(true);
+        }
+        else {
+            _tipsResolution.SetActive(false);
+        }
     }
 
     private void InitSettings() {
@@ -87,6 +102,7 @@ public class SettingsMenu : BaseMenu {
 
         _screenResolutionDropDownLabel.text = _resolutions[_settingsData.indexResolution].weidth + " x " + _resolutions[_settingsData.indexResolution].height;
         _screenResolutionDropDown.value = _settingsData.indexResolution;
+        Check640x480ResolutionAndShowTips();
 
         _sliderSound.value = _settingsData.soundVolume;
         _sliderEffect.value = _settingsData.effectVolume;
@@ -103,10 +119,6 @@ public class SettingsMenu : BaseMenu {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             CheckSettingsAndSave();
         });
-        //_applySettings.onClick.AddListener(() => {
-        //    SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
-        //    EnableConfirmSettings();
-        //});
         _confirmSettings.Yes.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             DisableConfirmSettings();
