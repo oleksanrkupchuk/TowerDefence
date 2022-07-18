@@ -35,10 +35,6 @@ MonoBehaviour:
     m_Key: Key_Sound
     m_Metadata:
       m_Items: []
-  - m_Id: 2323972022272
-    m_Key: Key_Settings
-    m_Metadata:
-      m_Items: []
   - m_Id: 2963007791104
     m_Key: Key_Resolution
     m_Metadata:

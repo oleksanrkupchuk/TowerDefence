@@ -44,7 +44,7 @@ public class SoundManager : MonoBehaviour {
     private void Start() {
         InitSoundVolume();
         InitEffectVolume();
-        PlaySound(SoundName.Background);
+        //PlaySound(SoundName.Background);
     }
 
     private void InitSoundVolume() {

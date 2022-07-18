@@ -49,7 +49,7 @@ public class SatyrDoctor : Enemy {
         PlayHealingEffect();
 
         foreach (var enemy in _enemyRange.Enemies) {
-            enemy.AddHealth(_percentageOfRecovery);
+            enemy.AddHealth(enemy.CalculationAdditionalHealth(_percentageOfRecovery));
             enemy.PlayHealingEffect();
         }
     }

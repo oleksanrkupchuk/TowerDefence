@@ -9,9 +9,6 @@ public class StartWave : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private List<EnemySpawnRules> _currentRules = new List<EnemySpawnRules>();
     private int _numberRules;
 
-    [SerializeField]
-    private SpawnInfo _spawnInfo;
-
     public void Init(EnemySpawner enemySpawner) {
         _enemySpawner = enemySpawner;
     }
@@ -26,14 +23,6 @@ public class StartWave : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData) {
         gameObject.transform.localScale = new Vector3(1.2f, 1.2f);
-
-        if (_spawnInfo.isAccessSpawnInfo) {
-            EnableCartInfo();
-        }
-    }
-
-    private void EnableCartInfo() {
-        _spawnInfo.EnableCartInfo(_currentRules);
     }
 
     public void OnPointerExit(PointerEventData eventData) {
@@ -44,7 +33,6 @@ public class StartWave : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         SoundManager.Instance.PlaySound(SoundName.StartWave);
         _enemySpawner.countWave++;
         _enemySpawner.EnableWaveEnemy();
-        _spawnInfo.Disable();
     }
 
     public void SetCurrentRules() {

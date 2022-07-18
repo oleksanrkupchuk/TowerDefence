@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 3
   icon: {fileID: -789167663086783970, guid: e244bf7e74893824585653ab9ee3da1c, type: 3}
   iconAfterPurchased: {fileID: 0}
-  price: 7
+  price: 13
   name: Fire Area
   description: When bullet of fire tower touch earth is being created circle of fire,
     chance creation circle of fire have 40 percent. Enemies which cross circle of

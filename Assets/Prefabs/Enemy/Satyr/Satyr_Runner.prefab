@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2099646473255476808}
   - component: {fileID: 2099646473255476809}
+  - component: {fileID: 2099646473255476814}
   - component: {fileID: 2099646473255476810}
   - component: {fileID: 2099646473255476811}
   - component: {fileID: 2099646473255476812}
   - component: {fileID: 2099646473255476813}
-  - component: {fileID: 2099646473255476814}
   m_Layer: 0
   m_Name: Satyr_Runner
   m_TagString: Untagged
@@ -94,6 +94,40 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2099646473255476814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099646473255476815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704d2bbbd5cfb3b449a9466ca55d85b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cartSpawnInfoData: {fileID: 0}
+  _health: 9
+  _speed: 0.7
+  _damage: 1.3
+  _amountCoinForDeath: 4
+  _canvas: {fileID: 7396089091894451858}
+  _enemyCartData: {fileID: 11400000, guid: 79d9e9704b428c040a9fbdf48875c0cb, type: 2}
+  _attackCollider: {fileID: 5585815679438246308}
+  _healthBar: {fileID: 1187124846293512781}
+  _deadClip: {fileID: 7400000, guid: 7980fb4ac31ea4e40a4e907ea79ea886, type: 2}
+  _attackClip: {fileID: 7400000, guid: 72bba6f5f91716d48b205da18423de12, type: 2}
+  _walkingClip: {fileID: 7400000, guid: 39be5827027ba78429001654b510c7fc, type: 2}
+  _frameRateEnableAttackCollider: 8
+  _frameRateDisableAttackCollider: 9
+  _healingEffect: {fileID: 2861279972466608681}
+  _burningEffect: {fileID: 9003768656916355648}
+  lastPosition: {x: 0, y: 0, z: 0}
+  isUnderAttack: 0
+  _minTimeIncreaseEnemySpeed: 7
+  _maxTimeIncreaseEnemySpeed: 12
+  _enemyRange: {fileID: 485114480459337196}
+  _percentageOfAdditionalSpeed: 20
 --- !u!50 &2099646473255476810
 Rigidbody2D:
   serializedVersion: 4
@@ -171,40 +205,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2099646473255476814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2099646473255476815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 704d2bbbd5cfb3b449a9466ca55d85b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tower: {fileID: 0}
-  _cartSpawnInfoData: {fileID: 0}
-  _health: 9
-  _speed: 0.7
-  _damage: 0
-  _amountCoinForDeath: 4
-  _canvas: {fileID: 7396089091894451858}
-  _enemyCartData: {fileID: 11400000, guid: 79d9e9704b428c040a9fbdf48875c0cb, type: 2}
-  _attackCollider: {fileID: 5585815679438246308}
-  _healthBar: {fileID: 1187124846293512781}
-  _deadClip: {fileID: 7400000, guid: 7980fb4ac31ea4e40a4e907ea79ea886, type: 2}
-  _attackClip: {fileID: 7400000, guid: 72bba6f5f91716d48b205da18423de12, type: 2}
-  _walkingClip: {fileID: 7400000, guid: 39be5827027ba78429001654b510c7fc, type: 2}
-  _frameRateEnableAttackCollider: 8
-  _frameRateDisableAttackCollider: 9
-  _healingEffect: {fileID: 2861279972466608681}
-  _burningEffect: {fileID: 9003768656916355648}
-  lastPosition: {x: 0, y: 0, z: 0}
-  isUnderAttack: 0
-  _timeIncreaseEnemySpeed: 12
-  _additionalSpeed: 0.3
-  _enemyRange: {fileID: 485114480459337196}
 --- !u!1001 &1442751513002982494
 PrefabInstance:
   m_ObjectHideFlags: 0

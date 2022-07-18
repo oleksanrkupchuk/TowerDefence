@@ -1271,7 +1271,7 @@ GameObject:
   - component: {fileID: 687102075669814517}
   - component: {fileID: 7401290574281579593}
   m_Layer: 0
-  m_Name: CanvasUpgrade
+  m_Name: Canvas
   m_TagString: Menu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1542,7 +1542,7 @@ MonoBehaviour:
   _additionRangeRadius: 0.3
   _numberOfUpgrades: 3
   _amountText: {fileID: 2721832974290886966}
-  _canvas: {fileID: 2322650905416656203}
+  _canvas: {fileID: 6721187823039987106}
   _timeDestroyTower: 0.5
   _damageUpgrade: {fileID: 3040812704544298387}
   _rangeUpgrade: {fileID: 7762326427284550339}

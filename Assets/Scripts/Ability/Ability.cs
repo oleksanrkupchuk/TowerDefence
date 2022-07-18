@@ -2,6 +2,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public enum AbilityType {
+    SpeedShoot,
+    Spike,
+    Burning,
+    FireArea,
+    Explosion,
+    ReducedPriceTower,
+    IncreasedPriceSellTower,
+    AccessSpawnInfo
+}
+
 public class Ability : MonoBehaviour {
     private AbilityData _data;
     private ShopMenu _shopMenu;
@@ -15,12 +26,12 @@ public class Ability : MonoBehaviour {
 
     [Header("Parameters")]
     [SerializeField]
-    private int _percentReductionInPriceTower;
+    private int _percentageOfTowerPriceReduction;
     [SerializeField]
     private int _percentSellTower;
 
     public AbilityData Data { get => _data; }
-    public int PercentReductionInPriceTower { get => _percentReductionInPriceTower; }
+    public int PercentageOfTowerPriceReduction { get => _percentageOfTowerPriceReduction; }
     public int PercentSellTower { get => _percentSellTower; }
 
     public void Init(AbilityData abilityData, ShopMenu shopMenu) {
@@ -46,5 +57,9 @@ public class Ability : MonoBehaviour {
             _shopMenu.SetCurrentAbilityAndUpdateDetails(this);
             _shopMenu.CheckPurchasedAbilityAndEnableOrDisableBuyButton();
         });
+    }
+
+    public void SetIcon(Sprite icon) {
+        _icon.sprite = icon;
     }
 }

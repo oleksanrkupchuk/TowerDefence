@@ -43,7 +43,6 @@ public abstract class Bullet : MonoBehaviour {
     public void Init(Tower tower) {
         _tower = tower;
         _bulletAbilities = _tower.BulletsAbility;
-        _circleCollider.enabled = false;
     }
 
     public void SetDefaulPositionBulletAndTarget() {
@@ -67,6 +66,7 @@ public abstract class Bullet : MonoBehaviour {
         _t = 0;
         _timeWay = 0;
         _isApplySpecialAbility = false;
+        _circleCollider.enabled = false;
     }
 
     public void CollisionTarget(Enemy enemy) {

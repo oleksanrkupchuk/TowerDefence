@@ -49,7 +49,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -129,6 +129,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -154,7 +166,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Debuff_Fast_Speed
+      name: Debuff_IncreasedMove
       rect:
         serializedVersion: 2
         x: 60
@@ -250,9 +262,9 @@ TextureImporter:
     nameFileIdTable:
       Debuff_Burning: -1538873551591825017
       Debuff_Healing: -2975693354824763149
-      Debuff_Fast_Speed: 2963749817242540814
       Debuff_Slow_Speed: -5064647790803206045
       Debuff_Explosion: 4052031218172993864
+      Debuff_IncreasedMove: 2963749817242540814
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

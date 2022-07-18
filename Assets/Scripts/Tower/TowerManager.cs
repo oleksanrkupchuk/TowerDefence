@@ -16,11 +16,11 @@ public class TowerManager : MonoBehaviour {
     [SerializeField]
     private SpriteRenderer _towerIcon;
     [SerializeField]
-    private GameManager _gameManager;
-    [SerializeField]
     private Collider2D _collider;
 
     public List<Tower> towersList = new List<Tower>();
+    public GameManager gameManager;
+    public Camera mainCamera;
 
     public TowerButton TowerButtonPressed { get => _towerButtonPressed; }
 
@@ -83,11 +83,11 @@ public class TowerManager : MonoBehaviour {
         //null коли не вибираєш башню і тицяєш на місце для башні
         _collider.enabled = false;
         int price = _towerButtonPressed.Tower.Price;
-        _gameManager.SubstractCoin(price);
+        gameManager.SubstractCoin(price);
         placeForTower.DisableIlluminationIcon();
 
         Tower tower = Instantiate(_towerButtonPressed.Tower, placeForTower.transform.position, Quaternion.identity);
-        tower.Init(this, _gameManager);
+        tower.Init(this, gameManager, mainCamera);
         tower.name = tower.name + " " + _countTower;
         _countTower++;
         tower.SetPlaceForTower(placeForTower);

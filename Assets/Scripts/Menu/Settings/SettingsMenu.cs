@@ -10,9 +10,7 @@ public class SettingsMenu : BaseMenu {
 
     [Header("Objects Settings Menu")]
     [SerializeField]
-    private Button _back;
-    [SerializeField]
-    private Button _applySettings;
+    private Button _closeButton;
     [SerializeField]
     private Slider _sliderSound;
     [SerializeField]
@@ -115,7 +113,7 @@ public class SettingsMenu : BaseMenu {
     }
 
     private void SubscriptionButtons() {
-        _back.onClick.AddListener(() => {
+        _closeButton.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             CheckSettingsAndSave();
         });
@@ -130,6 +128,7 @@ public class SettingsMenu : BaseMenu {
         _confirmSettings.No.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             DisableConfirmSettings();
+            DisableAndEnableGameObject(ThisGameObject, enableObject);
         });
     }
 

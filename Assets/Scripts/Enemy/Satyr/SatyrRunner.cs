@@ -1,18 +1,19 @@
-using System.Collections;
 using UnityEngine;
 
 public class SatyrRunner : Enemy {
     private float _timer;
 
     [SerializeField]
-    private float _timeIncreaseEnemySpeed;
+    private float _minTimeIncreaseEnemySpeed;
     [SerializeField]
-    private float _additionalSpeed;
+    private float _maxTimeIncreaseEnemySpeed;
     [SerializeField]
     private EnemyRange _enemyRange;
+    [SerializeField]
+    private int _percentageOfAdditionalSpeed;
 
     private new void Start() {
-        _timer = _timeIncreaseEnemySpeed;
+        _timer = Random.Range(_minTimeIncreaseEnemySpeed, _maxTimeIncreaseEnemySpeed);
         base.Start();
     }
 
@@ -23,20 +24,23 @@ public class SatyrRunner : Enemy {
 
     private void CheckTimerAndSetNewSpeed() {
         _timer -= Time.deltaTime;
+
         if (_timer <= 0) {
             StartIncreaseSpeed();
-            _timer = _timeIncreaseEnemySpeed;
+            _timer = _minTimeIncreaseEnemySpeed;
         }
     }
 
     private void StartIncreaseSpeed() {
+        _timer = Random.Range(_minTimeIncreaseEnemySpeed, _maxTimeIncreaseEnemySpeed);
+
         if (_isIncreaseSpeed) {
             return;
         }
 
         //print("runner");
         foreach (var enemy in _enemyRange.Enemies) {
-            float _speed = enemy.Speed + _additionalSpeed;
+            float _speed = enemy.Speed + (enemy.Speed * _percentageOfAdditionalSpeed);
             enemy.SetSpeed(_speed);
             enemy.SetSpeedAnimationWalking(_speed);
             StartCoroutine(enemy.IncreaseSpeed());

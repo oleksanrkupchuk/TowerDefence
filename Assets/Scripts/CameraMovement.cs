@@ -1,16 +1,13 @@
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour {
-    [Header("Camera")]
     private Vector3 _mouseClick;
     private Vector3 _mouseSwipe;
     private bool _isResolution640x480 = false;
-    [SerializeField]
-    private float _leftBorderCamera;
-    [SerializeField]
-    private float _rightBorderCamera;
-    [SerializeField]
-    private SettingsMenu _settingMenu;
+    private float _leftBorderCamera = -6.5f;
+    private float _rightBorderCamera = 6.5f;
+
+    public SettingsMenu settingMenu;
 
     private void OnEnable() {
         SettingsMenu.ChangeScreenResolution += SetResolution640x480;

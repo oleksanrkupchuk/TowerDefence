@@ -438,6 +438,22 @@ PrefabInstance:
       propertyPath: _levelLoader
       value: 
       objectReference: {fileID: 178027306}
+    - target: {fileID: 2181042314531539008, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181042314531539008, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181042314531539008, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181042314531539008, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3979086330392645725, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 19.800003
@@ -450,6 +466,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5248705556706215342, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 716797692}
     - target: {fileID: 5248705556706215342, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: _gameManager
       value: 
@@ -552,6 +572,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6172456730151218541, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299878089137800828, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299878089137800828, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299878089137800828, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299878089137800828, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8304001431856206500, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
@@ -7295,9 +7331,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1402524293244430973, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 716797692}
+    - target: {fileID: 1402524293244430973, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
       propertyPath: _gameManager
       value: 
       objectReference: {fileID: 716797692}
+    - target: {fileID: 1402524293244430973, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: enemySpawner
+      value: 
+      objectReference: {fileID: 1259703004}
+    - target: {fileID: 1402524293244430973, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: towerManager
+      value: 
+      objectReference: {fileID: 917664633}
     - target: {fileID: 1402524293244430973, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
       propertyPath: _enemySpawner
       value: 
@@ -7402,13 +7450,25 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
+      propertyPath: gameMenu
+      value: 
+      objectReference: {fileID: 1378017414}
+    - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
       propertyPath: _gameMenu
       value: 
       objectReference: {fileID: 1378017414}
     - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
+      propertyPath: enemySpawner
+      value: 
+      objectReference: {fileID: 1259703004}
+    - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
       propertyPath: _enemySpawner
       value: 
       objectReference: {fileID: 1259703004}
+    - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
+      propertyPath: informationPanel
+      value: 
+      objectReference: {fileID: 291763331}
     - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
       propertyPath: _informationPanel
       value: 
@@ -8628,6 +8688,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7364899922524614838, guid: 5ea4a8145127c4948a64bd094a4ac8d1, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1015951160}
+    - target: {fileID: 7364899922524614838, guid: 5ea4a8145127c4948a64bd094a4ac8d1, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 716797692}
+    - target: {fileID: 7364899922524614838, guid: 5ea4a8145127c4948a64bd094a4ac8d1, type: 3}
       propertyPath: _gameManager
       value: 
       objectReference: {fileID: 716797692}
@@ -9288,9 +9356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1af5018116c0d54f9446e6988a31526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftBorderCamera: -3.9
-  _rightBorderCamera: 3.9
-  _settingMenu: {fileID: 60100398}
+  settingMenu: {fileID: 60100398}
 --- !u!1 &1043929988
 GameObject:
   m_ObjectHideFlags: 0
@@ -30914,9 +30980,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1015951160}
+    - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
+      propertyPath: waveObject
+      value: 
+      objectReference: {fileID: 1609205224}
+    - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _waveObject
       value: 
       objectReference: {fileID: 1609205224}
+    - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 716797692}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _gameManager
       value: 

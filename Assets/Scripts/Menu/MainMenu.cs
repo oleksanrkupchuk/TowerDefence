@@ -19,22 +19,28 @@ public class MainMenu : BaseMenu
     [SerializeField]
     private GameObject _shopObject;
     [SerializeField]
-    private GameInformation _gameInformation;
+    private Glossary _gameInformation;
     [SerializeField]
     private GameObject _settingsObject;
     [SerializeField]
-    private GameObject _menuSelectLevelObject;
+    private MenuSelectLevel _menuSelectLevelInScene;
+    [SerializeField]
+    private MenuSelectLevel _menuSelectLevelPrefab;
 
     private void Start()
     {
         SubscriptionButtons();
+        if(_menuSelectLevelPrefab.isPassLevel) {
+            _menuSelectLevelPrefab.isPassLevel = false;
+            _start.onClick.Invoke();
+        }
     }
 
     private void SubscriptionButtons() {
         _start.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
-            DisableAndEnableGameObject(ThisGameObject, _menuSelectLevelObject);
-            SetEnableObject(ThisGameObject, _menuSelectLevelObject);
+            DisableAndEnableGameObject(ThisGameObject, _menuSelectLevelInScene.gameObject);
+            SetEnableObject(ThisGameObject, _menuSelectLevelInScene.gameObject);
         });
         _shop.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);

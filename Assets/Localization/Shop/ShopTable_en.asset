@@ -19,10 +19,6 @@ MonoBehaviour:
     m_Items:
     - rid: 2528746386020630631
   m_TableData:
-  - m_Id: 45462511616
-    m_Localized: SHOP
-    m_Metadata:
-      m_Items: []
   - m_Id: 209619181568
     m_Localized: You have not enough money on the ability
     m_Metadata:
@@ -41,10 +37,76 @@ MonoBehaviour:
     m_Localized: No
     m_Metadata:
       m_Items: []
+  - m_Id: 18889714560327680
+    m_Localized: Speed shoot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18889824706945024
+    m_Localized: Spike
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890069276811264
+    m_Localized: Burning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890139011309568
+    m_Localized: Fire area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890243583696896
+    m_Localized: Explosion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890318649155584
+    m_Localized: Reduced price tower
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890393152577536
+    m_Localized: Increased price sell tower
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18889790074576896
+    m_Localized: Doubles the iron turret's rate of fire.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18889983641706496
+    m_Localized: After touching the ground, the iron ball leaves spikes. An enemy
+      that touches the spike is slowed down for a while.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890108090900480
+    m_Localized: Fire bullet sets fire to enemy after touch. Time of burning depend
+      on from enemy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890185014435840
+    m_Localized: Fireball after touch ground creates fire area. Enemy which comes
+      in fire area burning some time. Time of burning depend on from enemy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890285744840704
+    m_Localized: Rock ball after touch ground creates power explosion. Enemy which
+      comes in area explosion take damage. Damage depend on from enemy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890363427545088
+    m_Localized: Reduces tower price on {PercentageOfTowerPriceReduction}%
+    m_Metadata:
+      m_Items:
+      - rid: 2528746386020630631
+  - m_Id: 18890431052308480
+    m_Localized: Increases price sell tower to {PercentSellTower}%
+    m_Metadata:
+      m_Items:
+      - rid: 2528746386020630631
+  - m_Id: 19605965549002752
+    m_Localized: BUY
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 2528746386020630631
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00e086b2fe000000
+        m_Entries: 00e086b2fe00000000e08638bf1c430000e0c679af1c4300

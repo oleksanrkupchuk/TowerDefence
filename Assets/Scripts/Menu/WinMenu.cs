@@ -30,7 +30,7 @@ public class WinMenu : BaseMenu {
     public int amountReceivedStarsOnCurrentLevel = 0;
 
     void Start() {
-        _nextLevelButton.interactable = false;
+        //_nextLevelButton.interactable = false;
         _currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
         CheckExistNextLevel();
         LoadLevels();
@@ -107,6 +107,6 @@ public class WinMenu : BaseMenu {
             _star[i].StartBlinkAnimation();
         }
 
-        _nextLevelButton.interactable = true;
+        //_nextLevelButton.interactable = true;
     }
 }

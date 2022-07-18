@@ -7,8 +7,5 @@ public class AbilityData: ScriptableObject
     public Sprite icon;
     public Sprite iconAfterPurchased;
     public int price;
-    public new string name;
-    [HideInInspector]
-    public string description;
     public bool isPurchased;
 }

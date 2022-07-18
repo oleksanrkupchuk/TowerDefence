@@ -72,10 +72,10 @@ public abstract class Tower : MonoBehaviour {
     public Transform BulletPosition { get => _bulletPosition; }
     public List<BulletAbility> BulletsAbility { get => _bulletsAbility; }
 
-    public void Init(TowerManager towerManager, GameManager gameManager) {
+    public void Init(TowerManager towerManager, GameManager gameManager, Camera camera) {
         _towerManager = towerManager;
         _gameManager = gameManager;
-        _towerUpgradeMenu.Initialization(_gameManager, this);
+        _towerUpgradeMenu.Init(_gameManager, this, camera);
 
         CreateBulletAbility();
         CreatePoolBulet();

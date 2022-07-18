@@ -17,7 +17,7 @@ public class TowerUpgradeMenu : MonoBehaviour {
     [SerializeField]
     private TowerMenuAmountText _amountText;
     [SerializeField]
-    private Transform _canvas;
+    private Canvas _canvas;
 
     [Header("Parametrs")]
     [SerializeField]
@@ -33,9 +33,10 @@ public class TowerUpgradeMenu : MonoBehaviour {
 
     public int percentSellTower;
 
-    public void Initialization(GameManager gameManager, Tower tower) {
+    public void Init(GameManager gameManager, Tower tower, Camera camera) {
         _gameManager = gameManager;
         _tower = tower;
+        _canvas.worldCamera = camera;
     }
 
     private void Start() {
@@ -58,9 +59,9 @@ public class TowerUpgradeMenu : MonoBehaviour {
     }
 
     private void IncreaseDamage() {
-        print("click");
+        //print("click");
         if (_gameManager.Coins >= _damageUpgrade.Price) {
-            print("click2");
+            //print("click2");
             SoundManager.Instance.PlaySoundEffect(SoundName.TowerUpgrade);
             _totalMoneyForUpgrade += _damageUpgrade.Price;
             _gameManager.SubstractCoin(_damageUpgrade.Price);

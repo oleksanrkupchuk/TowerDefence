@@ -28,13 +28,6 @@ public class InformationPanel : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI[] _priceTowerText;
 
-    [Header("Managers")]
-    [SerializeField]
-    private GameManager _gameManager;
-    [SerializeField]
-    private TowerManager _towerManager;
-    [SerializeField]
-    private EnemySpawner _enemySpawner;
 
     [Header("String events")]
     [SerializeField]
@@ -43,6 +36,11 @@ public class InformationPanel : MonoBehaviour {
     private Transform _parentUnlockToolTipEnemy;
     [SerializeField]
     private UnlockEnemyToolTip _unlockToolTip;
+
+    [Header("Managers")]
+    public GameManager gameManager;
+    public TowerManager towerManager;
+    public EnemySpawner enemySpawner;
 
     private void OnEnable() {
         DisableTimeSpeedText();
@@ -65,7 +63,7 @@ public class InformationPanel : MonoBehaviour {
     }
 
     private void InitStringEvent() {
-        _countWaveStringEvent.StringReference.Arguments = new[] { _enemySpawner };
+        _countWaveStringEvent.StringReference.Arguments = new[] { enemySpawner };
     }
 
     private void DisableButtonDefaultTimeSpeed() {
@@ -85,8 +83,8 @@ public class InformationPanel : MonoBehaviour {
 
     private void SubscriptionTowerButtons(TowerButton towerButton) {
         towerButton.Button.onClick.AddListener(() => {
-            if(_gameManager.Coins >= towerButton.Tower.Price) {
-            _towerManager.SetSelectedTower(towerButton);
+            if(gameManager.Coins >= towerButton.Tower.Price) {
+            towerManager.SetSelectedTower(towerButton);
             }
             else {
                 SoundManager.Instance.PlaySoundEffect(SoundName.ErrorSetTower);

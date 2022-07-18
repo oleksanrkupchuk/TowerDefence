@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
   m_Name: UIText Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: Information_Panel_Text
+  m_TableCollectionName: InformationPanelText
   m_TableCollectionNameGuidString: c47632cf3b7114e4cba2eb5444f84f72
   m_Entries:
   - m_Id: 783316082688

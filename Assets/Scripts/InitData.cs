@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InitData : MonoBehaviour {
     [SerializeField]
-    private GameInformation _gameInformation;
+    private Glossary _glossary;
     [SerializeField]
     private MenuSelectLevel _menuSelectLevel;
     [SerializeField]
@@ -108,7 +108,7 @@ public class InitData : MonoBehaviour {
 
     private void CreateCartEnemies() {
         List<bool> _isUnlocksEnemy = new List<bool>();
-        for (int i = 0; i < _gameInformation.AmountEnemyCartData; i++) {
+        for (int i = 0; i < _glossary.AmountEnemyCartData; i++) {
             _isUnlocksEnemy.Add(false);
         }
 

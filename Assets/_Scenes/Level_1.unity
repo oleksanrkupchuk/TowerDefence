@@ -21969,9 +21969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1af5018116c0d54f9446e6988a31526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftBorderCamera: -3.9
-  _rightBorderCamera: 3.9
-  _settingMenu: {fileID: 516331992, guid: 58981ca991146bb4b9116253e16912ba, type: 3}
+  settingMenu: {fileID: 5284401509730278650}
 --- !u!1 &563131387
 GameObject:
   m_ObjectHideFlags: 0
@@ -38895,9 +38893,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1402524293244430973, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1537084595}
+    - target: {fileID: 1402524293244430973, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
       propertyPath: _gameManager
       value: 
       objectReference: {fileID: 1537084595}
+    - target: {fileID: 1402524293244430973, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: enemySpawner
+      value: 
+      objectReference: {fileID: 945401129}
+    - target: {fileID: 1402524293244430973, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: towerManager
+      value: 
+      objectReference: {fileID: 608088876}
     - target: {fileID: 1402524293244430973, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
       propertyPath: _enemySpawner
       value: 
@@ -39145,6 +39155,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519420031}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
+      propertyPath: waveObject
+      value: 
+      objectReference: {fileID: 439117037}
+    - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _pointSpawn
       value: 
       objectReference: {fileID: 1718304563}
@@ -39152,6 +39170,10 @@ PrefabInstance:
       propertyPath: _waveObject
       value: 
       objectReference: {fileID: 439117037}
+    - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1537084595}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _gameManager
       value: 
@@ -41984,6 +42006,10 @@ PrefabInstance:
       propertyPath: _levelLoader
       value: 
       objectReference: {fileID: 1307282120}
+    - target: {fileID: 1744143747502848824, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2181042314531539008, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -42036,6 +42062,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5248705556706215342, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1537084595}
     - target: {fileID: 5248705556706215342, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
       propertyPath: _gameManager
       value: 
@@ -42217,6 +42247,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f183da67ddb2c345afad6fc5bc902ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5284401509730278650 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5284401509730278650, guid: cc03368b3e69223478dedd514cadeb95, type: 3}
+  m_PrefabInstance: {fileID: 5284401509730278647}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d148f0ef1318443acd49e3ec5a2f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7237882426843583859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42238,13 +42279,25 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
+      propertyPath: gameMenu
+      value: 
+      objectReference: {fileID: 5284401509730278648}
+    - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
       propertyPath: _gameMenu
       value: 
       objectReference: {fileID: 5284401509730278648}
     - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
+      propertyPath: enemySpawner
+      value: 
+      objectReference: {fileID: 945401129}
+    - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
       propertyPath: _enemySpawner
       value: 
       objectReference: {fileID: 945401129}
+    - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
+      propertyPath: informationPanel
+      value: 
+      objectReference: {fileID: 864810263}
     - target: {fileID: 7237882428311984576, guid: cc70088df4d1ac04d8c711c77d3e7b14, type: 3}
       propertyPath: _informationPanel
       value: 
@@ -42512,6 +42565,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7364899922524614838, guid: 5ea4a8145127c4948a64bd094a4ac8d1, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 7364899922524614838, guid: 5ea4a8145127c4948a64bd094a4ac8d1, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1537084595}
     - target: {fileID: 7364899922524614838, guid: 5ea4a8145127c4948a64bd094a4ac8d1, type: 3}
       propertyPath: _gameManager
       value: 

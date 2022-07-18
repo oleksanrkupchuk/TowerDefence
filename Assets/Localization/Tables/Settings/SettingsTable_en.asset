@@ -38,10 +38,6 @@ MonoBehaviour:
     m_Localized: 'Sound:'
     m_Metadata:
       m_Items: []
-  - m_Id: 2323972022272
-    m_Localized: SETTINGS
-    m_Metadata:
-      m_Items: []
   - m_Id: 2963007791104
     m_Localized: 'Screen resolution:'
     m_Metadata:

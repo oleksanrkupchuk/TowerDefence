@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 4
   icon: {fileID: -7827241295674515642, guid: e244bf7e74893824585653ab9ee3da1c, type: 3}
   iconAfterPurchased: {fileID: 0}
-  price: 8
+  price: 17
   name: Explosion
   description: When bullet of rock tower touch earth happens very strong explosion,
     which give damage surrounding enemies

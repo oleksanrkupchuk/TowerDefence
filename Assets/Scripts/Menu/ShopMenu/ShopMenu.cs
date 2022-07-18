@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 
 public class ShopMenu : BaseMenu {
     private Ability _currentAbility;
@@ -23,7 +24,6 @@ public class ShopMenu : BaseMenu {
     private ConfirmBuyAbilityWindow _confirmBuyAbilityWindow;
     [SerializeField]
     private GameObject _notEnoughMoneyWindow;
-
     [SerializeField]
     private Ability _ability;
     [SerializeField]
@@ -33,7 +33,7 @@ public class ShopMenu : BaseMenu {
     [SerializeField]
     private Transform _content;
     [SerializeField]
-    private TextMeshProUGUI _starsText;
+    private Text _starsText;
     [SerializeField]
     private List<AbilityData> _abilityData = new List<AbilityData>();
 
@@ -41,9 +41,9 @@ public class ShopMenu : BaseMenu {
     [SerializeField]
     private Image _abilityIcon;
     [SerializeField]
-    private TextMeshProUGUI _abilityDescription;
+    private LocalizeStringEvent _nameStringEvent;
     [SerializeField]
-    private TextMeshProUGUI _abilityName;
+    private LocalizeStringEvent _descriptionStringEvent;
 
     public int AmountAbility { get => _abilityData.Count; }
     public int PriceAbility { get => _currentAbility.Data.price; }
@@ -51,7 +51,8 @@ public class ShopMenu : BaseMenu {
     private void OnEnable() {
         _scrollBar.value = 0f;
 
-        SetInDetailFirsAbility();
+        _abilityIcon.sprite = _abilityData[0].icon;
+        SetLocalizedTableForTitleAndDescriptionAbility(0);
 
         LoadStars();
         #region FOR TEST DATA
@@ -59,10 +60,22 @@ public class ShopMenu : BaseMenu {
         #endregion
     }
 
-    private void SetInDetailFirsAbility() {
-        _abilityIcon.sprite = _abilityData[0].icon;
-        _abilityDescription.text = _abilityData[0].description;
-        _abilityName.text = _abilityData[0].name;
+    private void SetLocalizedTableForTitleAndDescriptionAbility(int indexAbility) {
+        LocalizedString _localizationStringName = new LocalizedString {
+            TableReference = "ShopTable",
+            TableEntryReference = "Key_" + _abilityData[indexAbility].type.ToString() + "_Name"
+        };
+
+        _nameStringEvent.StringReference = _localizationStringName;
+
+        LocalizedString _localizationStringDescription = new LocalizedString {
+            TableReference = "ShopTable",
+            TableEntryReference = "Key_" + _abilityData[indexAbility].type.ToString() + "_Description"
+        };
+
+        _localizationStringDescription.Arguments = new[] { _ability };
+
+        _descriptionStringEvent.StringReference = _localizationStringDescription;
     }
 
     private void LoadStars() {
@@ -72,7 +85,6 @@ public class ShopMenu : BaseMenu {
     }
 
     private void LoadAbility() {
-        //print("fire ability exist = " + AbilitySaveSystem.IsExistsSaveAbilityFile());
         _abilityPurchased = AbilitySaveSystem.LoadAbility();
     }
 
@@ -81,24 +93,18 @@ public class ShopMenu : BaseMenu {
         InitAbilityData();
         SpawnAbility();
         SubscriptionButtons();
-        //_confirmBuyAbilityWindow.Disable();
         DisableNotEnoughMoneyWindow();
 
         if (_currentAbility.Data.isPurchased) {
             DisableBuyButton();
         }
-
-        DisableGameObject(gameObject);
     }
 
     private void InitAbilityData() {
-        AbilityText.Init();
         for (int i = 0; i < _abilityData.Count; i++) {
             for (int j = 0; j < _abilityData.Count; j++) {
                 if (_abilityData[i].type == _abilityPurchased.abilities[j].type) {
                     _abilityData[i].isPurchased = _abilityPurchased.abilities[j].isPurchased;
-                    _abilityData[i].description = AbilityText.GetDescription(_abilityData[i].type);
-                    //print("desc = " + AbilityText.GetDescription(_abilityData[i].type));
                 }
             }
         }
@@ -207,8 +213,7 @@ public class ShopMenu : BaseMenu {
     public void SetCurrentAbilityAndUpdateDetails(Ability ability) {
         _currentAbility = ability;
         _abilityIcon.sprite = _currentAbility.Data.icon;
-        _abilityName.text = _currentAbility.Data.name;
-        _abilityDescription.text = _currentAbility.Data.description;
+        SetLocalizedTableForTitleAndDescriptionAbility((int)_currentAbility.Data.type);
     }
 
     public void CheckPurchasedAbilityAndEnableOrDisableBuyButton() {

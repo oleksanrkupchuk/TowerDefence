@@ -15,13 +15,12 @@ public class GameMenu : BaseMenu
     private WinMenu _winMenu;
 
     [Header("Scripts")]
-    [SerializeField]
-    private GameManager _gameManager;
+    public GameManager gameManager;
 
     public WinMenu WinMenu { get => _winMenu; }
 
     private void OnEnable() {
-        _pauseMenu.SetGameManager(_gameManager);
+        _pauseMenu.SetGameManager(gameManager);
         DisableBackgroundGameMenu();
         DisableLoseMenu();
         DisablePauseMenu();

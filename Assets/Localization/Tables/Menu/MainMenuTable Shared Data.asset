@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
   m_Name: MainMenuTable Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: Menu_Table
+  m_TableCollectionName: MenuTable
   m_TableCollectionNameGuidString: acd7d23ac6992aa478077f3b07bdf60d
   m_Entries:
   - m_Id: 63514796032
@@ -20,7 +20,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 797023068160
-    m_Key: Key_Select_Level
+    m_Key: Key_SelectLevel
     m_Metadata:
       m_Items: []
   - m_Id: 9504450800353280
@@ -33,6 +33,34 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 9509080699600896
     m_Key: Key_Lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19648972356771840
+    m_Key: Key_Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19649159611473920
+    m_Key: Key_Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19649935662571520
+    m_Key: Key_Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21080198275850240
+    m_Key: Key_Home
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21080835768115200
+    m_Key: Key_Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21084211583049728
+    m_Key: Key_Next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21085353796886528
+    m_Key: Key_Win
     m_Metadata:
       m_Items: []
   m_Metadata:
