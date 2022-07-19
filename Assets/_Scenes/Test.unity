@@ -779,6 +779,30 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5805087907052720767, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805087907052720767, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805087907052720767, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805087907052720767, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805087907052720767, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805087907052720767, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8204056677248393045, guid: 63deda34249cbe6409a573c0c8667076, type: 3}
       propertyPath: managedReferences[1073713986054914076]
       value: Unity.Localization UnityEngine.Localization.SmartFormat.PersistentVariables.ObjectVariable
@@ -26668,7 +26692,7 @@ PrefabInstance:
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _wavesData.Array.data[0].spawnsEnemyData.Array.data[0].chainsData.Array.data[0].chainListEnemies.Array.data[0].enemy
       value: 
-      objectReference: {fileID: 9011182623694102915, guid: aa882aec2ebc8d842bb95f6a414c9856, type: 3}
+      objectReference: {fileID: 1692862883609546770, guid: caedb2076ef91a541bccf3a9349a1d88, type: 3}
     - target: {fileID: 3461328818429650220, guid: ec17181aaf030ca46b037efaecce154f, type: 3}
       propertyPath: _wavesData.Array.data[0].spawnsEnemyData.Array.data[0].chainsData.Array.data[0].chainListEnemies.Array.data[1].enemy
       value: 

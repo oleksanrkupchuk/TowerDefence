@@ -12,35 +12,27 @@ public class LevelCart : MonoBehaviour {
     [SerializeField]
     private Text _title;
     [SerializeField]
-    private Color _color;
+    private Color _fadeColor;
     [SerializeField]
-    private Color _colorNormal;
+    private Color _normalColor;
 
     public bool isUnlock;
     public Button Button { get => _button; }
     public Text Title { get => _title; }
 
-    public void CheckUnlockLevelAndSetIntractable(bool isUnlock) {
+    public void CheckUnlockLevelAndSetIntractable(bool isUnlock, int amountStars) {
         if (!isUnlock) {
             _button.interactable = false;
-            SetEclipsForStarsIcon();
+            SetEclipsForStarsIcon(3, _fadeColor);
         }
         else {
-            for (int i = 0; i < _iconStarsEmpty.Length; i++) {
-                _iconStarsEmpty[i].color = _colorNormal;
-            }
+            SetEclipsForStarsIcon(amountStars, _normalColor);
         }
     }
 
-    private void SetEclipsForStarsIcon() {
-        for (int i = 0; i < _iconStarsEmpty.Length; i++) {
-            _iconStarsEmpty[i].color = _color;
-        }
-    }
-
-    public void SetIconStarsFull(int count) {
-        for (int i = 0; i < count; i++) {
-            _iconStarsEmpty[i].sprite = _iconStarFull;
+    private void SetEclipsForStarsIcon(int amountStars, Color color) {
+        for (int i = 0; i < amountStars; i++) {
+            _iconStarsEmpty[i].color = color;
         }
     }
 }

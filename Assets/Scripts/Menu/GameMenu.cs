@@ -25,7 +25,6 @@ public class GameMenu : BaseMenu
         DisableLoseMenu();
         DisablePauseMenu();
         DisableSettingsMenu();
-        DisableWinMenu();
     }
 
     public void SetActiveBackgroundGameMenu(bool isActive) {

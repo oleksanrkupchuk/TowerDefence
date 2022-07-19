@@ -123,10 +123,9 @@ public class MenuSelectLevel : BaseMenu {
     private void SpawnLevelCarts(int amountCarts, Transform parent) {
         for (int indexLevel = 1; indexLevel <= amountCarts; indexLevel++) {
             LevelCart _levelObject = Instantiate(_levelCart, parent);
-            _levelObject.CheckUnlockLevelAndSetIntractable(_levels[_numberLevel - 1].isUnlock);
+            _levelObject.CheckUnlockLevelAndSetIntractable(_levels[_numberLevel - 1].isUnlock, _levels[_numberLevel - 1].stars);
             SubscriptionLevelButton(_levelObject.Button, indexLevel);
             SetTextOnLevelButton(_levelObject.Title, _numberLevel);
-            _levelObject.SetIconStarsFull(_levels[_numberLevel - 1].stars);
             _numberLevel++;
         }
     }

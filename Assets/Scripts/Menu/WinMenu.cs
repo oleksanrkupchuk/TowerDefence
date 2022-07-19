@@ -35,6 +35,14 @@ public class WinMenu : BaseMenu {
         CheckExistNextLevel();
         LoadLevels();
         SubscriptionButtons();
+
+        StartCoroutine(StartStarsAnimation());
+    }
+
+    private IEnumerator StartStarsAnimation() {
+        for (int i = 0; i < amountReceivedStarsOnCurrentLevel; i++) {
+            yield return StartCoroutine(_star[i].IncreaseObject());
+        }
     }
 
     private void CheckExistNextLevel() {
@@ -89,24 +97,5 @@ public class WinMenu : BaseMenu {
         }
 
         SaveSystemLevel.SaveLevels(_levels);
-    }
-
-    public void StartAnimationStars() {
-        StartCoroutine(StarsFillingAndBlinkAnimation());
-    }
-
-    private IEnumerator StarsFillingAndBlinkAnimation() {
-        for (int i = 0; i < amountReceivedStarsOnCurrentLevel; i++) {
-            _star[i].StartFillingAnimation();
-            yield return new WaitUntil(() => _star[i].endFillingAnimation);
-        }
-
-        yield return new WaitForSeconds(0.5f);
-
-        for (int i = 0; i < amountReceivedStarsOnCurrentLevel; i++) {
-            _star[i].StartBlinkAnimation();
-        }
-
-        //_nextLevelButton.interactable = true;
     }
 }

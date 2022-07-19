@@ -109,7 +109,6 @@ public class GameManager : MonoBehaviour {
             gameMenu.EnableWinMenuAndSetDeafaultSpeedTime();
             _countStars = CalculationStars();
             gameMenu.WinMenu.amountReceivedStarsOnCurrentLevel = _countStars;
-            gameMenu.WinMenu.StartAnimationStars();
         }
 
         else if (enemySpawner.IsTheLastEnemyInCurrentWave) {

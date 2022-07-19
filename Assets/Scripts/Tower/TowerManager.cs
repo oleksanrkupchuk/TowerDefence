@@ -141,7 +141,7 @@ public class TowerManager : MonoBehaviour {
         if (_towerIcon != null) {
             _towerIcon.enabled = true;
             _towerIcon.sprite = sprite;
-            _towerIcon.sortingOrder = 100;
+            _towerIcon.sortingOrder = 201;
         }
 
         else {

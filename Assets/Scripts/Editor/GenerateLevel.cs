@@ -51,6 +51,9 @@ public class GenerateLevel : EditorWindow
     }
 
     private void GenerateElementsOnScene() {
+        if(_settingsMenu == null) {
+            Debug.LogError("SettingsMenu is null");
+        }
 
         _mainCamera = FindObjectOfType<Camera>();
         _mainCamera.gameObject.AddComponent<CameraMovement>().settingMenu = _settingsMenu.GetComponent<SettingsMenu>();
@@ -126,10 +129,10 @@ public class GenerateLevel : EditorWindow
         _grid.AddComponent<Grid>();
 
         GameObject _timeMapGround = Instantiate(new GameObject(_groundName, typeof(Tilemap)));
-        _timeMapGround.AddComponent<TilemapRenderer>().sortingOrder = 1000;
+        _timeMapGround.AddComponent<TilemapRenderer>().sortingOrder = -1000;
 
         GameObject _timeMapRoad = Instantiate(new GameObject(_roadName, typeof(Tilemap)));
-        _timeMapRoad.AddComponent<TilemapRenderer>().sortingOrder = 950;
+        _timeMapRoad.AddComponent<TilemapRenderer>().sortingOrder = -950;
 
         _timeMapGround.transform.SetParent(_grid.transform);
         _timeMapRoad.transform.SetParent(_grid.transform);
