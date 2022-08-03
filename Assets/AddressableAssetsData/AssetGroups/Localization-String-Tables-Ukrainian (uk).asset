@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 710b05795947945479ac9ed8b9676d7d
   m_SerializeEntries:
   - m_GUID: 2720e26145b1e514fa4039b5177bffaf
-    m_Address: Information_Panel_Text_uk
+    m_Address: InformationPanelText_uk
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-uk
@@ -30,7 +30,7 @@ MonoBehaviour:
     - Locale-uk
     - Preload
   - m_GUID: 366ab6f4afce11f4d997894b1e6437aa
-    m_Address: Menu_Table_uk
+    m_Address: MenuTable_uk
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-uk
@@ -42,7 +42,19 @@ MonoBehaviour:
     - Locale-uk
     - Preload
   - m_GUID: a85f9a57ea06fbc4e86b0da147f9c98d
-    m_Address: Enemy_Cart_uk
+    m_Address: EnemyCart_uk
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-uk
+    - Preload
+  - m_GUID: 6b364dc7e1371ff4ea4bce9274fb387e
+    m_Address: Glossary_uk
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-uk
+    - Preload
+  - m_GUID: 5dca1a3ff20593147a8aa025eef2744d
+    m_Address: GameAdvices_uk
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-uk

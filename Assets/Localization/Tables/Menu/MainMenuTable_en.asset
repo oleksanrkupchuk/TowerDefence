@@ -38,6 +38,34 @@ MonoBehaviour:
     m_Localized: YOU LOSE
     m_Metadata:
       m_Items: []
+  - m_Id: 19648972356771840
+    m_Localized: START
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19649159611473920
+    m_Localized: EXIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19649935662571520
+    m_Localized: SETTINGS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21080198275850240
+    m_Localized: HOME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21080835768115200
+    m_Localized: CONTINUE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21084211583049728
+    m_Localized: NEXT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21085353796886528
+    m_Localized: YOU WIN
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

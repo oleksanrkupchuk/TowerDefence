@@ -300,9 +300,13 @@ public abstract class Enemy : MonoBehaviour {
         _speed = value;
     }
 
-    public void AddHealth(float value) {
-        int _recoveryHealth = (int)((value * _health) / 100);
-        _health += _recoveryHealth;
+    public float CalculationAdditionalHealth(float percentageOfRecovery) {
+        float _recoveryHealth = ((percentageOfRecovery * _healthMax) / 100);
+        return _recoveryHealth;
+    }
+
+    public virtual void AddHealth(float additionalHealth) {
+        _health += additionalHealth;
         if (_health > _healthMax) {
             _health = _healthMax;
         }

@@ -462,7 +462,6 @@ MonoBehaviour:
   _poolBulletObject: {fileID: 4508324762723707657}
   _rangeCollider: {fileID: 611613967024040103}
   _bullet: {fileID: 1933788421987285462, guid: e32a2b3586e66ac40998ab5703b4b2c6, type: 3}
-  _lineRenderer: {fileID: 6905664480513818955}
   target: {fileID: 0}
   _placeForTower: {fileID: 0}
   _towerUpgradeMenu: {fileID: 3042399990200939299}
@@ -772,6 +771,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6033749226538845783, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _tower
+      value: 
+      objectReference: {fileID: 2562439637406433296}
     - target: {fileID: 6109435081150076895, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: _price
       value: 9

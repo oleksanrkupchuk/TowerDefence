@@ -1,16 +1,5 @@
 using UnityEngine;
 
-public enum AbilityType {
-    SpeedShoot,
-    Thorn,
-    Burning,
-    FireArea,
-    Explosion,
-    ReducePriceTower,
-    IncreasePriceSell,
-    AccessSpawnInfo
-}
-
 public class ApplyingAbility : MonoBehaviour {
     private static ApplyingAbility _applyingAbility;
     [SerializeField]
@@ -29,8 +18,6 @@ public class ApplyingAbility : MonoBehaviour {
     private TowerUpgradeMenu _towerUpgradeMenu;
     [SerializeField]
     private Ability _ability;
-    [SerializeField]
-    private SpawnInfo _spawnInfo;
 
     private void Awake() {
         if (_applyingAbility == null) {
@@ -63,7 +50,7 @@ public class ApplyingAbility : MonoBehaviour {
                 _ironTower.isBuyAbility = true;
                 break;
 
-            case AbilityType.Thorn:
+            case AbilityType.Spike:
                 _ironBullet.thonr = true;
                 break;
 
@@ -79,18 +66,14 @@ public class ApplyingAbility : MonoBehaviour {
                 _rockBullet.isExplosion = true;
                 break;
 
-            case AbilityType.IncreasePriceSell:
+            case AbilityType.IncreasedPriceSellTower:
                 _towerUpgradeMenu.percentSellTower = _ability.PercentSellTower;
                 break;
 
-            case AbilityType.ReducePriceTower:
-                _ironTower.ReducePrice(_ability.PercentReductionInPriceTower);
-                _fireTower.ReducePrice(_ability.PercentReductionInPriceTower);
-                _rockTower.ReducePrice(_ability.PercentReductionInPriceTower);
-                break;
-
-            case AbilityType.AccessSpawnInfo:
-                _spawnInfo.isAccessSpawnInfo = true;
+            case AbilityType.ReducedPriceTower:
+                _ironTower.ReducePrice(_ability.PercentageOfTowerPriceReduction);
+                _fireTower.ReducePrice(_ability.PercentageOfTowerPriceReduction);
+                _rockTower.ReducePrice(_ability.PercentageOfTowerPriceReduction);
                 break;
         }
     }

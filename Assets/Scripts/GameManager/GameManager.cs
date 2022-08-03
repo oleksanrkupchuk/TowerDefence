@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     [SerializeField]
     private int _coins;
     private int _currentHealth;
     private int _countStars;
-
-    [SerializeField]
-    private EnemySpawner _enemySpawner;
-    [SerializeField]
-    private InformationPanel _informationPanel;
-    [SerializeField]
-    private GameMenu _gameMenu;
 
     [SerializeField]
     private KeyCode _pauseButton;
@@ -27,6 +18,10 @@ public class GameManager : MonoBehaviour {
     private int _leftThePercentageOfHealthToReceiveTwoStar;
     [SerializeField]
     private int _leftThePercentageOfHealthToReceiveThreeStar;
+
+    public EnemySpawner enemySpawner;
+    public InformationPanel informationPanel;
+    public GameMenu gameMenu;
 
     private int LeftPercentageOfHealth {
         get {
@@ -46,9 +41,9 @@ public class GameManager : MonoBehaviour {
 
     private void Start() {
         _currentHealth = _health;
-        _informationPanel.SetValueOnCointText(_coins);
+        informationPanel.SetValueOnCointText(_coins);
         SetWaveText();
-        _informationPanel.SetHealthText(_health);
+        informationPanel.SetHealthText(_health);
     }
 
     private void Update() {
@@ -59,8 +54,8 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown(_pauseButton) && !_isPause) {
             _isPause = !_isPause;
             StopTime();
-            _gameMenu.SetActiveBackgroundGameMenu(_isPause);
-            _gameMenu.SetActiveDisablePauseMenu(_isPause);
+            gameMenu.SetActiveBackgroundGameMenu(_isPause);
+            gameMenu.SetActiveDisablePauseMenu(_isPause);
         }
     }
 
@@ -74,16 +69,16 @@ public class GameManager : MonoBehaviour {
 
     public void AddCoin(int amount) {
         _coins += amount;
-        _informationPanel.SetValueOnCointText(_coins);
+        informationPanel.SetValueOnCointText(_coins);
     }
 
     public void SubstractCoin(int amount) {
         _coins -= amount;
-        _informationPanel.SetValueOnCointText(_coins);
+        informationPanel.SetValueOnCointText(_coins);
     }
 
     public void SetWaveText() {
-        _informationPanel.UpdateCountWaweText();
+        informationPanel.UpdateCountWaweText();
     }
 
     public void CheckHealthAndShowLoseMenuIfHealthZero() {
@@ -97,39 +92,29 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void CheckLastEnemyAndEnableWinMenuOrSpawnNewEnemyWave() {
-        if (_enemySpawner.IsTheLastEnemyInTheLastWave) {
-            SoundManager.Instance.PlaySound(SoundName.WinGame);
-            _gameMenu.EnableBackgroundGameMenu();
-            _gameMenu.EnableWinMenuAndSetDeafaultSpeedTime();
-            _countStars = CalculationStars();
-            _gameMenu.WinMenu.amountReceivedStarsOnCurrentLevel = _countStars;
-            _gameMenu.WinMenu.StartAnimationStars();
-        }
-
-        else if (_enemySpawner.IsTheLastEnemyInCurrentWave) {
-            _enemySpawner.EnableTimerWave();
-            _enemySpawner.CalculationEnemyInCurrentWave();
-        }
-    }
-
-    public void TakeAwayOneHealth() {
-        _currentHealth--;
-        _informationPanel.SetHealthText(_currentHealth);
-    }
-
     private void ShowLoseMenu() {
         GameUnpause();
-        _gameMenu.EnableBackgroundGameMenu();
-        _gameMenu.EnableLoseMenu();
-    }
-
-    public void GamePause() {
-        _isPause = true;
+        gameMenu.EnableBackgroundGameMenu();
+        gameMenu.EnableLoseMenu();
     }
 
     public void GameUnpause() {
         _isPause = false;
+    }
+
+    public void CheckLastEnemyAndEnableWinMenuOrSpawnNewEnemyWave() {
+        if (enemySpawner.IsTheLastEnemyInTheLastWave) {
+            SoundManager.Instance.PlaySound(SoundName.WinGame);
+            gameMenu.EnableBackgroundGameMenu();
+            gameMenu.EnableWinMenuAndSetDeafaultSpeedTime();
+            _countStars = CalculationStars();
+            gameMenu.WinMenu.amountReceivedStarsOnCurrentLevel = _countStars;
+        }
+
+        else if (enemySpawner.IsTheLastEnemyInCurrentWave) {
+            enemySpawner.EnableTimerWave();
+            enemySpawner.CalculationEnemyInCurrentWave();
+        }
     }
 
     private int CalculationStars() {
@@ -143,5 +128,14 @@ public class GameManager : MonoBehaviour {
             return 1;
         }
         return 0;
+    }
+
+    public void TakeAwayOneHealth() {
+        _currentHealth--;
+        informationPanel.SetHealthText(_currentHealth);
+    }
+
+    public void GamePause() {
+        _isPause = true;
     }
 }

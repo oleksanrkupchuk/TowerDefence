@@ -5,16 +5,12 @@ using System.Collections;
 using UnityEngine.Localization.Components;
 
 public class InformationPanel : MonoBehaviour {
-    private string _valueTimeDoubletSpeed = "X2";
-
     [SerializeField]
     private GameObject _backgroundMenu;
     [SerializeField]
-    private Button _buttonDefaultTimeSpeed;
+    private Button _buttonSingleArrow;
     [SerializeField]
-    private Button _buttonDoubleTimeSpeed;
-    [SerializeField]
-    private TextMeshProUGUI _timeSpeedText;
+    private Button _buttonDoubleArrow;
     [SerializeField]
     private TowerButton[] _towerButton;
 
@@ -28,13 +24,6 @@ public class InformationPanel : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI[] _priceTowerText;
 
-    [Header("Managers")]
-    [SerializeField]
-    private GameManager _gameManager;
-    [SerializeField]
-    private TowerManager _towerManager;
-    [SerializeField]
-    private EnemySpawner _enemySpawner;
 
     [Header("String events")]
     [SerializeField]
@@ -44,16 +33,15 @@ public class InformationPanel : MonoBehaviour {
     [SerializeField]
     private UnlockEnemyToolTip _unlockToolTip;
 
-    private void OnEnable() {
-        InitStringEvents();
-        DisableTimeSpeedText();
-        DisableBackground();
-        DisableButtonDefaultTimeSpeed();
-        UnlockEnemy.IsUnlockEnemy += SpawnUnlockToolTipEnemy;
-    }
+    [Header("Managers")]
+    public GameManager gameManager;
+    public TowerManager towerManager;
+    public EnemySpawner enemySpawner;
 
-    public void InitStringEvents() {
-        _countWaveStringEvent.StringReference.Arguments = new[] { _enemySpawner };
+    private void OnEnable() {
+        DisableBackground();
+        NotInteractableButtonSingleArrow();
+        UnlockEnemy.IsUnlockEnemy += SpawnUnlockToolTipEnemy;
     }
 
     private void SpawnUnlockToolTipEnemy() {
@@ -63,13 +51,18 @@ public class InformationPanel : MonoBehaviour {
     }
 
     private void Start() {
-        //DisableButtonDefaultTimeSpeed();
+        InitStringEvent();
+        _countWaveStringEvent.gameObject.SetActive(true);
         SetValueOnPriceTowerTextAndSubsñriptionButtonsTower();
         SubscriptionButton();
     }
 
-    private void DisableButtonDefaultTimeSpeed() {
-        _buttonDefaultTimeSpeed.interactable = false;
+    private void InitStringEvent() {
+        _countWaveStringEvent.StringReference.Arguments = new[] { enemySpawner };
+    }
+
+    private void NotInteractableButtonSingleArrow() {
+        _buttonSingleArrow.interactable = false;
     }
 
     private void SetValueOnPriceTowerTextAndSubsñriptionButtonsTower() {
@@ -85,27 +78,28 @@ public class InformationPanel : MonoBehaviour {
 
     private void SubscriptionTowerButtons(TowerButton towerButton) {
         towerButton.Button.onClick.AddListener(() => {
-            _towerManager.SetSelectedTower(towerButton);
+            if(gameManager.Coins >= towerButton.Tower.Price) {
+            towerManager.SetSelectedTower(towerButton);
+            }
+            else {
+                SoundManager.Instance.PlaySoundEffect(SoundName.ErrorSetTower);
+            }
         });
     }
 
     private void SubscriptionButton() {
-        _buttonDefaultTimeSpeed.onClick.AddListener(() => {
+        _buttonSingleArrow.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             SetDeafaultTimeSpeed();
-            EnableButtonDoubleTimeSpeed();
-            DisableButtonDefaultTimeSpeed();
-            DisableTimeSpeedText();
+            InteractableButtonDoubleArrow();
+            NotInteractableButtonSingleArrow();
         });
 
-        _buttonDoubleTimeSpeed.onClick.AddListener(() => {
+        _buttonDoubleArrow.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             SetDoubleTimeSpeed();
             EnableButtonDefaultTimeSpeed();
-            DisableButtonDoubleTimeSpeed();
-            SetValueInTimeSpeedText(_valueTimeDoubletSpeed);
-            EnableTimeSpeedText();
-            StartCoroutine(AnimationForTimeSpeedText());
+            NotInteractableButtonDoubleArrow();
         });
     }
 
@@ -127,41 +121,15 @@ public class InformationPanel : MonoBehaviour {
     }
 
     private void EnableButtonDefaultTimeSpeed() {
-        _buttonDefaultTimeSpeed.interactable = true;
+        _buttonSingleArrow.interactable = true;
     }
 
-    private void DisableButtonDoubleTimeSpeed() {
-        _buttonDoubleTimeSpeed.interactable = false;
+    private void NotInteractableButtonDoubleArrow() {
+        _buttonDoubleArrow.interactable = false;
     }
 
-    private void EnableButtonDoubleTimeSpeed() {
-        _buttonDoubleTimeSpeed.interactable = true;
-    }
-
-    private void SetValueInTimeSpeedText(string value) {
-        _timeSpeedText.text = value;
-    }
-
-    private void DisableTimeSpeedText() {
-        _timeSpeedText.gameObject.SetActive(false);
-    }
-
-    private void EnableTimeSpeedText() {
-        _timeSpeedText.gameObject.SetActive(true);
-    }
-
-    private IEnumerator AnimationForTimeSpeedText() {
-        while (_timeSpeedText.gameObject.activeSelf == true) {
-            ScaleGameObject(_timeSpeedText.gameObject, 1.2f, 1f);
-            yield return new WaitForSeconds(1f);
-            ScaleGameObject(_timeSpeedText.gameObject, 1f, 1f);
-            yield return new WaitForSeconds(1f);
-        }
-    }
-
-    private void ScaleGameObject(GameObject gameObject, float size, float time) {
-        Vector3 scaletext = new Vector3(size, size);
-        LeanTween.scale(gameObject, scaletext, time);
+    private void InteractableButtonDoubleArrow() {
+        _buttonDoubleArrow.interactable = true;
     }
 
     public void SetHealthText(int health) {

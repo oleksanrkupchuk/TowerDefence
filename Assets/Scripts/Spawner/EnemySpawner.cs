@@ -6,15 +6,7 @@ public class EnemySpawner : MonoBehaviour {
     private int _amountEnemyInWawe;
     private List<Wave> _waves = new List<Wave>();
 
-    [Header("Game Manager")]
-    [SerializeField]
-    private GameManager _gameManager;
-
     [Header("Parametrs")]
-    [SerializeField]
-    private Camera _camera;
-    [SerializeField]
-    private GameObject _waveObject;
     [SerializeField]
     private Wave _wave;
     [SerializeField]
@@ -22,8 +14,12 @@ public class EnemySpawner : MonoBehaviour {
     [SerializeField]
     private bool _isNpc;
 
+    [HideInInspector]
     public int countWave = 0;
     public NPCMinotaur npc;
+    public GameObject waveObject;
+    public GameManager gameManager;
+    public Camera mainCamera;
 
     public List<WaveData> WavesData { get => _wavesData; }
     public bool IsNpc { get => _isNpc; }
@@ -60,8 +56,8 @@ public class EnemySpawner : MonoBehaviour {
     private void SpawnWaves() {
         for (int i = 0; i < _wavesData.Count; i++) {
             Wave wave = Instantiate(_wave);
-            wave.Init(_wavesData[i], _gameManager, _camera, this);
-            wave.transform.SetParent(_waveObject.transform);
+            wave.Init(_wavesData[i], gameManager, mainCamera, this);
+            wave.transform.SetParent(waveObject.transform);
             _waves.Add(wave);
         }
     }
@@ -91,7 +87,7 @@ public class EnemySpawner : MonoBehaviour {
 
     public void EnableWaveEnemy() {
         _waves[countWave - 1].EnableSpawns();
-        _gameManager.SetWaveText();
+        gameManager.SetWaveText();
         DisableTimerWave();
     }
 }

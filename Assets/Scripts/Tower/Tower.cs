@@ -46,8 +46,6 @@ public abstract class Tower : MonoBehaviour {
     protected CircleCollider2D _rangeCollider;
     [SerializeField]
     protected Bullet _bullet;
-    [SerializeField]
-    protected LineRenderer _lineRenderer;
 
     [Header("Components invisible")]
     [SerializeField]
@@ -72,10 +70,10 @@ public abstract class Tower : MonoBehaviour {
     public Transform BulletPosition { get => _bulletPosition; }
     public List<BulletAbility> BulletsAbility { get => _bulletsAbility; }
 
-    public void Init(TowerManager towerManager, GameManager gameManager) {
+    public void Init(TowerManager towerManager, GameManager gameManager, Camera camera) {
         _towerManager = towerManager;
         _gameManager = gameManager;
-        _towerUpgradeMenu.Initialization(_gameManager, this);
+        _towerUpgradeMenu.Init(_gameManager, this, camera);
 
         CreateBulletAbility();
         CreatePoolBulet();
@@ -103,7 +101,6 @@ public abstract class Tower : MonoBehaviour {
 
     protected void Start() {
         Enemy.Dead += TargetDead;
-        DisableLineRenderer();
         SetRangeRadius();
         _towerManager.towersList.Add(this);
 
@@ -119,35 +116,6 @@ public abstract class Tower : MonoBehaviour {
 
     protected void SetRangeRadius() {
         _rangeCollider.radius = _rangeAttack;
-
-        SetRadiusInLineRanderer(transform, _lineRenderer, _rangeAttack);
-    }
-
-
-    public void SetRadiusInLineRanderer(Transform transform, LineRenderer lineRenderer, float radius) {
-        int _countStep = 360 / _stepDegree;
-
-        lineRenderer.positionCount = _countStep;
-
-        float _dotX;
-        float _dotY;
-
-        float _degree = 0;
-
-        Vector3[] _positionPoints = new Vector3[_countStep];
-
-        for (int i = 0; i < _countStep; i++) {
-
-            float _degreeInRadians = _degree * Mathf.PI / 180;
-            _dotX = transform.position.x + radius * Mathf.Cos(_degreeInRadians);
-            _dotY = transform.position.y + radius * Mathf.Sin(_degreeInRadians);
-
-            _positionPoints[i] = new Vector3(_dotX, _dotY, -7);
-
-            _degree += _stepDegree;
-        }
-
-        lineRenderer.SetPositions(_positionPoints);
     }
 
     protected void Update() {
@@ -212,28 +180,15 @@ public abstract class Tower : MonoBehaviour {
     }
 
     public void IncreaseDamage() {
-        increaseDamage = DamageCalculation();
+        increaseDamage = (_bulletDamage * 30) / 100;
         _bulletDamage += increaseDamage;
-    }
-
-    protected float DamageCalculation() {
-        float damage = 0;
-        damage += _bulletDamage / 2;
-        return damage;
+        print("damage bullet " + _bulletDamage);
     }
 
     public void IncreaseRange(float range) {
         _rangeAttack += range;
         _rangeCollider.radius = _rangeAttack;
         SetRangeRadius();
-    }
-
-    public void EnableLineRenderer() {
-        _lineRenderer.enabled = true;
-    }
-
-    public void DisableLineRenderer() {
-        _lineRenderer.enabled = false;
     }
 
     public bool IsActiveUpgradeMenu() {
@@ -268,7 +223,6 @@ public abstract class Tower : MonoBehaviour {
     }
 
     public void DisableUpgradeMenu() {
-        _towerUpgradeMenu.DisableTextAmountObject();
         _towerUpgradeMenu.gameObject.SetActive(false);
     }
 

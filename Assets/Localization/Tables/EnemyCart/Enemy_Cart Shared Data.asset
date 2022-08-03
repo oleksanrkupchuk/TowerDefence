@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
   m_Name: Enemy_Cart Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: Enemy_Cart
+  m_TableCollectionName: EnemyCart
   m_TableCollectionNameGuidString: db1a9046c8972864aa01a324fb71f603
   m_Entries:
   - m_Id: 285917151232

@@ -15,7 +15,7 @@ public class WinMenu : BaseMenu {
 
     [Header("Buttons Win Menu")]
     [SerializeField]
-    private Button _nextLevel;
+    private Button _nextLevelButton;
 
     [Header("Stars")]
     [SerializeField]
@@ -28,15 +28,25 @@ public class WinMenu : BaseMenu {
     public int amountReceivedStarsOnCurrentLevel = 0;
 
     void Start() {
+        _nextLevelButton.interactable = false;
         _currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
         CheckExistNextLevel();
-        //print("index level = " + (_indexNextLevel - 1));
         LoadLevels();
         SubscriptionButtons();
+
+        StartCoroutine(StartStarsAnimationAndInteractableNextLevelButton());
+    }
+
+    private IEnumerator StartStarsAnimationAndInteractableNextLevelButton() {
+        for (int i = 0; i < amountReceivedStarsOnCurrentLevel; i++) {
+            yield return StartCoroutine(_star[i].IncreaseObject());
+        }
+
+        _nextLevelButton.interactable = true;
     }
 
     private void CheckExistNextLevel() {
-        if(_currentLevelIndex < LastSceneIndex) {
+        if (_currentLevelIndex < LastSceneIndex) {
             _nextLevelIndex = _currentLevelIndex + 1;
         }
         else {
@@ -50,19 +60,20 @@ public class WinMenu : BaseMenu {
     }
 
     private void SubscriptionButtons() {
-        _nextLevel.onClick.AddListener(() => {
+        _nextLevelButton.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             CheckAmountStarsOnCurrentLevelSaveStarsAndLevel();
+            CurrentLevelStatus.levelIsComplete = true;
             _levelLoader.gameObject.SetActive(true);
-            _levelLoader.LoadLevel(_nextLevelIndex);
+            _levelLoader.LoadLevel(0);
         });
     }
 
     private void CheckAmountStarsOnCurrentLevelSaveStarsAndLevel() {
-        if(_levels[_currentLevelIndex - 1].stars == 0) {
+        if (_levels[_currentLevelIndex - 1].stars == 0) {
             SaveLevelAndStars(amountReceivedStarsOnCurrentLevel, amountReceivedStarsOnCurrentLevel);
         }
-        else if(amountReceivedStarsOnCurrentLevel > _levels[_currentLevelIndex - 1].stars) {
+        else if (amountReceivedStarsOnCurrentLevel > _levels[_currentLevelIndex - 1].stars) {
             int _differentStars = amountReceivedStarsOnCurrentLevel - _levels[_currentLevelIndex - 1].stars;
             SaveLevelAndStars(_differentStars, amountReceivedStarsOnCurrentLevel);
         }
@@ -72,28 +83,14 @@ public class WinMenu : BaseMenu {
         _starsData.stars += amountStars;
         SaveAndLoadStars.SaveStars(_starsData);
 
-        int _currentLevel = _currentLevelIndex - 1;
-        int _nextLevel = _currentLevelIndex;
+        int _currentLevelIndexInList = _currentLevelIndex - 1;
+        int _nextLevelIndexInList = _currentLevelIndex;
 
-        _levels[_currentLevel].stars = amountStarsForCurrentLevel;
-        _levels[_nextLevel].isUnlock = true;
+        _levels[_currentLevelIndexInList].stars = amountStarsForCurrentLevel;
+        if (_nextLevelIndexInList < _levels.Count) {
+            _levels[_nextLevelIndexInList].isUnlock = true;
+        }
+
         SaveSystemLevel.SaveLevels(_levels);
-    }
-
-    public void StartAnimationStars() {
-        StartCoroutine(StarsFillingAndBlinkAnimation());
-    }
-
-    private IEnumerator StarsFillingAndBlinkAnimation() {
-        for (int i = 0; i < amountReceivedStarsOnCurrentLevel; i++) {
-            _star[i].StartFillingAnimation();
-            yield return new WaitUntil(() => _star[i].endFillingAnimation);
-        }
-
-        yield return new WaitForSeconds(0.5f);
-
-        for (int i = 0; i < amountReceivedStarsOnCurrentLevel; i++) {
-            _star[i].StartBlinkAnimation();
-        }
     }
 }

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e7af3fd565a49d4497d8d92b8d21642, type: 3}
+  m_Name: Debuff_IncreasedMove
+  m_EditorClassIdentifier: 
+  typeDebuff: 2
+  icon: {fileID: 2963749817242540814, guid: 23e18caff561b084687001d05a9a150b, type: 3}

@@ -27,8 +27,8 @@ public class LoseMenu : BaseMenu
     private void SubscriptionButtons() {
         _restart.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
-            LoadGameLevel(_indexCurrentLevel);
             StartTime();
+            LoadGameLevel(_indexCurrentLevel);
         });
         _settings.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);

@@ -15,10 +15,6 @@ MonoBehaviour:
   m_TableCollectionName: ShopTable
   m_TableCollectionNameGuidString: 7eaf9af7d75be1c4298e8b69d69672bb
   m_Entries:
-  - m_Id: 45462511616
-    m_Key: Key_Shop
-    m_Metadata:
-      m_Items: []
   - m_Id: 209619181568
     m_Key: Key_NoMoney
     m_Metadata:
@@ -33,6 +29,66 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1974854934528
     m_Key: Key_No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18889714560327680
+    m_Key: Key_SpeedShoot_Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18889790074576896
+    m_Key: Key_SpeedShoot_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18889824706945024
+    m_Key: Key_Spike_Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18889983641706496
+    m_Key: Key_Spike_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890069276811264
+    m_Key: Key_Burning_Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890108090900480
+    m_Key: Key_Burning_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890139011309568
+    m_Key: Key_FireArea_Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890185014435840
+    m_Key: Key_FireArea_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890243583696896
+    m_Key: Key_Explosion_Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890285744840704
+    m_Key: Key_Explosion_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890318649155584
+    m_Key: Key_ReducedPriceTower_Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890363427545088
+    m_Key: Key_ReducedPriceTower_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890393152577536
+    m_Key: Key_IncreasedPriceSellTower_Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18890431052308480
+    m_Key: Key_IncreasedPriceSellTower_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19605965549002752
+    m_Key: Key_Buy
     m_Metadata:
       m_Items: []
   m_Metadata:

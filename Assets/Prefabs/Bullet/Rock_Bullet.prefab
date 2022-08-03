@@ -159,8 +159,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
   _targetPosition: {x: 0, y: 0}
+  _t: 0
   _bezierPoints: []
-  _damage: 2.7
+  _damage: 2.5
   _speed: 3
   _bezierPoint: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
   _destroyClip: {fileID: 7400000, guid: da38e9294d8507140aba78b9b138c1dc, type: 2}

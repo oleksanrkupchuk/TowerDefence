@@ -37,6 +37,14 @@ MonoBehaviour:
     m_Address: Assets/Localization/Tables/EnemyCart/Enemy_Cart Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: 5caf5536354b38347b5f542318d0385a
+    m_Address: Assets/Localization/Glossary/Glossary Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+  - m_GUID: f32110bd95dedfc4bb6b379d0560a4b2
+    m_Address: Assets/Localization/Tables/GameAdvices/GameAdvices Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: f7c03c416bfe98c4f89aa5edca3260d4, type: 2}
   m_SchemaSet:

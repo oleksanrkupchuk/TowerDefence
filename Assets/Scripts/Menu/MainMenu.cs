@@ -1,10 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenu : BaseMenu
-{
-    private SettingsMenu _settingsMenu;
-
+public class MainMenu : BaseMenu {
     [Header("Buttons Lose Menu")]
     [SerializeField]
     private Button _start;
@@ -21,25 +18,27 @@ public class MainMenu : BaseMenu
     [SerializeField]
     private GameObject _shopObject;
     [SerializeField]
-    private GameInformation _gameInformation;
+    private Glossary _gameInformation;
     [SerializeField]
     private GameObject _settingsObject;
     [SerializeField]
-    private GameObject _menuSelectLevelObject;
+    private MenuSelectLevel _menuSelectLevel;
 
-    private void Start()
-    {
-        _settingsMenu = _settingsObject.GetComponent<SettingsMenu>();
-        //_settingsMenu.CheckSaveSettingsAndLoad();
-
+    private void Start() {
         SubscriptionButtons();
+        if (CurrentLevelStatus.levelIsComplete) {
+            _start.onClick.Invoke();
+            CurrentLevelStatus.levelIsComplete = false;
+        }
     }
 
     private void SubscriptionButtons() {
         _start.onClick.AddListener(() => {
-            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
-            DisableAndEnableGameObject(ThisGameObject, _menuSelectLevelObject);
-            SetEnableObject(ThisGameObject, _menuSelectLevelObject);
+            if (!CurrentLevelStatus.levelIsComplete) {
+                SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
+            }
+            DisableAndEnableGameObject(ThisGameObject, _menuSelectLevel.gameObject);
+            SetEnableObject(ThisGameObject, _menuSelectLevel.gameObject);
         });
         _shop.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
@@ -57,8 +56,8 @@ public class MainMenu : BaseMenu
             SetEnableObject(ThisGameObject, _settingsObject);
         });
         _quit.onClick.AddListener(() => {
-            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick); 
-            QuitApplication(); 
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
+            QuitApplication();
         });
     }
 }
