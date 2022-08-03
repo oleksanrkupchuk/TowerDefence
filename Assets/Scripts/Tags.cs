@@ -5,4 +5,5 @@ public class Tags
     public static readonly string road = "Road";
 
     public static readonly string finish = "Finish";
+    public static readonly string areaUnlockEnemy = "AreaUnlockEnemy";
 }

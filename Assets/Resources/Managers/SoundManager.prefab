@@ -27,9 +27,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8677558767665166666
 MonoBehaviour:
@@ -56,7 +57,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     spaceSound: 0
-    audioClip: {fileID: 8300000, guid: 4e70ec3730bb62f469f2f0991e6f6128, type: 3}
+    audioClip: {fileID: 8300000, guid: 689b859cb1085734aa2f25a38f0950b7, type: 3}
     audioSource: {fileID: 0}
   - name: LoseGame
     loop: 0

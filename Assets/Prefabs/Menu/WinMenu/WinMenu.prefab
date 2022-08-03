@@ -80,7 +80,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: YOU WIN
+  m_Text: "\u0422\u0418 \u0412\u0418\u0413\u0420\u0410\u0412"
 --- !u!114 &4448472497535891056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,8 +131,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4815648370843815402}
   - component: {fileID: 4815648370843815400}
-  - component: {fileID: 8361906651224858311}
   - component: {fileID: 5847872499735637919}
+  - component: {fileID: 8361906651224858311}
   m_Layer: 0
   m_Name: WinMenu
   m_TagString: Untagged
@@ -173,6 +173,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4815648370843815445}
   m_CullTransparentMesh: 1
+--- !u!114 &5847872499735637919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4815648370843815445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f39ac5542d41fd468955ed3e5be7384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableObject: {fileID: 0}
+  _levelLoader: {fileID: 0}
+  _nextLevelButton: {fileID: 7747770076368370313}
+  _star:
+  - {fileID: 5037717450853806933}
+  - {fileID: 6960281818883835724}
+  - {fileID: 6185827648863660977}
+  amountReceivedStarsOnCurrentLevel: 0
 --- !u!114 &8361906651224858311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -203,27 +223,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5847872499735637919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4815648370843815445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f39ac5542d41fd468955ed3e5be7384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableObject: {fileID: 0}
-  _levelLoader: {fileID: 0}
-  _menuSelectLevel: {fileID: 6802603150507226903, guid: 8a33b750aa490be4fb89352e99dbdb1e, type: 3}
-  _nextLevelButton: {fileID: 7747770076368370313}
-  _star:
-  - {fileID: 5037717450853806933}
-  - {fileID: 6960281818883835724}
-  - {fileID: 6185827648863660977}
-  amountReceivedStarsOnCurrentLevel: 0
 --- !u!1001 &954004087321892692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -582,6 +581,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 2be7b70e984b51444aca9c12ae4723a7, type: 3}
+    - target: {fileID: 4678642580435702435, guid: 1a2bb7cdb0094044f99af9daee6fea2c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a2bb7cdb0094044f99af9daee6fea2c, type: 3}

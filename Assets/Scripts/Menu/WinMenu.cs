@@ -12,8 +12,6 @@ public class WinMenu : BaseMenu {
 
     [SerializeField]
     private LevelLoader _levelLoader;
-    [SerializeField]
-    private MenuSelectLevel _menuSelectLevel;
 
     [Header("Buttons Win Menu")]
     [SerializeField]
@@ -30,19 +28,21 @@ public class WinMenu : BaseMenu {
     public int amountReceivedStarsOnCurrentLevel = 0;
 
     void Start() {
-        //_nextLevelButton.interactable = false;
+        _nextLevelButton.interactable = false;
         _currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
         CheckExistNextLevel();
         LoadLevels();
         SubscriptionButtons();
 
-        StartCoroutine(StartStarsAnimation());
+        StartCoroutine(StartStarsAnimationAndInteractableNextLevelButton());
     }
 
-    private IEnumerator StartStarsAnimation() {
+    private IEnumerator StartStarsAnimationAndInteractableNextLevelButton() {
         for (int i = 0; i < amountReceivedStarsOnCurrentLevel; i++) {
             yield return StartCoroutine(_star[i].IncreaseObject());
         }
+
+        _nextLevelButton.interactable = true;
     }
 
     private void CheckExistNextLevel() {
@@ -63,15 +63,10 @@ public class WinMenu : BaseMenu {
         _nextLevelButton.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             CheckAmountStarsOnCurrentLevelSaveStarsAndLevel();
-            StartCoroutine(WaitForChangeToggle());
+            CurrentLevelStatus.levelIsComplete = true;
             _levelLoader.gameObject.SetActive(true);
             _levelLoader.LoadLevel(0);
         });
-    }
-
-    private IEnumerator WaitForChangeToggle() {
-        _menuSelectLevel.isPassLevel = true;
-        yield return new WaitForSeconds(1f);
     }
 
     private void CheckAmountStarsOnCurrentLevelSaveStarsAndLevel() {

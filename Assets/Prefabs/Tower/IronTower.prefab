@@ -287,7 +287,6 @@ MonoBehaviour:
   _poolBulletObject: {fileID: 4517954842708215992}
   _rangeCollider: {fileID: 6379824112264347013}
   _bullet: {fileID: 3719912613258583181, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
-  _lineRenderer: {fileID: 8461052127138531771}
   target: {fileID: 0}
   _placeForTower: {fileID: 0}
   _towerUpgradeMenu: {fileID: 2010742382795597176}
@@ -793,6 +792,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6033749226538845783, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
+      propertyPath: _tower
+      value: 
+      objectReference: {fileID: 4901526597910268738}
     - target: {fileID: 8438457688127442628, guid: f8c3df279a7aafe468f0caf493d1ecd4, type: 3}
       propertyPath: m_Name
       value: TowerUpgradeMenu

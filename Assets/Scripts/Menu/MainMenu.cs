@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenu : BaseMenu
-{
+public class MainMenu : BaseMenu {
     [Header("Buttons Lose Menu")]
     [SerializeField]
     private Button _start;
@@ -23,24 +22,23 @@ public class MainMenu : BaseMenu
     [SerializeField]
     private GameObject _settingsObject;
     [SerializeField]
-    private MenuSelectLevel _menuSelectLevelInScene;
-    [SerializeField]
-    private MenuSelectLevel _menuSelectLevelPrefab;
+    private MenuSelectLevel _menuSelectLevel;
 
-    private void Start()
-    {
+    private void Start() {
         SubscriptionButtons();
-        if(_menuSelectLevelPrefab.isPassLevel) {
-            _menuSelectLevelPrefab.isPassLevel = false;
+        if (CurrentLevelStatus.levelIsComplete) {
             _start.onClick.Invoke();
+            CurrentLevelStatus.levelIsComplete = false;
         }
     }
 
     private void SubscriptionButtons() {
         _start.onClick.AddListener(() => {
-            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
-            DisableAndEnableGameObject(ThisGameObject, _menuSelectLevelInScene.gameObject);
-            SetEnableObject(ThisGameObject, _menuSelectLevelInScene.gameObject);
+            if (!CurrentLevelStatus.levelIsComplete) {
+                SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
+            }
+            DisableAndEnableGameObject(ThisGameObject, _menuSelectLevel.gameObject);
+            SetEnableObject(ThisGameObject, _menuSelectLevel.gameObject);
         });
         _shop.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
@@ -58,8 +56,8 @@ public class MainMenu : BaseMenu
             SetEnableObject(ThisGameObject, _settingsObject);
         });
         _quit.onClick.AddListener(() => {
-            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick); 
-            QuitApplication(); 
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
+            QuitApplication();
         });
     }
 }

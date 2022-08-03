@@ -18,8 +18,6 @@ public class ApplyingAbility : MonoBehaviour {
     private TowerUpgradeMenu _towerUpgradeMenu;
     [SerializeField]
     private Ability _ability;
-    [SerializeField]
-    private SpawnInfo _spawnInfo;
 
     private void Awake() {
         if (_applyingAbility == null) {
@@ -76,10 +74,6 @@ public class ApplyingAbility : MonoBehaviour {
                 _ironTower.ReducePrice(_ability.PercentageOfTowerPriceReduction);
                 _fireTower.ReducePrice(_ability.PercentageOfTowerPriceReduction);
                 _rockTower.ReducePrice(_ability.PercentageOfTowerPriceReduction);
-                break;
-
-            case AbilityType.AccessSpawnInfo:
-                _spawnInfo.isAccessSpawnInfo = true;
                 break;
         }
     }

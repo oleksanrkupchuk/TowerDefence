@@ -6,7 +6,6 @@ public class Star : MonoBehaviour {
 
     private void OnEnable() {
         _toScale = gameObject.transform.localScale;
-        print("to scale = " + _toScale);
         gameObject.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
     }
 

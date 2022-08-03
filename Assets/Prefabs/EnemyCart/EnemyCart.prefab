@@ -1494,7 +1494,7 @@ MonoBehaviour:
   _hideCharacteristics: {fileID: 884521225969005886}
   _unlockCharacteristics: {fileID: 2446900309804621304}
   _debuffsParent: {fileID: 7824644078535262279}
-  _debuffIcon: {fileID: 4900751641604370508, guid: 0cefcc3bdea93d046ad7b874ff32f63e, type: 3}
+  _debuffIcon: {fileID: 4101222057086585975, guid: 2190d35e20e77a14da613b2f4e4e2c74, type: 3}
   _localizeStringName: {fileID: 3638655402618620418}
   _localizeStringDescription: {fileID: 5734604833745371686}
 --- !u!1 &7824644078012568769
@@ -1968,14 +1968,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 56e841737a916f341a3d9fa6042da014, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7ed9667f8d6783d4ea91ef3564a244ff, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public enum AbilityType {
     SpeedShoot,
@@ -20,7 +19,7 @@ public class Ability : MonoBehaviour {
     [SerializeField]
     private Image _icon;
     [SerializeField]
-    private TextMeshProUGUI _price;
+    private Text _price;
     [SerializeField]
     private Button _button;
 

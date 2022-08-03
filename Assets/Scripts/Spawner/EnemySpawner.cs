@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour {
     [SerializeField]
     private bool _isNpc;
 
+    [HideInInspector]
     public int countWave = 0;
     public NPCMinotaur npc;
     public GameObject waveObject;

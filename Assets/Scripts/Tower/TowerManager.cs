@@ -102,18 +102,15 @@ public class TowerManager : MonoBehaviour {
 
         if (_tower.IsActiveUpgradeMenu()) {
             _tower.DisableUpgradeMenu();
-            _tower.DisableLineRenderer();
         }
         else if (!_tower.IsActiveUpgradeMenu()) {
             _tower.EnableUpgradeMenu();
-            _tower.EnableLineRenderer();
         }
     }
 
     private void DisableMenuAnotherTowers() {
         for (int i = 0; i < towersList.Count; i++) {
             if (towersList[i] != _tower && _tower != null) {
-                towersList[i].DisableLineRenderer();
                 towersList[i].DisableUpgradeMenu();
             }
         }
@@ -121,7 +118,6 @@ public class TowerManager : MonoBehaviour {
 
     private void DisableMenuTower() {
         if (_tower != null) {
-            _tower.DisableLineRenderer();
             _tower.DisableUpgradeMenu();
         }
     }

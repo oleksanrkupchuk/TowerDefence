@@ -5,82 +5,92 @@ public class TowerUpgradeMenu : MonoBehaviour {
     private GameManager _gameManager;
     private Tower _tower;
     private int _totalMoneyForUpgrade = 0;
+    private int _priceUpgrade;
+    private int _currentUpgrade = 0;
+    private RectTransform _levelUpButtonRect;
+    private RectTransform _sellButtonRect;
 
     [Header("Button")]
     [SerializeField]
-    private Button _buttonSell;
+    private Button _levelUpButton;
+    [SerializeField]
+    private Button _sellButton;
 
+    [Header("Parametrs")]
     [SerializeField]
     private float _additionRangeRadius;
     [SerializeField]
     private int _numberOfUpgrades;
     [SerializeField]
-    private TowerMenuAmountText _amountText;
-    [SerializeField]
     private Canvas _canvas;
-
-    [Header("Parametrs")]
+    [SerializeField]
+    private GameObject _range;
+    [SerializeField]
+    private GameObject _rangeLevelUp;
     [SerializeField]
     private float _timeDestroyTower;
-
-    [Header("Scripts")]
     [SerializeField]
-    private UpgradeTower _damageUpgrade;
-    [SerializeField]
-    private UpgradeTower _rangeUpgrade;
-    [SerializeField]
-    private GameObject _sellObject;
+    private Text _priceUpgradeText;
 
     public int percentSellTower;
+
+    public float AdditionRangeRadius { get => _additionRangeRadius; }
 
     public void Init(GameManager gameManager, Tower tower, Camera camera) {
         _gameManager = gameManager;
         _tower = tower;
         _canvas.worldCamera = camera;
+        _priceUpgrade = _tower.Price * 80 / 100;
+        _priceUpgradeText.text = _priceUpgrade.ToString();
+        _levelUpButtonRect = _levelUpButton.GetComponent<RectTransform>();
+        _sellButtonRect = _sellButton.GetComponent<RectTransform>();
+        UpdateButtonPosition();
     }
 
     private void Start() {
         SubscribleButtonOnEvent();
-        _amountText.Init();
         gameObject.SetActive(false);
+        _range.transform.localScale = new Vector2(_tower.RangeAttack * 2, _tower.RangeAttack * 2);
     }
 
     public void SubscribleButtonOnEvent() {
-        _damageUpgrade.Button.onClick.AddListener(() => {
-            IncreaseDamage();
+        _levelUpButton.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.SellTower);
+            TowerLevelUp();
         });
-        _rangeUpgrade.Button.onClick.AddListener(() => {
-            IncreaseRange();
-        });
-        _buttonSell.onClick.AddListener(() => {
+        _sellButton.onClick.AddListener(() => {
             SoundManager.Instance.PlaySoundEffect(SoundName.SellTower);
             SellTower();
         });
     }
 
-    private void IncreaseDamage() {
-        //print("click");
-        if (_gameManager.Coins >= _damageUpgrade.Price) {
-            //print("click2");
+    private void TowerLevelUp() {
+        if (_gameManager.Coins >= _priceUpgrade) {
             SoundManager.Instance.PlaySoundEffect(SoundName.TowerUpgrade);
-            _totalMoneyForUpgrade += _damageUpgrade.Price;
-            _gameManager.SubstractCoin(_damageUpgrade.Price);
-            _damageUpgrade.IncreasePrice();
+            _totalMoneyForUpgrade += _priceUpgrade;
+            _priceUpgrade += _priceUpgrade * 30 / 100;
+            _priceUpgradeText.text = _priceUpgrade.ToString();
+            _gameManager.SubstractCoin(_priceUpgrade);
             _tower.IncreaseDamage();
-            SetValueInTextObject(_tower.increaseDamage, false);
-            CheckOnDeactivateButton(_damageUpgrade, _damageUpgrade.Button);
+            _tower.IncreaseRange(_additionRangeRadius);
+
+            _range.transform.localScale = new Vector2(_tower.RangeAttack * 2, _tower.RangeAttack * 2);
+            _rangeLevelUp.transform.localScale = new Vector2((_tower.RangeAttack * 2) + (_additionRangeRadius * 2), (_tower.RangeAttack * 2) + (_additionRangeRadius * 2));
+
+            UpdateButtonPosition();
+            CheckOnDeactivateButton();
         }
     }
 
-    private void IncreaseRange() {
-        if (_gameManager.Coins >= _rangeUpgrade.Price) {
-            SoundManager.Instance.PlaySoundEffect(SoundName.TowerUpgrade);
-            _totalMoneyForUpgrade += _rangeUpgrade.Price;
-            _gameManager.SubstractCoin(_rangeUpgrade.Price);
-            _rangeUpgrade.IncreasePrice();
-            _tower.IncreaseRange(_additionRangeRadius);
-            SetValueInTextObject(_additionRangeRadius, false);
-            CheckOnDeactivateButton(_rangeUpgrade, _rangeUpgrade.Button);
+    private void UpdateButtonPosition() {
+        _levelUpButtonRect.anchoredPosition = new Vector2(0f, _tower.RangeAttack);
+        _sellButtonRect.anchoredPosition = new Vector2(0f, -_tower.RangeAttack);
+    }
+
+    private void CheckOnDeactivateButton() {
+        _currentUpgrade++;
+        if (_currentUpgrade == _numberOfUpgrades) {
+            _levelUpButton.gameObject.SetActive(false);
         }
     }
 
@@ -88,29 +98,7 @@ public class TowerUpgradeMenu : MonoBehaviour {
         int price = ((_tower.Price * percentSellTower) / 100) + _totalMoneyForUpgrade;
         _gameManager.AddCoin(price);
         _tower.PlaceForTower.EnableBoxCollider();
-        SetValueInTextObject(price, true);
         _tower.RemoveTowerFromList();
         _tower.DestroyTower(_timeDestroyTower);
-    }
-
-    private void SetValueInTextObject(float value, bool enableCoinIcon) {
-        _amountText.gameObject.SetActive(true);
-        _amountText.StopMove();
-        _amountText.SetStartPosition();
-        _amountText.SetTextAmount(value, enableCoinIcon);
-        _amountText.MoveText();
-    }
-
-    private void CheckOnDeactivateButton(UpgradeTower upgrate, Button button) {
-        upgrate.improvement++;
-        if (upgrate.improvement >= _numberOfUpgrades) {
-            upgrate.DisablePrice();
-            button.interactable = false;
-            //print("max number upgrade");
-        }
-    }
-
-    public void DisableTextAmountObject() {
-        _amountText.gameObject.SetActive(false);
     }
 }

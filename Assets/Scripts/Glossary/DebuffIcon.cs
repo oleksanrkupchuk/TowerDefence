@@ -6,37 +6,17 @@ using UnityEngine.Localization.Components;
 
 public class DebuffIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private DebuffCartData _debuffCartData;
-
     [SerializeField]
     private Image _icon;
     [SerializeField]
     private LocalizeStringEvent _descriptionLocalize;
     [SerializeField]
     private GameObject _toolTipe;
-    [SerializeField]
-    private LayoutElement _layoutElement;
-    [SerializeField]
-    private RectTransform _recttransform;
-
-    public float Width { get => _recttransform.sizeDelta.x; }
 
     public void Init(DebuffCartData debuffCartData, LocalizedString tableDescription) {
-        _debuffCartData = debuffCartData;
-        SetIcon();
-        CheckWidthTextAndSetActiveLayoutElement();
+        _icon.sprite = debuffCartData.icon;
         DisableToolTipe();
         _descriptionLocalize.StringReference = tableDescription;
-    }
-
-    private void SetIcon() {
-        _icon.sprite = _debuffCartData.icon;
-    }
-
-    private void CheckWidthTextAndSetActiveLayoutElement() {
-        //if(_debuffCartData.description.Length < 20) {
-        //    _layoutElement.enabled = false;
-        //}
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
