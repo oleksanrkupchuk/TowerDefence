@@ -30,6 +30,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -46,14 +47,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda56f1b7ea69fd48a392e7d1118ff81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _towerButtonPressed: {fileID: 0}
   _layer:
     serializedVersion: 2
     m_Bits: 7987
   _towerIcon: {fileID: 7364899922524614839}
-  _gameManager: {fileID: 0}
   _collider: {fileID: 728862171}
-  putTower: 1
   towersList: []
+  gameManager: {fileID: 0}
+  mainCamera: {fileID: 0}
 --- !u!212 &7364899922524614839
 SpriteRenderer:
   m_ObjectHideFlags: 0

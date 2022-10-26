@@ -11,7 +11,7 @@ public class ChainEnemy : MonoBehaviour {
     public List<Enemy> enemies = new List<Enemy>();
     public List<Enemy> Enemies { get => enemies; }
 
-    public List<EnemySpawnRules> rules = new List<EnemySpawnRules>();
+    public List<ChainOfEnemies> rules = new List<ChainOfEnemies>();
 
     public void Init(ChainData chainData, GameManager gameManager, Camera camera, EnemySpawner enemySpawner) {
         _chainData = chainData;
@@ -25,7 +25,7 @@ public class ChainEnemy : MonoBehaviour {
     private void InstantiateEnemy() {
         for (int numberListEnemy = 0; numberListEnemy < _chainData.chainListEnemies.Count; numberListEnemy++) {
             for (int amountEnemy = 0; amountEnemy < _chainData.chainListEnemies[numberListEnemy].amount; amountEnemy++) {
-                EnemySpawnRules _enemySpawnRules = _chainData.chainListEnemies[numberListEnemy];
+                ChainOfEnemies _enemySpawnRules = _chainData.chainListEnemies[numberListEnemy];
                 Enemy _enemy = Instantiate(_enemySpawnRules.enemy,
                     _chainData.wayPoints[0].position, Quaternion.identity);
 
@@ -57,8 +57,8 @@ public class ChainEnemy : MonoBehaviour {
 
     }
 
-    private IEnumerator EnableEnemies(EnemySpawnRules enemySpawnRules) {
-        yield return new WaitForSeconds(enemySpawnRules._waitTimeForNexEnemies);
+    private IEnumerator EnableEnemies(ChainOfEnemies enemySpawnRules) {
+        yield return new WaitForSeconds(enemySpawnRules._waitTimeUntilToSpawn);
 
         for (int i = 0; i < enemySpawnRules.amount; i++) {
             enemies[_amountEnemyInChain].gameObject.SetActive(true);

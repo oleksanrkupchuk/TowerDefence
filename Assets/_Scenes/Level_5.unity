@@ -227,17 +227,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1332799384460380509, guid: 4e3d6ceca1edfa849abb614af651d74a, type: 3}
   m_PrefabInstance: {fileID: 8407590}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8407592 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2608029121972036729, guid: 4e3d6ceca1edfa849abb614af651d74a, type: 3}
-  m_PrefabInstance: {fileID: 8407590}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01b26a3a85799f14eaa959ec888d15f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &10434304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1393,6 +1382,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97129461}
   m_CullTransparentMesh: 1
+--- !u!1 &104306606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 104306608}
+  - component: {fileID: 104306607}
+  m_Layer: 0
+  m_Name: TestRoad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &104306607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104306606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb26f0843bf5a74d8c0f2020d10e6c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roads:
+  - name: bxbvx
+    road:
+    - wayPoints:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - wayPoints:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+  - name: xcbxcb
+    road:
+    - wayPoints:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - wayPoints:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+  - name: xcbxb
+    road:
+    - wayPoints:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - wayPoints:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+--- !u!4 &104306608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104306606}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &110451893
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3095,7 +3165,7 @@ MonoBehaviour:
   _wave: {fileID: 6908251765174013129, guid: 18a097c73d065e8408a0576aa228547f, type: 3}
   _wavesData:
   - spawnsEnemyData:
-    - startWave: {fileID: 8407592}
+    - startWaveIcon: {fileID: 0}
       chainsData:
       - wayPoints:
         - {fileID: 1768876280}
@@ -3112,20 +3182,11 @@ MonoBehaviour:
         - {fileID: 1238683623}
         - {fileID: 745553521}
         chainListEnemies:
-        - amount: 5
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 1692862883609546770, guid: caedb2076ef91a541bccf3a9349a1d88, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 7
-          _waitTimeForNexEnemies: 3
-          enemy: {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
+        - {fileID: 0}
+        - {fileID: 0}
+        wayPointType: 0
   - spawnsEnemyData:
-    - startWave: {fileID: 8407592}
+    - startWaveIcon: {fileID: 0}
       chainsData:
       - wayPoints:
         - {fileID: 1768876280}
@@ -3142,20 +3203,11 @@ MonoBehaviour:
         - {fileID: 1238683623}
         - {fileID: 745553521}
         chainListEnemies:
-        - amount: 4
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 6
-          _waitTimeForNexEnemies: 5
-          enemy: {fileID: 2314555891733913013, guid: c7c8f43afe7640d4482198323e513eeb, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
+        - {fileID: 0}
+        - {fileID: 0}
+        wayPointType: 0
   - spawnsEnemyData:
-    - startWave: {fileID: 1784549466}
+    - startWaveIcon: {fileID: 0}
       chainsData:
       - wayPoints:
         - {fileID: 156274301}
@@ -3171,44 +3223,15 @@ MonoBehaviour:
         - {fileID: 69529697}
         - {fileID: 745553521}
         chainListEnemies:
-        - amount: 2
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 869529256697096327, guid: 6d7ef51da4aba3a4d8d51612d34e13c5, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 3
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 869529256697096327, guid: 6d7ef51da4aba3a4d8d51612d34e13c5, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 3
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 869529256697096327, guid: 6d7ef51da4aba3a4d8d51612d34e13c5, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        wayPointType: 0
   - spawnsEnemyData:
-    - startWave: {fileID: 1784549466}
+    - startWaveIcon: {fileID: 0}
       chainsData:
       - wayPoints:
         - {fileID: 156274301}
@@ -3224,30 +3247,11 @@ MonoBehaviour:
         - {fileID: 725785031}
         - {fileID: 745553521}
         chainListEnemies:
-        - amount: 3
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 2314555891733913013, guid: c7c8f43afe7640d4482198323e513eeb, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 2099646473255476814, guid: 325f1be6b5dbe4845a5473f73d920f01, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 1
-        - amount: 3
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 2314555891733913013, guid: c7c8f43afe7640d4482198323e513eeb, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 869529256697096327, guid: 6d7ef51da4aba3a4d8d51612d34e13c5, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        wayPointType: 0
       - wayPoints:
         - {fileID: 156274301}
         - {fileID: 1609120794}
@@ -3262,32 +3266,13 @@ MonoBehaviour:
         - {fileID: 1444365023}
         - {fileID: 745553521}
         chainListEnemies:
-        - amount: 4
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 869529256697096327, guid: 6d7ef51da4aba3a4d8d51612d34e13c5, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 4
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 2099646473255476814, guid: 325f1be6b5dbe4845a5473f73d920f01, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        wayPointType: 0
   - spawnsEnemyData:
-    - startWave: {fileID: 8407592}
+    - startWaveIcon: {fileID: 0}
       chainsData:
       - wayPoints:
         - {fileID: 1768876280}
@@ -3304,18 +3289,9 @@ MonoBehaviour:
         - {fileID: 1238683623}
         - {fileID: 745553521}
         chainListEnemies:
-        - amount: 5
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 869529256697096327, guid: 6d7ef51da4aba3a4d8d51612d34e13c5, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
+        - {fileID: 0}
+        - {fileID: 0}
+        wayPointType: 0
       - wayPoints:
         - {fileID: 1768876280}
         - {fileID: 1070090789}
@@ -3331,31 +3307,12 @@ MonoBehaviour:
         - {fileID: 1178778491}
         - {fileID: 745553521}
         chainListEnemies:
-        - amount: 5
-          _waitTimeForNexEnemies: 10
-          enemy: {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 869529256697096327, guid: 6d7ef51da4aba3a4d8d51612d34e13c5, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 5
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 2099646473255476814, guid: 325f1be6b5dbe4845a5473f73d920f01, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-    - startWave: {fileID: 1784549466}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        wayPointType: 0
+    - startWaveIcon: {fileID: 0}
       chainsData:
       - wayPoints:
         - {fileID: 156274301}
@@ -3371,18 +3328,9 @@ MonoBehaviour:
         - {fileID: 69529697}
         - {fileID: 745553521}
         chainListEnemies:
-        - amount: 4
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 2314555891733913013, guid: c7c8f43afe7640d4482198323e513eeb, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 2099646473255476814, guid: 325f1be6b5dbe4845a5473f73d920f01, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 1
+        - {fileID: 0}
+        - {fileID: 0}
+        wayPointType: 0
       - wayPoints:
         - {fileID: 156274301}
         - {fileID: 1609120794}
@@ -3397,36 +3345,12 @@ MonoBehaviour:
         - {fileID: 1444365023}
         - {fileID: 745553521}
         chainListEnemies:
-        - amount: 6
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 869529256697096327, guid: 6d7ef51da4aba3a4d8d51612d34e13c5, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 2099646473255476814, guid: 325f1be6b5dbe4845a5473f73d920f01, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 6
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 5646311788584089807, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
-        - amount: 1
-          _waitTimeForNexEnemies: 0
-          enemy: {fileID: 2099646473255476814, guid: 325f1be6b5dbe4845a5473f73d920f01, type: 3}
-          minTimeDelayForNextEnemy: 1
-          maxTimeDelayForNextEnemy: 2
-          needUnlockEnemy: 0
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        wayPointType: 0
   _isNpc: 0
   countWave: 0
   npc: {fileID: 0}
@@ -31371,6 +31295,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &985202029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 985202031}
+  - component: {fileID: 985202030}
+  m_Layer: 0
+  m_Name: Roads
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &985202030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985202029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f03194570cd9374fb33c9a6e5a26ca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _roads:
+  - name: 
+    road:
+    - wayPoints: []
+    - wayPoints: []
+    - wayPoints: []
+--- !u!4 &985202031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985202029}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &986838083
 GameObject:
   m_ObjectHideFlags: 0
@@ -38009,6 +37983,89 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1539438049}
   m_CullTransparentMesh: 1
+--- !u!1 &1543226612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1543226614}
+  - component: {fileID: 1543226615}
+  m_Layer: 0
+  m_Name: TestSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1543226614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543226612}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1543226615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543226612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d13897562253b104c81411e2680cf566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testRoad: 
+  testRoadClass: {fileID: 104306607}
+  testRoadObject: {fileID: 0}
+  roads:
+  - 1
+  - 2
+  - 
+  testChainData:
+  - road: 1
+    wayPointType: 2
+    chainListEnemies: []
+  getRoads:
+  - 123
+  - 123333
+  - 5555
+  - 123
+  - 123333
+  - 5555
+  - 123
+  - 123333
+  - 5555
+  - 123
+  - 123333
+  - 5555
+  - 123
+  - 123333
+  - 5555
+  - 123
+  - 123333
+  - 5555
+  - 123
+  - 123333
+  - 5555
+  - 123
+  - 123333
+  - 5555
+  - 123
+  - 123333
+  - 5555
 --- !u!1001 &1548987086
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40996,17 +41053,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1332799384460380509, guid: 4e3d6ceca1edfa849abb614af651d74a, type: 3}
   m_PrefabInstance: {fileID: 1784549464}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1784549466 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2608029121972036729, guid: 4e3d6ceca1edfa849abb614af651d74a, type: 3}
-  m_PrefabInstance: {fileID: 1784549464}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01b26a3a85799f14eaa959ec888d15f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1786166002
 GameObject:
   m_ObjectHideFlags: 0

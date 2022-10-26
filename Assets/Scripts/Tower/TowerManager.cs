@@ -44,7 +44,7 @@ public class TowerManager : MonoBehaviour {
 
     private void CheckRaycastAndCallClickOnTower(RaycastHit2D raycast) {
         if (raycast.transform != null) {
-            //print("raycast " + raycast.transform.name);
+            print("raycast " + raycast.transform.name);
 
             if (raycast.transform.gameObject.TryGetComponent(out PlaceForTower placeForTower)) {
                 SetTowerOnPlace(placeForTower);

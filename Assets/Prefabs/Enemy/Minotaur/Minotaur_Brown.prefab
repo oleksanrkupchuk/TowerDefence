@@ -105,8 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e88c5a880b42044a1e4264bf6ec43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cartSpawnInfoData: {fileID: 11400000, guid: ba02f0c5129787447a0c1b010a12c52a, type: 2}
-  _health: 1
+  _health: 5
   _speed: 0.6
   _damage: 1.7
   _amountCoinForDeath: 3

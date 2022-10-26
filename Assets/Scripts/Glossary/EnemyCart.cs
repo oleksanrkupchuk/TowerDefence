@@ -44,7 +44,7 @@ public class EnemyCart : MonoBehaviour
     }
 
     private void CheckUnlockenemyAndHideCharacteristics() {
-        if (_cartData.unlockEnemy) {
+        if (_cartData.isUnlockEnemy) {
             SetSizeRectTransform(_cartData.unlockEnemyIcon);
             _icon.sprite = _cartData.unlockEnemyIcon;
             SetctiveCharacteristics(true, false);

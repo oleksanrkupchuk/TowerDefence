@@ -35,9 +35,6 @@ public abstract class Enemy : MonoBehaviour {
     protected float _defaultSpeed;
     protected float _healthMax;
 
-    [SerializeField]
-    private CartSpawnInfoData _cartSpawnInfoData;
-
     [Header("Parametrs")]
     [SerializeField]
     protected float _health;
@@ -95,7 +92,6 @@ public abstract class Enemy : MonoBehaviour {
     public EnemyCartData EnemyCartData { get => _enemyCartData; }
     public CircleCollider2D CircleCollider2D { get => _collider; }
     public BoxCollider2D AttackCollider { get => _attackCollider; }
-    public CartSpawnInfoData CartSpawnInfoData { get => _cartSpawnInfoData; }
 
     public static event Action<Enemy> Dead;
 

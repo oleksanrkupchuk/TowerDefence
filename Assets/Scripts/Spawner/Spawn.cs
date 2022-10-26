@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
-    private List<EnemySpawnRules> _rules = new List<EnemySpawnRules>();
+    private List<ChainOfEnemies> _rules = new List<ChainOfEnemies>();
     private int _amountEnemies;
     private GameManager _gameManager;
     private EnemySpawner _enemySpawner;
@@ -32,7 +32,7 @@ public class Spawn : MonoBehaviour
             _rules.AddRange(_chainEnemyObject.rules);
         }
 
-        _spawnData.startWave.SetListEnemy(_rules);
+        _spawnData.startWaveIcon.SetListEnemy(_rules);
     }
 
     public void EnableSpawnsEnemy() {

@@ -74,14 +74,14 @@ public class EnemySpawner : MonoBehaviour {
 
     public void EnableTimerWave() {
         foreach (SpawnEnemyData spawn in _wavesData[countWave].spawnsEnemyData) {
-            spawn.startWave.SetCurrentRules();
-            spawn.startWave.gameObject.SetActive(true);
+            spawn.startWaveIcon.SetCurrentRules();
+            spawn.startWaveIcon.gameObject.SetActive(true);
         }
     }
 
     private void DisableTimerWave() {
         foreach (SpawnEnemyData spawn in _wavesData[countWave - 1].spawnsEnemyData) {
-            spawn.startWave.gameObject.SetActive(false);
+            spawn.startWaveIcon.gameObject.SetActive(false);
         }
     }
 
