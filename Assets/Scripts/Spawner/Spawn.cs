@@ -8,16 +8,19 @@ public class Spawn : MonoBehaviour
     private int _amountEnemies;
     private GameManager _gameManager;
     private EnemySpawner _enemySpawner;
+    private Road _road;
     private Camera _camera;
     private SpawnEnemyData _spawnData;
     private List<ChainEnemy> _chainsEnemy = new List<ChainEnemy>();
     public int AmountEnemies { get => _amountEnemies; }
 
-    public void Init(SpawnEnemyData spawnData, GameManager gameManager, Camera camera, EnemySpawner enemySpawner) {
+    public void Init(SpawnEnemyData spawnData, GameManager gameManager, 
+        Camera camera, EnemySpawner enemySpawner, Road road) {
         _spawnData = spawnData;
         _gameManager = gameManager;
         _enemySpawner = enemySpawner;
         _camera = camera;
+        _road = road;
 
         SpawnChainEnemy();
     }
@@ -25,7 +28,8 @@ public class Spawn : MonoBehaviour
     private void SpawnChainEnemy() {
         for (int i = 0; i < _spawnData.chainsData.Count; i++) {
             ChainEnemy _chainEnemyObject = Instantiate(Resources.Load("ChainEnemy", typeof(ChainEnemy))) as ChainEnemy;
-            _chainEnemyObject.Init(_spawnData.chainsData[i], _gameManager, _camera, _enemySpawner);
+            _chainEnemyObject.Init(_spawnData, _spawnData.chainsData[i], 
+                _gameManager, _camera, _enemySpawner, _road);
             _chainsEnemy.Add(_chainEnemyObject);
             _chainEnemyObject.transform.SetParent(gameObject.transform);
             _amountEnemies += _chainEnemyObject.Enemies.Count;

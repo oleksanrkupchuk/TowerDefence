@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ChainEnemy : MonoBehaviour {
+    private SpawnEnemyData _spawnData;
     private GameManager _gameManager;
     private EnemySpawner _enemySpawner;
+    private Road _road;
     private Camera _camera;
     private ChainData _chainData;
     private int _amountEnemyInChain = 0;
@@ -13,11 +15,14 @@ public class ChainEnemy : MonoBehaviour {
 
     public List<ChainOfEnemies> rules = new List<ChainOfEnemies>();
 
-    public void Init(ChainData chainData, GameManager gameManager, Camera camera, EnemySpawner enemySpawner) {
+    public void Init(SpawnEnemyData spawnData, ChainData chainData, GameManager gameManager, 
+        Camera camera, EnemySpawner enemySpawner, Road road) {
+        _spawnData = spawnData;
         _chainData = chainData;
         _gameManager = gameManager;
         _camera = camera;
         _enemySpawner = enemySpawner;
+        _road = road;
 
         InstantiateEnemy();
     }
@@ -26,12 +31,15 @@ public class ChainEnemy : MonoBehaviour {
         for (int numberListEnemy = 0; numberListEnemy < _chainData.chainListEnemies.Count; numberListEnemy++) {
             for (int amountEnemy = 0; amountEnemy < _chainData.chainListEnemies[numberListEnemy].amount; amountEnemy++) {
                 ChainOfEnemies _enemySpawnRules = _chainData.chainListEnemies[numberListEnemy];
-                Enemy _enemy = Instantiate(_enemySpawnRules.enemy,
-                    _chainData.wayPoints[0].position, Quaternion.identity);
+                //Enemy _enemy = Instantiate(_enemySpawnRules.enemy,
+                //    _chainData.wayPoints[0].position, Quaternion.identity);
+                List<Transform> _roadPart = _road.GetPartRoad(_spawnData.roadName, _chainData.roadPart);
+
+                Enemy _enemy = Instantiate(_enemySpawnRules.enemy, _roadPart[0].position, Quaternion.identity);
 
                 _enemy.name = _enemy.name + " " + amountEnemy;
                 _enemy.Init(_gameManager, _enemySpawner, _camera);
-                _enemy.SetWayPoints(_chainData.wayPoints);
+                _enemy.SetWayPoints(_roadPart);
 
                 if (_enemySpawner.IsNpc) {
                     _enemy.DisableBetweetCollider(_enemy.AttackCollider, _enemySpawner.npc.AttackCollider);

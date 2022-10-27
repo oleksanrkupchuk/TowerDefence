@@ -9,13 +9,16 @@ public class Wave : MonoBehaviour
     private GameManager _gameManager;
     private Camera _camera;
     private EnemySpawner _enemySpawner;
+    private Road _road;
     public List<Spawn> Spawns { get => _spawns; }
 
-    public void Init(WaveData waveData, GameManager gameManager, Camera camera, EnemySpawner enemySpawner) {
+    public void Init(WaveData waveData, GameManager gameManager, 
+        Camera camera, EnemySpawner enemySpawner, Road road) {
         _waveData = waveData;
         _gameManager = gameManager;
         _enemySpawner = enemySpawner;
         _camera = camera;
+        _road = road;
 
         SpawnEnemySpawns();
     }
@@ -23,7 +26,7 @@ public class Wave : MonoBehaviour
     private void SpawnEnemySpawns() {
         for (int i = 0; i < _waveData.spawnsEnemyData.Count; i++) {
             Spawn _spawnObject = Instantiate(Resources.Load("Spawn", typeof(Spawn))) as Spawn;
-            _spawnObject.Init(_waveData.spawnsEnemyData[i], _gameManager, _camera, _enemySpawner);
+            _spawnObject.Init(_waveData.spawnsEnemyData[i], _gameManager, _camera, _enemySpawner, _road);
             _spawns.Add(_spawnObject);
             _spawnObject.transform.SetParent(gameObject.transform);
 

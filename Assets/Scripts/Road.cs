@@ -3,12 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum RoadType {
-    First,
-    Second,
-    Third
-}
-
 public enum RoadPart {
     Top,
     Center,
@@ -19,6 +13,22 @@ public class Road : MonoBehaviour
 {
     [SerializeField]
     private List<RoadData> _roads = new List<RoadData>();
+
+    public List<Transform> GetPartRoad(string roadName, RoadPart roadPart) {
+        RoadData _roadData = GetRoad(roadName);
+        return _roadData.road[(int)roadPart].wayPoints;
+    }
+
+    private RoadData GetRoad(string roadName) {
+        foreach (var road in _roads) {
+            if (road.name == roadName) {
+                return road;
+            }
+        }
+
+        Debug.LogWarning($"Road '{roadName}' does not exist");
+        return null;
+    }
 }
 
 [Serializable]

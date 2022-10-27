@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227cb76022901a642bbf07236e5d2b65, type: 3}
   m_Name: ChainOfEnemies_1
   m_EditorClassIdentifier: 
-  amount: 10
-  _waitTimeForNexEnemies: 0
+  amount: 12
+  _waitTimeUntilToSpawn: 0
   enemy: {fileID: 1692862883609546770, guid: caedb2076ef91a541bccf3a9349a1d88, type: 3}
   minTimeDelayForNextEnemy: 2
   maxTimeDelayForNextEnemy: 4

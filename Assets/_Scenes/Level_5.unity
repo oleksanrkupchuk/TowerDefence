@@ -2702,6 +2702,54 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &243544019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 243544021}
+  - component: {fileID: 243544020}
+  m_Layer: 0
+  m_Name: RoomColors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &243544020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243544019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 602a467cdb403c94f88a6d3699eb6ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - red
+  - blue
+  - white
+--- !u!4 &243544021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243544019}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &263482899
 GameObject:
   m_ObjectHideFlags: 0
@@ -3161,197 +3209,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7deb0b0165c8d8a4192b14158833456b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _amountEnemyInWawe: 0
-  _wave: {fileID: 6908251765174013129, guid: 18a097c73d065e8408a0576aa228547f, type: 3}
-  _wavesData:
+  amountEnemyInWawe: 0
+  waves: []
+  wavePrefab: {fileID: 0}
+  wavesData:
   - spawnsEnemyData:
-    - startWaveIcon: {fileID: 0}
+    - roadName: 
+      startWaveIcon: {fileID: 0}
       chainsData:
-      - wayPoints:
-        - {fileID: 1768876280}
-        - {fileID: 56377492}
-        - {fileID: 279857102}
-        - {fileID: 1525216557}
-        - {fileID: 283713127}
-        - {fileID: 385911872}
-        - {fileID: 1768189210}
-        - {fileID: 782015206}
-        - {fileID: 1096341208}
-        - {fileID: 841586301}
-        - {fileID: 1162890739}
-        - {fileID: 1238683623}
-        - {fileID: 745553521}
-        chainListEnemies:
+      - chainListEnemies:
         - {fileID: 0}
         - {fileID: 0}
-        wayPointType: 0
-  - spawnsEnemyData:
-    - startWaveIcon: {fileID: 0}
-      chainsData:
-      - wayPoints:
-        - {fileID: 1768876280}
-        - {fileID: 56377492}
-        - {fileID: 279857102}
-        - {fileID: 1525216557}
-        - {fileID: 283713127}
-        - {fileID: 385911872}
-        - {fileID: 1768189210}
-        - {fileID: 782015206}
-        - {fileID: 1096341208}
-        - {fileID: 841586301}
-        - {fileID: 1162890739}
-        - {fileID: 1238683623}
-        - {fileID: 745553521}
-        chainListEnemies:
-        - {fileID: 0}
-        - {fileID: 0}
-        wayPointType: 0
-  - spawnsEnemyData:
-    - startWaveIcon: {fileID: 0}
-      chainsData:
-      - wayPoints:
-        - {fileID: 156274301}
-        - {fileID: 1950096538}
-        - {fileID: 1800222043}
-        - {fileID: 1018486304}
-        - {fileID: 1786166003}
-        - {fileID: 1429818081}
-        - {fileID: 570350082}
-        - {fileID: 41586143}
-        - {fileID: 350577328}
-        - {fileID: 927494010}
-        - {fileID: 69529697}
-        - {fileID: 745553521}
-        chainListEnemies:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        wayPointType: 0
-  - spawnsEnemyData:
-    - startWaveIcon: {fileID: 0}
-      chainsData:
-      - wayPoints:
-        - {fileID: 156274301}
-        - {fileID: 489034996}
-        - {fileID: 351582585}
-        - {fileID: 986838084}
-        - {fileID: 854425104}
-        - {fileID: 1320742002}
-        - {fileID: 411484577}
-        - {fileID: 666230842}
-        - {fileID: 872020492}
-        - {fileID: 823979672}
-        - {fileID: 725785031}
-        - {fileID: 745553521}
-        chainListEnemies:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        wayPointType: 0
-      - wayPoints:
-        - {fileID: 156274301}
-        - {fileID: 1609120794}
-        - {fileID: 1034143147}
-        - {fileID: 2123999454}
-        - {fileID: 1012721990}
-        - {fileID: 878370386}
-        - {fileID: 1684333504}
-        - {fileID: 134828499}
-        - {fileID: 301154209}
-        - {fileID: 1842853694}
-        - {fileID: 1444365023}
-        - {fileID: 745553521}
-        chainListEnemies:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        wayPointType: 0
-  - spawnsEnemyData:
-    - startWaveIcon: {fileID: 0}
-      chainsData:
-      - wayPoints:
-        - {fileID: 1768876280}
-        - {fileID: 56377492}
-        - {fileID: 279857102}
-        - {fileID: 1525216557}
-        - {fileID: 283713127}
-        - {fileID: 385911872}
-        - {fileID: 1768189210}
-        - {fileID: 782015206}
-        - {fileID: 1096341208}
-        - {fileID: 841586301}
-        - {fileID: 1162890739}
-        - {fileID: 1238683623}
-        - {fileID: 745553521}
-        chainListEnemies:
-        - {fileID: 0}
-        - {fileID: 0}
-        wayPointType: 0
-      - wayPoints:
-        - {fileID: 1768876280}
-        - {fileID: 1070090789}
-        - {fileID: 1049688941}
-        - {fileID: 391219396}
-        - {fileID: 750533487}
-        - {fileID: 325207926}
-        - {fileID: 438729181}
-        - {fileID: 1045471435}
-        - {fileID: 1838833513}
-        - {fileID: 1166645406}
-        - {fileID: 607128657}
-        - {fileID: 1178778491}
-        - {fileID: 745553521}
-        chainListEnemies:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        wayPointType: 0
-    - startWaveIcon: {fileID: 0}
-      chainsData:
-      - wayPoints:
-        - {fileID: 156274301}
-        - {fileID: 1950096538}
-        - {fileID: 1800222043}
-        - {fileID: 1018486304}
-        - {fileID: 1786166003}
-        - {fileID: 1429818081}
-        - {fileID: 570350082}
-        - {fileID: 41586143}
-        - {fileID: 350577328}
-        - {fileID: 927494010}
-        - {fileID: 69529697}
-        - {fileID: 745553521}
-        chainListEnemies:
-        - {fileID: 0}
-        - {fileID: 0}
-        wayPointType: 0
-      - wayPoints:
-        - {fileID: 156274301}
-        - {fileID: 1609120794}
-        - {fileID: 1034143147}
-        - {fileID: 2123999454}
-        - {fileID: 1012721990}
-        - {fileID: 878370386}
-        - {fileID: 1684333504}
-        - {fileID: 134828499}
-        - {fileID: 301154209}
-        - {fileID: 1842853694}
-        - {fileID: 1444365023}
-        - {fileID: 745553521}
-        chainListEnemies:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        wayPointType: 0
-  _isNpc: 0
+        wayPointType: 2
+  - spawnsEnemyData: []
+  isNpc: 0
   countWave: 0
   npc: {fileID: 0}
   waveObject: {fileID: 1806903361}
@@ -31304,7 +31175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 985202031}
-  - component: {fileID: 985202030}
+  - component: {fileID: 985202032}
   m_Layer: 0
   m_Name: Roads
   m_TagString: Untagged
@@ -31312,24 +31183,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &985202030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 985202029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f03194570cd9374fb33c9a6e5a26ca0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _roads:
-  - name: 
-    road:
-    - wayPoints: []
-    - wayPoints: []
-    - wayPoints: []
 --- !u!4 &985202031
 Transform:
   m_ObjectHideFlags: 0
@@ -31345,6 +31198,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &985202032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985202029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f03194570cd9374fb33c9a6e5a26ca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _roads:
+  - name: 
+    road:
+    - wayPoints: []
 --- !u!1 &986838083
 GameObject:
   m_ObjectHideFlags: 0
@@ -38027,45 +37896,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13897562253b104c81411e2680cf566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testRoad: 
   testRoadClass: {fileID: 104306607}
-  testRoadObject: {fileID: 0}
-  roads:
-  - 1
-  - 2
-  - 
+  roads: []
   testChainData:
-  - road: 1
-    wayPointType: 2
+  - road: 0
+    wayPointType: 0
     chainListEnemies: []
-  getRoads:
-  - 123
-  - 123333
-  - 5555
-  - 123
-  - 123333
-  - 5555
-  - 123
-  - 123333
-  - 5555
-  - 123
-  - 123333
-  - 5555
-  - 123
-  - 123333
-  - 5555
-  - 123
-  - 123333
-  - 5555
-  - 123
-  - 123333
-  - 5555
-  - 123
-  - 123333
-  - 5555
-  - 123
-  - 123333
-  - 5555
+    testApples:
+    - apple: 0
+  - road: 0
+    wayPointType: 0
+    chainListEnemies: []
+    testApples:
+    - apple: 0
 --- !u!1001 &1548987086
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41256,6 +41099,68 @@ Transform:
   - {fileID: 1192305302}
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1821484798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1821484800}
+  - component: {fileID: 1821484799}
+  m_Layer: 0
+  m_Name: House
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1821484799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821484798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b6c1966c4dc6e49a4d7cfc0c497a1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomColors: {fileID: 243544020}
+  sizeFloors:
+  - large
+  - small
+  floors:
+  - size: 0
+    rooms:
+    - color: 0
+      amountOfTables: 2
+      amountOfChairs: 4
+  - size: 1
+    rooms:
+    - color: 0
+      amountOfTables: 0
+      amountOfChairs: 0
+    - color: 0
+      amountOfTables: 0
+      amountOfChairs: 0
+--- !u!4 &1821484800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821484798}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1827169711
 GameObject:
