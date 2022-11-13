@@ -2,8 +2,10 @@
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour {
+    private int _amountEnemyInWawe;
+
     [SerializeField]
-    private Road _road;
+    private Roads _road;
     [SerializeField]
     private List<WaveData> wavesData = new List<WaveData>();
     [SerializeField]
@@ -11,7 +13,6 @@ public class EnemySpawner : MonoBehaviour {
 
     [HideInInspector]
     public List<Wave> waves = new List<Wave>();
-    public int amountEnemyInWawe;
     [HideInInspector]
     public int countWave = 0;
     public NPCMinotaur npc;
@@ -34,7 +35,7 @@ public class EnemySpawner : MonoBehaviour {
 
     public bool IsTheLastEnemyInCurrentWave {
         get {
-            if (amountEnemyInWawe == 0) {
+            if (_amountEnemyInWawe == 0) {
                 return true;
             }
 
@@ -76,12 +77,12 @@ public class EnemySpawner : MonoBehaviour {
 
     public void CalculationEnemyInCurrentWave() {
         for (int numberSpawn = 0; numberSpawn < waves[countWave].Spawns.Count; numberSpawn++) {
-            amountEnemyInWawe += waves[countWave].Spawns[numberSpawn].AmountEnemies;
+            _amountEnemyInWawe += waves[countWave].Spawns[numberSpawn].AmountEnemies;
         }
     }
 
     public void RemoveEnemyInCurrentWave() {
-        amountEnemyInWawe--;
+        _amountEnemyInWawe--;
     }
 
     public void EnableTimerWave() {

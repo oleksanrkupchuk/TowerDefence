@@ -5,14 +5,14 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-[CustomEditor(typeof(House))]
+//[CustomEditor(typeof(House))]
 public class HouseEditor : Editor
 {
     private SerializedProperty _sizeTablesProperty;
     private SerializedProperty _floorsProperty;
     private SerializedProperty _roomsProperty;
 
-    private ReorderableList _sizeTablesList;
+    private ReorderableList _sizeFloorsList;
     private ReorderableList _floorsList;
     private ReorderableList _roomColorList;
 
@@ -29,7 +29,7 @@ public class HouseEditor : Editor
     }
 
     private void InitSizeFloorsList() {
-        _sizeTablesList = new ReorderableList(serializedObject, _sizeTablesProperty) {
+        _sizeFloorsList = new ReorderableList(serializedObject, _sizeTablesProperty) {
             displayAdd = true,
             displayRemove = true,
             draggable = false,
@@ -82,8 +82,6 @@ public class HouseEditor : Editor
                 var _roomsFieldHeight = EditorGUI.GetPropertyHeight(_roomsProperty);
                 EditorGUI.PropertyField(new Rect(rect.x, rect.y + 10, rect.width, 
                     _roomsFieldHeight), _roomsProperty);
-
-                //InitFloorColorList(); I tried to display the field "color" of the class "Room" here, but in the inspector it was displayed as a field of the class "House"
             },
 
            
@@ -98,46 +96,6 @@ public class HouseEditor : Editor
         };
     }
 
-    private void InitFloorColorList() {
-        _roomColorList = new ReorderableList(serializedObject, _roomsProperty) {
-            displayAdd = true,
-            displayRemove = true,
-            draggable = true,
-
-            drawHeaderCallback = rect => EditorGUI.LabelField(rect, _roomsProperty.displayName),
-
-            drawElementCallback = (rect, index, focused, active) => {
-                var element = _roomsProperty.GetArrayElementAtIndex(index);
-
-                var _colorProperty = element.FindPropertyRelative(nameof(Room.color));
-                var _amountOfTablesProperty = element.FindPropertyRelative(nameof(Room.amountOfTables));
-                var _amountOfChairsProperty = element.FindPropertyRelative(nameof(Room.amountOfChairs));
-
-                var popUpHeight = EditorGUI.GetPropertyHeight(_roomsProperty);
-
-                var availableSizeRoom = _house.roomColors.colors.Select(item => new GUIContent(item)).ToArray();
-                _colorProperty.intValue = EditorGUI.Popup(new Rect(rect.x, rect.y, rect.width, popUpHeight), new GUIContent(_colorProperty.displayName), _colorProperty.intValue, availableSizeRoom);
-                rect.y += popUpHeight;
-
-                var _roomsFieldHeight = EditorGUI.GetPropertyHeight(_colorProperty);
-                EditorGUI.PropertyField(new Rect(rect.x, rect.y + 10, rect.width, _roomsFieldHeight), _colorProperty);
-            },
-
-
-            elementHeightCallback = index => {
-                var element = _roomsProperty.GetArrayElementAtIndex(index);
-
-                var _colorProperty = element.FindPropertyRelative(nameof(Room.color));
-                var _amountOfTablesProperty = element.FindPropertyRelative(nameof(Room.amountOfTables));
-                var _amountOfChairsProperty = element.FindPropertyRelative(nameof(Room.amountOfChairs));
-
-                return EditorGUI.GetPropertyHeight(_colorProperty) + 
-                EditorGUI.GetPropertyHeight(_amountOfTablesProperty) + 
-                EditorGUI.GetPropertyHeight(_amountOfChairsProperty) + EditorGUIUtility.singleLineHeight;
-            },
-        };
-    }
-
     public override void OnInspectorGUI() {
         DrawScriptField();
 
@@ -145,9 +103,8 @@ public class HouseEditor : Editor
 
         _house.roomColors = (RoomColors)EditorGUILayout.ObjectField("Room Colors", _house.roomColors, typeof(RoomColors), true);
 
-        _sizeTablesList.DoLayoutList();
+        _sizeFloorsList.DoLayoutList();
         _floorsList.DoLayoutList();
-        //_roomColorList.DoLayoutList();
 
         serializedObject.ApplyModifiedProperties();
     }

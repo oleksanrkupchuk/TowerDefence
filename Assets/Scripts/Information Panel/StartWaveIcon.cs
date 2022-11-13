@@ -4,9 +4,9 @@ using UnityEngine.EventSystems;
 
 public class StartWaveIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
     private EnemySpawner _enemySpawner;
-    private Dictionary<int, List<ChainOfEnemies>> _cartInfoEnemy = new Dictionary<int, List<ChainOfEnemies>>();
+    private Dictionary<int, List<PointEnemyData>> _cartInfoEnemy = new Dictionary<int, List<PointEnemyData>>();
     private int _numberSpawn;
-    private List<ChainOfEnemies> _currentRules = new List<ChainOfEnemies>();
+    private List<PointEnemyData> _currentRules = new List<PointEnemyData>();
     private int _numberRules;
 
     public void Init(EnemySpawner enemySpawner) {
@@ -43,7 +43,7 @@ public class StartWaveIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
 
-    public void SetListEnemy(List<ChainOfEnemies> enemies) {
+    public void SetListEnemy(List<PointEnemyData> enemies) {
         _cartInfoEnemy.Add(_numberSpawn, enemies);
         _numberSpawn++;
     }

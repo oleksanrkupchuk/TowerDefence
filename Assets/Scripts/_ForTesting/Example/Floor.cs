@@ -15,4 +15,11 @@ public class Room {
     public int color;
     public int amountOfTables;
     public int amountOfChairs;
+    public bool isCollapse;
+    public List<SubRoom> subRooms = new List<SubRoom>();
+}
+
+[Serializable]
+public class SubRoom {
+    public List<string> size = new List<string>();
 }

@@ -9,13 +9,13 @@ public class WaveData {
 
 [Serializable]
 public class SpawnEnemyData {
-    public string roadName;
+    public int roadName;
     public StartWaveIcon startWaveIcon;
-    public List<ChainData> chainsData = new List<ChainData>();
+    public List<ChainEnemyData> spawnEnemies = new List<ChainEnemyData>();
 }
 
 [Serializable]
-public class ChainData {
-    public List<ChainOfEnemies> chainListEnemies = new List<ChainOfEnemies>();
+public class ChainEnemyData {
     public RoadPart roadPart = new RoadPart();
+    public List<PointEnemyData> pointEnemyData = new List<PointEnemyData>();
 }
