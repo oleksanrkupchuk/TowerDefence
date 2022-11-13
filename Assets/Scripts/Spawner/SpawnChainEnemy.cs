@@ -8,7 +8,7 @@ public class SpawnChainEnemy : MonoBehaviour {
     private EnemySpawner _enemySpawner;
     private Roads _roads;
     private Camera _camera;
-    private ChainEnemyData _chainEnemy;
+    private ChainEnemyData _chainEnemyData;
     private int _amountEnemyInChain = 0;
     private List<Enemy> enemies = new List<Enemy>();
     public List<Enemy> Enemies { get => enemies; }
@@ -16,26 +16,30 @@ public class SpawnChainEnemy : MonoBehaviour {
     [HideInInspector]
     public List<PointEnemyData> rules = new List<PointEnemyData>();
 
-    public void Init(SpawnEnemyData spawnData, ChainEnemyData chainData, GameManager gameManager, 
-        Camera camera, EnemySpawner enemySpawner, Roads road) {
+    public void Init(SpawnEnemyData spawnData, ChainEnemyData chainEnemyData, GameManager gameManager, 
+        Camera camera, EnemySpawner enemySpawner, Roads roads) {
         _spawnEnemyData = spawnData;
-        _chainEnemy = chainData;
+        _chainEnemyData = chainEnemyData;
         _gameManager = gameManager;
         _camera = camera;
         _enemySpawner = enemySpawner;
-        _roads = road;
+        _roads = roads;
 
         InstantiateEnemy();
     }
 
     private void InstantiateEnemy() {
-        for (int numberListEnemy = 0; numberListEnemy < _chainEnemy.pointEnemyData.Count; numberListEnemy++) {
-            for (int amountEnemy = 0; amountEnemy < _chainEnemy.pointEnemyData[numberListEnemy].amount; amountEnemy++) {
-                PointEnemyData _pointEnemyData = _chainEnemy.pointEnemyData[numberListEnemy];
-                List<Transform> _roadPart = _roads.GetPartRoad(_spawnEnemyData.roadName, _chainEnemy.roadPart);
+        for (int numberListEnemy = 0; numberListEnemy < _chainEnemyData.pointEnemyData.Count; numberListEnemy++) {
+            for (int amountEnemy = 0; amountEnemy < _chainEnemyData.pointEnemyData[numberListEnemy].amount; amountEnemy++) {
+                PointEnemyData _pointEnemyData = _chainEnemyData.pointEnemyData[numberListEnemy];
+                List<Transform> _roadPart = _roads.GetPartRoad(_spawnEnemyData.roadName, _chainEnemyData.roadPart);
+
+                if(_pointEnemyData.enemy == null) {
+                    Debug.LogError("GameObject enemy is null");
+                    return;
+                }
 
                 GameObject _enemyObject = Instantiate(_pointEnemyData.enemy, _roadPart[0].position, Quaternion.identity);
-                //Enemy _enemy = _enemyObject.GetComponent<Enemy>();
                 if(!_enemyObject.TryGetComponent(out Enemy enemy)) {
                     Debug.LogError($"Can`t get component from an {_enemyObject}");
                     return;
@@ -59,13 +63,13 @@ public class SpawnChainEnemy : MonoBehaviour {
                 enemies.Add(_enemy);
             }
 
-            rules.Add(_chainEnemy.pointEnemyData[numberListEnemy]);
+            rules.Add(_chainEnemyData.pointEnemyData[numberListEnemy]);
         }
     }
 
     public IEnumerator EnableChainOfEnemies() {
-        for (int i = 0; i < _chainEnemy.pointEnemyData.Count; i++) {
-            yield return StartCoroutine(EnableEnemies(_chainEnemy.pointEnemyData[i]));
+        for (int i = 0; i < _chainEnemyData.pointEnemyData.Count; i++) {
+            yield return StartCoroutine(EnableEnemies(_chainEnemyData.pointEnemyData[i]));
         }
 
     }

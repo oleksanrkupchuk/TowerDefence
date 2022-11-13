@@ -25,10 +25,10 @@ public class Wave : MonoBehaviour
 
     private void SpawnEnemySpawns() {
         for (int i = 0; i < _waveData.spawnsEnemyData.Count; i++) {
-            SpawnEnemy _spawnObject = Instantiate(Resources.Load("Spawn", typeof(SpawnEnemy))) as SpawnEnemy;
-            _spawnObject.Init(_waveData.spawnsEnemyData[i], _gameManager, _camera, _enemySpawner, _road);
-            _spawns.Add(_spawnObject);
-            _spawnObject.transform.SetParent(gameObject.transform);
+            SpawnEnemy _spawnEnemyObject = Instantiate(Resources.Load("SpawnEnemy", typeof(SpawnEnemy))) as SpawnEnemy;
+            _spawnEnemyObject.Init(_waveData.spawnsEnemyData[i], _gameManager, _camera, _enemySpawner, _road);
+            _spawns.Add(_spawnEnemyObject);
+            _spawnEnemyObject.transform.SetParent(gameObject.transform);
 
             _waveData.spawnsEnemyData[i].startWaveIcon.Init(_enemySpawner);
         }

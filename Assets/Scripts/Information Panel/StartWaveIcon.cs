@@ -6,7 +6,7 @@ public class StartWaveIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private EnemySpawner _enemySpawner;
     private Dictionary<int, List<PointEnemyData>> _cartInfoEnemy = new Dictionary<int, List<PointEnemyData>>();
     private int _numberSpawn;
-    private List<PointEnemyData> _currentRules = new List<PointEnemyData>();
+    private List<PointEnemyData> _currentPointEnemyData = new List<PointEnemyData>();
     private int _numberRules;
 
     public void Init(EnemySpawner enemySpawner) {
@@ -36,7 +36,7 @@ public class StartWaveIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
 
     public void SetCurrentRules() {
-        _currentRules = _cartInfoEnemy[_numberRules];
+        _currentPointEnemyData = _cartInfoEnemy[_numberRules];
 
         if (_numberRules + 1 < _cartInfoEnemy.Count) {
             _numberRules++;
