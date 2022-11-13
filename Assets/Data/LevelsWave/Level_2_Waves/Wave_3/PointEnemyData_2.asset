@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amount: 15
   _waitTimeUntilToSpawn: 5
-  enemy: {fileID: 0}
+  enemy: {fileID: 3151024033502776208, guid: c7c8f43afe7640d4482198323e513eeb, type: 3}
   minTimeDelayForNextEnemy: 2
   maxTimeDelayForNextEnemy: 4
   needUnlockEnemy: 0

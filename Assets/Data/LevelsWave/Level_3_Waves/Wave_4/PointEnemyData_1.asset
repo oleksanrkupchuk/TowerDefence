@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 227cb76022901a642bbf07236e5d2b65, type: 3}
-  m_Name: ChainOfEnemies_1
+  m_Script: {fileID: 11500000, guid: 6a8d29c26bdb4794e9db7be36215d131, type: 3}
+  m_Name: PointEnemyData_1
   m_EditorClassIdentifier: 
   amount: 12
   _waitTimeUntilToSpawn: 0
-  enemy: {fileID: 2314555891733913013, guid: c7c8f43afe7640d4482198323e513eeb, type: 3}
+  enemy: {fileID: 6037710262501487112, guid: caedb2076ef91a541bccf3a9349a1d88, type: 3}
   minTimeDelayForNextEnemy: 2
   maxTimeDelayForNextEnemy: 4
   needUnlockEnemy: 0
