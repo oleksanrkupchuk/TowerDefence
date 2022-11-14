@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8d29c26bdb4794e9db7be36215d131, type: 3}
+  m_Name: PointEnemyData_2_2
+  m_EditorClassIdentifier: 
+  amount: 9
+  _waitTimeUntilToSpawn: 0
+  enemy: {fileID: 8184616484324282893, guid: c7b153e6451f6f94cbe402c3486fdf26, type: 3}
+  minTimeDelayForNextEnemy: 2
+  maxTimeDelayForNextEnemy: 4
+  needUnlockEnemy: 0
