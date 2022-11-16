@@ -41,7 +41,7 @@ public class Glossary : BaseMenu {
         CartEnemies _cartEnemies = SaveAndLoadEnemyCart.LoadEnemyCart();
 
         for (int i = 0; i < _enemyCartData.Length; i++) {
-            _enemyCartData[i].unlockEnemy = _cartEnemies.unlocksEnemies[i];
+            _enemyCartData[i].isUnlockEnemy = _cartEnemies.unlocksEnemies[i];
         }
     }
 

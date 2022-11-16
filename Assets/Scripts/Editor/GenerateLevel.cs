@@ -115,9 +115,9 @@ public class GenerateLevel : EditorWindow
     private void CreateAndSetupManagers() {
         GameObject _managers = Instantiate(new GameObject(_managersName));
 
-        _gameManager = Instantiate(Resources.Load("Managers/" + _gameManagerName, typeof(GameManager))) as GameManager;
-        _towerManager = Instantiate(Resources.Load("Managers/" + _towerManagerName, typeof(TowerManager))) as TowerManager;
-        _enemySpawner = Instantiate(Resources.Load("Managers/" + _enemySpawnerName, typeof(EnemySpawner))) as EnemySpawner;
+        _gameManager = Instantiate(Resources.Load(PathPrefab.gameManagerPrefab, typeof(GameManager))) as GameManager;
+        _towerManager = Instantiate(Resources.Load(PathPrefab.towerManagerPrefab, typeof(TowerManager))) as TowerManager;
+        _enemySpawner = Instantiate(Resources.Load(PathPrefab.enemySpawnerPrefab, typeof(EnemySpawner))) as EnemySpawner;
 
         _gameManager.transform.SetParent(_managers.transform);
         _towerManager.transform.SetParent(_managers.transform);

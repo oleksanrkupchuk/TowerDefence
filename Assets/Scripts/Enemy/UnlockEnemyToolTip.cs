@@ -15,6 +15,6 @@ public class UnlockEnemyToolTip : MonoBehaviour, IPointerEnterHandler, IPointerE
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        _description.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

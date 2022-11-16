@@ -11,7 +11,7 @@ public class UnlockEnemy : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag(Tags.areaUnlockEnemy)) {
-            _enemyCartData.unlockEnemy = true;
+            _enemyCartData.isUnlockEnemy = true;
             IsUnlockEnemy();
         }
     }

@@ -15,6 +15,7 @@ TagManager:
   - Tower
   - ButtonUpgrade
   - Menu
+  - AreaUnlockEnemy
   layers:
   - Default
   - TransparentFX
