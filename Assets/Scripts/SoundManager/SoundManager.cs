@@ -15,12 +15,18 @@ public class SoundManager : MonoBehaviour {
     private Sound[] _soundsEffect;
 
     public static SoundManager Instance;
-    public List<AudioSource> ExternalSoundEffects { get => _externalSoundEffects; }
 
     private void OnEnable() {
+        ClearExternalSoundEffect();
         Init();
         AddAudioSourceForSounds();
         AddAudioSourceForSoundsEffect();
+    }
+
+    private void ClearExternalSoundEffect() {
+        for (int i = _externalSoundEffects.Count; i > 0; i--) {
+            _externalSoundEffects.RemoveAt(i);
+        }
     }
 
     private void Init() {
@@ -69,7 +75,9 @@ public class SoundManager : MonoBehaviour {
 
     public void InitExternalEffectVolume(SettingsData settingData) {
         foreach (var externalEffect in _externalSoundEffects) {
-            externalEffect.volume = settingData.effectVolume;
+            if (externalEffect.gameObject.activeSelf == true) {
+                externalEffect.volume = settingData.effectVolume;
+            }
         }
     }
 
@@ -83,7 +91,7 @@ public class SoundManager : MonoBehaviour {
 
     private void Play(string soundName, Sound[] _sounds) {
         Sound _sound = Array.Find(_sounds, _sound => _sound.name == soundName);
-        if(_sound == null) {
+        if (_sound == null) {
             print($"<color=red> Sound {soundName} is null </color>");
             return;
         }
@@ -109,6 +117,14 @@ public class SoundManager : MonoBehaviour {
             effect.volume = value;
             effect.audioSource.volume = value;
         }
+    }
+
+    public void AddExternalEffect(AudioSource sound) {
+        _externalSoundEffects.Add(sound);
+    }
+
+    public void RemoveExternalSound(AudioSource sound) {
+        _externalSoundEffects.Remove(sound);
     }
 }
 

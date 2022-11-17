@@ -49,6 +49,8 @@ public abstract class Tower : MonoBehaviour {
     private Transform _poolShotSoounds;
     [SerializeField]
     private AudioSource _prefabShotSound;
+    [SerializeField]
+    private AudioSource _shotSound;
 
     [Header("Upgrades Tower")]
     [SerializeField]
@@ -65,6 +67,7 @@ public abstract class Tower : MonoBehaviour {
     public PlaceForTower PlaceForTower { get => _placeForTower; }
     public Transform StartBulletPosition { get => startBulletPosition; }
     public List<BulletAbility> BulletsAbility { get => _bulletsAbility; }
+    public AudioSource ShotSound { get => _shotSound; }
 
     public void Init(TowerManager towerManager, GameManager gameManager, Camera camera) {
         _towerManager = towerManager;
@@ -73,7 +76,6 @@ public abstract class Tower : MonoBehaviour {
 
         CreateBulletAbility();
         CreatePoolBulet();
-        CreateAndRegisteredShotSounds();
         InitExteranalEffectVolume();
     }
 
@@ -97,18 +99,8 @@ public abstract class Tower : MonoBehaviour {
         }
     }
 
-    private void CreateAndRegisteredShotSounds() {
-        for (int i = 0; i < 5; i++) {
-            AudioSource _shotSoundObject = Instantiate(_prefabShotSound);
-            _shotSoundObject.name = "sound" + i;
-            _shotSoundObject.transform.SetParent(_poolShotSoounds);
-            _shotSoundObject.clip = _soundShot;
-            SoundManager.Instance.ExternalSoundEffects.Add(_shotSoundObject);
-            _shoSounds.Add(_shotSoundObject);
-        }
-    }
-
     private void InitExteranalEffectVolume() {
+        SoundManager.Instance.AddExternalEffect(_shotSound);
         SettingsData _settingsData = SaveSystemSettings.LoadSettings();
         SoundManager.Instance.InitExternalEffectVolume(_settingsData);
     }
@@ -197,13 +189,7 @@ public abstract class Tower : MonoBehaviour {
     }
 
     private void PlayShootSound() {
-        for (int i = 0; i < _shoSounds.Count; i++) {
-            if (!_shoSounds[i].isPlaying) {
-                print("sound = " + _shoSounds[i].name);
-                _shoSounds[i].Play();
-                return;
-            }
-        }
+        _shotSound.Play();
     }
 
     public void ResetShoot() {

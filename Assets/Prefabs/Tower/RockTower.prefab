@@ -463,6 +463,7 @@ MonoBehaviour:
   _poolBulletObject: {fileID: 4508324762723707657}
   _poolShotSoounds: {fileID: 7386417152519234789}
   _prefabShotSound: {fileID: 502557891721305034, guid: 0ec6d813edd6fdb48b49a93025efaf66, type: 3}
+  _shotSound: {fileID: -3024199253494952810}
   _towerUpgradeMenu: {fileID: 3042399990200939299}
   _bulletAbility: {fileID: 8667138823914026948, guid: 127fedf009bed48479e53433a5d6918c, type: 3}
   increaseDamage: 0

@@ -43,7 +43,7 @@ public abstract class Bullet : MonoBehaviour {
     public void Init(Tower tower) {
         _tower = tower;
         _bulletAbilities = _tower.BulletsAbility;
-        SoundManager.Instance.ExternalSoundEffects.Add(_hitEnemy);
+        SoundManager.Instance.AddExternalEffect(_hitEnemy);
     }
 
     public void SetDefaulPositionBulletAndTarget() {
@@ -224,6 +224,7 @@ public abstract class Bullet : MonoBehaviour {
     }
 
     protected void OnDestroy() {
+        SoundManager.Instance.RemoveExternalSound(_hitEnemy);
         Enemy.Dead -= EnemyDead;
     }
 }
