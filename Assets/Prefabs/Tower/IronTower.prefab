@@ -291,7 +291,7 @@ MonoBehaviour:
   _towerUpgradeMenu: {fileID: 2010742382795597176}
   _bulletAbility: {fileID: 1296446910535246073, guid: 7a81706ab30451344b6328792c4ea376, type: 3}
   increaseDamage: 0
-  isBuyAbility: 0
+  isBuyAbility: 1
 --- !u!120 &8461052127138531771
 LineRenderer:
   serializedVersion: 2

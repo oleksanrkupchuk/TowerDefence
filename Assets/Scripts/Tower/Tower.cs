@@ -100,6 +100,7 @@ public abstract class Tower : MonoBehaviour {
     private void CreateAndRegisteredShotSounds() {
         for (int i = 0; i < 5; i++) {
             AudioSource _shotSoundObject = Instantiate(_prefabShotSound);
+            _shotSoundObject.name = "sound" + i;
             _shotSoundObject.transform.SetParent(_poolShotSoounds);
             _shotSoundObject.clip = _soundShot;
             SoundManager.Instance.ExternalSoundEffects.Add(_shotSoundObject);
@@ -198,6 +199,7 @@ public abstract class Tower : MonoBehaviour {
     private void PlayShootSound() {
         for (int i = 0; i < _shoSounds.Count; i++) {
             if (!_shoSounds[i].isPlaying) {
+                print("sound = " + _shoSounds[i].name);
                 _shoSounds[i].Play();
                 return;
             }
