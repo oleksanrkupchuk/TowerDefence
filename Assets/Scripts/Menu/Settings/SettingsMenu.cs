@@ -121,6 +121,7 @@ public class SettingsMenu : BaseMenu {
             SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             DisableConfirmSettings();
             SaveSettings();
+            InitSoundsAndEffects();
             SetScreenResolution();
             LocaleSelected(_languageDropDown.value);
             DisableAndEnableGameObject(ThisGameObject, enableObject);
@@ -184,6 +185,13 @@ public class SettingsMenu : BaseMenu {
         //print("resolution = " + _settingsData.indexResolution);
         //print("language = " + _settingsData.indexLanguage);
         //print("fullScreen = " + _settingsData.fullScreenToggle);
+    }
+
+    private void InitSoundsAndEffects() {
+        SettingsData _settingsData = SaveSystemSettings.LoadSettings();
+        SoundManager.Instance.InitSoundVolume(_settingsData);
+        SoundManager.Instance.InitEffectVolume(_settingsData);
+        SoundManager.Instance.InitExternalEffectVolume(_settingsData);
     }
 
     private void SetScreenResolution() {

@@ -73,7 +73,8 @@ public abstract class Tower : MonoBehaviour {
 
         CreateBulletAbility();
         CreatePoolBulet();
-        CreateShotSounds();
+        CreateAndRegisteredShotSounds();
+        InitExteranalEffectVolume();
     }
 
     private void CreateBulletAbility() {
@@ -96,18 +97,23 @@ public abstract class Tower : MonoBehaviour {
         }
     }
 
-    private void CreateShotSounds() {
+    private void CreateAndRegisteredShotSounds() {
         for (int i = 0; i < 5; i++) {
             AudioSource _shotSoundObject = Instantiate(_prefabShotSound);
             _shotSoundObject.transform.SetParent(_poolShotSoounds);
-            _shotSoundObject.gameObject.SetActive(false);
             _shotSoundObject.clip = _soundShot;
+            SoundManager.Instance.ExternalSoundEffects.Add(_shotSoundObject);
             _shoSounds.Add(_shotSoundObject);
         }
     }
 
+    private void InitExteranalEffectVolume() {
+        SettingsData _settingsData = SaveSystemSettings.LoadSettings();
+        SoundManager.Instance.InitExternalEffectVolume(_settingsData);
+    }
+
     protected void Awake() {
-        if(_animator == null) {
+        if (_animator == null) {
             Debug.LogError("Animator is null");
             return;
         }
@@ -189,14 +195,9 @@ public abstract class Tower : MonoBehaviour {
         }
     }
 
-    //protected virtual void PlayShootSound() {
-
-    //}
-
     private void PlayShootSound() {
         for (int i = 0; i < _shoSounds.Count; i++) {
-            if(_shoSounds[i].gameObject.activeSelf == false) {
-                _shoSounds[i].gameObject.SetActive(true);
+            if (!_shoSounds[i].isPlaying) {
                 _shoSounds[i].Play();
                 return;
             }
@@ -292,7 +293,7 @@ public abstract class Tower : MonoBehaviour {
 
     public void EnemyOutRange(Enemy enemy) {
         foreach (Bullet bullet in _poolBullets) {
-            if(bullet.gameObject.activeSelf == true) {
+            if (bullet.gameObject.activeSelf == true) {
                 bullet.EnemyOutRangeTower(enemy);
             }
         }

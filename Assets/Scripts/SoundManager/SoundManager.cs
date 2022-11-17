@@ -1,7 +1,11 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
+    private List<AudioSource> _externalSoundEffects = new List<AudioSource>();
+    private SettingsData _settingData;
+
     [Header("Music")]
     [SerializeField]
     private Sound[] _sounds;
@@ -11,6 +15,7 @@ public class SoundManager : MonoBehaviour {
     private Sound[] _soundsEffect;
 
     public static SoundManager Instance;
+    public List<AudioSource> ExternalSoundEffects { get => _externalSoundEffects; }
 
     private void OnEnable() {
         Init();
@@ -42,26 +47,29 @@ public class SoundManager : MonoBehaviour {
     }
 
     private void Start() {
-        InitSoundVolume();
-        InitEffectVolume();
+        _settingData = SaveSystemSettings.LoadSettings();
+        InitSoundVolume(_settingData);
+        InitEffectVolume(_settingData);
         //PlaySound(SoundName.Background);
     }
 
-    private void InitSoundVolume() {
-        SettingsData _settingData = SaveSystemSettings.LoadSettings();
-
+    public void InitSoundVolume(SettingsData settingData) {
         foreach (var sound in _sounds) {
-            sound.volume = _settingData.soundVolume;
-            sound.audioSource.volume = _settingData.soundVolume;
+            sound.volume = settingData.soundVolume;
+            sound.audioSource.volume = settingData.soundVolume;
         }
     }
 
-    private void InitEffectVolume() {
-        SettingsData _settingData = SaveSystemSettings.LoadSettings();
-
+    public void InitEffectVolume(SettingsData settingData) {
         foreach (var effect in _soundsEffect) {
-            effect.volume = _settingData.soundVolume;
-            effect.audioSource.volume = _settingData.soundVolume;
+            effect.volume = settingData.effectVolume;
+            effect.audioSource.volume = settingData.effectVolume;
+        }
+    }
+
+    public void InitExternalEffectVolume(SettingsData settingData) {
+        foreach (var externalEffect in _externalSoundEffects) {
+            externalEffect.volume = settingData.effectVolume;
         }
     }
 
