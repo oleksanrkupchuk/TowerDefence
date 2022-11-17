@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7122407904162336630}
   m_Layer: 0
-  m_Name: BulletPosition
+  m_Name: StartBulletPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 8461052127138531771}
   - component: {fileID: 5687387542962379581}
   - component: {fileID: 3774265821982142368}
+  - component: {fileID: 1659112559477115905}
   m_Layer: 0
   m_Name: IronTower
   m_TagString: Tower
@@ -185,6 +186,7 @@ Transform:
   - {fileID: 2288054388778478587}
   - {fileID: 6192337433770386401}
   - {fileID: 4517954842708215992}
+  - {fileID: 3842772820868642607}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -272,23 +274,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508cbccbce579e24fb548068cc19ad3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isShooting: 0
-  _poolBullets: []
-  _currentBullet: {fileID: 0}
-  _enemyList: []
   _rangeAttack: 3.3
   _timeShoot: 1
   _stepDegree: 10
   _price: 14
-  _bulletPosition: {fileID: 7122407904162336630}
+  _rangeCollider: {fileID: 6379824112264347013}
+  _bullet: {fileID: 3719912613258583181, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
+  _soundShot: {fileID: 8300000, guid: a6e807af1fa5afd49bdb52501b181757, type: 3}
+  startBulletPosition: {fileID: 7122407904162336630}
   _animator: {fileID: 725847513850568493}
   _shootAnimation: {fileID: 7400000, guid: 7ab7453970c22ca499066a86f6fb677e, type: 2}
   _shootFrameRateInShootAnimation: 15
   _poolBulletObject: {fileID: 4517954842708215992}
-  _rangeCollider: {fileID: 6379824112264347013}
-  _bullet: {fileID: 3719912613258583181, guid: 00eb75d07018b6d47891230c6bb91ef8, type: 3}
-  target: {fileID: 0}
-  _placeForTower: {fileID: 0}
+  _poolShotSoounds: {fileID: 3842772820868642607}
+  _prefabShotSound: {fileID: 502557891721305034, guid: 0ec6d813edd6fdb48b49a93025efaf66, type: 3}
   _towerUpgradeMenu: {fileID: 2010742382795597176}
   _bulletAbility: {fileID: 1296446910535246073, guid: 7a81706ab30451344b6328792c4ea376, type: 3}
   increaseDamage: 0
@@ -469,6 +468,102 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 4901526597910268738}
+--- !u!82 &1659112559477115905
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6192337432427718456}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a6e807af1fa5afd49bdb52501b181757, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6192337433770386402
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,6 +766,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6319384402610050859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3842772820868642607}
+  m_Layer: 0
+  m_Name: PoolShotSounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3842772820868642607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6319384402610050859}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6192337432427718462}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3563529392352757826
 PrefabInstance:
   m_ObjectHideFlags: 0

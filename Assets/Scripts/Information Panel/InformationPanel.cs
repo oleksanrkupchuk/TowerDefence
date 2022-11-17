@@ -69,6 +69,9 @@ public class InformationPanel : MonoBehaviour {
         for (int i = 0; i < _towerButton.Length; i++) {
             SetValueOnPriceTextTower(_priceTowerText[i], _towerButton[i]);
             SubscriptionTowerButtons(_towerButton[i]);
+            _towerButton[i].Button.onClick.AddListener(() => {
+                SoundManager.Instance.PlaySoundEffect(SoundName.SelectTower);
+            });
         }
     }
 

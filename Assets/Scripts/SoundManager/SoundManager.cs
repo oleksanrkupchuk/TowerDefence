@@ -133,4 +133,6 @@ public static class SoundName {
     public static readonly string RockShot = "RockShot";
     public static readonly string StartWave = "StartWave";
     public static readonly string Explosion = "Explosion";
+    public static readonly string PutTower = "PutTower";
+    public static readonly string SelectTower = "SelectTower";
 }

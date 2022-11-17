@@ -59,9 +59,9 @@ public class RockBullet : Bullet {
 
     protected void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.TryGetComponent(out Enemy enemy)) {
-
             if (_target == enemy) {
                 //_target.LastPosition -= SetTargetPosition;
+                _hitEnemy.Play();
                 _target.Debuff.TakeDamage(_damage);
                 _circleCollider.enabled = false;
                 CollisionTarget(enemy);

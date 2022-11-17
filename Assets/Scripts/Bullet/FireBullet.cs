@@ -55,6 +55,7 @@ public class FireBullet : Bullet {
     protected void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.TryGetComponent(out Enemy enemy)) {
             if (enemy == _target) {
+                _hitEnemy.Play();
                 CollisionTarget(enemy);
                 //enemy.LastPosition -= SetTargetPosition;
                 enemy.Debuff.TakeDamage(_damage);

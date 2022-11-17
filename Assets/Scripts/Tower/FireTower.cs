@@ -8,7 +8,7 @@ public class FireTower : Tower
         base.Update();
     }
 
-    protected override void PlayShootSound() {
-        SoundManager.Instance.PlaySoundEffect(SoundName.FireShot);
-    }
+    //protected override void PlayShootSound() {
+    //    SoundManager.Instance.PlaySoundEffect(SoundName.FireShot);
+    //}
 }

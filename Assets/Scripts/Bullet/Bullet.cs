@@ -37,6 +37,8 @@ public abstract class Bullet : MonoBehaviour {
     protected CircleCollider2D _circleCollider;
     [SerializeField]
     protected List<BulletAbility> _bulletAbilities = new List<BulletAbility>();
+    [SerializeField]
+    protected AudioSource _hitEnemy;
 
     public float Damage { get => _damage; }
 
@@ -58,7 +60,7 @@ public abstract class Bullet : MonoBehaviour {
     }
 
     private void SetStartPositionBullet() {
-        transform.position = _tower.BulletPosition.position;
+        transform.position = _tower.StartBulletPosition.position;
         _axiYTower = _tower.transform.position.y;
     }
 

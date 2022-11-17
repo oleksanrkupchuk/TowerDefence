@@ -37,6 +37,7 @@ public class IronBullet : Bullet {
     protected void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.TryGetComponent(out Enemy enemy)) {
             if (_target == enemy) {
+                _hitEnemy.Play();
                 _target.Debuff.TakeDamage(_damage);
                 ChecBuyAbilityAndPoisonEnemy(_target);
                 CollisionTarget(enemy);

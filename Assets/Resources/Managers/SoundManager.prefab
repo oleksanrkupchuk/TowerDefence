@@ -137,3 +137,17 @@ MonoBehaviour:
     spaceSound: 0
     audioClip: {fileID: 8300000, guid: 58a240c8d363d1c469d44d4e99d216ca, type: 3}
     audioSource: {fileID: 0}
+  - name: PutTower
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: c1ece36d56bf7b64caea639e16784486, type: 3}
+    audioSource: {fileID: 0}
+  - name: SelectTower
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: afffb72a904069647934078a6e7a6cf0, type: 3}
+    audioSource: {fileID: 0}

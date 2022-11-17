@@ -3,22 +3,20 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour {
     protected AnimationEvent _towerEventShoot = new AnimationEvent();
-    [SerializeField]
     protected bool _isShooting = false;
     protected int countBullet = 0;
     protected float _bulletDamage;
     protected TowerManager _towerManager;
     protected GameManager _gameManager;
     protected Transform _targetPosition;
-    [SerializeField]
     protected List<Bullet> _poolBullets = new List<Bullet>();
-    [SerializeField]
     protected Bullet _currentBullet;
     protected List<BulletAbility> _bulletsAbility = new List<BulletAbility>();
     protected float _timer = 0;
-
-    [SerializeField]
     protected List<Enemy> _enemyList = new List<Enemy>();
+    protected Enemy target = null;
+    protected PlaceForTower _placeForTower = null;
+    protected List<AudioSource> _shoSounds = new List<AudioSource>();
 
     [Header("Parametrs")]
     [SerializeField]
@@ -30,8 +28,15 @@ public abstract class Tower : MonoBehaviour {
     [SerializeField]
     protected int _price;
 
+    [Header("Components")]
     [SerializeField]
-    private Transform _bulletPosition;
+    protected CircleCollider2D _rangeCollider;
+    [SerializeField]
+    protected Bullet _bullet;
+    [SerializeField]
+    private AudioClip _soundShot;
+    [SerializeField]
+    private Transform startBulletPosition;
     [SerializeField]
     protected Animator _animator;
     [SerializeField]
@@ -40,23 +45,14 @@ public abstract class Tower : MonoBehaviour {
     protected int _shootFrameRateInShootAnimation;
     [SerializeField]
     private Transform _poolBulletObject;
-
-    [Header("Components visible")]
     [SerializeField]
-    protected CircleCollider2D _rangeCollider;
+    private Transform _poolShotSoounds;
     [SerializeField]
-    protected Bullet _bullet;
-
-    [Header("Components invisible")]
-    [SerializeField]
-    protected Enemy target = null;
-    [SerializeField]
-    protected PlaceForTower _placeForTower = null;
+    private AudioSource _prefabShotSound;
 
     [Header("Upgrades Tower")]
     [SerializeField]
     protected TowerUpgradeMenu _towerUpgradeMenu;
-
     [SerializeField]
     private BulletAbility _bulletAbility;
 
@@ -67,7 +63,7 @@ public abstract class Tower : MonoBehaviour {
     public Enemy Target { get => target; }
     public List<Enemy> EnemyList { get => _enemyList; }
     public PlaceForTower PlaceForTower { get => _placeForTower; }
-    public Transform BulletPosition { get => _bulletPosition; }
+    public Transform StartBulletPosition { get => startBulletPosition; }
     public List<BulletAbility> BulletsAbility { get => _bulletsAbility; }
 
     public void Init(TowerManager towerManager, GameManager gameManager, Camera camera) {
@@ -77,12 +73,13 @@ public abstract class Tower : MonoBehaviour {
 
         CreateBulletAbility();
         CreatePoolBulet();
+        CreateShotSounds();
     }
 
     private void CreateBulletAbility() {
         for (int i = 0; i < 5; i++) {
             BulletAbility _bulletAbilityObject = Instantiate(_bulletAbility);
-            _bulletAbilityObject.transform.SetParent(_bulletPosition);
+            _bulletAbilityObject.transform.SetParent(startBulletPosition);
             _bulletAbilityObject.gameObject.SetActive(false);
             _bulletsAbility.Add(_bulletAbilityObject);
         }
@@ -90,12 +87,33 @@ public abstract class Tower : MonoBehaviour {
 
     private void CreatePoolBulet() {
         for (int i = 0; i < 5; i++) {
-            Bullet _bulletObject = Instantiate(_bullet, _bulletPosition.position, _bullet.transform.rotation);
+            Bullet _bulletObject = Instantiate(_bullet, startBulletPosition.position, _bullet.transform.rotation);
             _bulletObject.Init(this);
             _bulletObject.CreatePointsForBeizerTrajectory(_poolBulletObject);
             _bulletObject.gameObject.SetActive(false);
             _bulletObject.transform.SetParent(_poolBulletObject);
             _poolBullets.Add(_bulletObject);
+        }
+    }
+
+    private void CreateShotSounds() {
+        for (int i = 0; i < 5; i++) {
+            AudioSource _shotSoundObject = Instantiate(_prefabShotSound);
+            _shotSoundObject.transform.SetParent(_poolShotSoounds);
+            _shotSoundObject.gameObject.SetActive(false);
+            _shotSoundObject.clip = _soundShot;
+            _shoSounds.Add(_shotSoundObject);
+        }
+    }
+
+    protected void Awake() {
+        if(_animator == null) {
+            Debug.LogError("Animator is null");
+            return;
+        }
+        if (_soundShot == null) {
+            Debug.LogError("AudioSource is null");
+            return;
         }
     }
 
@@ -171,8 +189,18 @@ public abstract class Tower : MonoBehaviour {
         }
     }
 
-    protected virtual void PlayShootSound() {
+    //protected virtual void PlayShootSound() {
 
+    //}
+
+    private void PlayShootSound() {
+        for (int i = 0; i < _shoSounds.Count; i++) {
+            if(_shoSounds[i].gameObject.activeSelf == false) {
+                _shoSounds[i].gameObject.SetActive(true);
+                _shoSounds[i].Play();
+                return;
+            }
+        }
     }
 
     public void ResetShoot() {
