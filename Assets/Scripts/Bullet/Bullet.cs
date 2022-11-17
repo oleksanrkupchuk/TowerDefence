@@ -4,19 +4,19 @@ using UnityEngine;
 public abstract class Bullet : MonoBehaviour {
     protected bool _isApplySpecialAbility;
     protected Tower _tower;
+    protected List<BulletAbility> _bulletAbilities = new List<BulletAbility>();
 
-    [SerializeField]
+    [HideInInspector]
     public Enemy _target;
+    [HideInInspector]
     public Vector2 _targetPosition;
 
     protected float _axiYTower;
     protected Vector3 _nextPosition;
     protected bool _isBeizerPointNotNull = true;
-    [SerializeField]
     protected float _t;
     protected float _timeWay = 0f;
     protected AnimationEvent _destroyEvent = new AnimationEvent();
-    [SerializeField]
     protected List<GameObject> _bezierPoints = new List<GameObject>();
 
     [SerializeField]
@@ -35,8 +35,6 @@ public abstract class Bullet : MonoBehaviour {
     protected float _axisYP1;
     [SerializeField]
     protected CircleCollider2D _circleCollider;
-    [SerializeField]
-    protected List<BulletAbility> _bulletAbilities = new List<BulletAbility>();
     [SerializeField]
     protected AudioSource _hitEnemy;
 
