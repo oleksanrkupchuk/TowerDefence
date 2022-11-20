@@ -116,10 +116,17 @@ MonoBehaviour:
     spaceSound: 0
     audioClip: {fileID: 8300000, guid: afffb72a904069647934078a6e7a6cf0, type: 3}
     audioSource: {fileID: 0}
-  - name: MoveSelectLevels
+  - name: ToolTipUnlockEnemy
     loop: 0
     volume: 1
     pitch: 1
     spaceSound: 0
-    audioClip: {fileID: 8300000, guid: e8dd1da346ab31b48a899cf6bfacedb0, type: 3}
+    audioClip: {fileID: 8300000, guid: 8166e08d883b1494e93b0778380e31fd, type: 3}
+    audioSource: {fileID: 0}
+  - name: BuyAbility
+    loop: 0
+    volume: 1
+    pitch: 1
+    spaceSound: 0
+    audioClip: {fileID: 8300000, guid: 8a908e1e188627242baf3ba07c5d2c92, type: 3}
     audioSource: {fileID: 0}

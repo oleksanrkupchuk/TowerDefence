@@ -2323,7 +2323,6 @@ MonoBehaviour:
   _containerForContainers: {fileID: 1417965242}
   _forwardButton: {fileID: 494822297}
   _backButton: {fileID: 1810451091}
-  isPassLevel: 0
 --- !u!1001 &641003506
 PrefabInstance:
   m_ObjectHideFlags: 0

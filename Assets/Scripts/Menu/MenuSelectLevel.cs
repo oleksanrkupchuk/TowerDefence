@@ -35,8 +35,6 @@ public class MenuSelectLevel : BaseMenu {
     [SerializeField]
     private Button _backButton;
 
-    public bool isPassLevel;
-
     public int AmountLevel { get => _amountLevel; }
 
     private void Start() {
@@ -57,9 +55,11 @@ public class MenuSelectLevel : BaseMenu {
             DisableAndEnableGameObject(ThisGameObject, enableObject);
         });
         _forwardButton.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             MoveLevelContainer(-_stepX, 1, _backButton, _forwardButton, _containers.Count);
         });
         _backButton.onClick.AddListener(() => {
+            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             MoveLevelContainer(_stepX, -1, _forwardButton, _backButton, 1);
         });
     }
@@ -81,7 +81,6 @@ public class MenuSelectLevel : BaseMenu {
             _containerForContainers.transform.localPosition.x + stepX, 1)
             .setOnComplete(() => { 
                 _isCompleteAnimation = true;
-                SoundManager.Instance.PlaySoundEffect(SoundName.MoveSelectLevels);
             });
 
         _numberContainer += operatorContainer;

@@ -160,8 +160,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
   _targetPosition: {x: 0, y: 0}
-  _t: 0
-  _bezierPoints: []
   _damage: 1.7
   _speed: 3
   _bezierPoint: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
@@ -170,10 +168,8 @@ MonoBehaviour:
   _timeFlight: 1.3
   _axisYP1: 6.5
   _circleCollider: {fileID: 5098031056570507187}
-  _bulletAbilities: []
   _hitEnemy: {fileID: -1318145734555461260}
   _fireArea: {fileID: 1214481618115712216, guid: 4368b3fce25ab65449157a5615985dad, type: 3}
-  _currentFireArea: {fileID: 0}
   chanceFireArea: 100
   burning: 0
   fireArea: 0

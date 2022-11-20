@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 2817744562355158837}
   - component: {fileID: 5227798756631697495}
   m_Layer: 5
-  m_Name: UnlockEnemy
+  m_Name: ParentUnlockEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
 using UnityEngine.Localization.Components;
 
 public class InformationPanel : MonoBehaviour {
@@ -48,6 +47,7 @@ public class InformationPanel : MonoBehaviour {
         UnlockEnemyToolTip _unlockToolTipObject = Instantiate(_unlockToolTip);
         _unlockToolTipObject.transform.SetParent(_parentUnlockToolTipEnemy);
         _unlockToolTipObject.transform.localScale = new Vector3(1f, 1f, 1f);
+        SoundManager.Instance.PlaySoundEffect(SoundName.ToolTipUnlockEnemy);
     }
 
     private void Start() {

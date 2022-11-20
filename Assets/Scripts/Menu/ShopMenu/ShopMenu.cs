@@ -84,10 +84,6 @@ public class ShopMenu : BaseMenu {
         _starsText.text = "" + _stars;
     }
 
-    private void LoadAbility() {
-        _abilityPurchased = AbilitySaveSystem.LoadAbility();
-    }
-
     private void Start() {
         LoadAbility();
         InitAbilityData();
@@ -98,6 +94,10 @@ public class ShopMenu : BaseMenu {
         if (_currentAbility.Data.isPurchased) {
             DisableBuyButton();
         }
+    }
+
+    private void LoadAbility() {
+        _abilityPurchased = AbilitySaveSystem.LoadAbility();
     }
 
     private void InitAbilityData() {
@@ -136,12 +136,13 @@ public class ShopMenu : BaseMenu {
         });
 
         _confirmBuyAbilityWindow.yes.onClick.AddListener(() => {
-            SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
+            //SoundManager.Instance.PlaySoundEffect(SoundName.ButtonClick);
             SubstractPrice();
             SaveStars();
             SavePurchasedAbility();
             ApplyAbility();
             _confirmBuyAbilityWindow.Disable();
+            SoundManager.Instance.PlaySoundEffect(SoundName.BuyAbility);
         });
 
         _confirmBuyAbilityWindow.no.onClick.AddListener(() => {
