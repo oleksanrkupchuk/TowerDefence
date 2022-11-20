@@ -77,7 +77,13 @@ public class MenuSelectLevel : BaseMenu {
             return;
         }
         _isCompleteAnimation = false;
-        LeanTween.moveLocalX(_containerForContainers.gameObject, _containerForContainers.transform.localPosition.x + stepX, 1).setOnComplete(() => { _isCompleteAnimation = true; });
+        LeanTween.moveLocalX(_containerForContainers.gameObject, 
+            _containerForContainers.transform.localPosition.x + stepX, 1)
+            .setOnComplete(() => { 
+                _isCompleteAnimation = true;
+                SoundManager.Instance.PlaySoundEffect(SoundName.MoveSelectLevels);
+            });
+
         _numberContainer += operatorContainer;
         if (buttonNeedActive.gameObject.activeSelf == false) {
             buttonNeedActive.gameObject.SetActive(true);
