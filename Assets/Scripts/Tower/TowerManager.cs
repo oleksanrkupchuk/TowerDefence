@@ -95,6 +95,7 @@ public class TowerManager : MonoBehaviour {
         DisbleTowerIcon();
         _towerButtonPressed = null;
         _collider.enabled = false;
+        SoundManager.Instance.PlaySoundEffect(SoundName.PutTower);
     }
 
     private void DisableOrEnableMenuUpgrageOntower(RaycastHit2D raycast) {

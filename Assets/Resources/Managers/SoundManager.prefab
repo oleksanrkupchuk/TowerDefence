@@ -102,38 +102,17 @@ MonoBehaviour:
     spaceSound: 0
     audioClip: {fileID: 8300000, guid: 0dd63c16304f568428f14330fb235a3f, type: 3}
     audioSource: {fileID: 0}
-  - name: HitEnemy
+  - name: PutTower
     loop: 0
     volume: 1
     pitch: 1
     spaceSound: 0
-    audioClip: {fileID: 8300000, guid: 52d8572482df9364c9f34ba684196d56, type: 3}
+    audioClip: {fileID: 8300000, guid: c1ece36d56bf7b64caea639e16784486, type: 3}
     audioSource: {fileID: 0}
-  - name: FireShot
+  - name: SelectTower
     loop: 0
     volume: 1
     pitch: 1
     spaceSound: 0
-    audioClip: {fileID: 8300000, guid: 45c2a80abf1e5a74b833acbdfb601d45, type: 3}
-    audioSource: {fileID: 0}
-  - name: IronShot
-    loop: 0
-    volume: 1
-    pitch: 1
-    spaceSound: 0
-    audioClip: {fileID: 8300000, guid: a6e807af1fa5afd49bdb52501b181757, type: 3}
-    audioSource: {fileID: 0}
-  - name: RockShot
-    loop: 0
-    volume: 1
-    pitch: 1
-    spaceSound: 0
-    audioClip: {fileID: 8300000, guid: ba38d14de6e0cca40a2beae30f005084, type: 3}
-    audioSource: {fileID: 0}
-  - name: Explosion
-    loop: 0
-    volume: 1
-    pitch: 1
-    spaceSound: 0
-    audioClip: {fileID: 8300000, guid: 58a240c8d363d1c469d44d4e99d216ca, type: 3}
+    audioClip: {fileID: 8300000, guid: afffb72a904069647934078a6e7a6cf0, type: 3}
     audioSource: {fileID: 0}

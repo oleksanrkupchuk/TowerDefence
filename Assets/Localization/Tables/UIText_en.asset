@@ -20,7 +20,7 @@ MonoBehaviour:
     - rid: 2528746237973233682
   m_TableData:
   - m_Id: 783316082688
-    m_Localized: 'Wave: {countWave}/{Waves}'
+    m_Localized: 'Wave: {variable.countWave}/{variable.Waves}'
     m_Metadata:
       m_Items:
       - rid: 2528746237973233682

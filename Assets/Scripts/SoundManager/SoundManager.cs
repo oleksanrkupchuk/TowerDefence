@@ -1,7 +1,11 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
+    private List<AudioSource> _externalSoundEffects = new List<AudioSource>();
+    private SettingsData _settingData;
+
     [Header("Music")]
     [SerializeField]
     private Sound[] _sounds;
@@ -13,6 +17,8 @@ public class SoundManager : MonoBehaviour {
     public static SoundManager Instance;
 
     private void OnEnable() {
+        //ClearExternalSoundEffect();
+        _externalSoundEffects.Clear();
         Init();
         AddAudioSourceForSounds();
         AddAudioSourceForSoundsEffect();
@@ -42,26 +48,29 @@ public class SoundManager : MonoBehaviour {
     }
 
     private void Start() {
-        InitSoundVolume();
-        InitEffectVolume();
+        _settingData = SaveSystemSettings.LoadSettings();
+        InitSoundVolume(_settingData);
+        InitEffectVolume(_settingData);
         //PlaySound(SoundName.Background);
     }
 
-    private void InitSoundVolume() {
-        SettingsData _settingData = SaveSystemSettings.LoadSettings();
-
+    public void InitSoundVolume(SettingsData settingData) {
         foreach (var sound in _sounds) {
-            sound.volume = _settingData.soundVolume;
-            sound.audioSource.volume = _settingData.soundVolume;
+            sound.volume = settingData.soundVolume;
+            sound.audioSource.volume = settingData.soundVolume;
         }
     }
 
-    private void InitEffectVolume() {
-        SettingsData _settingData = SaveSystemSettings.LoadSettings();
-
+    public void InitEffectVolume(SettingsData settingData) {
         foreach (var effect in _soundsEffect) {
-            effect.volume = _settingData.soundVolume;
-            effect.audioSource.volume = _settingData.soundVolume;
+            effect.volume = settingData.effectVolume;
+            effect.audioSource.volume = settingData.effectVolume;
+        }
+    }
+
+    public void InitExternalEffectVolume(SettingsData settingData) {
+        foreach (var externalEffect in _externalSoundEffects) {
+            externalEffect.volume = settingData.effectVolume;
         }
     }
 
@@ -75,7 +84,7 @@ public class SoundManager : MonoBehaviour {
 
     private void Play(string soundName, Sound[] _sounds) {
         Sound _sound = Array.Find(_sounds, _sound => _sound.name == soundName);
-        if(_sound == null) {
+        if (_sound == null) {
             print($"<color=red> Sound {soundName} is null </color>");
             return;
         }
@@ -102,6 +111,14 @@ public class SoundManager : MonoBehaviour {
             effect.audioSource.volume = value;
         }
     }
+
+    public void AddExternalEffect(AudioSource sound) {
+        _externalSoundEffects.Add(sound);
+    }
+
+    public void RemoveExternalSound(AudioSource sound) {
+        _externalSoundEffects.Remove(sound);
+    }
 }
 
 [Serializable]
@@ -120,17 +137,17 @@ public class Sound {
 }
 
 public static class SoundName {
-    public static readonly string ButtonClick = "ButtonClick";
+    //music
     public static readonly string Background = "Background";
     public static readonly string LoseGame = "LoseGame";
     public static readonly string WinGame = "WinGame";
+    public static readonly string ButtonClick = "ButtonClick";
+
+    //effects
     public static readonly string TowerUpgrade = "TowerUpgrade";
     public static readonly string ErrorSetTower = "ErrorSetTower";
     public static readonly string SellTower = "SellTower";
-    public static readonly string HitEnemy = "HitEnemy";
-    public static readonly string FireShot = "FireShot";
-    public static readonly string IronShot = "IronShot";
-    public static readonly string RockShot = "RockShot";
     public static readonly string StartWave = "StartWave";
-    public static readonly string Explosion = "Explosion";
+    public static readonly string PutTower = "PutTower";
+    public static readonly string SelectTower = "SelectTower";
 }

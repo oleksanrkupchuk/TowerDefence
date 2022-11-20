@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class FireBullet : Bullet {
 
+    private FireArea _currentFireArea;
+
     [Header("Fire Bullet")]
     [SerializeField]
     private FireArea _fireArea;
-    [SerializeField]
-    private FireArea _currentFireArea;
     [SerializeField]
     private int chanceFireArea;
 
@@ -37,13 +37,13 @@ public class FireBullet : Bullet {
 
         int _chance = Random.Range(0, 100);
         if (_chance <= chanceFireArea) {
-            GetFireArea();
+            SetFireArea();
             _currentFireArea.transform.position = new Vector2(_targetPosition.x, _targetPosition.y);
             _currentFireArea.SetDefaultParam();
         }
     }
 
-    private void GetFireArea() {
+    private void SetFireArea() {
         for (int i = 0; i < _bulletAbilities.Count; i++) {
             if(_bulletAbilities[i].gameObject.activeSelf == false) {
                 _currentFireArea = (FireArea)_bulletAbilities[i];
@@ -55,6 +55,7 @@ public class FireBullet : Bullet {
     protected void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.TryGetComponent(out Enemy enemy)) {
             if (enemy == _target) {
+                _hitEnemy.Play();
                 CollisionTarget(enemy);
                 //enemy.LastPosition -= SetTargetPosition;
                 enemy.Debuff.TakeDamage(_damage);

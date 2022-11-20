@@ -17,7 +17,6 @@ public class GolemBerserk : Enemy {
         if (!IsDead) {
             _health -= damage;
             IncreaseSpeedWhenFallHealth();
-            SoundManager.Instance.PlaySoundEffect(SoundName.HitEnemy);
             ShiftHealthBar();
 
             if (IsDead) {

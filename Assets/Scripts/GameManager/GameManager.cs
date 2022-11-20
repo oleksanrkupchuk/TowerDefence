@@ -39,6 +39,21 @@ public class GameManager : MonoBehaviour {
     }
     public int Coins { get => _coins; }
 
+    private void Awake() {
+        if(enemySpawner == null) {
+            Debug.LogError("EnemySpawner is null");
+            return;
+        }
+        if (informationPanel == null) {
+            Debug.LogError("InformationPanel is null");
+            return;
+        }
+        if (gameMenu == null) {
+            Debug.LogError("GameMenu is null");
+            return;
+        }
+    }
+
     private void Start() {
         _currentHealth = _health;
         informationPanel.SetValueOnCointText(_coins);

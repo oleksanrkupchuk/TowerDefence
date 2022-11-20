@@ -97,6 +97,7 @@ public class TowerUpgradeMenu : MonoBehaviour {
     private void SellTower() {
         int price = ((_tower.Price * percentSellTower) / 100) + _totalMoneyForUpgrade;
         _gameManager.AddCoin(price);
+        SoundManager.Instance.RemoveExternalSound(_tower.ShotSound);
         _tower.PlaceForTower.EnableBoxCollider();
         _tower.RemoveTowerFromList();
         _tower.DestroyTower(_timeDestroyTower);

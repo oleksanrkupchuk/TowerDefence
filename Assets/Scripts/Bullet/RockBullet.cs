@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class RockBullet : Bullet {
 
+    private Explosion _currentExplosion;
+
     [Header("Explosion")]
     [SerializeField]
     private Explosion _explosion;
@@ -12,8 +14,6 @@ public class RockBullet : Bullet {
     private float _explosionDamage;
     [SerializeField]
     private int _explosionFrameRateInDestroyAnimation;
-    [SerializeField]
-    private Explosion _currentExplosion;
     [SerializeField]
     private int chanceExplosion;
 
@@ -42,26 +42,27 @@ public class RockBullet : Bullet {
 
     private void EnableExplosion() {
         if (isExplosion) {
-            GetDisableExplosion();
+            SetDisableExplosion();
             _currentExplosion.transform.position = new Vector3(_targetPosition.x, _targetPosition.y);
             _currentExplosion.SetParametrsToDefault();
-            SoundManager.Instance.PlaySoundEffect(SoundName.Explosion);
+            _currentExplosion.Sound.Play();
         }
     }
 
-    private void GetDisableExplosion() {
+    private void SetDisableExplosion() {
         for (int i = 0; i < _bulletAbilities.Count; i++) {
             if(_bulletAbilities[i].gameObject.activeSelf == false) {
                 _currentExplosion = (Explosion)_bulletAbilities[i];
+                return;
             }
         }
     }
 
     protected void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.TryGetComponent(out Enemy enemy)) {
-
             if (_target == enemy) {
                 //_target.LastPosition -= SetTargetPosition;
+                _hitEnemy.Play();
                 _target.Debuff.TakeDamage(_damage);
                 _circleCollider.enabled = false;
                 CollisionTarget(enemy);

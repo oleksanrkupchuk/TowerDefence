@@ -20,8 +20,4 @@ public class IronTower : Tower
     {
         base.Update();
     }
-
-    protected override void PlayShootSound() {
-        SoundManager.Instance.PlaySoundEffect(SoundName.IronShot);
-    }
 }
