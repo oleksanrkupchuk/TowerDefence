@@ -20,7 +20,6 @@ public class GolemLava : Enemy
     public override void TakeDamage(float damage) {
         if (!IsDead) {
             _health -= damage;
-            SoundManager.Instance.PlaySoundEffect(SoundName.HitEnemy);
             ShiftHealthBar();
 
             if (IsDead) {

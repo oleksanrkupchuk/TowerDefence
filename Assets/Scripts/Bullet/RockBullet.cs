@@ -45,7 +45,7 @@ public class RockBullet : Bullet {
             SetDisableExplosion();
             _currentExplosion.transform.position = new Vector3(_targetPosition.x, _targetPosition.y);
             _currentExplosion.SetParametrsToDefault();
-            SoundManager.Instance.PlaySoundEffect(SoundName.Explosion);
+            _currentExplosion.Sound.Play();
         }
     }
 

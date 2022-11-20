@@ -241,7 +241,7 @@ public abstract class Enemy : MonoBehaviour {
     public virtual void TakeDamage(float damage) {
         if (!IsDead) {
             _health -= damage;
-            SoundManager.Instance.PlaySoundEffect(SoundName.HitEnemy);
+            //SoundManager.Instance.PlaySoundEffect(SoundName.HitEnemy);
             ShiftHealthBar();
 
             if (IsDead) {

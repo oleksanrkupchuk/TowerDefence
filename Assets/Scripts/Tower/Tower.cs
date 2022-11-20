@@ -83,6 +83,7 @@ public abstract class Tower : MonoBehaviour {
         for (int i = 0; i < 5; i++) {
             BulletAbility _bulletAbilityObject = Instantiate(_bulletAbility);
             _bulletAbilityObject.transform.SetParent(startBulletPosition);
+            SoundManager.Instance.AddExternalEffect(_bulletAbilityObject.Sound);
             _bulletAbilityObject.gameObject.SetActive(false);
             _bulletsAbility.Add(_bulletAbilityObject);
         }

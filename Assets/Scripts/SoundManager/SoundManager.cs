@@ -17,16 +17,11 @@ public class SoundManager : MonoBehaviour {
     public static SoundManager Instance;
 
     private void OnEnable() {
-        ClearExternalSoundEffect();
+        //ClearExternalSoundEffect();
+        _externalSoundEffects.Clear();
         Init();
         AddAudioSourceForSounds();
         AddAudioSourceForSoundsEffect();
-    }
-
-    private void ClearExternalSoundEffect() {
-        for (int i = _externalSoundEffects.Count; i > 0; i--) {
-            _externalSoundEffects.RemoveAt(i);
-        }
     }
 
     private void Init() {
@@ -75,9 +70,7 @@ public class SoundManager : MonoBehaviour {
 
     public void InitExternalEffectVolume(SettingsData settingData) {
         foreach (var externalEffect in _externalSoundEffects) {
-            if (externalEffect.gameObject.activeSelf == true) {
-                externalEffect.volume = settingData.effectVolume;
-            }
+            externalEffect.volume = settingData.effectVolume;
         }
     }
 
@@ -144,19 +137,17 @@ public class Sound {
 }
 
 public static class SoundName {
-    public static readonly string ButtonClick = "ButtonClick";
+    //music
     public static readonly string Background = "Background";
     public static readonly string LoseGame = "LoseGame";
     public static readonly string WinGame = "WinGame";
+    public static readonly string ButtonClick = "ButtonClick";
+
+    //effects
     public static readonly string TowerUpgrade = "TowerUpgrade";
     public static readonly string ErrorSetTower = "ErrorSetTower";
     public static readonly string SellTower = "SellTower";
-    public static readonly string HitEnemy = "HitEnemy";
-    public static readonly string FireShot = "FireShot";
-    public static readonly string IronShot = "IronShot";
-    public static readonly string RockShot = "RockShot";
     public static readonly string StartWave = "StartWave";
-    public static readonly string Explosion = "Explosion";
     public static readonly string PutTower = "PutTower";
     public static readonly string SelectTower = "SelectTower";
 }

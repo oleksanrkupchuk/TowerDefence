@@ -63,6 +63,10 @@ MonoBehaviour:
     m_Key: Key_Win
     m_Metadata:
       m_Items: []
+  - m_Id: 65367344763297792
+    m_Key: Key_Restart
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

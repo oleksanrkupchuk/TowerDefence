@@ -160,8 +160,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
   _targetPosition: {x: 0, y: 0}
-  _t: 0
-  _bezierPoints: []
   _damage: 2.5
   _speed: 3
   _bezierPoint: {fileID: 8499979436022311463, guid: 70fef4dec77f3464a8aa86269b4a98aa, type: 3}
@@ -170,13 +168,11 @@ MonoBehaviour:
   _timeFlight: 1.7
   _axisYP1: 6.5
   _circleCollider: {fileID: 6131173403634519352}
-  _bulletAbilities: []
   _hitEnemy: {fileID: 7123733709519642348}
   _explosion: {fileID: 8667138823914026948, guid: 127fedf009bed48479e53433a5d6918c, type: 3}
   _radiusExplosionCollider: 1.5
   _explosionDamage: 2
   _explosionFrameRateInDestroyAnimation: 5
-  _currentExplosion: {fileID: 0}
   chanceExplosion: 100
   isExplosion: 0
 --- !u!82 &7123733709519642348
